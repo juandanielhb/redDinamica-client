@@ -14,6 +14,8 @@ import { FooterComponent } from './components/footer/footer.component';
 
 import { HomeModule } from './home/home.module';
 import { HomeComponent } from './components/home/home.component';
+import { RecoverPasswordComponent } from './components/recoverPassword/recoverPassword.component';
+import { AdminModule } from './admin-module/admin.module';
 
 
 
@@ -23,16 +25,17 @@ import { HomeComponent } from './components/home/home.component';
     LandingComponent,
     RegisterComponent,
     LoginComponent,
+    RecoverPasswordComponent,
     FooterComponent,
-    HomeComponent
-     
+    HomeComponent     
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
     Routing,
-    HomeModule
+    HomeModule,
+    AdminModule
   ],
   providers: [appRoutingProviders],
   bootstrap: [AppComponent]

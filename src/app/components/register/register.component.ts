@@ -11,7 +11,7 @@ export class RegisterComponent implements OnInit {
     
 
     constructor() { 
-        this.title = 'Crear una cuenta';
+        this.title = 'Registro';
         
     }
 

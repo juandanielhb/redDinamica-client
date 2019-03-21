@@ -3,18 +3,16 @@ import { Component, OnInit } from '@angular/core';
 
 
 @Component({
-    selector: 'login',
-    templateUrl: './login.component.html'    
+    selector: 'recoverPassword',
+    templateUrl: './recoverPassword.component.html'    
 })
-export class LoginComponent implements OnInit {
+export class RecoverPasswordComponent implements OnInit {
     public title:string;
     public status:string;
     
 
     constructor() { 
-        this.title = 'Iniciar sesión';
-        this.status = '';
-        
+        this.title = '¿Olvidaste tu contraseña?';       
     }
 
     ngOnInit(){

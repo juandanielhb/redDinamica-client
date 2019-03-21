@@ -1,29 +1,31 @@
 <!-- register  -->
 <section id="register" class="bg-white">
-    <div class="container py-4 bg-light"> 
+    <div class="container py-4 bg-light">
         <div class="row">
-            <div class="col-lg-10 offset-lg-1">
+            <div class="col-lg-8 offset-lg-2">
                 <div class="card ">
-                    <div class="card-body">
-                        <h2 class="card-title text-center">
+                    <div class="card-body text-center">
+                        <h2 class="card-title ">
                             {{title}}
                         </h2>
                         <form class="px-4 py-3">
-                            <div *ngIf="status == 'error'" class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <div *ngIf="status == 'error'" class="alert alert-danger alert-dismissible fade show"
+                                role="alert">
                                 No fue posible iniciar sesión. Intentalo de nuevo.
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group text-left">
                                 <label for="FormEmail">Correo electrónico</label>
-                                <input type="email" class="form-control" id="FormEmail" placeholder="correo@ejemplo.com">
+                                <input type="email" class="form-control" id="FormEmail"
+                                    placeholder="correo@ejemplo.com">
                             </div>
-                            <div class="form-group">
+                            <div class="form-group text-left">
                                 <label for="FormPassword">Contraseña</label>
                                 <input type="password" class="form-control" id="FormPassword" placeholder="Contraseña">
                             </div>
-                            <div class="form-group">
+                            <div class="form-group text-left">
                                 <div class="form-check">
                                     <input type="checkbox" class="form-check-input" id="Check">
                                     <label class="form-check-label" for="Check">
@@ -31,11 +33,13 @@
                                     </label>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary">Entrar</button>
+                            <button type="submit" class="btn btn-success btn-block btn-lg">Crear mi cuenta</button>
                         </form>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Registrate en RedDinámica</a>
-                        <a class="dropdown-item" href="#">¿Ha olvidado su contraseña?</a>
+
+                    </div>
+                    <div class="card-footer text-center">
+                        <p class="card-text">¿Ya tienes una cuenta?</p>
+                        <a class="dropdown-item py-2" [routerLink]="['/login']">Inicia sesión</a>
                     </div>
                 </div>
             </div>

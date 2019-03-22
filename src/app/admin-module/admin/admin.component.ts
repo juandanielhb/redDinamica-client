@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: './admin.component.html'
 })
 export class AdminComponent {
-    public title:String = 'Panel de administración';
+    public title:String = 'Administración';
 
     constructor() { }
 

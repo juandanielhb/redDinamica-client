@@ -1,41 +1,55 @@
 <!-- register  -->
 <section id="register" class="bg-white">
-    <div class="container py-4 bg-light">
+    <div class="container px-0 py-3 py-sm-4 bg-light">
         <div class="row">
-            <div class="col-lg-8 offset-lg-2">
+            <div class="col-lg-6 offset-lg-3">
                 <div class="card ">
-                    <div class="card-body text-center">
-                        <h2 class="card-title ">
+                    <div class="card-body">
+                        <h2 class="card-title text-center">
                             {{title}}
                         </h2>
                         <form class="px-4 py-3">
-                            <div *ngIf="status == 'error'" class="alert alert-danger alert-dismissible fade show"
-                                role="alert">
-                                No fue posible iniciar sesión. Intentalo de nuevo.
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputName">Nombres</label>
+                                    <input type="text" class="form-control" id="inputName" placeholder="Nombres">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputSurname">Apellidos</label>
+                                    <input type="text" class="form-control" id="inputSurname" placeholder="Apellidos">
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <label for="password">Constraseña</label>
+                                    <input type="password" class="form-control" id="password"
+                                        placeholder="Ingrese su contraseña">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="passwordRepeat">Repita su contraseña</label>
+                                    <input type="password" class="form-control" id="passwordRepeat"
+                                        placeholder="Repita su contraseña">
+                                </div>
+
                             </div>
-                            <div class="form-group text-left">
-                                <label for="FormEmail">Correo electrónico</label>
-                                <input type="email" class="form-control" id="FormEmail"
-                                    placeholder="correo@ejemplo.com">
+                            <div class="form-group">
+                                <label for="email">Correo electrónico</label>
+                                <input type="email" class="form-control" id="email"
+                                    placeholder="Correo eletrónico">
                             </div>
-                            <div class="form-group text-left">
-                                <label for="FormPassword">Contraseña</label>
-                                <input type="password" class="form-control" id="FormPassword" placeholder="Contraseña">
+                            <div class="form-group">
+                                <label for="city">Ciudad</label>
+                                <input type="text" class="form-control" id="city" placeholder="Ciudad">
                             </div>
-                            <div class="form-group text-left">
+                            <div class="form-group">
                                 <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="Check">
-                                    <label class="form-check-label" for="Check">
-                                        Recordarme
+                                    <input class="form-check-input" type="checkbox" id="gridCheck">
+                                    <label class="form-check-label" for="gridCheck">
+                                        Check me out
                                     </label>
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-success btn-block btn-lg">Crear mi cuenta</button>
                         </form>
-
                     </div>
                     <div class="card-footer text-center">
                         <p class="card-text">¿Ya tienes una cuenta?</p>

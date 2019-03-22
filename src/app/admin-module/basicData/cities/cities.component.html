@@ -1,0 +1,66 @@
+<div class="card">
+    <div class="card-header">
+        <h3>{{title}}</h3>
+
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Agregar una ciudad</h5>
+        <form>
+            <div class="form-group">
+
+                <div class="form-row">
+                    <div class="col-4">
+                        <input type="text" class="form-control" placeholder="Ciudad">
+                    </div>
+                    <div class="col-4">
+                        <input type="text" class="form-control" placeholder="Departamento">
+                    </div>
+                    <div class="col-4">
+                        <input type="text" class="form-control" placeholder="Pais">
+                    </div>
+
+                </div>
+                <div class="form-row mt-3 text-right">
+                    <div class="col-4 offset-8">
+                        <button type="submit" class=" btn btn-danger ml-auto">Cancelar</button>
+                        <button type="submit" class=" btn btn-success ml-3">Guardar</button>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+        <hr class="border border-light">
+        <form>
+            <div class="form-group row">
+                <div class="col-12">
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">Filtrar:</div>
+                        </div>
+                        <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Filtro">
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <table class="table table-hover table-bordered text-center">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Ciudad</th>
+                    <th scope="col">Departamento</th>
+                    <th scope="col">Pais</th>
+                    <th scope="col">Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of [1,2,3,4,5]; let i=index">
+                    <th scope="row">1</th>
+                    <td>{{item}}</td>
+                    <td>{{item}}</td>
+                    <td>{{item}}</td>
+
+                </tr>
+     
+            </tbody>
+        </table>
+    </div>

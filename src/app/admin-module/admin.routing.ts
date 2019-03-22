@@ -1,11 +1,13 @@
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 
-import { AdminComponent } from './admin.component';
-import { UsersComponent } from './components/users/users.component';
-import { LessonsComponent } from './components/lessons/news.component';
-import { NewsComponent } from './components/news/news.component';
-import { BasicDataComponent } from './components/basicData/basicData.component';
+import { AdminComponent } from './admin/admin.component';
+import { UsersComponent } from './users/users.component';
+import { LessonsComponent } from './lessons/news.component';
+import { NewsComponent } from './news/news.component';
+
+import { CitiesComponent } from './basicData/cities/cities.component';
+import { BasicDataComponent } from './basicData/basicData.component';
 
 const adminRoutes: Routes = [
     {
@@ -16,7 +18,11 @@ const adminRoutes: Routes = [
             { path: 'usuarios', component: UsersComponent},
             { path: 'lecciones', component: LessonsComponent},
             { path: 'noticias', component: NewsComponent},
-            { path: 'datos-basicos', component: BasicDataComponent}
+            { path: 'db/ciudades', component: CitiesComponent},
+            { path: 'db/instituciones', component: BasicDataComponent},
+            { path: 'db/areas', component: BasicDataComponent},
+
+            { path: '**', component: UsersComponent},
         ]
     }
 

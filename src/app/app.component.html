@@ -1,7 +1,6 @@
-
 <!-- Header -->
 <nav *ngIf="view=='landing'" id="header" class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top fixed-top">
-        <div class="container">
+    <div class="container">
 
         <a [routerLink]="['/inicio']" class="navbar-brand" href="#">
             <img class="mr-2 d-inline" src="assets/images/RDLogo.png" alt="Logo RedDinámica">
@@ -31,7 +30,7 @@
                     <a [routerLink]="['/login']" class="btn btn-secondary btn-block my-2 my-sm-2" href="#"
                         role="button">Iniciar sesión</a>
                 </li>
-                <li class="nav-item mr-2">
+                <li class="nav-item mr-2 mr-0">
                     <a [routerLink]="['/registro']" class="btn btn-success btn-block my-2 ml-lg-2 my-sm-2" href="#"
                         role="button">Crear una cuenta</a>
                 </li>
@@ -44,9 +43,88 @@
 </nav>
 
 <!-- /Header -->
-                <div class="container">
 
 
-<router-outlet></router-outlet>
+<!-- Header user logged -->
+<nav *ngIf="view == 'home'" id="header-home"
+    class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top fixed-top py-0">
+    <div class="container bg-primary">
 
+        <a [routerLink]="['/inicio']" class="navbar-brand mr-2 pb-2" href="#">
+            <img class="" src="assets/images/RDLogo.png" alt="Logo RedDinámica">
+        </a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
+            aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarColor01">
+            <form class="form-inline my-2 my-lg-0">
+                <input id="searchBar" class="form-control form-control-sm mr-sm-2" width="300px" type="search"
+                    placeholder="Buscar" aria-label="Search">
+                <button class="btn btn-outline-success btn-sm my-2 my-sm-0 px-4" type="submit"><i
+                        class="fas fa-search"></i></button>
+            </form>
+            <ul class="navbar-nav ml-auto">
+                <!-- <li class="nav-item">
+                <a  class="nav-link" href="#main">Inicio</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#section-1">Acerca de</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#section-2">Sección</a>
+            </li>
+            <li class="nav-item mr-2">
+                <a class="nav-link" href="#section-3">Sección</a>
+            </li> -->
+                <li class="nav-item">
+                    <a [routerLink]="['/login']" class="nav-link">
+                        Juan Daniel
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a [routerLink]="['/login']" class="nav-link">
+                        Inicio
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a [routerLink]="['/registro']" class="nav-link btn btn-primary">
+                        Mensajes
+                        <span class="badge badge-info">10</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a [routerLink]="['/registro']" class="nav-link btn btn-primary">
+                        Notificaciones
+                        <span class="badge badge-info">10</span>
+                    </a>
+                </li>
+
+            </ul>
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"
+                    data-display="static" aria-haspopup="true" aria-expanded="false">
+
+                </button>
+                <div class="dropdown-menu dropdown-menu-lg-right">
+                    <button class="dropdown-item" type="button">Tus Lecciones</button>
+                    <button class="dropdown-item" type="button">Tus grupos</button>
+                    <div class="dropdown-divider"></div>
+                    <button class="dropdown-item" type="button">Panel de administración</button>
+                    <div class="dropdown-divider"></div>
+                    <button class="dropdown-item" type="button">Cerrar sesión</button>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</nav>
+
+<!-- /Header user logged -->
+
+<div class="container">
+    <router-outlet></router-outlet>
 </div>

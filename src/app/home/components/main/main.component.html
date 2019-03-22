@@ -1,19 +1,46 @@
-<div class="container-fluid bg-white">
-    <div class="row">
-        <div class="bg-light col-2 py-3">
+<div class="row py-3">
+    <div class="col-3">
+        <div class="accordion" id="adminMenu">
+            <div class="card rounded">
+                <div class="card-header py-0 px-0">
+                    <button type="button" class="btn btn-primary btn-block py-2 text-left">
+                        <h4 class="card-title text-center mb-0 text-truncate">
+                            <strong>Juan Daniel Hernández Bustos</strong>
+                        </h4>
+                    </button>
 
-            <button type="button" class="text-left btn btn-light btn-block">
-                <h6 class="text-truncate"><strong>Juan Daniel Hernández Bustos</strong></h6>
-            </button>
-            <button type="button" class="text-left btn btn-light btn-block">Inicio</button>
-            <button type="button" class="text-left btn btn-light btn-block">Mensajes</button>
-            <button type="button" class="text-left btn btn-light btn-block ">Noticias</button>
-            <button type="button" class="text-left btn btn-light btn-block">Lecciones</button>
-            <button type="button" class="text-left btn btn-light btn-block">Recursos</button>
+                </div>
+            </div>
+
+            <div class="card mt-2 rounded">
+                <button type="button" class="btn btn-success btn-block py-2 text-left">
+                    <i class="text-ligth fas fa-home"></i>
+                    <span class="ml-2"> Inicio </span>
+                </button>
+
+                <button type="button" class="btn btn-danger btn-block text-left py-2">
+                    <i class="text-ligth fas fa-newspaper"></i>
+                    <span class="ml-2"> Noticias </span>
+                </button>
+
+                <button type="button" class="btn btn-warning btn-block text-left py-2 pl-3 ">
+                    <i class="text-ligth fas fa-file-alt"> </i>
+                    <span class="ml-2"> Lecciones </span>
+                </button>
+
+                <button type="button" class="btn btn-info btn-block text-left py-2 pl-3">
+                    <i class="text-ligth fas fa-paperclip"></i>
+                    <span class="ml-2"> Recursos </span>
+                </button>
+
+            </div>
 
         </div>
-        <div class="col-10 bg-light">
-            <router-outlet></router-outlet>
-        </div>
+
+    </div>
+
+
+    <div class="col-9 pl-0">
+        <router-outlet></router-outlet>
     </div>
 </div>

@@ -1,0 +1,72 @@
+<!-- admin-menu -->
+<div class="row py-3">
+    <div class="col-3">
+        <div class="accordion" id="adminMenu">
+            <div class="card rounded">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="card-title text-center mb-0"><strong>{{title}}</strong></h4>
+                </div>
+            </div>
+
+            <div class="card mt-2 rounded">
+                <button type="button" class="btn btn-success btn-block d-flex justify-content-between py-2"
+                    data-toggle="collapse" data-target="#usersMenu" aria-expanded="true" aria-controls="usersMenu">
+                    <span>Usuarios</span>
+                    <span><i class="text-ligth fas fa-sort-down"></i></span>
+                </button>
+
+                <div id="usersMenu" class="collapse" aria-labelledby="headingOne" data-parent="#adminMenu">
+                    <div class="card-body py-2 px-0">
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link dropdown-item text-left" [routerLink]="['/admin/usuarios']"
+                                    routerLinkActive="active">Usuarios</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link dropdown-item text-left" [routerLink]="['/admin/datos-basicos']"
+                                    routerLinkActive="active">Usuarios</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link dropdown-item text-left" [routerLink]="['/admin/lecciones']"
+                                    routerLinkActive="active">Usuarios</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mt-2 rounded">
+                    <button type="button" class="btn btn-success btn-block d-flex justify-content-between py-2"
+                        data-toggle="collapse" data-target="#basicDataMenu" aria-expanded="true" aria-controls="basicDataMenu">
+                        <span>Datos básicos</span>
+                        <span><i class="text-ligth fas fa-sort-down"></i></span>
+                    </button>
+    
+                    <div id="basicDataMenu" class="collapse" aria-labelledby="headingTwo" data-parent="#basicDataMenu">
+                        <div class="card-body py-2 px-0">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link dropdown-item text-left" [routerLink]="['/admin/db/ciudades']"
+                                     routerLinkActive="active">Ciudades</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link dropdown-item text-left" [routerLink]="['/admin/db/instituciones']"
+                                        routerLinkActive="active">Instituciones</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link dropdown-item text-left" [routerLink]="['/admin/db/areas']"
+                                        routerLinkActive="active">Áreas de conocimiento</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+        </div>
+    </div>
+<!-- /admin-menu -->
+
+    <div class="col-9 pl-0">
+        <router-outlet></router-outlet>
+    </div>
+</div>

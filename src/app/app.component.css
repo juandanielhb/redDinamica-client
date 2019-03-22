@@ -1,0 +1,30 @@
+#header img{
+    width: 60px;
+}   
+
+#header-home {
+    height: 42px;
+}
+
+#header-home img {
+    width: 30px;
+} 
+
+#searchBar {
+    width: 390px;
+}
+
+button .dropdown-toggle{
+    height: 42px;
+}
+
+@media screen and (max-width:320px){
+    #header h1{
+        font-size: 1.5em;
+    }
+
+    #header img{
+        width: 40px;
+    }   
+  
+  }

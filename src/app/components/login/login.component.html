@@ -1,14 +1,14 @@
 <!-- login -->
 <section id="login" class="bg-white">
-    <div class="container py-4 bg-light">
+    <div class="container px-0 py-3 py-sm-4 bg-light">
         <div class="row">
-            <div class="col-lg-6 offset-lg-3">
-                <div class="card ">
-                    <div class="card-body text-center">
+            <div class="col-12 col-lg-6 offset-lg-3">
+                <div class="card">
+                    <div class="card-body px-2 px-sm-4 text-center">
                         <h2 class="card-title">
                             {{title}}
                         </h2>
-                        <form class="px-4 py-3">
+                        <form class="px-2 px-sm-4 py-sm-3">
                             <div *ngIf="status == 'error'" class="alert alert-danger alert-dismissible fade show"
                                 role="alert">
                                 No fue posible iniciar sesión. Intentalo de nuevo.

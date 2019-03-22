@@ -16,6 +16,7 @@ import { HomeModule } from './home/home.module';
 import { HomeComponent } from './components/home/home.component';
 import { RecoverPasswordComponent } from './components/recoverPassword/recoverPassword.component';
 import { AdminModule } from './admin-module/admin.module';
+import { ProfileComponent } from './components/profile/profile.component';
 
 
 
@@ -27,6 +28,7 @@ import { AdminModule } from './admin-module/admin.module';
     LoginComponent,
     RecoverPasswordComponent,
     FooterComponent,
+    ProfileComponent,
     HomeComponent     
   ],
   imports: [

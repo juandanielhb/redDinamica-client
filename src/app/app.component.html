@@ -1,4 +1,5 @@
 <!-- Header -->
+
 <nav *ngIf="view=='landing'" id="header" class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top fixed-top">
     <div class="container">
 
@@ -46,9 +47,10 @@
 
 
 <!-- Header user logged -->
+
 <nav *ngIf="view == 'home'" id="header-home"
     class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top fixed-top py-0">
-    <div class="container bg-primary">
+    <div class="container bg-primary ">
 
         <a [routerLink]="['/inicio']" class="navbar-brand mr-2 pb-2" href="#">
             <img class="" src="assets/images/RDLogo.png" alt="Logo RedDinámica">
@@ -66,7 +68,7 @@
                 <button class="btn btn-outline-success btn-sm my-2 my-sm-0 px-4" type="submit"><i
                         class="fas fa-search"></i></button>
             </form>
-            <ul class="navbar-nav ml-auto">
+            <ul class="navbar-nav ml-auto ">
                 <!-- <li class="nav-item">
                 <a  class="nav-link" href="#main">Inicio</a>
             </li>
@@ -79,23 +81,25 @@
             <li class="nav-item mr-2">
                 <a class="nav-link" href="#section-3">Sección</a>
             </li> -->
-                <li class="nav-item">
-                    <a [routerLink]="['/login']" class="nav-link">
+                <li [routerLink]="['/perfil']" class="nav-item d-flex align-items-center">
+                    <div class="rounded-circle border-1"  style="width: 30px; height:30px; background-color:red">
+                        </div>
+                    <span class="nav-link">
                         Juan Daniel
-                    </a>
+                    </span>
                 </li>
                 <li class="nav-item">
                     <a [routerLink]="['/login']" class="nav-link">
                         Inicio
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item d-flex align-items-center">
                     <a [routerLink]="['/registro']" class="nav-link btn btn-primary">
                         Mensajes
                         <span class="badge badge-info">10</span>
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item d-flex align-items-center">
                     <a [routerLink]="['/registro']" class="nav-link btn btn-primary">
                         Notificaciones
                         <span class="badge badge-info">10</span>

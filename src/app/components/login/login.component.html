@@ -8,7 +8,8 @@
                         <h2 class="card-title">
                             {{title}}
                         </h2>
-                        <form class="px-2 px-sm-4 py-sm-3">
+
+                        <form class="px-2 px-sm-4 py-sm-3" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
                             <div *ngIf="status == 'error'" class="alert alert-danger alert-dismissible fade show"
                                 role="alert">
                                 No fue posible iniciar sesión. Intentalo de nuevo.
@@ -16,14 +17,28 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
+
                             <div class="form-group text-left">
                                 <label for="FormEmail">Correo electrónico</label>
-                                <input type="email" class="form-control" id="FormEmail"
-                                    placeholder="correo@ejemplo.com">
+                                <input type="email" class="form-control" id="FormEmail" placeholder="correo@ejemplo.com"
+                                    formControlName="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+                                <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                                    <div *ngIf="f.email.errors.required">El campo correo electrónico es obligatorio.
+                                    </div>
+                                    <div *ngIf="f.email.errors.email">El correo electrónico debe ser una dirección
+                                        email válida.</div>
+                                </div>
                             </div>
+
                             <div class="form-group text-left">
                                 <label for="FormPassword">Contraseña</label>
-                                <input type="password" class="form-control" id="FormPassword" placeholder="Contraseña">
+                                <input type="password" class="form-control" id="FormPassword" placeholder="Contraseña" formControlName="password" [ngClass]="{'is-invalid': submitted && f.password.errors}"
+                                >
+                                <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                                        <div *ngIf="f.email.errors.required">
+                                            Por favor ingresa la contraseña de inicio de sesión.
+                                        </div>
+                                </div>
                             </div>
                             <div class="form-group text-left">
                                 <div class="form-check">
@@ -34,7 +49,7 @@
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-success btn-block btn-lg mb-2">Entrar</button>
-                            <a class="card-link" [routerLink]="[ '/pass/reset']">¿Ha olvidado su contraseña?</a>                            
+                            <a class="card-link" [routerLink]="[ '/pass/reset']">¿Ha olvidado su contraseña?</a>
                         </form>
                     </div>
                     <div class="card-footer text-center">

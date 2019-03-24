@@ -1,17 +1,18 @@
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { MainComponent } from './components/main/main.component';
-import { AddComponent } from './components/add/add.component';
+import { HomeComponent } from './home.component';
+import { MainComponent } from './main/main.component';
+
 
 
 
 const homeRoutes: Routes = [
     { 
         path: 'inicio', 
-        component: MainComponent,
+        component: HomeComponent,
         children: [
-            { path: '', redirectTo: 'add', pathMatch: 'full'},
-            { path: 'add', component: AddComponent}
+            //{ path: '', redirectTo: 'add', pathMatch: 'full'},
+            { path: '', component: MainComponent}
         ]
     }
 ];

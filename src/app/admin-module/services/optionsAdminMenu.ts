@@ -1,4 +1,4 @@
-export let OPTIONS_ADMIN_MENU = [
+export const OPTIONS_ADMIN_MENU = [
     {
         "id": "users",
         "buttonClass": "btn-success",

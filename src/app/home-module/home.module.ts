@@ -3,14 +3,15 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { HomeRoutingModule } from './home.routing';
+import { HomeComponent } from './home.component';
+import { MainComponent } from './main/main.component';
 
-import { AddComponent } from './components/add/add.component';
-import { MainComponent } from './components/main/main.component';
+
 
 @NgModule({
     declarations: [
-        MainComponent,
-        AddComponent
+        HomeComponent,
+        MainComponent        
     ],
     imports: [
         CommonModule,
@@ -18,8 +19,7 @@ import { MainComponent } from './components/main/main.component';
         HomeRoutingModule
     ],
     exports: [
-        MainComponent,
-        AddComponent
+        HomeComponent
     ],
     providers: [],
 })

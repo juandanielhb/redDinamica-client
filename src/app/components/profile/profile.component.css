@@ -4,13 +4,16 @@
     width: 10rem; 
     height: 10rem; 
     background-color: whitesmoke; 
-    border: 4px solid white;       
+    border: 4px solid white;    
+}
 
+.rounded-circle img {
+    object-fit: cover;
+    height: 100%;
 }
 
 #profileMenu {    
     position: sticky;    
     top: 62px;
-    width: 253px;
-    
+    width: 253px;    
 }

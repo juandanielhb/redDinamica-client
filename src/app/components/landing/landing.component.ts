@@ -9,7 +9,7 @@ export class LandingComponent implements OnInit {
     
 
     constructor() { 
-        this.title = 'Landing Component';
+        this.title = 'Aprende, comparte y crea';
         
     }
 

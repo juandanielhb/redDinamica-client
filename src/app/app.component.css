@@ -10,6 +10,11 @@
     width: 390px;
 }
 
+.rounded-circle img {
+    object-fit: cover;
+    height: 100%;
+}
+
 button .dropdown-toggle{
     height: 42px;
 }

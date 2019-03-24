@@ -4,20 +4,20 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routing, appRoutingProviders } from './app.routing';
 import { HttpClientModule } from '@angular/common/http';
 
+// Modules
+import { HomeModule } from './home-module/home.module';
+import { AdminModule } from './admin-module/admin.module';
+import { LessonModule } from './lesson-module/lesson.module';
+
 // Components
 import { AppComponent } from './app.component';
 import { LandingComponent } from './components/landing/landing.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { FooterComponent } from './components/footer/footer.component';
-
-
-import { HomeModule } from './home-module/home.module';
-
-import { RecoverPasswordComponent } from './components/recoverPassword/recoverPassword.component';
-import { AdminModule } from './admin-module/admin.module';
 import { ProfileComponent } from './components/profile/profile.component';
-
+import { RecoverPasswordComponent } from './components/recoverPassword/recoverPassword.component';
+import { SearchComponent } from './components/search/search.component';
 
 
 @NgModule({
@@ -28,7 +28,8 @@ import { ProfileComponent } from './components/profile/profile.component';
     LoginComponent,
     RecoverPasswordComponent,
     FooterComponent,
-    ProfileComponent
+    ProfileComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +38,8 @@ import { ProfileComponent } from './components/profile/profile.component';
     Routing,
     ReactiveFormsModule,
     HomeModule,
-    AdminModule
+    AdminModule,
+    LessonModule
   ],
   providers: [appRoutingProviders],
   bootstrap: [AppComponent]

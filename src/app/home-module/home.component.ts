@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { OPTIONS_HOME_MENU } from './services/optionsHomeMenu';
+import { HOME_MENU } from './services/homeMenu';
 
 @Component({
     selector: 'home',
@@ -8,7 +8,7 @@ import { OPTIONS_HOME_MENU } from './services/optionsHomeMenu';
 })
 export class HomeComponent implements OnInit {
     public title: string;
-    public menuOptions = OPTIONS_HOME_MENU;    
+    public menuOptions = HOME_MENU;    
 
     constructor() {
         this.title = 'Home';

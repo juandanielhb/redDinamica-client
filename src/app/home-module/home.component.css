@@ -1,0 +1,4 @@
+.rounded-circle img {
+    object-fit: cover;
+    height: 100%;
+}

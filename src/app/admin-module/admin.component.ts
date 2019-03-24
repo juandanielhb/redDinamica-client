@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { OPTIONS_ADMIN_MENU } from '../services/optionsAdminMenu';
+import { ADMIN_MENU } from './services/adminMenu';
 
 @Component({
     selector: 'admin',
@@ -10,7 +10,7 @@ export class AdminComponent {
     public menuOptions;
 
     constructor() {
-        this.menuOptions = OPTIONS_ADMIN_MENU;
+        this.menuOptions = ADMIN_MENU;
     }
 
 

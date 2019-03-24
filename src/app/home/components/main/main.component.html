@@ -1,39 +1,35 @@
-
-
-
-
 <div class="row py-3">
-    
+
     <div class="col-3" style="position:relative;">
-            <div id="adminMenu" style="width:256.4px; position:absolute; position:fixed">
-                    <div class="card rounded" >
-                        <div class="card-header py-0 px-0" [routerLink]="['/perfil']">
-                
-                            <button type="button" class="btn btn-primary btn-block py-2 text-left">
-                
-                                <h4 class="card-title mb-0 text-truncate">
-                                    <strong>Juan Daniel Hernández Bustos</strong>
-                                </h4>
-                            </button>
-                
-                        </div>
+        <div id="adminMenu" style="width:253px; position:fixed">
+
+            <div class="card rounded" [routerLink]="['/perfil']">
+                <a class="card-header bg-primary text-white d-flex align-items-center px-2" style="cursor: pointer">
+                    <div class="rounded-circle border-1 flex-shrink-0"
+                        style="width: 30px; height:30px; background-color:red">
                     </div>
-                
-                    <div class="card mt-2 rounded bg-light border-0">
-                
-                        <button *ngFor="let option of menuOptions, let ix = index" type="button"
-                            class="{{'btn btn-block text-left py-2 ' + option.buttonClass}}" href="#" [routerLink]="[option.routerLink]">
-                            <i class="{{'text-ligth fas ' + option.iconClass}}"></i>
-                            <span class="ml-2"> {{option.spanContent}} </span>
-                        </button>
-                
-                    </div>
-                
-                </div>
+                    <h4 class="card-title text-center mb-0 ml-1  text-truncate">
+                        <strong>Juan Daniel Hernández Bustos</strong>
+                    </h4>
+                </a>
+            </div>
+
+            <div class="card mt-2 rounded bg-light border-0">
+
+                <button *ngFor="let option of menuOptions, let ix = index" type="button"
+                    class="btn btn-block text-left py-2 {{option.buttonClass}}" href="#"
+                    [routerLink]="[option.routerLink]">
+                    <i class="text-ligth fas {{option.iconClass}}"></i>
+                    <span class="ml-2"> {{option.spanContent}} </span>
+                </button>
+
+            </div>
+
+        </div>
     </div>
 
 
-    <div class="col-9 pl-0" >
+    <div class="col-9 pl-0">
         <router-outlet></router-outlet>
     </div>
 </div>

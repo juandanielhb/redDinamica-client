@@ -81,14 +81,16 @@
             <li class="nav-item mr-2">
                 <a class="nav-link" href="#section-3">Sección</a>
             </li> -->
-                <li [routerLink]="['/perfil']" class="nav-item d-flex align-items-center">
-                    <div class="rounded-circle border-1"  style="width: 30px; height:30px; background-color:red">
+                <li [routerLink]="['/perfil']" class="nav-item " style="cursor: pointer">
+                    <a class="nav-link d-flex align-items-center">
+                        <div class="rounded-circle border-1" style="width: 30px; height:30px; background-color:red">
                         </div>
-                    <span class="nav-link">
-                        Juan Daniel
-                    </span>
+                        <span>
+                            Juan Daniel
+                        </span>
+                    </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item d-flex align-items-center">
                     <a [routerLink]="['/login']" class="nav-link">
                         Inicio
                     </a>
@@ -113,10 +115,12 @@
 
                 </button>
                 <div class="dropdown-menu dropdown-menu-lg-right">
+
                     <button class="dropdown-item" type="button">Tus Lecciones</button>
                     <button class="dropdown-item" type="button">Tus grupos</button>
                     <div class="dropdown-divider"></div>
-                    <button class="dropdown-item" type="button">Panel de administración</button>
+                    <button class="dropdown-item" type="button" [routerLink]="['/admin']">Panel de
+                        administración</button>
                     <div class="dropdown-divider"></div>
                     <button class="dropdown-item" type="button">Cerrar sesión</button>
                 </div>

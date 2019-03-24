@@ -8,3 +8,9 @@
 
 }
 
+#profileMenu {    
+    position: sticky;    
+    top: 62px;
+    width: 253px;
+    
+}

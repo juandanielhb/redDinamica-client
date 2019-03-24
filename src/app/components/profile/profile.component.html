@@ -64,9 +64,9 @@
 
                     <div class="card border-0 text-center">
                         <div class="card-body " style="position: absolute; z-index: 5;">
-                            <div class="row px-3">
-                                <div class="picture rounded-circle border-4">
-                                </div>
+                            <div class="row px-4">
+                                <img class="picture rounded-circle border-4">
+
                             </div>
                             <div class="mt-2">
                                 <button type="submit" class="btn btn-danger">Editar perfil</button>
@@ -98,7 +98,7 @@
                                         <small>Seguidos</small>
                                     </div>
                                 </div>
-                                
+
                             </div>
                             <div class="col-6 p-1">
                                 <div class="text-center bg-white rounded-lg">
@@ -108,7 +108,7 @@
                                         <small>Seguidores</small>
                                     </div>
                                 </div>
-                                
+
                             </div>
                         </div>
                     </div>
@@ -132,48 +132,70 @@
 
     </div>
 
-    <div class="container-fluid my-3 rounded overflow-hidden">
-        <div class="row">
-
-            <div class="col-3 pl-0">
-                <div id="profileMenu">
-                    <div class="card rounded bg-light border-0">
-                        <button *ngFor="let option of menuOptions, let ix = index" type="button"
-                            class="{{'btn btn-block text-left py-2 ' + option.buttonClass}}"
-                            [routerLink]="[option.routerLink]">
-                            <i class="{{'text-ligth fas ' + option.iconClass}}"></i>
-                            <span class="ml-2"> {{option.spanContent}} </span>
-                        </button>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <div class="col-9 bg-dark">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore laborum officia consequuntur facere ad consectetur recusandae quae saepe, ex fugit debitis, vel libero suscipit vitae omnis nulla laudantium vero corrupti!
-                Exercitationem, cupiditate? Neque veniam quas aperiam deserunt soluta possimus, sed, cum illum dolore sapiente quod magni ipsum, similique accusamus repudiandae totam eligendi? Ut officiis harum accusantium non necessitatibus doloremque quia?
-                Pariatur recusandae tempora quisquam quam ab fugiat praesentium inventore magni quia deleniti, accusamus explicabo illo aliquam numquam dolorem incidunt tenetur neque sunt alias nisi repudiandae hic. Debitis ab earum sit!
-                Nulla distinctio, fugiat similique iure praesentium consequuntur veritatis aspernatur deserunt fuga ipsa blanditiis, expedita, accusantium eaque enim tempora eius? Saepe eum quidem autem dolorum amet expedita molestiae officiis necessitatibus blanditiis?
-                Optio quae consectetur quaerat, dolores asperiores reprehenderit aperiam, quis ratione id eos laboriosam, rem corrupti accusamus culpa vel natus. Velit expedita consequuntur sunt, tempore maiores earum distinctio reiciendis laudantium animi?
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores assumenda ipsa dignissimos, recusandae, alias molestiae ex numquam aspernatur illo officia saepe in officiis rerum? Repellat magni nulla laudantium odio soluta.
-                Commodi repudiandae laboriosam sapiente omnis deleniti asperiores, dolores tempora sed! Officia dolore quae aliquid, qui quis quo? Sapiente vel eveniet perferendis? Sit nisi nam explicabo vitae iste dolorum suscipit facere.
-                Repudiandae alias voluptatibus dolorem cupiditate tenetur et distinctio, hic quidem soluta obcaecati minus. Cum harum eius maiores nemo, dolor aperiam culpa numquam, dignissimos ut libero, id rem ex nisi autem?
-                Aperiam, aspernatur dolorum laboriosam ipsam dolore commodi eveniet accusamus! Voluptates nemo, eius quae a nulla, tempore quam eligendi odio pariatur animi repudiandae neque enim sapiente? Perferendis sit quas ullam est.
-                Esse, dolorum! Beatae, natus numquam! Repudiandae illum incidunt numquam provident minima dolore doloremque adipisci! Rerum, molestiae? Magnam adipisci earum mollitia repudiandae inventore sapiente, voluptates maxime, ullam nam consequatur enim dolor.
-                Cumque iste omnis inventore, quia ad dolorum non. Enim fuga sunt ut, possimus ex magnam exercitationem perferendis placeat unde et vero laborum dicta assumenda atque eos, dolor non quasi. Totam!
-                Ut quae provident id expedita ratione, consectetur illo, nulla harum doloremque quod voluptatibus. Rem necessitatibus ipsam molestiae in, aliquid, voluptates et id quos velit sequi iste eligendi, ad nemo nulla.
-                Facilis magnam dolorem ad praesentium libero odit iure ab harum eveniet pariatur, illo, quasi eius voluptates reiciendis, ut rem neque facere qui optio suscipit voluptate sint. Quos hic recusandae excepturi!
-                Suscipit libero nostrum impedit iusto distinctio debitis! Reprehenderit tenetur ab accusamus libero explicabo ad saepe iure quas repudiandae blanditiis ut minima fugit nihil quaerat velit ducimus, delectus dolore expedita voluptatem.
-                Alias error officiis dignissimos non sunt dicta accusamus incidunt voluptatum temporibus mollitia tenetur odit maxime nesciunt, ullam iste illo nemo unde consectetur? Ducimus laboriosam sint aspernatur, consequuntur non eligendi veniam!
-            </div>
+    <div class="float-left" id="profileMenu" style="display: inline-block">
+            <div class="card rounded bg-light border-0">
+                <button *ngFor="let option of menuOptions, let ix = index" type="button"
+                class="btn btn-block text-left py-2 {{option.buttonClass}}" [routerLink]="[option.routerLink]">
+                <i class="text-ligth fas {{option.iconClass}}"></i>
+                <span class="ml-2"> {{option.spanContent}} </span>
+            </button>
+            
         </div>
+        
     </div>
+    
 
 
+    <div class="row">
 
+
+    <div class="col-12 rounded overflow-hidden pr-0">       
+        
+        <div class="bg-dark">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore laborum officia consequuntur facere ad
+            consectetur recusandae quae saepe, ex fugit debitis, vel libero suscipit vitae omnis nulla laudantium
+            vero corrupti!
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Exercitationem rerum ex voluptas. Ipsam repellendus magni autem doloribus id dolore itaque? Eligendi sequi voluptate cum fuga dolorem porro dolores, architecto necessitatibus?
+            Ullam, eligendi ad, fuga deleniti iste cumque natus amet delectus rem odio expedita maiores commodi recusandae. Dignissimos, saepe obcaecati? Enim eum error, harum quia corrupti quos hic velit inventore sequi!
+            Sequi distinctio quibusdam, impedit illum amet dicta beatae! Soluta tempora, illo incidunt placeat alias enim pariatur omnis mollitia, aliquid odio quam exercitationem veritatis corporis obcaecati similique qui maiores officiis. Cum!
+            In odio, rem doloremque dolor eos perspiciatis officiis sunt, quod deserunt distinctio corporis. Obcaecati, harum adipisci. Fugit quo nam, accusantium officiis atque fuga error voluptates in repellendus dolores molestiae similique.
+            Inventore facilis fugiat, ab voluptas aliquam quaerat voluptates iste quasi, vel temporibus veritatis culpa nostrum sit error aspernatur corrupti, totam quisquam minima nesciunt et illo? Incidunt enim tenetur cupiditate repellat.
+            Reprehenderit porro dicta quaerat sed quos placeat magni veniam fugiat nemo sequi suscipit enim laboriosam earum, tempore recusandae! Cupiditate, in illum laudantium veniam ipsum earum laboriosam ut enim labore sed.
+            Quos corrupti architecto molestias consectetur ullam. Vitae, ullam excepturi. Earum quae soluta quasi laboriosam a cum quam culpa consectetur odio sapiente omnis ipsa fugiat voluptates possimus quidem, corporis adipisci recusandae?
+            Quo expedita veniam delectus, dignissimos hic a repellat fuga eius error perspiciatis quod provident dicta perferendis, porro voluptate ut ullam facilis minima odio numquam doloribus. Animi eius architecto officia eveniet.
+            Nemo ea labore repellendus! Tenetur ab praesentium qui facilis? Facere voluptatum vero error quas nobis eveniet, porro, ut aliquam quasi tenetur impedit nostrum molestiae laborum nemo minima eius ipsum delectus?
+            Eaque eligendi veniam maiores id nulla minima necessitatibus harum, hic, numquam libero iusto impedit inventore tempore cum ab nihil provident vero doloribus mollitia explicabo. Nobis, veritatis asperiores! Sint, perspiciatis laborum.
+            i
+            autem?
+            Aperiam, aspernatur dolorum laboriosam ipsam dolore commodi eveniet accusamus! Voluptates nemo, eius
+            quae a nulla, tempore quam eligendi odio pariatur animi repudiandae neque enim sapiente? Perferendis sit
+            quas ullam est.
+            Esse, dolorum! Beatae, natus numquam! Repudiandae illum incidunt numquam provident minima dolore
+            doloremque adipisci! Rerum, molestiae? Magnam adipisci earum mollitia repudiandae inventore sapiente,
+            voluptates maxime, ullam nam consequatur enim dolor.
+            Cumque iste omnis inventore, quia ad dolorum non. Enim fuga sunt ut, possimus ex magnam exercitationem
+            perferendis placeat unde et vero laborum dicta assumenda atque eos, dolor non quasi. Totam!
+            Ut quae provident id expedita ratione, consectetur illo, nulla harum doloremque quod voluptatibus. Rem
+            necessitatibus ipsam molestiae in, aliquid, voluptates et id quos velit sequi iste eligendi, ad nemo
+            nulla.
+            Facilis magnam dolorem ad praesentium libero odit iure ab harum eveniet pariatur, illo, quasi eius
+            voluptates reiciendis, ut rem neque facere qui optio suscipit voluptate sint. Quos hic recusandae
+            excepturi!
+            Suscipit libero nostrum impedit iusto distinctio debitis! Reprehenderit tenetur ab accusamus libero
+            explicabo ad saepe iure quas repudiandae blanditiis ut minima fugit nihil quaerat velit ducimus,
+            delectus dolore expedita voluptatem.
+            Alias error officiis dignissimos non sunt dicta accusamus incidunt voluptatum temporibus mollitia
+            tenetur odit maxime nesciunt, ullam iste illo nemo unde consectetur? Ducimus laboriosam sint aspernatur,
+            consequuntur non eligendi veniam!
+        </div>
+
+    </div>
+    
+</div>
+    
+
+  
+    
 </section>
 
 

@@ -12,6 +12,8 @@ import { LessonsComponent } from './lessons/news.component';
 import { NewsComponent } from './news/news.component';
 import { BasicDataComponent } from './basicData/basicData.component';
 import { CitiesComponent } from './basicData/cities/cities.component';
+import { InstitutionsComponent } from './basicData/institutions/institutions.component';
+import { KnowledgeAreasComponent } from './basicData/knowledgeAreas/knowledgeAreas.component';
 
 
 @NgModule({
@@ -21,7 +23,9 @@ import { CitiesComponent } from './basicData/cities/cities.component';
         LessonsComponent,
         NewsComponent,
         BasicDataComponent,
-        CitiesComponent
+        CitiesComponent,
+        InstitutionsComponent,
+        KnowledgeAreasComponent
     ],
     imports: [
         CommonModule,

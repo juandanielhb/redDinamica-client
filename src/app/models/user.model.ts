@@ -1,5 +1,10 @@
 export class User {
+    
     public _id:String;
+    public name:String;
+    public surname:String;
+    public password:String;
+    public email:String;        
     public about:String;
     public state:String;
     public role:String;
@@ -9,11 +14,7 @@ export class User {
     public profession:String;
     public institution:String;
     public city:String;
+    public getToken:Boolean;
 
-    constructor(
-        public name:String,
-        public surname:String,
-        public password:String,
-        public email:String        
-    ){}
+    constructor(){}
 }

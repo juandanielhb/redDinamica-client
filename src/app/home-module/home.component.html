@@ -1,11 +1,13 @@
-<div class="row py-3">
+<div class="container">
 
+    <div class="row py-3">
+        
         <div class="col-3" style="position:relative;">
-            <div id="adminMenu" style="width:253px; position:fixed">
-    
+                <div id="adminMenu" style="width:253px; position:fixed">
+                        
                 <div class="card rounded" [routerLink]="['/perfil']">
                     <a class="card-header bg-primary text-white d-flex align-items-center px-2" style="cursor: pointer">
-                        <div class="rounded-circle border-1 flex-shrink-0 overflow-hidden"
+                            <div class="rounded-circle border-1 flex-shrink-0 overflow-hidden"
                             style="width: 30px; height:30px; background-color:red">
                             <img class="img-fluid" src="assets/images/user-default.png">
                         </div>
@@ -14,23 +16,24 @@
                         </h4>
                     </a>
                 </div>
-    
+                
                 <div class="card mt-2 rounded bg-light border-0">
-    
+                    
                     <button *ngFor="let option of menuOptions, let ix = index" type="button"
-                        class="btn btn-block text-left py-2 {{option.buttonClass}}" href="#"
-                        [routerLink]="[option.routerLink]">
-                        <i class="text-ligth fas {{option.iconClass}}"></i>
-                        <span class="ml-2"> {{option.spanContent}} </span>
-                    </button>
-    
-                </div>
-    
+                    class="btn btn-block text-left py-2 {{option.buttonClass}}" href="#"
+                    [routerLink]="[option.routerLink]">
+                    <i class="text-ligth fas {{option.iconClass}}"></i>
+                    <span class="ml-2"> {{option.spanContent}} </span>
+                </button>
+                
             </div>
-        </div>
-    
-    
-        <div class="col-9 pl-0">
-            <router-outlet></router-outlet>
+            
         </div>
     </div>
+    
+    
+    <div class="col-9 pl-0">
+        <router-outlet></router-outlet>
+    </div>
+</div>
+</div>

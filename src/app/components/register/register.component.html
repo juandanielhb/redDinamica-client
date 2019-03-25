@@ -9,11 +9,18 @@
                             {{title}}
                         </h2>
 
+                        <div *ngIf="message" class="mx-4 alert alert-danger alert-dismissible fade show text-center" role="alert">
+                            {{message}}
+                            <a [routerLink]="['/login']" class="alert-link">
+                                Inicia sesión
+                            </a>
+                        </div>
+
                         <form class="px-4 py-3" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
 
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="name">Nombres</label>
+                                    <label for="name">Nombres*</label>
                                     <input type="text" class="form-control" id="name" placeholder="Nombres"
                                         formControlName="name" class="form-control"
                                         [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
@@ -24,7 +31,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="surname">Apellidos</label>
+                                    <label for="surname">Apellidos*</label>
                                     <input type="text" class="form-control" id="surname" placeholder="Apellidos"
                                         formControlName="surname" class="form-control"
                                         [ngClass]="{ 'is-invalid': submitted && f.surname.errors }">
@@ -36,7 +43,7 @@
                                 </div>
 
                                 <div class="form-group col-12">
-                                    <label for="email">Correo electrónico</label>
+                                    <label for="email">Correo electrónico*</label>
                                     <input type="email" class="form-control" id="email" placeholder="Correo eletrónico"
                                         formControlName="email" class="form-control"
                                         [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
@@ -44,12 +51,13 @@
                                         <div *ngIf="f.email.errors.required">El campo correo electrónico es obligatorio.
                                         </div>
                                         <div *ngIf="f.email.errors.email">El correo electrónico debe ser una dirección
-                                            email válida.</div>
+                                            email válida.
+                                        </div>
                                     </div>
                                 </div>
 
                                 <div class="form-group col-md-6">
-                                    <label for="password">Contraseña</label>
+                                    <label for="password">Contraseña*</label>
                                     <input type="password" class="form-control" id="password"
                                         placeholder="Ingrese su contraseña" formControlName="password"
                                         class="form-control"
@@ -66,7 +74,7 @@
                                 </div>
 
                                 <div class="form-group col-md-6">
-                                    <label for="confirmPassword">Confirmar contraseña</label>
+                                    <label for="confirmPassword">Confirmar contraseña*</label>
                                     <input type="password" class="form-control" id="confirmPassword"
                                         placeholder="Repita su contraseña" formControlName="confirmPassword"
                                         [ngClass]="{ 'is-invalid': submitted && f.confirmPassword.errors }" />
@@ -74,39 +82,99 @@
                                         <div *ngIf="f.confirmPassword.errors.required">
                                             El campo contraseña es obligatorio.
                                         </div>
+                                        <div *ngIf="f.confirmPassword.errors.mustMatch">
+                                            Las contraseñas no coinciden.
+                                        </div>
                                     </div>
                                 </div>
 
+                                <div class="form-group col-12">
+                                    <label for="profession">Profesión*</label>
+                                    <input type="profession" class="form-control" id="profession"
+                                        placeholder="Profesión" formControlName="profession" class="form-control"
+                                        [ngClass]="{ 'is-invalid': submitted && f.profession.errors }">
+                                    <div *ngIf="submitted && f.profession.errors" class="invalid-feedback">
+                                        <div *ngIf="f.profession.errors.required">
+                                            El campo profesión es obligatorio.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-12">
+                                    <label for="institution">Institución*</label>
+                                    <input type="institution" class="form-control" id="institution"
+                                        placeholder="Institución" formControlName="institution" class="form-control"
+                                        [ngClass]="{ 'is-invalid': submitted && f.institution.errors }">
+                                    <div *ngIf="submitted && f.institution.errors" class="invalid-feedback">
+                                        <div *ngIf="f.institution.errors.required">
+                                            El campo institución es obligatorio.
+                                        </div>
+                                    </div>
+                                </div>
 
                             </div>
 
-                            <!-- <div class="form-group">
-                                <label for="city">Ciudad</label>
-                                <input type="text" class="form-control" id="city" placeholder="Ciudad">
+                            <div class="modal fade" id="help" tabindex="-1" role="dialog"
+                                aria-labelledby="helpTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                            <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalCenterTitle">
+                                                        Tipos de usuarios RedDinámica
+                                                    </h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Cuatro tipos de usuarios de la RedDinámica de aprendizaje colaborativo
+                                                </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"                              data-dismiss="modal">
+                                            Cerrar
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="form-group">
-                                <label for="institution">Instituciòn</label>
-                                <input type="text" class="form-control" id="institution" placeholder="Instituciòn">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="profession">Profesión</label>
-                                <input type="text" class="form-control" id="profession" placeholder="Profesión">
-                            </div> -->
-
-                            <div class="form-group">
-                                <label for="category">Categoria</label>
-                                <select class="form-control" id="category">
-                                    <option>Facilitador</option>
-                                    <option>Docente</option>
-                                    <option>Estudiante</option>
-                                    <option selected="true">Invitado</option>
+                                <label for="category">
+                                    Categoria
+                                    <a data-toggle="modal" data-target="#help" style="cursor: pointer">
+                                        <i class="fas fa-question-circle"></i>
+                                    </a>
+                                </label>
+                                <select size=4 formControlName="category" class="form-control" id="category">
+                                    <option value="expert">Facilitador</option>
+                                    <option value="teacher">Docente</option>
+                                    <option value="student">Estudiante</option>
+                                    <option value="guest">Invitado</option>
                                 </select>
                             </div>
 
+                            <div *ngIf="f.category.value=='expert' || f.category.value==='teacher'" class="form-group">
+                                <label for="experience">Experiencia*</label>
+                                <textarea class="form-control" id="experience" rows="3"
+                                    placeholder="Describe tu experiencia" formControlName="experience">
+                                    </textarea>
+                                            <small id="experienceHelp" class="form-text text-muted">
+                                                    Por favor describa brevemente su experiencia como 
+                                                    <span *ngIf="f.category.value=='expert'; else teacher">
+                                                            profesional en dinámica de sistemas.
+                                                        </span>
+                                                        <ng-template #teacher>
+                                                            <span>docente.</span>
+                                                        </ng-template>
 
-                            <button type="submit" class="btn btn-success btn-block btn-lg">Crear mi cuenta</button>
+                                                  </small>
+
+                            </div>
+
+                            <button type="submit" class="btn btn-success btn-block btn-lg">
+                                Crear mi cuenta
+                            </button>
+
                         </form>
                     </div>
 
@@ -121,4 +189,3 @@
 </section>
 
 <!-- /register  -->
-<footer_rd></footer_rd>

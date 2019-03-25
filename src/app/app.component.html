@@ -1,6 +1,6 @@
 <!-- Header -->
 
-<nav *ngIf="view=='landing'" id="header" class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top fixed-top">
+<nav *ngIf="!identity" id="header" class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top fixed-top">
     <div class="container">
 
         <a [routerLink]="['/']" class="navbar-brand" href="#">
@@ -48,11 +48,11 @@
 
 <!-- Header user logged -->
 
-<nav *ngIf="view == 'home'" id="header-home"
+<nav *ngIf="identity" id="header-home"
     class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top fixed-top py-0">
     <div class="container bg-primary ">
 
-        <a [routerLink]="['/inicio']" class="navbar-brand mr-2 pb-2" href="#">
+        <a [routerLink]="['/inicio']" class="navbar-brand mr-2 pb-2" href="#">            
             <img class="" src="assets/images/RDLogo.png" alt="Logo RedDinámica">
         </a>
 
@@ -88,12 +88,12 @@
                             <img class="img-fluid" src="assets/images/user-default.png">
                         </div>
                         <span>
-                            Juan Daniel
+                            {{identity.name}}
                         </span>
                     </a>
                 </li>
                 <li class="nav-item d-flex align-items-center">
-                    <a [routerLink]="['/inicio']" class="nav-link">
+                    <a [routerLink]="['/inicio']"  class="nav-link">
                         Inicio
                     </a>
                 </li>
@@ -118,13 +118,20 @@
                 </button>
                 <div class="dropdown-menu dropdown-menu-lg-right">
 
-                    <button class="dropdown-item" type="button">Tus Lecciones</button>
-                    <button class="dropdown-item" type="button">Tus grupos</button>
+                    <button class="dropdown-item" type="button">
+                        Tus Lecciones
+                    </button>
+                    <button class="dropdown-item" type="button">
+                        Tus grupos
+                    </button>
                     <div class="dropdown-divider"></div>
-                    <button class="dropdown-item" type="button" [routerLink]="['/admin']">Panel de
-                        administración</button>
+                    <button *ngIf="['admin', 'delegated_admin'].includes(identity.role)" class="dropdown-item" type="button" [routerLink]="['/admin']">
+                        Panel de administración
+                    </button>
                     <div class="dropdown-divider"></div>
-                    <button class="dropdown-item" type="button">Cerrar sesión</button>
+                    <button class="dropdown-item" type="button" (click)="logout()">
+                        Cerrar sesión
+                    </button>
                 </div>
             </div>
         </div>
@@ -135,6 +142,7 @@
 
 <!-- /Header user logged -->
 
-<div class="container">
-    <router-outlet></router-outlet>
-</div>
+
+<router-outlet></router-outlet>
+
+<footer_rd *ngIf="!identity"></footer_rd>

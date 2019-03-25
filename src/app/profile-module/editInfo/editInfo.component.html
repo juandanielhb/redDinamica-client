@@ -1,0 +1,41 @@
+<div class="card">
+    <div class="card-header">
+        <h3 class="m-0 text-primary font-weight-bolder">{{title}}</h3>
+    </div>
+    <div class="card-body">
+
+        <form>
+            <div class="form-group row">
+                <label for="profileImage" class="col-3 col-form-label">
+                    Imagen de perfil
+                </label>
+                <div class="col-9">
+                    <input type="file" class="form-control" id="profileImage" attr.formControlName="profileImage">
+                </div>
+            </div>
+
+            <div *ngFor="let field of fieldsForm" class="form-group row">
+                <label for="{{field.id}}" class="col-3 col-form-label">{{field.label}}</label>
+                <div class="col-9">
+                    <input *ngIf="field.type === 'text'" type="text" class="form-control" id="{{field.id}}"
+                        value="{{identity[field.attr]}}" attr.formControlName="{{field.id}}">
+
+                    <textarea *ngIf="field.type === 'textarea'" class="form-control" id="experience" rows="3"
+                        value="{{identity[field.attr]}}" attr.formControlName="{{field.id}}">
+                    </textarea>
+
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3 offset-9 text-right">
+                    <button type="submit" class="btn btn-warning">
+                        Guardar cambios
+                    </button>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+</div>

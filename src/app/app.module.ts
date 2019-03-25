@@ -18,6 +18,8 @@ import { FooterComponent } from './components/footer/footer.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { RecoverPasswordComponent } from './components/recoverPassword/recoverPassword.component';
 import { SearchComponent } from './components/search/search.component';
+import { UserService } from './services/user.service';
+import { ProfileModule } from './profile-module/profile.module';
 
 
 @NgModule({
@@ -39,9 +41,13 @@ import { SearchComponent } from './components/search/search.component';
     ReactiveFormsModule,
     HomeModule,
     AdminModule,
-    LessonModule
+    LessonModule,
+    ProfileModule
   ],
-  providers: [appRoutingProviders],
+  providers: [
+    appRoutingProviders,
+    UserService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

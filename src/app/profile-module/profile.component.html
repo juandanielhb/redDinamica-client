@@ -1,0 +1,125 @@
+<!-- Profile -->
+<div class="container">
+    <section id="profile ">
+
+        <div class="container-fluid card my-3 rounded overflow-hidden bg-white" style="min-height: 250px;">
+
+            <div class="row bg-primary">
+
+                <div class="col">
+
+                    <div class="row ">
+
+                        <div class="card border-0 text-center">
+                            <div class="card-body " style="position: absolute; z-index: 5;">
+                                <div class="row px-4">
+                                    <div class="picture rounded-circle border-4 overflow-hidden">
+                                        <img class="img-fluid" src="assets/images/user-default.png">
+
+                                    </div>
+                                </div>
+                                <div class="mt-2">
+                                    <button type="submit" class="btn btn-danger" [routerLink]="['/perfil/editar']">
+                                        Editar perfil
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="col-auto">
+                            <div class="px-3" style="width:10rem; height: 10rem;"></div>
+                        </div>
+
+                        <div class="col pt-5 text-white">
+                            <h4 class="mb-0">
+                                <strong>{{ownProfile.name}} {{ownProfile.surname}}</strong>
+                                <span class="badge badge-success ml-3" style="position:relative; top: -15px;">
+                                    {{ownProfile.role}}
+                                </span>
+                            </h4>
+                            <p class="card-text">
+                                {{ownProfile.profession}} <br>
+                                {{ownProfile.institution}} <br>
+                                {{ownProfile.city}}
+                            </p>
+                        </div>
+
+                        <div id="red" class="col-3 card border-0 bg-transparent p-4" [routerLink]="['/perfil/red']">
+                            <div class="row my-auto px-4">
+                                <div class="col-6 p-1">
+                                    <div class="text-center bg-white rounded-lg">
+
+                                        <div class="px-1 py-3">
+                                            <h4 class="mb-0">10</h4>
+                                            <small>Seguidos</small>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-6 p-1">
+                                    <div class="text-center bg-white rounded-lg">
+
+                                        <div class="px-1 py-3">
+                                            <h4 class="mb-0">10</h4>
+                                            <small>Seguidores</small>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+
+            <div class="row bg-white">
+                <div class="col-auto">
+                    <div class="px-3" style="width:10rem"></div>
+                </div>
+                <div class="col py-3">
+                    {{ownProfile.about}}
+                </div>
+            </div>
+
+        </div>
+
+        <div class="float-left" id="profileMenu" style="display: inline-block">
+            <div class="card rounded bg-light border-0">
+                <button *ngFor="let option of menuOptions, let ix = index" type="button"
+                    class="btn btn-block text-left py-2 {{option.buttonClass}}" [routerLink]="[option.routerLink]">
+                    <i class="text-ligth fas {{option.iconClass}}"></i>
+                    <span class="ml-2"> {{option.spanContent}} </span>
+                </button>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="row">
+
+
+            <div class="col-12 rounded overflow-hidden pr-0">
+
+
+
+
+                <router-outlet></router-outlet>
+
+
+
+
+            </div>
+        </div>
+    </section>
+</div>
+
+
+
+
+<!-- /Profile -->

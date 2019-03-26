@@ -35,9 +35,6 @@ export class LoginComponent implements OnInit {
             email: ['', [Validators.required, Validators.email]],
             password: ['', Validators.required],
         })
-
-        console.log(this._userService.getIdentity());
-        console.log(this._userService.getToken());
     }
 
 
@@ -57,7 +54,7 @@ export class LoginComponent implements OnInit {
         this._userService.signup(this.user).subscribe(
             response => {
                 this.identity = response.user;
-
+                console.log(this.identity);
                 if (!this.identity || !this.identity._id) {
                     this.invalid = true;
                     this.emailFound = response.email;

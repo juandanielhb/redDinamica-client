@@ -1,0 +1,120 @@
+<div class="container my-3">
+<div class="card">
+    <div class="card-header">
+        <h3 class="m-0 text-primary font-weight-bolder">{{title}}</h3>
+
+    </div>
+    <div class="card-body">
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="addUser"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addUser">Agregar una usuario</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div *ngFor="let field of fieldsForm" class="form-group row">
+                                <label for="{{field}}" class="col-4 col-form-label">{{field}}</label>
+                                <div class="col-8">
+                                    <input type="text" class="form-control" id="{{field}}" placeholder="{{field}}">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class=" btn btn-danger" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class=" btn btn-success">Guardar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+        <form>
+            <div class="form-group row">
+
+                <div *ngFor="let category of categories" class="col">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="{{category}}">
+                        <label class="custom-control-label" for="{{category}}">
+                            {{category}}
+                        </label>
+                    </div>
+                </div>                
+            </div>
+
+            <div class="form-group row">
+                <div class="col-9">
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">Filtrar:</div>
+                        </div>
+                        <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Filtro">
+                    </div>
+                </div>
+                <div class="col">
+
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary btn-block" data-toggle="modal"
+                        data-target="#addUserModal">
+                        <i class="fas fa-plus"></i>
+                        <span class="ml-2">Agregar</span>
+                    </button>
+                </div>
+            </div>
+        </form>
+
+
+
+    </div>
+    <div class="card-body pt-0">
+        <div class="card">
+
+            <ul class="list-group list-group-flush">
+                <li *ngFor="let ix of [1,2,3,4,5]" class="list-group-item">
+                    <div class="row align-items-center">
+                        <div class="col-1">
+
+                            <div class="picture rounded-circle border-4 overflow-hidden">
+                                <img class="img-fluid" src="assets/images/user-default.png">
+                            </div>
+
+
+                        </div>
+
+                        <div class="col-6">
+                            <h5>Juan Daniel Hernández Bustos</h5>
+                            <span class="badge badge-success">Facilitador</span>
+                        </div>
+
+                        <div class="col-5 text-center">
+                            <button type="button" class="btn btn-info btn-sm m-1" data-toggle="modal"
+                                data-target="#addUserModal">
+                                <i class="fas fa-eye"></i>
+                                <span class="ml-2">Detalles</span>
+                            </button>
+                            <button type="button" class="btn btn-success btn-sm m-1">
+                                <i class="fas fa-user-check"></i>
+                                <span class="ml-2">Activar</span>
+                            </button>
+                            <button type="button" class="btn btn-danger btn-sm m-1">
+                                <i class="fas fa-user-times"></i>
+                                <span class="ml-2">Eliminar</span>
+                            </button>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

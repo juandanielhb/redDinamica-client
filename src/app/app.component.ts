@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { UserService } from './services/user.service';
 import { Router } from '@angular/router';
+import { GLOBAL } from './services/global';
 
 @Component({
     selector: 'app-root',
@@ -9,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
     public title = 'RedDinámica';
+    public url = GLOBAL.url;
     public identity;    
     public token;    
 

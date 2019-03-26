@@ -4,24 +4,47 @@
     </div>
     <div class="card-body">
 
-        <form>
-            <div class="form-group row">
+        <div *ngIf="updated === 'success'" class="alert alert-success alert-dismissible fade show text-center" role="alert">
+            <i class="fas fa-check-circle icon-message mr-2"></i>
+            Los datos se han actualizado correctamente.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+        </div>
+
+        <div *ngIf="updated === 'error'" class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+            <i class="fas fa-times-circle icon-message mr-2"></i>
+            Los datos no pudieron ser actualizados. Intentalo de nuevo.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+        </div>
+
+        <form [formGroup]="userEditForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+            <div class="form-group row align-items-end">
                 <label for="profileImage" class="col-3 col-form-label">
-                    Imagen de perfil
+                    <strong>Foto de perfil</strong>
                 </label>
-                <div class="col-9">
-                    <input type="file" class="form-control" id="profileImage" attr.formControlName="profileImage">
+                <div class="col">
+                    <input type="file" class="form-control" name="image" id="profileImage" formControlName="profileImage" (change)="fileChangeEvent($event)">
                 </div>
+                <!-- <div class="col-auto">
+                    <div class="picture rounded-circle border-4 overflow-hidden" *ngIf="identity.picture && identity.picture != null">
+                        <img class="img-fluid" src="{{this.url+'get-image-user/'+identity.picture}}">                    
+                    </div>
+                </div> -->
             </div>
 
             <div *ngFor="let field of fieldsForm" class="form-group row">
-                <label for="{{field.id}}" class="col-3 col-form-label">{{field.label}}</label>
+                <label for="{{field.id}}" class="col-3 col-form-label">
+                    <strong>{{field.label}}</strong>
+                </label>
                 <div class="col-9">
                     <input *ngIf="field.type === 'text'" type="text" class="form-control" id="{{field.id}}"
-                        value="{{identity[field.attr]}}" attr.formControlName="{{field.id}}">
+                        formControlName="{{field.id}}">
 
                     <textarea *ngIf="field.type === 'textarea'" class="form-control" id="experience" rows="3"
-                        value="{{identity[field.attr]}}" attr.formControlName="{{field.id}}">
+                        formControlName="{{field.id}}">
                     </textarea>
 
                 </div>

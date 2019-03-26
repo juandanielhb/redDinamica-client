@@ -36,6 +36,19 @@ export class UserService {
         return this._http.post(this.url+'login', params, {headers:headers});
     }
 
+    updateUser(user:User):Observable<any>{
+
+        let params = JSON.stringify(user);
+        let headers = new HttpHeaders({
+            'Content-Type':'application/json', 
+            'Authorization': this.getToken()
+        });
+
+        return this._http.put(this.url+'user-update/'+ user._id, params, {headers:headers});
+    }
+
+
+
     getIdentity(){
         let identity = JSON.parse(localStorage.getItem('identity'));
 

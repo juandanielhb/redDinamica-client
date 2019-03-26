@@ -64,10 +64,15 @@ export class RegisterComponent implements OnInit {
         this.user.password = this.registerForm.value.password;
         this.user.role = this.registerForm.value.category;
         this.user.about = this.registerForm.value.experience;
+        this.user.profession = this.registerForm.value.profession;
+        this.user.institution = this.registerForm.value.institution;
+        //this.user.picture = "user-default.png";
 
         if(['student', 'guest'].includes(this.f.category.value)){
             this.user.about = '';
         }                  
+
+        console.log(this.user);
 
         this._userService.register(this.user).subscribe(
             response => {

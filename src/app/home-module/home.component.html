@@ -8,11 +8,11 @@
                 <div class="card rounded" [routerLink]="['/perfil']">
                     <a class="card-header bg-primary text-white d-flex align-items-center px-2" style="cursor: pointer">
                             <div class="rounded-circle border-1 flex-shrink-0 overflow-hidden"
-                            style="width: 30px; height:30px; background-color:red">
-                            <img class="img-fluid" src="assets/images/user-default.png">
+                            style="width: 30px; height:30px">
+                            <img class="img-fluid" src="{{this.url+'get-image-user/'+ identity.picture}}"> 
                         </div>
                         <h4 class="card-title text-center mb-0 ml-1  text-truncate">
-                            <strong>Juan Daniel Hernández Bustos</strong>
+                            <strong>{{identity.name}} {{identity.surname}}</strong>
                         </h4>
                     </a>
                 </div>

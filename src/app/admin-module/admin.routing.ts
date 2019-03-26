@@ -11,11 +11,13 @@ import { InstitutionsComponent } from './basicData/institutions/institutions.com
 import { KnowledgeAreasComponent } from './basicData/knowledgeAreas/knowledgeAreas.component';
 import { NewUsersComponent } from './users/newUsers/newUsers.component';
 import { UsersComponent } from './users/users/users.component';
+import { AdminGuard } from '../services/admin.guard';
 
 const adminRoutes: Routes = [
     {
         path: 'admin',
         component: AdminComponent,
+        canActivate: [AdminGuard],
         children: [
             { path: '', component: NewUsersComponent},
             { path: 'usuarios-registro', component: KnowledgeAreasComponent},            

@@ -10,11 +10,13 @@
                             {{title}}
                         </h2>
                         <div *ngIf="invalid && emailFound; else noEmail" class="mx-4 alert alert-danger alert-dismissible fade show" role="alert">
-                            No se ha podido iniciar sesión correctamente. Por favor intentelo de nuevo.
+                                <i class="fas fa-times-circle icon-message mr-2"></i>
+                                No se ha podido iniciar sesión correctamente. Por favor intentelo de nuevo.
                         </div>
                         
                         <ng-template #noEmail >
                             <div *ngIf="invalid" class="mx-4 alert alert-danger alert-dismissible fade show">
+                                    <i class="fas fa-times-circle icon-message mr-2"></i>
                                 El correo electrónico ingresado no coincide con ninguna cuenta.
                                 <a [routerLink]="['/registro']" class="alert-link">
                                     Registrate aquí.

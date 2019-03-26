@@ -90,7 +90,7 @@ export const FIELDS_FORM = [
         attr: "surname"        
     },
     {
-        id: "editabout",
+        id: "editAbout",
         label: "Descripción",
         type: "textarea",
         attr: "about"        

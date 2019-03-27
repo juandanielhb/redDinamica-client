@@ -1,9 +1,9 @@
-<!-- Knowledge Areas -->
+<!-- Professiones -->
 <div class="card">
     <div class="card-header">
         <h3 class="m-0 text-primary font-weight-bolder">{{title}}</h3>
-
     </div>
+
     <div class="card-body">
 
         <div class="form-group row">
@@ -20,13 +20,14 @@
             </div>
 
             <div class="col">
-
-                <!-- Button trigger modal add-->
-                <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#addArea">
+                <!-- Button trigger modal add -->
+                <button type="button" class="btn btn-primary btn-block" data-toggle="modal"
+                    data-target="#addProfession">
                     <i class="fas fa-plus"></i>
                     <span class="ml-2">Agregar</span>
                 </button>
             </div>
+
         </div>
 
         <table class="table table-sm table-hover table-bordered text-center">
@@ -37,16 +38,16 @@
                 </tr>
             </thead>
             <tbody *ngIf="!filter.value">
-                <tr *ngFor="let area of areas">
-                    <td>{{area.name}}</td>
+                <tr *ngFor="let profession of professions">
+                    <td>{{profession.name}}</td>
                     <td>
                         <button type="button" class="btn btn-warning btn-sm mx-1" data-toggle="modal"
-                            data-target="#editArea" (click)="setEditArea(area)">
+                            data-target="#editProfession" (click)="setEditProfession(profession)">
                             <i class="fas fa-pen-square"></i>
                             <span class="ml-2"><small>Editar</small></span>
                         </button>
                         <button type="button" class="btn btn-danger btn-sm mx-1" data-toggle="modal"
-                            data-target="#deleteArea" (click)="setDeleteArea(area._id)">
+                            data-target="#deleteProfession" (click)="setDeleteProfession(profession._id)">
                             <i class="fas fa-trash"></i>
                             <span class="ml-2"><small>Eliminar</small></span>
                         </button>
@@ -56,44 +57,49 @@
             </tbody>
             <tbody *ngIf="filter.value">
 
-                    <tr *ngFor="let area of allAreas | filter: filter.value; let i=index">
-                        <td>{{area.name}}</td>
-                        <td>
-                            <button type="button" class="btn btn-warning btn-sm mx-1" data-toggle="modal"
-                                data-target="#editArea" (click)="setEditArea(area)">
-                                <i class="fas fa-pen-square"></i>
-                                <span class="ml-2"><small>Editar</small></span>
-                            </button>
-                            <button type="button" class="btn btn-danger btn-sm mx-1" data-toggle="modal"
-                                data-target="#deleteArea" (click)="setDeleteArea(area._id)">
-                                <i class="fas fa-trash"></i>
-                                <span class="ml-2"><small>Eliminar</small></span>
-                            </button>
-                        </td>    
-                    </tr>
-                </tbody>
+                <tr *ngFor="let profession of allProfessions | filter: filter.value; let i=index">
+                    <td>{{profession.name}}</td>
+                    <td>
+                        <button type="button" class="btn btn-warning btn-sm mx-1" data-toggle="modal"
+                            data-target="#editProfession" (click)="setEditProfession(profession)">
+                            <i class="fas fa-pen-square"></i>
+                            <span class="ml-2"><small>Editar</small></span>
+                        </button>
+                        <button type="button" class="btn btn-danger btn-sm mx-1" data-toggle="modal"
+                            data-target="#deleteProfession" (click)="setDeleteProfession(profession._id)">
+                            <i class="fas fa-trash"></i>
+                            <span class="ml-2"><small>Eliminar</small></span>
+                        </button>
+                    </td>
+
+                </tr>
+            </tbody>
         </table>
-        <nav aria-label="Page navigation">
+
+       
+            <nav aria-label="Page navigation">
                 <ul class="pagination justify-content-end">
                     <li *ngIf="page > 1" class="page-item">
-                        <a class="page-link bg-primary" [routerLink]="['/admin/areas', prevPage]">Anterior</a>
+                        <a class="page-link bg-primary" [routerLink]="['/admin/profesiones', prevPage]">Anterior</a>
                     </li>
                     <li *ngIf="page < pages" class="page-item">
-                        <a class="page-link bg-info" [routerLink]="['/admin/areas', nextPage]">Siguiente</a>
+                        <a class="page-link bg-info" [routerLink]="['/admin/profesiones', nextPage]">Siguiente</a>
                     </li>
                 </ul>
-            </nav>    
+            </nav>
+     
     </div>
 </div>
-<!-- /Knowledge Areas -->
+<!-- /Professiones -->
 
 <!-- Modal addn-->
-<div class="modal fade" id="addArea" tabindex="-1" role="dialog" aria-labelledby="addArea" aria-hidden="true">
+<div class="modal fade" id="addProfession" tabindex="-1" role="dialog" aria-labelledby="addProfession"
+    aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-            <form [formGroup]="areaForm" (ngSubmit)="onSubmit()">
+            <form [formGroup]="professionForm" (ngSubmit)="onSubmit()">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="addArea">Agregar una área de conocimiento</h5>
+                    <h5 class="modal-title" id="addProfession">Agregar una área de conocimiento</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -103,7 +109,7 @@
                     <div *ngIf="status === 'error'; successMessage"
                         class="alert alert-danger alert-dismissible fade show text-center" role="alert">
                         <i class="fas fa-times-circle icon-message mr-2"></i>
-                        El área de conocimiento no fue agregada correctamente. Intentalo de nuevo.
+                        La profesión no fue agregada correctamente. Intentalo de nuevo.
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -112,7 +118,7 @@
                     <div *ngIf="status === 'success'; successMessage"
                         class="alert alert-success alert-dismissible fade show text-center" role="alert">
                         <i class="fas fa-check-circle icon-message mr-2"></i>
-                        El área de conocimiento fue agregada correctamente.
+                        La profesión fue agregada correctamente.
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -136,13 +142,14 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
 
 
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                    <button id="save" type="submit" class="btn btn-success">Guardar</button>
+                    <button id="save" type="submit" class=" btn btn-success">Guardar</button>
                 </div>
             </form>
         </div>
@@ -151,12 +158,13 @@
 <!-- /Modal add-->
 
 <!-- Modal edit-->
-<div class="modal fade" id="editArea" tabindex="-1" role="dialog" aria-labelledby="editArea" aria-hidden="true">
+<div class="modal fade" id="editProfession" tabindex="-1" role="dialog" aria-labelledby="editProfession"
+    aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-            <form [formGroup]="editAreaForm" (ngSubmit)="onEditSubmit()">
+            <form [formGroup]="editProfessionForm" (ngSubmit)="onEditSubmit()">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editArea">Editar área de conocimiento</h5>
+                    <h5 class="modal-title" id="editProfession">Editar profesión</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -166,7 +174,7 @@
                     <div *ngIf="status === 'error'; successMessage"
                         class="alert alert-danger alert-dismissible fade show text-center" role="alert">
                         <i class="fas fa-times-circle icon-message mr-2"></i>
-                        El área de conocimiento no fue editada correctamente. Intentalo de nuevo.
+                        La profesión no fue editada correctamente. Intentalo de nuevo.
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -175,7 +183,7 @@
                     <div *ngIf="status === 'success'; successMessage"
                         class="alert alert-success alert-dismissible fade show text-center" role="alert">
                         <i class="fas fa-check-circle icon-message mr-2"></i>
-                        Se ha editado correctamente el área de conocimiento.
+                        Se ha editado correctamente la profesión.
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -214,12 +222,13 @@
 </div>
 <!-- /Modal edit-->
 
-<!-- Modal warning -->
-<div class="modal fade" id="deleteArea" tabindex="-1" role="dialog" aria-labelledby="deleteArea" aria-hidden="true">
+<!-- Modal warning-->
+<div class="modal fade" id="deleteProfession" tabindex="-1" role="dialog" aria-labelledby="deleteProfession"
+    aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editArea">Eliminar área de conocimiento</h5>
+                <h5 class="modal-title" id="editProfession">Eliminar profesión</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

@@ -68,6 +68,10 @@ export const ADMIN_MENU = [
             {
                 "text": "Áreas de conocimiento",
                 "routerLink": "/admin/areas"
+            },
+            {
+                "text": "Profesiones",
+                "routerLink": "/admin/profesiones"
             }
         ]
     },

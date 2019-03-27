@@ -1,8 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgSelectModule } from '@ng-select/ng-select';
 import { Routing, appRoutingProviders } from './app.routing';
 import { HttpClientModule } from '@angular/common/http';
+
 
 // Modules
 import { HomeModule } from './home-module/home.module';
@@ -25,6 +27,8 @@ import { UploadService } from './services/upload.service';
 
 // Guards
 import { AdminGuard } from './services/admin.guard';
+import { BasicDataService } from './services/basicData.service';
+
 
 @NgModule({
   declarations: [
@@ -36,23 +40,26 @@ import { AdminGuard } from './services/admin.guard';
     FooterComponent,
     ProfileComponent,
     ResourcesComponent,
-    SearchComponent
+    SearchComponent,    
+
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    NgSelectModule,
     HttpClientModule,
     Routing,
     ReactiveFormsModule,
     HomeModule,
     AdminModule,
-    LessonModule,
+    LessonModule,    
     ProfileModule
   ],
   providers: [
-    appRoutingProviders,
+    appRoutingProviders,    
     UserService,
     UploadService,
+    BasicDataService,
     AdminGuard
   ],
   bootstrap: [AppComponent]

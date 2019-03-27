@@ -16,20 +16,52 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
-                        <form>
-                            <div *ngFor="let field of fieldsForm" class="form-group row">
-                                <label for="{{field}}" class="col-4 col-form-label">{{field}}</label>
-                                <div class="col-8">
-                                    <input type="text" class="form-control" id="{{field}}" placeholder="{{field}}">
-                                </div>
+                    <form [formGroup]="cityForm" (ngSubmit)="onSubmit()">
+
+                        <div class="modal-body">
+                                <div *ngIf="status === 'error'; successMessage"
+                                class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+                                <i class="fas fa-times-circle icon-message mr-2"></i>
+                                La ciudad no fue agregada correctamente. Intentalo de nuevo.
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
                             </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class=" btn btn-danger" data-dismiss="modal">Cancelar</button>
-                        <button type="submit" class=" btn btn-success">Guardar</button>
-                    </div>
+
+                            <div *ngIf="status === 'success'; successMessage"
+                                class="alert alert-success alert-dismissible fade show text-center" role="alert">
+                                <i class="fas fa-times-circle icon-message mr-2"></i>
+                                La ciudad fue agregada correctamente.
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+
+                            <div *ngFor="let field of fieldsForm" class="form-group row">
+                                <label for="{{field.id}}" class="col-4 col-form-label">
+                                    <strong>{{field.label}}*</strong>
+                                </label>
+
+                                <div class="col-8">
+                                    <input type="text" class="form-control" id="{{field.id}}"
+                                        formControlName="{{field.id}}" placeholder="{{field.label}}"
+                                        [ngClass]="{ 'is-invalid': submitted && f[field.id].errors}" (keydown)="onKeydown($event)">
+                                    <div *ngIf="submitted && f[field.id].errors" class="invalid-feedback">
+                                        <div *ngIf="f[field.id].errors.required">
+                                            El campo {{field.label}} es obligatorio.
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            
+                            
+                        </div>
+                        <div class="modal-footer">
+                                <button class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                                <button id="save" type="submit" class=" btn btn-success" >Guardar</button>
+                            </div>
+                    </form>
                 </div>
             </div>
         </div>

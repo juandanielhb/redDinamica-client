@@ -1,30 +1,30 @@
-import { Component } from '@angular/core';
-import { KnowledgeArea } from 'src/app/models/knowledge-area.model';
+import { Component, OnInit } from '@angular/core';
+import { Profession } from 'src/app/models/profession.model';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { BasicDataService } from 'src/app/services/basicData.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
-    selector: 'knowledgeAreas',
-    templateUrl: './knowledgeAreas.component.html'
+    selector: 'professions',
+    templateUrl: './professions.component.html'
 })
-export class KnowledgeAreasComponent {
-    public title: string;
+export class ProfessionsComponent implements OnInit {
+    public title: string;   
     public fieldsForm = [
         {
-            id: "areaName",
-            label: "Área de conocimiento",
+            id: "professionName",
+            label: "Profesión",        
             attr: "name",
-            required: true
-        }
+            required: true   
+        }                
     ];
-
+    
     public submitted = false;
     public status;
-    public areaForm;
-    public editAreaForm;
-    public knowledgeArea = new KnowledgeArea('');
-    public areas;
+    public professionForm;
+    public editProfessionForm;
+    public profession = new Profession('');    
+    public professions;
 
     // Pagination
     public page; // Actual page
@@ -34,54 +34,55 @@ export class KnowledgeAreasComponent {
     public nextPage;
     public pagesArray = new Array(this.total);
 
+
     // Filter
     public filter;
-    public allAreas;    
+    public allProfessions;
 
     constructor(
         private _bDService:BasicDataService,
         private _route: ActivatedRoute,
         private _router:Router,
     ) {
-        this.title = 'Áreas de conocimiento';
-        this.areaForm = new FormGroup({
-            areaName: new FormControl('', [Validators.required])
+        this.title = 'Profesiones';
+        this.professionForm = new FormGroup({
+            professionName: new FormControl('', [Validators.required])            
         });
-        this.editAreaForm = new FormGroup({
-            areaName: new FormControl('', [Validators.required])            
+        this.editProfessionForm = new FormGroup({
+            professionName: new FormControl('', [Validators.required])            
         });
-
+        
         this.filter =  new FormControl();
-
+           
     }
 
     ngOnInit(): void {        
         this.actualPage();
-        this.getAllAreas();        
+        this.getAllProfessions();        
     }
 
-    get f() { return this.areaForm.controls; }
+    get f() { return this.professionForm.controls; }
 
-    get f2() { return this.editAreaForm.controls; }  
+    get f2() { return this.editProfessionForm.controls; }
 
     onSubmit() {
         this.submitted = true;
-
-        if (this.areaForm.invalid) {
+        
+        if (this.professionForm.invalid) {
             return;
         }
+        
+        this.profession.name = this.professionForm.value.professionName;
 
-        this.knowledgeArea.name = this.areaForm.value.areaName;
-
-        this._bDService.addKnowledgeArea(this.knowledgeArea).subscribe(
+        this._bDService.addProfession(this.profession).subscribe(
             response => {
-                
-                if (response.area && response.area._id) {
+
+                if (response.profession && response.profession._id) {
                     this.status = 'success';
-                    this.areaForm.reset();
+                    this.professionForm.reset();
                     this.submitted = false;
-                    this.getAreas(this.page);
-                    this.getAllAreas();
+                    this.getProfessions(this.page);
+                    this.getAllProfessions();
                 } else {
                     this.status = 'error';
                 }
@@ -95,26 +96,26 @@ export class KnowledgeAreasComponent {
         );
     }
 
-    getAllAreas(){  
-        this._bDService.getAllKnowledgeAreas().subscribe(
-            response=>{       
-                if(response.areas){
-                    this.allAreas = response.areas;
+    getAllProfessions(){  
+        this._bDService.getAllProfessions().subscribe(
+            response=>{
+                if(response.professions){
+                    this.allProfessions = response.professions;
                 }
             },error=>{
                 console.log(<any>error);
             });        
     }
 
-    getAreas(page){  
-        this._bDService.getKnowledgeAreas(page).subscribe(
+    getProfessions(page){  
+        this._bDService.getProfessions(page).subscribe(
             response=>{                  
-                if(response.areas){
-                    this.areas = response.areas; 
+                if(response.professions){
+                    this.professions = response.professions; 
                     this.total = response.total; 
                     this.pages = response.pages;
                     if(page > this.pages){
-                        this._router.navigate(['/admin/areas']);
+                        this._router.navigate(['/admin/profesiones']);
                     }
                 }
             },error=>{
@@ -122,29 +123,29 @@ export class KnowledgeAreasComponent {
             });
     }
 
-    public tempArea;
-    setEditArea(area){
-        this.tempArea = area;
-        this.editAreaForm.patchValue({areaName:this.tempArea.name}); 
+    public tempProfession;
+    setEditProfession(profession){
+        this.tempProfession = profession;
+        this.editProfessionForm.patchValue({professionName:this.tempProfession.name}); 
     }
 
     onEditSubmit() {
         this.submitted = true;
         
-        if (this.editAreaForm.invalid) {
+        if (this.editProfessionForm.invalid) {
             return;
         }
         
-        this.knowledgeArea.name = this.editAreaForm.value.areaName;
+        this.profession.name = this.editProfessionForm.value.professionName;
 
-        this._bDService.editKnowledgeArea(this.tempArea._id, this.knowledgeArea).subscribe(
+        this._bDService.editProfession(this.tempProfession._id,this.profession).subscribe(
             response => {
-
+                
                 if (response.area && response.area._id) {
                     this.status = 'success';
                     this.submitted = false;
-                    this.getAreas(this.page);
-                    this.getAllAreas();
+                    this.getProfessions(this.page);
+                    this.getAllProfessions();
                 } else {
                     this.status = 'error';
                 }
@@ -156,26 +157,26 @@ export class KnowledgeAreasComponent {
                 }
             }
         );
-    }    
-
-    public tempAreaId;
-    setDeleteArea(areaId){
-        this.tempAreaId = areaId;
     }
 
+    public tempProfessionId;
+    setDeleteProfession(professionId){
+        this.tempProfessionId = professionId;
+    }    
+
     delete(){
-        this._bDService.deleteKnowledgeArea(this.tempAreaId).subscribe(
+        this._bDService.deleteProfession(this.tempProfessionId).subscribe(
             response => {
                 
-                this.tempAreaId = null;
-                this.getAreas(this.page);
-                this.getAllAreas();
+                this.tempProfessionId = null;
+                this.getProfessions(this.page);
+                this.getAllProfessions();
             },
             error => {
                 console.log(<any>error);
             }
         )
-    }    
+    }
 
     actualPage(){
         this._route.params.subscribe(params => {
@@ -195,16 +196,16 @@ export class KnowledgeAreasComponent {
                }
            }
  
-           this.getAreas(this.page);
+           this.getProfessions(this.page);
         });
     }
 
-    onKeydown(e) {
+    onKeydown(e){
         if (e.keyCode === 13) {
             // Cancel the default action, if needed
             e.preventDefault();
             // Trigger the button element with a click
             document.getElementById("save").click();
-        }
+          }
     }
 }

@@ -20,7 +20,7 @@ export class EditInfoComponent {
     public userEditForm:FormGroup;
     public fieldsForm;
     public user:User = new User();
-    public updated:string;
+    public status:string;
     public filesToUpload:Array<File>;
     
 
@@ -67,10 +67,10 @@ export class EditInfoComponent {
         this._userService.updateUser(this.user).subscribe(
             response => {
                 if(!response.user){
-                    this.updated = 'error';
+                    this.status = 'error';
                 }else{
                     this.identity = response.user;
-                    this.updated = 'success';
+                    this.status = 'success';
                     localStorage.setItem('identity', JSON.stringify(this.identity));
 
                     if(this.filesToUpload.length > 0){
@@ -90,7 +90,7 @@ export class EditInfoComponent {
                 }
             },
             error => {
-                this.updated = 'error';
+                this.status = 'error';
                 console.log(<any>error);
             }
         );

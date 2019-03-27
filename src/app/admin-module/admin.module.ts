@@ -1,20 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-
+import { NgSelectModule } from '@ng-select/ng-select';
 
 import { AdminRoutingModule } from './admin.routing';
 
 import { AdminComponent } from './admin.component';
 import { LessonsComponent } from './lessons/news.component';
 import { NewsComponent } from './news/news.component';
-import { BasicDataComponent } from './basicData/basicData.component';
 import { CitiesComponent } from './basicData/cities/cities.component';
 import { InstitutionsComponent } from './basicData/institutions/institutions.component';
 import { KnowledgeAreasComponent } from './basicData/knowledgeAreas/knowledgeAreas.component';
 import { NewUsersComponent } from './users/newUsers/newUsers.component';
 import { UsersComponent } from './users/users/users.component';
+import { ProfessionsComponent } from './basicData/professions/professions.component';
+import { FilterPipe } from './pipes/filter.pipe';
 
 
 @NgModule({
@@ -23,16 +24,19 @@ import { UsersComponent } from './users/users/users.component';
         NewUsersComponent,
         LessonsComponent,
         NewsComponent,
-        BasicDataComponent,
         CitiesComponent,
         InstitutionsComponent,
         KnowledgeAreasComponent,
-        UsersComponent
+        ProfessionsComponent,
+        UsersComponent,
+        FilterPipe
     ],
     imports: [
         CommonModule,
         FormsModule,
         HttpClientModule,
+        ReactiveFormsModule,
+        NgSelectModule,
         AdminRoutingModule
     ],
     exports: [

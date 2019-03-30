@@ -118,17 +118,33 @@ export const FIELDS_FORM = [
         label: "Postgrados",
         type: "textarea",
         attr: "postgraduate"        
-    },
-
-                    
+    }                    
 ];
 
 
 export const LABEL_PROFILE = {
-    teacher:"Docente",
-    guest:"Invitado",
-    student:"Estudiante",
-    expert:"Facilitador",
-    admin:"Facilitador",
-    delegated_admin:"Facilitador"
+    teacher: {
+        label:"Docente",
+        class:"badge-success"
+    },
+    guest: {
+        label:"Invitado",
+        class:"badge-orange"
+    },
+    student: {
+        label:"Estudiante",
+        class:"badge-info"
+    },
+    expert: {
+        label:"Facilitador",
+        class:"badge-purple"
+    },
+    admin: {
+        label:"Facilitador",
+        class:"badge-purple"
+    },
+    delegated_admin: {
+        label:"Facilitador",
+        class:"badge-purple"
+    }
 };    

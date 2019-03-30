@@ -3,6 +3,7 @@ export class City {
     public name:String
     public state:String;
     public country:String;
+    public used: boolean;
 
     constructor(
     ){}

@@ -20,8 +20,10 @@ const adminRoutes: Routes = [
         canActivate: [AdminGuard],
         children: [
             { path: '', component: NewUsersComponent},
-            { path: 'usuarios-registro', component: KnowledgeAreasComponent},            
+            { path: 'usuarios-nuevos', component: NewUsersComponent},
+            { path: 'usuarios-nuevos/:page', component: NewUsersComponent},
             { path: 'usuarios', component: UsersComponent},
+            { path: 'usuarios/:page', component: UsersComponent},
             { path: 'lecciones', component: LessonsComponent},
             { path: 'noticias', component: NewsComponent},
             { path: 'ciudades', component: CitiesComponent},

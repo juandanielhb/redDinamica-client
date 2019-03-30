@@ -33,8 +33,8 @@
                         <div class="col pt-5 text-white">
                             <h4 class="mb-0">
                                 <strong>{{ownProfile.name}} {{ownProfile.surname}}</strong>
-                                <span class="badge badge-success ml-3" style="position:relative; top: -15px;">
-                                    {{ownProfile.role}}
+                                <span class="badge {{categories[ownProfile.role].class}}" style="position:relative; top: -15px; left: 10px">
+                                {{categories[ownProfile.role].label}}
                                 </span>
                             </h4>
                             <p class="card-text">

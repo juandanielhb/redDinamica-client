@@ -1,118 +1,309 @@
+<!-- Users -->
 <div class="card">
     <div class="card-header">
-        <h3 class="m-0 text-primary font-weight-bolder">{{title}}</h3>
+        <h3 class="m-0 text-primary font-weight-bolder float-left">{{title}}</h3>
+        <!-- Button trigger modal add-->
+        <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#add"
+            (click)="setAdd()">
+            <i class="fas fa-plus"></i>
+            <span class="ml-2">Agregar</span>
+        </button>
 
     </div>
     <div class="card-body">
 
-
-        <!-- Modal -->
-        <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="addUser"
-            aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="addUser">Agregar una usuario</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                            <div *ngFor="let field of fieldsForm" class="form-group row">
-                                <label for="{{field}}" class="col-4 col-form-label">{{field}}</label>
-                                <div class="col-8">
-                                    <input type="text" class="form-control" id="{{field}}" placeholder="{{field}}">
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class=" btn btn-danger" data-dismiss="modal">Cancelar</button>
-                        <button type="submit" class=" btn btn-success">Guardar</button>
-                    </div>
+        <div class="form-group">
+            <form class="row">
+            <div *ngFor="let category of categories" class="col">
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="{{category.value}}" (click)="setCategory(category.value)">
+                    <label class="custom-control-label" for="{{category.value}}">
+                        {{category.label}}
+                    </label>
                 </div>
             </div>
+        </form>
         </div>
-
-
-
-
-
-        <form>
-            <div class="form-group row">
-
-                <div *ngFor="let category of categories" class="col">
-                    <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="{{category}}">
-                        <label class="custom-control-label" for="{{category}}">
-                            {{category}}
-                        </label>
-                    </div>
-                </div>                
-            </div>
-
-            <div class="form-group row">
-                <div class="col-9">
+        <div class="form-group row">
+            <div class="col">
+                <form>
                     <div class="input-group mb-2">
                         <div class="input-group-prepend">
                             <div class="input-group-text">Filtrar:</div>
                         </div>
-                        <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Filtro">
+                        <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Filtro"
+                            autocomplete="off" [formControl]="filter">
                     </div>
-                </div>
-                <div class="col">
-
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary btn-block" data-toggle="modal"
-                        data-target="#addUserModal">
-                        <i class="fas fa-plus"></i>
-                        <span class="ml-2">Agregar</span>
-                    </button>
-                </div>
+                </form>
             </div>
-        </form>
 
 
-
-    </div>
-    <div class="card-body pt-0">
-        <div class="card">
-
-            <ul class="list-group list-group-flush">
-                <li *ngFor="let ix of [1,2,3,4,5]" class="list-group-item">
+        </div>
+        <div *ngIf="!filter.value && selectedCategory.length == 0">
+            <div *ngFor="let user of users" class="card">
+                <div class="card-body">
                     <div class="row align-items-center">
                         <div class="col-1">
-
                             <div class="picture rounded-circle border-4 overflow-hidden">
-                                <img class="img-fluid" src="assets/images/user-default.png">
+                                <img *ngIf="!user.picture" class="img-fluid" src="assets/images/user-default.png">
+                                <img *ngIf="user.picture" class="img-fluid"
+                                    src="{{this.url+'get-image-user/'+ user.picture}}">
                             </div>
-
-
                         </div>
 
                         <div class="col-6">
-                            <h5>Juan Daniel Hernández Bustos</h5>
-                            <span class="badge badge-success">Facilitador</span>
+                            <h5>{{user.name}} {{user.surname}}</h5>
+
+                            <span
+                                class="badge {{labelProfile[user.role].class}}">{{labelProfile[user.role].label}}</span>
                         </div>
 
                         <div class="col-5 text-center">
-                            <button type="button" class="btn btn-info btn-sm m-1" data-toggle="modal"
-                                data-target="#addUserModal">
-                                <i class="fas fa-eye"></i>
-                                <span class="ml-2">Detalles</span>
+                            <button type="button" class="btn btn-warning btn-sm m-1" data-toggle="modal"
+                                data-target="#edit" (click)="setEdit(user)">
+                                <i class="fas fa-pen-square"></i>
+                                <span class="ml-2">Editar</span>
                             </button>
-                            <button type="button" class="btn btn-success btn-sm m-1">
-                                <i class="fas fa-user-check"></i>
-                                <span class="ml-2">Activar</span>
-                            </button>
-                            <button type="button" class="btn btn-danger btn-sm m-1">
+                            <button *ngIf="identity._id != user._id" type="button" class="btn btn-danger btn-sm m-1"
+                                (click)="removeUser(user._id)">
                                 <i class="fas fa-user-times"></i>
                                 <span class="ml-2">Eliminar</span>
                             </button>
                         </div>
                     </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="filter.value || selectedCategory.length > 0">
+            <div *ngFor="let user of allUsers | filter: filter.value" class="card">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-1">
+                            <div class="picture rounded-circle border-4 overflow-hidden">
+                                <img *ngIf="!user.picture" class="img-fluid" src="assets/images/user-default.png">
+                                <img *ngIf="user.picture" class="img-fluid"
+                                    src="{{this.url+'get-image-user/'+ user.picture}}">
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <h5>{{user.name}} {{user.surname}}</h5>
+
+                            <span
+                                class="badge {{labelProfile[user.role].class}}">{{labelProfile[user.role].label}}</span>
+                        </div>
+
+                        <div class="col-5 text-center">
+                            <button type="button" class="btn btn-warning btn-sm m-1" data-toggle="modal"
+                                data-target="#edit" (click)="setEdit(user)">
+                                <i class="fas fa-pen-square"></i>
+                                <span class="ml-2">Editar</span>
+                            </button>
+                            <button *ngIf="identity._id != user._id" type="button" class="btn btn-danger btn-sm m-1"
+                                (click)="removeUser(user._id)">
+                                <i class="fas fa-user-times"></i>
+                                <span class="ml-2">Eliminar</span>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <nav *ngIf="!filter.value && selectedCategory.length == 0" class="mt-3" aria-label="Page navigation">
+            <ul class="pagination justify-content-end">
+                <li *ngIf="page > 1" class="page-item">
+                    <a class="page-link bg-primary" [routerLink]="['/admin/usuarios', prevPage]">Anterior</a>
+                </li>
+                <li *ngIf="page < pages && page != pages" class="page-item">
+                    <a class="page-link bg-info" [routerLink]="['/admin/usuarios', nextPage]">Siguiente</a>
                 </li>
             </ul>
+        </nav>
+
+    </div>
+</div>
+<!-- /Users -->
+
+<!-- Modal add -->
+<div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="add" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <form [formGroup]="addForm" (ngSubmit)="onSubmit()">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addTitle">Agregar un usuario</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+
+                <div class="modal-body">
+                    <div *ngIf="status === 'error'; successMessage" class="alert alert-danger fade show text-center"
+                        role="alert">
+                        <i class="fas fa-times-circle icon-message mr-2"></i>
+                        El usuario no fue agregado correctamente. Es posible que el correo electrónico suministrado ya
+                        se encuentra registrado.
+                    </div>
+
+                    <div *ngIf="status === 'success'; successMessage" class="alert alert-success fade show text-center"
+                        role="alert">
+                        <i class="fas fa-check-circle icon-message mr-2"></i>
+                        El usuario fue agregado correctamente.
+
+                    </div>
+
+                    <div *ngFor="let field of addFieldsForm" class="form-group row">
+                        <label for="{{field.id}}" class="col-4 col-form-label">
+                            <strong>{{field.label}}<span *ngIf="field.required">*</span></strong>
+                        </label>
+
+                        <div class="col-8">
+
+                            <input *ngIf="field.type == 'text'" type="text" class="form-control" id="{{field.id}}"
+                                formControlName="{{field.id}}" placeholder="{{field.label}}" autocomplete="off"
+                                [ngClass]="{ 'is-invalid': submitted && f[field.id].errors}"
+                                (keydown)="onKeydown($event)">
+
+
+                            <select *ngIf="field.type == 'select' && !field.autocomplete" size="{{categories.length}}"
+                                formControlName="{{field.id}}" class="form-control" id="{{field.id}}"
+                                [ngClass]="{ 'is-invalid': submitted && f[field.id].errors}">
+                                <option *ngFor="let category of categories" value="{{category.value}}">
+                                    {{category.label}}</option>
+                            </select>
+
+                            <ng-select *ngIf="field.type == 'select' && field.autocomplete" [items]="items[field.id]"
+                                bindLabel="name" [addTag]="true" addTagText="Agregar {{field.label}}"
+                                formControlName="{{field.id}}" placeholder="{{field.label}}"
+                                (change)="addCityData($event, field.id)">
+                                <ng-template *ngIf="field.id == 'city'" ng-option-tmp let-item="item">
+                                    {{item.name}}, {{item.state}}, {{item.country}}
+                                </ng-template>
+                            </ng-select>
+
+                            <div *ngIf="submitted && f[field.id].errors" class="invalid-feedback">
+                                <div *ngIf="f[field.id].errors.required">
+                                    El campo {{field.label}} es obligatorio.
+                                </div>
+                                <div *ngIf="f[field.id].errors.email || field.id == 'email'">El correo electrónico debe
+                                    ser una dirección email válida.
+                                </div>
+                            </div>
+
+                            <input *ngIf="field.id == 'city' && addCity" type="text" class="form-control" id="state"
+                                [formControl]="state" placeholder="Departamento/Estado/Provincia" autocomplete="off"
+                                (keydown)="onKeydown($event)">
+
+                            <input *ngIf="field.id == 'city' && addCity" type="text" class="form-control" id="country"
+                                [formControl]="country" placeholder="Pais" autocomplete="off"
+                                (keydown)="onKeydown($event)">
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    <button id="save" type="submit" class=" btn btn-success">Guardar</button>
+                </div>
+            </form>
         </div>
     </div>
+</div>
+<!-- /Modal add-->
+
+<!-- Modal edit -->
+<div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editTitle">Editar usuario</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+
+                <div class="modal-body">
+                    <div *ngIf="status === 'error'; successMessage" class="alert alert-danger fade show text-center"
+                        role="alert">
+                        <i class="fas fa-times-circle icon-message mr-2"></i>
+                        El usuario fue editado correctamente.
+                    </div>
+
+                    <div *ngIf="status === 'success'; successMessage" class="alert alert-success fade show text-center"
+                        role="alert">
+                        <i class="fas fa-check-circle icon-message mr-2"></i>
+                        El usuario no ha podido ser editado correctamente.
+
+                    </div>
+
+                    <div *ngFor="let field of editFieldsForm" class="form-group row">
+                        <label for="{{field.id}}" class="col-4 col-form-label">
+                            <strong>{{field.label}}<span *ngIf="field.required">*</span></strong>
+                        </label>
+
+                        <div class="col-8">
+
+                            <input *ngIf="field.type == 'text'" type="text" class="form-control" id="{{field.id}}"
+                                formControlName="{{field.id}}"
+                                [ngClass]="{ 'is-invalid': submitted && f[field.id].errors}"
+                                (keydown)="onKeydown($event)" readonly>
+
+                            <textarea *ngIf="field.type === 'textarea'" class="form-control" id="experience" rows="3"
+                                formControlName="{{field.id}}" readonly>
+                                </textarea>
+
+                            <select *ngIf="field.type == 'select' && !field.autocomplete" size="{{categories.length}}"
+                                formControlName="{{field.id}}" class="form-control" id="{{field.id}}"
+                                [ngClass]="{ 'is-invalid': submitted && f[field.id].errors}">
+                                <option *ngFor="let category of categories" value="{{category.value}}">
+                                    {{category.label}}</option>
+                            </select>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    <button id="save" type="submit" class=" btn btn-success">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- /Modal edit-->
+
+<!-- Modal warning -->
+<!-- <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="delete" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteTitle">Eliminar usuario</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="alert alert-warning mb-0" role="alert">
+                    <i class="fas fa-exclamation-triangle icon-message mr-2"></i>
+                    ¿Esta seguro que desea eliminar este usuario?
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class=" btn btn-danger" data-dismiss="modal" (click)="delete()">Sí</button>
+                <button class="btn btn-primary text-white" data-dismiss="modal">No</button>
+            </div>
+
+        </div>
+    </div>
+</div> -->
+<!-- /Modal warning-->

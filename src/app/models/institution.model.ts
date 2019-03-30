@@ -5,6 +5,7 @@ export class Institution {
     public website:String;
     public telephone:String;
     public city:String;
+    public used:Boolean;
 
     constructor(
     ){}

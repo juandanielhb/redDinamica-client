@@ -18,6 +18,7 @@ import { ProfessionsComponent } from './basicData/professions/professions.compon
 import { FilterPipe } from './pipes/filter.pipe';
 
 
+
 @NgModule({
     declarations: [
         AdminComponent,
@@ -29,7 +30,8 @@ import { FilterPipe } from './pipes/filter.pipe';
         KnowledgeAreasComponent,
         ProfessionsComponent,
         UsersComponent,
-        FilterPipe
+        FilterPipe,
+        
     ],
     imports: [
         CommonModule,

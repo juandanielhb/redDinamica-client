@@ -21,3 +21,12 @@ section .container{
     font-family: 'Comfortaa', cursive;
 }
 
+.badge-purple{
+    background-color: #6610f2; 
+    color: white;
+}
+
+.badge-orange {
+    background-color: #fd7e14;
+    color: white;
+}

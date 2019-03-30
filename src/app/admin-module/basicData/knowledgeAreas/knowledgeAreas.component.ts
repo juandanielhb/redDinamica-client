@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
-import { KnowledgeArea } from 'src/app/models/knowledge-area.model';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { BasicDataService } from 'src/app/services/basicData.service';
 import { ActivatedRoute, Router } from '@angular/router';
+
+import { BasicDataService } from 'src/app/services/basicData.service';
+
+import { KnowledgeArea } from 'src/app/models/knowledge-area.model';
 
 @Component({
     selector: 'knowledgeAreas',
@@ -32,7 +34,6 @@ export class KnowledgeAreasComponent {
     public total; // Total of records
     public prevPage;
     public nextPage;
-    public pagesArray = new Array(this.total);
 
     // Filter
     public filter;
@@ -47,6 +48,7 @@ export class KnowledgeAreasComponent {
         this.areaForm = new FormGroup({
             areaName: new FormControl('', [Validators.required])
         });
+
         this.editAreaForm = new FormGroup({
             areaName: new FormControl('', [Validators.required])            
         });
@@ -60,10 +62,16 @@ export class KnowledgeAreasComponent {
         this.getAllAreas();        
     }
 
+    // Get controls form
     get f() { return this.areaForm.controls; }
 
     get f2() { return this.editAreaForm.controls; }  
 
+    setAdd(){
+        this.status = null;
+        this.submitted = false;
+    }
+    
     onSubmit() {
         this.submitted = true;
 
@@ -124,11 +132,14 @@ export class KnowledgeAreasComponent {
 
     public tempArea;
     setEditArea(area){
+        this.status = null;
+        this.submitted = false;
         this.tempArea = area;
         this.editAreaForm.patchValue({areaName:this.tempArea.name}); 
     }
 
     onEditSubmit() {
+        this.status = null;
         this.submitted = true;
         
         if (this.editAreaForm.invalid) {
@@ -180,7 +191,7 @@ export class KnowledgeAreasComponent {
     actualPage(){
         this._route.params.subscribe(params => {
            let page = +params['page'];
-           console.log(page);
+           
            this.page = page;
 
            if(!page){

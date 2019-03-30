@@ -12,6 +12,7 @@ import { GLOBAL } from '../services/global';
 export class ProfileComponent implements OnInit {
     public title:string = 'Perfil';
     public url:string;
+    public categories;
     public menuOptions;
     public ownProfile;
 
@@ -20,16 +21,16 @@ export class ProfileComponent implements OnInit {
     ){
         this.url = GLOBAL.url;
         this.menuOptions = PROFILE_MENU;
+        this.categories = LABEL_PROFILE;
     }
 
     ngOnInit(): void {
         this.ownProfile = this._userService.getIdentity();        
-        this.ownProfile.role = LABEL_PROFILE[this.ownProfile.role];
     }
 
     ngDoCheck(): void {
         this.ownProfile = this._userService.getIdentity();
-        this.ownProfile.role = LABEL_PROFILE[this.ownProfile.role];
+        
     }
 
 }

@@ -32,8 +32,6 @@ export class ProfessionsComponent implements OnInit {
     public total; // Total of records
     public prevPage;
     public nextPage;
-    public pagesArray = new Array(this.total);
-
 
     // Filter
     public filter;
@@ -65,6 +63,10 @@ export class ProfessionsComponent implements OnInit {
 
     get f2() { return this.editProfessionForm.controls; }
 
+    setAdd(){
+        this.status = null;
+    }
+    
     onSubmit() {
         this.submitted = true;
         
@@ -125,11 +127,14 @@ export class ProfessionsComponent implements OnInit {
 
     public tempProfession;
     setEditProfession(profession){
+        this.status = null;
+        this.submitted = false;
         this.tempProfession = profession;
         this.editProfessionForm.patchValue({professionName:this.tempProfession.name}); 
     }
 
     onEditSubmit() {
+        this.status = null;
         this.submitted = true;
         
         if (this.editProfessionForm.invalid) {
@@ -139,9 +144,8 @@ export class ProfessionsComponent implements OnInit {
         this.profession.name = this.editProfessionForm.value.professionName;
 
         this._bDService.editProfession(this.tempProfession._id,this.profession).subscribe(
-            response => {
-                
-                if (response.area && response.area._id) {
+            response => {                
+                if (response.profession && response.profession._id) {
                     this.status = 'success';
                     this.submitted = false;
                     this.getProfessions(this.page);
@@ -181,7 +185,7 @@ export class ProfessionsComponent implements OnInit {
     actualPage(){
         this._route.params.subscribe(params => {
            let page = +params['page'];
-           console.log(page);
+
            this.page = page;
 
            if(!page){

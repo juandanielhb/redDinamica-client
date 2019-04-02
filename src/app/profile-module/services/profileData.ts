@@ -52,69 +52,75 @@ export const PROFILE_MENU = [
     //         }
     //     ]
     // },
-    {
-        "id": "lessonsProfile",
-        "buttonClass": "btn-warning",
-        "iconClass": "fa-file-alt",
-        "spanContent": "Lecciones",
-        "routerLink": "/perfil/lecciones",
-        "subOptions": [
-            {
-                "text": "Ciudades",
-                "routerLink": "/admin/ciudades"
-            },
-            {
-                "text": "Instituciones",
-                "routerLink": "/admin/instituciones"
-            },
-            {
-                "text": "Áreas de conocimiento",
-                "routerLink": "/admin/areas"
-            }
-        ]
-    },
+    // {
+    //     "id": "lessonsProfile",
+    //     "buttonClass": "btn-warning",
+    //     "iconClass": "fa-file-alt",
+    //     "spanContent": "Lecciones",
+    //     "routerLink": "/perfil/lecciones",
+    //     "subOptions": [
+    //         {
+    //             "text": "Ciudades",
+    //             "routerLink": "/admin/ciudades"
+    //         },
+    //         {
+    //             "text": "Instituciones",
+    //             "routerLink": "/admin/instituciones"
+    //         },
+    //         {
+    //             "text": "Áreas de conocimiento",
+    //             "routerLink": "/admin/areas"
+    //         }
+    //     ]
+    // },
     
 ];
 
 export const FIELDS_FORM = [
     {
-        id: "editName",
+        id: "name",
         label: "Nombres",
         type: "text",
         attr: "name"        
     },
     {
-        id: "editSurname",
+        id: "surname",
         label: "Apellidos",
         type: "text",
         attr: "surname"        
     },
     {
-        id: "editAbout",
+        id: "about",
         label: "Descripción",
         type: "textarea",
         attr: "about"        
     },
     {
-        id: "editCity",
+        id: "city",
         label: "Ciudad",
-        type: "text",
-        attr: "city"        
+        type: "select",
+        attr: "city",
+        required: false,
+        autocomplete: true                    
     },
     {
-        id: "editProfession",
+        id: "profession",
         label: "Profesión",
-        type: "text",
-        attr: "profession"        
+        type: "select",
+        attr: "profession",
+        required: false,
+        autocomplete: true            
     },
     {
-        id: "editInstitution",
+        id: "institution",
         label: "Institución",
-        type: "text",
-        attr: "institution"        
+        type: "select",
+        attr: "institution",
+        required: false,
+        autocomplete: true                    
     },
     {
-        id: "editPostgraduate",
+        id: "postgraduate",
         label: "Postgrados",
         type: "textarea",
         attr: "postgraduate"        

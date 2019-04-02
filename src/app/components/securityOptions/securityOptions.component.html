@@ -1,0 +1,148 @@
+<!-- Security options -->
+<div class="container my-3">
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="m-0 text-primary font-weight-bolder">{{title}}</h3>
+        </div>
+        <div class="card-body">
+
+            <div class="card">
+                <form [formGroup]="editPassword" (ngSubmit)="onSubmit()">
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            Cambiar contraseña
+                        </h4>
+                        <div *ngIf="status === 'error'; successMessage" class="alert alert-danger fade show text-center"
+                            role="alert">
+                            <i class="fas fa-times-circle icon-message mr-2"></i>
+                            No se ha podido cambiar la contraseña.
+                        </div>
+
+                        <div *ngIf="status === 'success'; successMessage"
+                            class="alert alert-success fade show text-center" role="alert">
+                            <i class="fas fa-check-circle icon-message mr-2"></i>
+                            La contraseña se ha cambiado correctamente.
+
+                        </div>
+
+
+
+                        <div *ngFor="let field of fieldsForm" class="form-group row">
+                            <label for="{{field.id}}" class="col-3 col-form-label">
+                                {{field.label}}<span *ngIf="field.required">*</span>
+                            </label>
+
+                            <div class="col-4">
+                                <input type="password" class="form-control" id="{{field.id}}"
+                                    formControlName="{{field.id}}"
+                                    [ngClass]="{ 'is-invalid': submitted && f[field.id].errors}"
+                                    placeholder="{{field.placeholder}}">
+                                <div *ngIf="submitted && f[field.id].errors" class="invalid-feedback">
+                                    <div *ngIf="f[field.id].errors.required">
+                                        El campo {{field.label.toLowerCase()}} es obligatorio.
+                                    </div>                                    
+                                    <div *ngIf="field.id == 'newPassword' && f[field.id].errors.minlength">
+                                        La contraseña debe tener mínimo {{passwordMinLength}} caracteres.
+                                    </div>
+                                    <div *ngIf="field.id == 'confirmPassword' && f[field.id].errors.mustMatch">
+                                        Las contraseñas no coinciden.
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class=" btn btn-warning">Cambiar contraseña</button>
+                    </div>
+
+                </form>
+            </div>
+            <div class="card my-3">
+
+                <div class="card-body">
+                    <h4 class="card-title">
+                        Eliminar cuenta
+                    </h4>
+                    <div class="card-text">
+                        Aquí puedes eliminar tu cuenta de usuario en RedDinámica.
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class=" btn btn-danger" data-toggle="modal" data-target="#delete">Eliminar
+                        cuenta</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- Security options -->
+
+<!--  Confirm password Modal -->
+<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="delete" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteTitle">Eliminar cuenta de usuario</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form (ngSubmit)="onDeleteAccount()">
+                <div class="modal-body">
+
+                    <div *ngIf="deleteStatus === 'error'" class="alert alert-danger fade show text-center" role="alert">
+                        <i class="fas fa-times-circle icon-message mr-2"></i>
+                        La contraseña ingresada no es correcta.
+                    </div>
+
+                    <div *ngIf="deleteStatus === 'error2'" class="alert alert-danger fade show text-center" role="alert">
+                            <i class="fas fa-times-circle icon-message mr-2"></i>
+                            No ha sido posible eliminar la cuenta de usuario. Por favor comunicate con el administrador de RedDinámica.
+                        </div>
+
+                    <div *ngIf="deleteStatus === 'success'" class="alert alert-success fade show text-center" role="alert">
+                        <i class="fas fa-check-circle icon-message mr-2"></i>
+                        Tu cuenta se ha eliminado correctamente.
+                    </div>
+
+                    <p>
+                        Por tu seguridad, por favor ingresa tu contraseña de inicio de sesiòn.
+                    </p>
+
+                    <div class="form-group row">
+                        <label for="password" class="col-3 col-form-label">
+                            Contraseña*
+                        </label>
+
+                        <div class="col-9">
+                            <input type="password" class="form-control" id="password" [formControl]="password"
+                                [ngClass]="{ 'is-invalid': deleteSubmitted && password.errors}"
+                                placeholder="Contraseña">
+                            <div *ngIf="deleteSubmitted && password.errors" class="invalid-feedback">
+                                <div *ngIf="password.errors.required">
+                                    La contraseña es obligatoria.
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary text-white" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-danger">
+                        Eliminar cuenta</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+<!--  /Confirm password Modal -->

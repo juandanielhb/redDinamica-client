@@ -98,13 +98,13 @@
                         <span class="mx-1">Inicio</span>                        
                     </a>
                 </li>
-                <li class="nav-item d-flex align-items-center">
+                <!-- <li class="nav-item d-flex align-items-center">
                     <a [routerLink]="['/registro']" class="nav-link btn btn-primary  d-flex align-items-center">  
                         <i class="fas fa-envelope" style="font-size:1.5em"></i>
                         <span class="mx-1">Mensajes</span>
                         <span class="badge badge-pill badge-info">10</span>
                     </a>
-                </li>
+                </li> -->
                 <!-- <li class="nav-item d-flex align-items-center">
                     <a [routerLink]="['/registro']" class="nav-link btn btn-primary">
                         Notificaciones
@@ -120,15 +120,11 @@
                 </button>
                 <div class="dropdown-menu dropdown-menu-lg-right">
 
-                    <button class="dropdown-item" type="button">
-                        Tus Lecciones
-                    </button>
-                    <button class="dropdown-item" type="button">
-                        Tus grupos
-                    </button>
-                    <div class="dropdown-divider"></div>
-                    <button *ngIf="['admin', 'delegated_admin'].includes(identity.role)" class="dropdown-item" type="button" [routerLink]="['/admin']">
+                    <button *ngIf="['admin', 'delegated_admin'].includes(identity.role)"  class="dropdown-item" type="button" [routerLink]="['/admin']">
                         Panel de administración
+                    </button>
+                    <button  class="dropdown-item" type="button" [routerLink]="['/seguridad']">
+                        Opciones de seguridad
                     </button>
                     <div class="dropdown-divider"></div>
                     <button class="dropdown-item" type="button" (click)="logout()">

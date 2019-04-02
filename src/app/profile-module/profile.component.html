@@ -38,9 +38,9 @@
                                 </span>
                             </h4>
                             <p class="card-text">
-                                {{ownProfile.profession}} <br>
-                                {{ownProfile.institution}} <br>
-                                {{ownProfile.city}}
+                               <small *ngIf="ownProfile.profession">{{ownProfile.profession.name}}</small>  <br>
+                               <small *ngIf="ownProfile.institution">{{ownProfile.institution.name}}</small>  <br>
+                               <small *ngIf="ownProfile.city">{{ownProfile.city.name}}, {{ownProfile.city.state}}, {{ownProfile.city.country}}</small> 
                             </p>
                         </div>
 
@@ -104,15 +104,7 @@
 
 
             <div class="col-12 rounded overflow-hidden pr-0">
-
-
-
-
                 <router-outlet></router-outlet>
-
-
-
-
             </div>
         </div>
     </section>

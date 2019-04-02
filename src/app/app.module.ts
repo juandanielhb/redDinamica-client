@@ -26,8 +26,10 @@ import { ResourcesComponent } from './components/resources/resources.component';
 import { UploadService } from './services/upload.service';
 
 // Guards
-import { AdminGuard } from './services/admin.guard';
+import { AdminGuard } from './guards/admin.guard';
 import { BasicDataService } from './services/basicData.service';
+import { SecurityOptionsComponent } from './components/securityOptions/securityOptions.component';
+import { Location } from '@angular/common';
 
 
 @NgModule({
@@ -41,6 +43,7 @@ import { BasicDataService } from './services/basicData.service';
     ProfileComponent,
     ResourcesComponent,
     SearchComponent,    
+    SecurityOptionsComponent
 
   ],
   imports: [
@@ -53,14 +56,16 @@ import { BasicDataService } from './services/basicData.service';
     HomeModule,
     AdminModule,
     LessonModule,    
-    ProfileModule
+    ProfileModule,
+    NgSelectModule
   ],
   providers: [
     appRoutingProviders,    
     UserService,
     UploadService,
     BasicDataService,
-    AdminGuard
+    AdminGuard,
+    Location
   ],
   bootstrap: [AppComponent]
 })

@@ -10,6 +10,7 @@ import { EditInfoComponent } from './editInfo/editInfo.component';
 import { InfoComponent } from './info/info.component';
 import { LessonsComponent } from './lessons/lessons.component';
 import { FollowsComponent } from './follows/follows.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 
 @NgModule({
@@ -19,13 +20,15 @@ import { FollowsComponent } from './follows/follows.component';
         InfoComponent,
         LessonsComponent,
         FollowsComponent
+        
     ],
     imports: [
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
         HttpClientModule,
-        ProfileRoutingModule
+        ProfileRoutingModule,
+        NgSelectModule
     ],
     exports: [
         ProfileComponent

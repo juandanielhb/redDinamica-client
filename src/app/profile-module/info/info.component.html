@@ -6,13 +6,23 @@
     
     
                 <div *ngFor="let field of fieldsForm" class="row">
-                    <label for="{{field.id}}" class="col-2">
+                    <label *ngIf="identity[field.attr]" for="{{field.id}}" class="col-2">
                         <strong> {{field.label}}:</strong>
                     </label>
                     <div class="col-10">
-                        <p id="{{field.id}}">
+                        <p *ngIf="identity[field.attr] && field.type == 'text'" id="{{field.id}}">
                             {{identity[field.attr]}}
                         </p>   
+                        <p *ngIf="identity[field.attr] && field.type == 'select' && field.autocomplete && field.id != 'city'" id="{{field.id}}">
+                            {{identity[field.attr].name}}
+                        </p>
+                        <p *ngIf="identity[field.attr] && field.type == 'select' && field.autocomplete && field.id == 'city'" id="{{field.id}}">
+                            {{identity[field.attr].name}}, {{identity[field.attr].state}}, {{identity[field.attr].country}}
+                        </p>
+                        <p *ngIf="field.type == 'textarea'" id="{{field.id}}">
+                            {{identity[field.attr]}}
+                        </p>
+
                     </div>
                 </div>               
     

@@ -57,6 +57,26 @@ export class UserService {
         return this._http.put(this.url+'user-update/'+ user._id, params, {headers:headers});
     }
 
+    validatePass(user):Observable<any>{
+        let params = JSON.stringify(user);
+        let headers = new HttpHeaders({
+            'Content-Type':'application/json', 
+            'Authorization': this.getToken()
+        });
+
+        return this._http.post(this.url + 'validate-password', params, {headers:headers});
+    }
+
+    changePass(user):Observable<any>{
+        let params = JSON.stringify(user);
+        let headers = new HttpHeaders({
+            'Content-Type':'application/json', 
+            'Authorization': this.getToken()
+        });
+
+        return this._http.post(this.url + 'change-password', params, {headers:headers});
+    }
+
     getUsers(page = null):Observable<any>{
         let headers = new HttpHeaders({
             'Content-Type':'application/json', 

@@ -8,6 +8,7 @@ import { RecoverPasswordComponent } from './components/recoverPassword/recoverPa
 import { ProfileComponent } from './components/profile/profile.component';
 import { SearchComponent } from './components/search/search.component';
 import { ResourcesComponent } from './components/resources/resources.component';
+import { SecurityOptionsComponent } from './components/securityOptions/securityOptions.component';
 
 
 const routes: Routes = [
@@ -19,6 +20,7 @@ const routes: Routes = [
     { path: 'perfil', component: ProfileComponent },
     { path: 'recursos', component: ResourcesComponent },
     { path: 'buscar', component: SearchComponent },
+    { path: 'seguridad', component: SecurityOptionsComponent },
     { path: '**', component: LandingComponent }
 ];
 

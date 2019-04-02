@@ -30,3 +30,8 @@ section .container{
     background-color: #fd7e14;
     color: white;
 }
+
+.rounded-circle img {
+    background-color:white;    
+    object-fit: cover;
+}

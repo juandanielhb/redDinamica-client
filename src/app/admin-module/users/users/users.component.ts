@@ -123,6 +123,7 @@ export class UsersComponent {
         this.getAllProfessions();
         this.actualPage();
 
+        
        
     }
 

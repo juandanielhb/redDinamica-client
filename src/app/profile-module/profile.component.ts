@@ -25,7 +25,11 @@ export class ProfileComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.ownProfile = this._userService.getIdentity();        
+        this.ownProfile = this._userService.getIdentity();  
+        this.ownProfile.city = null;
+        this.ownProfile.profession = null;
+        this.ownProfile.institution = null;
+        
     }
 
     ngDoCheck(): void {

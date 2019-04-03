@@ -2,13 +2,15 @@ import { Component } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 
 import { FIELDS_FORM } from '../services/profileData';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { User } from 'src/app/models/user.model';
 import { UploadService } from 'src/app/services/upload.service';
 import { GLOBAL } from 'src/app/services/global';
 import { BasicDataService } from 'src/app/services/basicData.service';
-import { NgSelectConfig } from '@ng-select/ng-select';
-import { ActivatedRoute, Router } from '@angular/router';
+
+import { City } from 'src/app/models/city.model';
+import { Profession } from 'src/app/models/profession.model';
+import { Institution } from 'src/app/models/institution.model';
 
 @Component({
     selector: 'editInfo',
@@ -20,11 +22,20 @@ export class EditInfoComponent {
     public url:string;
     public token:string;
     public identity;
-    public userEditForm:FormGroup;
-    public fieldsForm;
-    public user:User = new User();
-    public status:string;
+    public addCity = false;
+    public fieldsForm;    
+    
     public filesToUpload:Array<File>;
+    
+    public status;
+    public city = new City();
+    public profession = new Profession('');
+    public institution = new Institution();
+    public state;
+    public country;
+    public editForm:FormGroup;
+    public user;
+    
     public items;
     public allCities;
     public allProfessions;
@@ -34,19 +45,23 @@ export class EditInfoComponent {
         private _formBuilder: FormBuilder,
         private _userService: UserService,
         private _uploadService: UploadService,
-        private _bDService:BasicDataService,
-        private config: NgSelectConfig,
-        private _route: ActivatedRoute,
-        private _router: Router,
-
+        private _bDService:BasicDataService
     ) {
-        this.url = GLOBAL.url;
+
+        this.title = 'Editar perfil';
         this.identity = this._userService.getIdentity();                
+        this.url = GLOBAL.url;
+
         this.user = this._userService.getIdentity();
         this.token = this._userService.getToken();
-        this.title = 'Editar perfil';
+
+
+
         this.fieldsForm = FIELDS_FORM;
         this.filesToUpload = [];
+
+        this.state = new FormControl('');
+        this.country = new FormControl('');
         this.items = {
             city: [],
             institution: [],
@@ -54,15 +69,13 @@ export class EditInfoComponent {
         };
     }
 
-    ngDoCheck(): void {
-    }
 
     ngOnInit(): void {
         this.getAllCities();
         this.getAllInstitutions();
         this.getAllProfessions();
-
-        this.userEditForm = this._formBuilder.group({
+        
+        this.editForm = this._formBuilder.group({
             name: this.identity.name,
             surname: this.identity.surname,
             about: this.identity.about,
@@ -74,57 +87,108 @@ export class EditInfoComponent {
         });
     }
     
-    onSubmit(){
-        this.user.name = this.userEditForm.value.name;
-        this.user.surname = this.userEditForm.value.surname;
-        this.user.about = this.userEditForm.value.about;
-        this.user.postgraduate = this.userEditForm.value.postgraduate;
+    async onSubmit(){
+        console.log(this.user);
 
-        if(this.userEditForm.value.city){
-            this.user.city = this.userEditForm.value.city._id;
+        this.user.name = this.editForm.value.name;
+        this.user.surname = this.editForm.value.surname;
+        this.user.about = this.editForm.value.about;
+        this.user.postgraduate = this.editForm.value.postgraduate;
+
+        if(this.editForm.value.city){
+            this.user.city = this.editForm.value.city._id;
         }
 
-        if(this.userEditForm.value.profession){
-            this.user.profession = this.userEditForm.value.profession._id;
+        if(this.editForm.value.profession){
+            this.user.profession = this.editForm.value.profession._id;
         }
 
-        if(this.userEditForm.value.institution){
-            this.user.institution = this.userEditForm.value.institution._id;
+        if(this.editForm.value.institution){
+            this.user.institution = this.editForm.value.institution._id;
         }
 
-        console.log(this.user)
-        this._userService.updateUser(this.user).subscribe(
-            response => {
-                
-                if(!response.user){
-                    this.status = 'error';
-                }else{
-                    this.identity = response.user;
-                    this.status = 'success';
-                    localStorage.setItem('identity', JSON.stringify(this.identity));
+        if (!this.user.city && this.editForm.value.city) {
 
-                    if(this.filesToUpload.length > 0){
+            this.city.name = this.editForm.value.city.name;
+            this.city.state = this.state.value;
+            this.city.country = this.country.value;
+            this.city.used = true;
 
-                        //Upload profile imaage
-                        this._uploadService.makeFileRequest(
-                            this.url+'upload-image-user/'+ this.identity._id,
-                        [],
-                        this.filesToUpload,
-                        this.token,
-                        'image'
-                        ).then((result:any)=>{
-                            this.identity.picture = result.user.picture;
-                            localStorage.setItem('identity', JSON.stringify(this.identity));
-                        });
-                    }
-                }
-            },
-            error => {
-                this.status = 'error';
-                console.log(<any>error);
+            let responseAddCity = await this._bDService.addCity(this.city).toPromise();
+
+            if (responseAddCity.city && responseAddCity.city._id) {
+                this.user.city = responseAddCity.city._id;
+                this.state.reset();
+                this.country.reset();
+            } else {
+                console.log(<any>responseAddCity);
             }
-        );
 
+            localStorage.removeItem('cities');
+            this.getAllCities();
+        }
+
+        if (!this.user.profession && this.editForm.value.profession) {
+
+            this.profession.name = this.editForm.value.profession.name;
+            this.profession.used = true;
+
+            let responseAddProfession = await this._bDService.addProfession(this.profession).toPromise();
+
+            if (responseAddProfession.profession && responseAddProfession.profession._id) {
+                this.user.profession = responseAddProfession.profession._id;
+            } else {
+                console.log(<any>responseAddProfession);
+            }
+
+            localStorage.removeItem('professions');
+            this.getAllProfessions();
+        }
+
+        if (!this.user.institution && this.editForm.value.institution) {
+
+            this.institution.name = this.editForm.value.institution.name;
+            this.institution.used = true;
+
+            let responseAddinstitution = await this._bDService.addInstitution(this.institution).toPromise();
+            if (responseAddinstitution.institution && responseAddinstitution.institution._id) {
+                this.user.institution = responseAddinstitution.institution._id;
+            } else {
+                console.log(<any>responseAddinstitution);
+            }
+            localStorage.removeItem('institutions');
+            this.getAllInstitutions();
+        }
+
+        console.log(this.user);
+        let response = await this._userService.updateUser(this.user).toPromise().catch((error) => {
+            this.status = "error";
+            console.log(<any>error);
+        });
+
+        if (response.user && response.user._id) {
+            this.identity = response.user;
+            this.status = 'success';
+            localStorage.setItem('identity', JSON.stringify(this.identity));
+
+            if(this.filesToUpload.length > 0){
+
+                //Upload profile imaage
+                this._uploadService.makeFileRequest(
+                    this.url+'upload-image-user/'+ this.identity._id,
+                [],
+                this.filesToUpload,
+                this.token,
+                'image'
+                ).then((result:any)=>{
+                    this.identity.picture = result.user.picture;
+                    localStorage.setItem('identity', JSON.stringify(this.identity));
+                });
+            }
+            
+        } else {
+            this.status = "error";
+        }
     }
 
     fileChangeEvent(fileInput:any){
@@ -191,4 +255,13 @@ export class EditInfoComponent {
         }
         this.items.institution = this.allInstitutions;
     }
+
+    addCityData(e, controlName) {
+        if (e && !e._id && controlName == "city") {
+            this.addCity = true;
+        } else {
+            this.addCity = false;
+        }
+    }
+
 }

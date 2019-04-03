@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component  } from '@angular/core';
 
 
 
@@ -6,16 +6,12 @@ import { Component, OnInit } from '@angular/core';
     selector: 'footer_rd',
     templateUrl: './footer.component.html'    
 })
-export class FooterComponent implements OnInit {
+export class FooterComponent {
     public title:string;
     
 
     constructor() { 
         this.title = 'Footer Component';
         
-    }
-
-    ngOnInit(){
-        console.log("Inicializado " + this.title);
     }
 }

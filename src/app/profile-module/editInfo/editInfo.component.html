@@ -21,7 +21,7 @@
             </button>
         </div>
 
-        <form [formGroup]="userEditForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+        <form [formGroup]="editForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
             <div class="form-group row align-items-end">
                 <label for="profileImage" class="col-3 col-form-label">
                     <strong>Foto de perfil</strong>
@@ -30,11 +30,6 @@
                     <input type="file" class="form-control" name="image" id="profileImage"
                         formControlName="profileImage" (change)="fileChangeEvent($event)">
                 </div>
-                <!-- <div class="col-auto">
-                    <div class="picture rounded-circle border-4 overflow-hidden" *ngIf="identity.picture && identity.picture != null">
-                        <img class="img-fluid" src="{{this.url+'get-image-user/'+identity.picture}}">                    
-                    </div>
-                </div> -->
             </div>
 
             <div *ngFor="let field of fieldsForm" class="form-group row">
@@ -51,11 +46,18 @@
 
                     <ng-select *ngIf="field.type == 'select' && field.autocomplete" [items]="items[field.id]"
                         bindLabel="name" [addTag]="true" addTagText="Agregar {{field.label}}"
-                        formControlName="{{field.id}}" placeholder="{{field.label}}">
+                        formControlName="{{field.id}}" placeholder="{{field.label}}"
+                        (change)="addCityData($event, field.id)">
                         <ng-template *ngIf="field.id == 'city'" ng-option-tmp let-item="item">
                             {{item.name}}, {{item.state}}, {{item.country}}
                         </ng-template>
                     </ng-select>
+
+                    <input *ngIf="field.id == 'city' && addCity" type="text" class="form-control" id="state"
+                        [formControl]="state" placeholder="Departamento/Estado/Provincia" autocomplete="off">
+
+                    <input *ngIf="field.id == 'city' && addCity" type="text" class="form-control" id="country"
+                        [formControl]="country" placeholder="Pais" autocomplete="off" >
 
                 </div>
             </div>

@@ -220,7 +220,7 @@
 <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-            <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+            <form [formGroup]="editForm" (ngSubmit)="onEditSubmit()">
                 <div class="modal-header">
                     <h5 class="modal-title" id="editTitle">Editar usuario</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -230,13 +230,13 @@
 
 
                 <div class="modal-body">
-                    <div *ngIf="status === 'error'; successMessage" class="alert alert-danger fade show text-center"
+                    <div *ngIf="editStatus === 'error'; successMessage" class="alert alert-danger fade show text-center"
                         role="alert">
                         <i class="fas fa-times-circle icon-message mr-2"></i>
                         El usuario fue editado correctamente.
                     </div>
 
-                    <div *ngIf="status === 'success'; successMessage" class="alert alert-success fade show text-center"
+                    <div *ngIf="editStatus === 'success'; successMessage" class="alert alert-success fade show text-center"
                         role="alert">
                         <i class="fas fa-check-circle icon-message mr-2"></i>
                         El usuario no ha podido ser editado correctamente.
@@ -252,7 +252,7 @@
 
                             <input *ngIf="field.type == 'text'" type="text" class="form-control" id="{{field.id}}"
                                 formControlName="{{field.id}}"
-                                [ngClass]="{ 'is-invalid': submitted && f[field.id].errors}"
+                                [ngClass]="{ 'is-invalid': editSubmitted && f2[field.id].errors}"
                                 (keydown)="onKeydown($event)" readonly>
 
                             <textarea *ngIf="field.type === 'textarea'" class="form-control" id="experience" rows="3"
@@ -261,7 +261,7 @@
 
                             <select *ngIf="field.type == 'select' && !field.autocomplete" size="{{categories.length}}"
                                 formControlName="{{field.id}}" class="form-control" id="{{field.id}}"
-                                [ngClass]="{ 'is-invalid': submitted && f[field.id].errors}">
+                                [ngClass]="{ 'is-invalid': editSubmitted && f2[field.id].errors}">
                                 <option *ngFor="let category of categories" value="{{category.value}}">
                                     {{category.label}}</option>
                             </select>
@@ -281,29 +281,3 @@
 </div>
 <!-- /Modal edit-->
 
-<!-- Modal warning -->
-<!-- <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="delete" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deleteTitle">Eliminar usuario</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-
-            <div class="modal-body">
-                <div class="alert alert-warning mb-0" role="alert">
-                    <i class="fas fa-exclamation-triangle icon-message mr-2"></i>
-                    ¿Esta seguro que desea eliminar este usuario?
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class=" btn btn-danger" data-dismiss="modal" (click)="delete()">Sí</button>
-                <button class="btn btn-primary text-white" data-dismiss="modal">No</button>
-            </div>
-
-        </div>
-    </div>
-</div> -->
-<!-- /Modal warning-->

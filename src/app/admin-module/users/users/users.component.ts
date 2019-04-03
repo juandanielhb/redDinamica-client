@@ -30,7 +30,9 @@ export class UsersComponent {
     public openItem;
 
     public submitted = false;
+    public editSubmitted = false;
     public status;
+    public editStatus;
     public addForm;
     public city = new City();
     public profession = new Profession('');
@@ -61,11 +63,9 @@ export class UsersComponent {
 
     constructor(
         private _bDService: BasicDataService,
-        private _userService: UserService,
-        private config: NgSelectConfig,
+        private _userService: UserService,        
         private _route: ActivatedRoute,
-        private _router: Router,
-        private _formBuilder: FormBuilder
+        private _router: Router,        
     ) {
 
         this.title = 'Usuarios';
@@ -108,27 +108,20 @@ export class UsersComponent {
         };
 
         this.filter = new FormControl();
-        
+
     }
 
-    ngDoCheck(): void {
-        //Called every time that the input properties of a component or a directive are checked. Use it to extend change detection by performing a custom check.
-        //Add 'implements DoCheck' to the class.
-        
-    }
     ngOnInit(): void {
         this.getAllUsers();
         this.getAllCities();
         this.getAllInstitutions();
         this.getAllProfessions();
         this.actualPage();
-
-        
-       
     }
 
     // Get controls form
     get f() { return this.addForm.controls; }
+    get f2() { return this.editForm.controls; }
 
     getAllCities() {
 
@@ -181,8 +174,10 @@ export class UsersComponent {
     }
 
     setAdd() {
-        this.status = null;
-        this.submitted = false;
+        if (!this.status) {
+            this.status = null;
+            this.submitted = false;
+        }
         this.items.city = this.allCities;
         this.items.institution = this.allInstitutions;
         this.items.profession = this.allProfessions;
@@ -199,19 +194,20 @@ export class UsersComponent {
         this.user.surname = this.addForm.value.surname;
         this.user.email = this.addForm.value.email;
 
-        if(this.addForm.value.city){
+        if (this.addForm.value.city) {
             this.user.city = this.addForm.value.city._id;
         }
 
-        if(this.addForm.value.profession){
+        if (this.addForm.value.profession) {
             this.user.profession = this.addForm.value.profession._id;
         }
 
-        if(this.addForm.value.institution){
+        if (this.addForm.value.institution) {
             this.user.institution = this.addForm.value.institution._id;
         }
 
         this.user.role = this.addForm.value.category;
+
 
         if (!this.user.city && this.addForm.value.city) {
 
@@ -224,10 +220,13 @@ export class UsersComponent {
 
             if (responseAddCity.city && responseAddCity.city._id) {
                 this.user.city = responseAddCity.city._id;
+                this.state.reset();
+                this.country.reset();
             } else {
                 console.log(<any>responseAddCity);
             }
 
+            localStorage.removeItem('cities');
             this.getAllCities();
         }
 
@@ -244,6 +243,7 @@ export class UsersComponent {
                 console.log(<any>responseAddProfession);
             }
 
+            localStorage.removeItem('professions');
             this.getAllProfessions();
         }
 
@@ -258,7 +258,7 @@ export class UsersComponent {
             } else {
                 console.log(<any>responseAddinstitution);
             }
-
+            localStorage.removeItem('institutions');
             this.getAllInstitutions();
         }
 
@@ -277,6 +277,8 @@ export class UsersComponent {
 
         this.getUsers(this.page);
         this.getAllUsers();
+        this.setAdd();
+
     }
 
     public tempUser;
@@ -285,25 +287,23 @@ export class UsersComponent {
         let profession;
         let institution;
 
-        this.status = null;
-        this.submitted = false;
-
+        this.editStatus = null;
+        this.editSubmitted = false;
 
         this.tempUser = user;
+        this.user = null;
 
-        if(this.tempUser.city){
-           city = `${this.tempUser.city.name}, ${this.tempUser.city.state}, ${this.tempUser.city.country}`;
+        if (this.tempUser.city) {
+            city = `${this.tempUser.city.name}, ${this.tempUser.city.state}, ${this.tempUser.city.country}`;
         }
-        
 
-        if(this.tempUser.profession){
+        if (this.tempUser.profession) {
             profession = this.tempUser.profession.name;
         }
 
-        if(this.tempUser.institution){
+        if (this.tempUser.institution) {
             institution = this.tempUser.institution.name;
         }
-
 
         this.editForm.patchValue({
             name: this.tempUser.name,
@@ -316,6 +316,39 @@ export class UsersComponent {
             category: this.tempUser.role
         });
 
+
+    }
+
+    onEditSubmit() {
+        this.submitted = true;
+
+        if (this.editForm.invalid) {
+            return;
+        }
+
+
+        this.user = this.tempUser;
+        this.user.city = this.tempUser.city._id;
+        this.user.institution = this.tempUser.institution._id;
+        this.user.profession = this.tempUser.profession._id;
+        this.user.role = this.editForm.value.category;
+
+        this._userService.updateUser(this.user).subscribe(
+            response => {
+                if (response.user && response.user._id) {
+                    this.editStatus = 'success';
+                    this.getUsers(this.page);
+                    this.getAllUsers();
+
+                } else {
+                    this.editStatus = 'error';
+                }
+            },
+            error => {
+                this.editStatus = 'error';
+                console.log(<any>error);
+            }
+        )
     }
 
     actualPage() {
@@ -364,17 +397,16 @@ export class UsersComponent {
         this._userService.getAllUsers().subscribe(
             response => {
                 if (response.users) {
-                    this.allUsers = response.users;   
-                    
-                    if(this.selectedCategory.length > 0)
-                    {
+                    this.allUsers = response.users;
+
+                    if (this.selectedCategory.length > 0) {
                         this.selectedCategory.forEach((category) => {
-                            filteredUsers = filteredUsers.concat(this.allUsers.filter((user)=>{
+                            filteredUsers = filteredUsers.concat(this.allUsers.filter((user) => {
                                 return user.role == category;
                             }));
                         });
 
-                        this.allUsers = filteredUsers;         
+                        this.allUsers = filteredUsers;
 
                     }
                 }
@@ -426,11 +458,11 @@ export class UsersComponent {
         }
     }
 
-    setCategory(category){
-        if(this.selectedCategory.indexOf(category) >= 0){
-            this.selectedCategory.splice(this.selectedCategory.indexOf(category),1);
-        }else{
-            this.selectedCategory.push(category);  
+    setCategory(category) {
+        if (this.selectedCategory.indexOf(category) >= 0) {
+            this.selectedCategory.splice(this.selectedCategory.indexOf(category), 1);
+        } else {
+            this.selectedCategory.push(category);
         }
 
         this.getAllUsers();

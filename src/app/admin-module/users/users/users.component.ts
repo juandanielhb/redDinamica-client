@@ -3,7 +3,6 @@ import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms'
 import { User } from 'src/app/models/user.model';
 
 import { BasicDataService } from 'src/app/services/basicData.service';
-import { NgSelectConfig } from '@ng-select/ng-select';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ADD_FIELDS_FORM, CATEGORIES_ADMIN, CATEGORIES, LABEL_PROFILE, EDIT_FIELDS_FORM } from '../services/usersData';
 import { UserService } from 'src/app/services/user.service';
@@ -235,6 +234,8 @@ export class UsersComponent {
             this.profession.name = this.addForm.value.profession.name;
             this.profession.used = true;
 
+            
+
             let responseAddProfession = await this._bDService.addProfession(this.profession).toPromise();
 
             if (responseAddProfession.profession && responseAddProfession.profession._id) {
@@ -252,6 +253,7 @@ export class UsersComponent {
             this.institution.name = this.addForm.value.institution.name;
             this.institution.used = true;
 
+            console.log(this.institution)
             let responseAddinstitution = await this._bDService.addInstitution(this.institution).toPromise();
             if (responseAddinstitution.institution && responseAddinstitution.institution._id) {
                 this.user.institution = responseAddinstitution.institution._id;

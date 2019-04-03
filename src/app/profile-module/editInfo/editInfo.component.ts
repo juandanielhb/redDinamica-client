@@ -88,7 +88,6 @@ export class EditInfoComponent {
     }
     
     async onSubmit(){
-        console.log(this.user);
 
         this.user.name = this.editForm.value.name;
         this.user.surname = this.editForm.value.surname;
@@ -160,7 +159,7 @@ export class EditInfoComponent {
             this.getAllInstitutions();
         }
 
-        console.log(this.user);
+        
         let response = await this._userService.updateUser(this.user).toPromise().catch((error) => {
             this.status = "error";
             console.log(<any>error);
@@ -185,6 +184,10 @@ export class EditInfoComponent {
                     localStorage.setItem('identity', JSON.stringify(this.identity));
                 });
             }
+
+            this.getAllCities();
+            this.getAllInstitutions();
+            this.getAllProfessions();
             
         } else {
             this.status = "error";
@@ -193,9 +196,7 @@ export class EditInfoComponent {
 
     fileChangeEvent(fileInput:any){
         this.filesToUpload = <Array<File>>fileInput.target.files;
-        console.log(this.filesToUpload);
     }
-
     
     getAllCities() {        
         this.allCities = JSON.parse(localStorage.getItem('cities'));

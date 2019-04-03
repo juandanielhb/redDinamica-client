@@ -24,11 +24,10 @@ export class BasicDataService {
     addInstitution(institution:Institution):Observable<any>{
         let params = JSON.stringify(institution);
         let headers = new HttpHeaders({
-            'Content-Type':'application/json', 
-            'Authorization': this.getToken()
-        });
-
-        return this._http.post(this.url+'institution', params, {headers:headers});
+            'Content-Type':'application/json'            
+        });   
+        
+        return this._http.post(this.url + 'institution', params, {headers:headers});
     }
     
     getInstitutions(page = null):Observable<any>{        
@@ -41,12 +40,7 @@ export class BasicDataService {
     }   
     
     getAllInstitutions():Observable<any>{     
-        let headers = new HttpHeaders({
-            'Content-Type':'application/json', 
-            'Authorization': this.getToken()
-        });
-
-        return this._http.get(this.url + 'all-institutions', {headers:headers});
+        return this._http.get(this.url + 'all-institutions');
     }   
 
     editInstitution(institutionId, institution:Institution):Observable<any>{        
@@ -142,7 +136,7 @@ export class BasicDataService {
             'Authorization': this.getToken()
         });
 
-        return this._http.get(this.url+'all-areas', {headers:headers});
+        return this._http.get(this.url + 'all-areas', {headers:headers});
     }   
 
     editKnowledgeArea(areaId, area:KnowledgeArea):Observable<any>{        
@@ -166,11 +160,8 @@ export class BasicDataService {
 
     // *************** Professions methods *********************************
     addProfession(profession:Profession):Observable<any>{
-        let params = JSON.stringify(profession);
-        let headers = new HttpHeaders({
-            'Content-Type':'application/json', 
-            'Authorization': this.getToken()
-        });
+        let params = JSON.stringify(profession); 
+        let headers = new HttpHeaders({'Content-Type':'application/json'});      
 
         return this._http.post(this.url+'profession', params, {headers:headers});
     }  

@@ -9,7 +9,8 @@
                             {{title}}
                         </h2>
 
-                        <div *ngIf="message" class="mx-4 alert alert-danger alert-dismissible fade show text-center" role="alert">
+                        <div *ngIf="message" class="mx-4 alert alert-danger alert-dismissible fade show text-center"
+                            role="alert">
                             {{message}}
                             <a [routerLink]="['/login']" class="alert-link">
                                 Inicia sesión
@@ -88,50 +89,46 @@
                                     </div>
                                 </div>
 
+
+
                                 <div class="form-group col-12">
-                                    <label for="profession">Profesión*</label>
-                                    <input type="profession" class="form-control" id="profession"
-                                        placeholder="Profesión" formControlName="profession" class="form-control"
-                                        [ngClass]="{ 'is-invalid': submitted && f.profession.errors }">
-                                    <div *ngIf="submitted && f.profession.errors" class="invalid-feedback">
-                                        <div *ngIf="f.profession.errors.required">
-                                            El campo profesión es obligatorio.
-                                        </div>
-                                    </div>
+                                    <label for="profession">Profesión</label>
+                                    <ng-select [items]="items.profession" bindLabel="name" [addTag]="true"
+                                        addTagText="Agregar profesión" formControlName="profession"
+                                        placeholder="Profesión">
+                                    </ng-select>
                                 </div>
 
                                 <div class="form-group col-12">
-                                    <label for="institution">Institución*</label>
-                                    <input type="institution" class="form-control" id="institution"
-                                        placeholder="Institución" formControlName="institution" class="form-control"
-                                        [ngClass]="{ 'is-invalid': submitted && f.institution.errors }">
-                                    <div *ngIf="submitted && f.institution.errors" class="invalid-feedback">
-                                        <div *ngIf="f.institution.errors.required">
-                                            El campo institución es obligatorio.
-                                        </div>
-                                    </div>
+                                    <label for="institution">Institución</label>
+                                    <ng-select [items]="items.institution" bindLabel="name" [addTag]="true"
+                                        addTagText="Agregar institución" formControlName="institution"
+                                        placeholder="Profesión">
+                                    </ng-select>
                                 </div>
+
+
 
                             </div>
 
-                            <div class="modal fade" id="help" tabindex="-1" role="dialog"
-                                aria-labelledby="helpTitle" aria-hidden="true">
+                            <div class="modal fade" id="help" tabindex="-1" role="dialog" aria-labelledby="helpTitle"
+                                aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
-                                            <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalCenterTitle">
-                                                        Tipos de usuarios RedDinámica
-                                                    </h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    Cuatro tipos de usuarios de la RedDinámica de aprendizaje colaborativo
-                                                </div>
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalCenterTitle">
+                                                Tipos de usuarios RedDinámica
+                                            </h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Cuatro tipos de usuarios de la RedDinámica de aprendizaje colaborativo
+                                        </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"                              data-dismiss="modal">
-                                            Cerrar
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                Cerrar
                                             </button>
                                         </div>
                                     </div>
@@ -145,7 +142,7 @@
                                         <i class="fas fa-question-circle"></i>
                                     </a>
                                 </label>
-                                
+
                                 <select size=4 formControlName="category" class="form-control" id="category">
                                     <option value="expert">Facilitador</option>
                                     <option value="teacher">Docente</option>
@@ -159,16 +156,16 @@
                                 <textarea class="form-control" id="experience" rows="3"
                                     placeholder="Describe tu experiencia" formControlName="experience">
                                     </textarea>
-                                            <small id="experienceHelp" class="form-text text-muted">
-                                                    Por favor describa brevemente su experiencia como 
-                                                    <span *ngIf="f.category.value=='expert'; else teacher">
-                                                            profesional en dinámica de sistemas.
-                                                        </span>
-                                                        <ng-template #teacher>
-                                                            <span>docente.</span>
-                                                        </ng-template>
+                                <small id="experienceHelp" class="form-text text-muted">
+                                    Por favor describa brevemente su experiencia como
+                                    <span *ngIf="f.category.value=='expert'; else teacher">
+                                        profesional en dinámica de sistemas.
+                                    </span>
+                                    <ng-template #teacher>
+                                        <span>docente.</span>
+                                    </ng-template>
 
-                                                  </small>
+                                </small>
 
                             </div>
 

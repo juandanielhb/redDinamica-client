@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/user.model';
 import { Router } from '@angular/router';
+import { BasicDataService } from 'src/app/services/basicData.service';
 
 
 
@@ -16,18 +17,23 @@ export class LoginComponent implements OnInit {
     public emailFound: boolean;
     public submitted = false;
     public loginForm: FormGroup;
-    public user: User;
+    public user;
     public identity;
     public token;
+
+
+    public allProfessions = [];
+    public allInstitutions = [];
 
     constructor(
         private _formBuilder: FormBuilder,
         private _userService: UserService,
-        private _router:Router
+        private _bDService: BasicDataService,
+        private _router: Router
     ) {
         this.user = new User();
         this.title = 'Iniciar sesión';
-        
+
     }
 
     ngOnInit() {
@@ -53,28 +59,33 @@ export class LoginComponent implements OnInit {
         this._userService.signup(this.user).subscribe(
             response => {
                 this.identity = response.user;
-                console.log(this.identity);
+
                 if (!this.identity || !this.identity._id) {
                     this.invalid = true;
                     this.emailFound = response.email;
-                    
+
                 } else {
                     localStorage.setItem('identity', JSON.stringify(this.identity));
 
                     this._userService.signup(this.user, true).subscribe(
                         response => {
                             this.token = response.token;
-                            
+
                             if (this.token.length <= 0) {
                                 this.invalid = true;
-                            }else{
+                            } else {
                                 localStorage.setItem('token', this.token);
+
+                                this.getAllInstitutions();
+                                this.getAllProfessions();
+
                                 this._router.navigate(['/inicio']);
+
                             }
                         },
                         error => {
                             console.log(<any>error);
-                            this.invalid = true;                            
+                            this.invalid = true;
                         }
                     );
                 }
@@ -85,5 +96,38 @@ export class LoginComponent implements OnInit {
                 this.invalid = true;
             }
         );
+    }
+
+    getAllProfessions() {
+        this.allProfessions = JSON.parse(localStorage.getItem('professions'));
+
+        if (!this.allProfessions) {
+            this._bDService.getAllProfessions().subscribe(
+                response => {
+                    if (response.professions) {
+                        this.allProfessions = response.professions;
+                        localStorage.setItem('professions', JSON.stringify(this.allProfessions));
+                    }
+                }, error => {
+                    console.log(<any>error);
+                });
+        }
+    }
+
+
+    getAllInstitutions() {
+        this.allInstitutions = JSON.parse(localStorage.getItem('institutions'));
+
+        if (!this.allInstitutions) {
+            this._bDService.getAllInstitutions().subscribe(
+                response => {
+                    if (response.institutions) {
+                        this.allInstitutions = response.institutions;
+                        localStorage.setItem('institutions', JSON.stringify(this.allInstitutions));
+                    }
+                }, error => {
+                    console.log(<any>error);
+                });
+        }
     }
 }

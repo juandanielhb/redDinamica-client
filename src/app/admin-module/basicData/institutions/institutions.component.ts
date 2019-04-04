@@ -76,6 +76,7 @@ export class InstitutionsComponent {
         this.allCities = JSON.parse(localStorage.getItem('cities'));
         if(!this.allCities){
             this.getAllCities();
+            
         }
 
         this.actualPage();
@@ -90,6 +91,7 @@ export class InstitutionsComponent {
 
     setAdd(){
         this.status = null;
+        this.submitted = false;
         this.items = { institutionCity: this.allCities};
     }
 
@@ -140,6 +142,7 @@ export class InstitutionsComponent {
             response=>{       
                 if(response.institutions){
                     this.allInstitutions = response.institutions;
+                    localStorage.setItem('institutions', JSON.stringify(this.allInstitutions));
                 }
             },error=>{
                 console.log(<any>error);
@@ -259,6 +262,7 @@ export class InstitutionsComponent {
                 if(response.cities){
                     this.allCities = response.cities;
                     localStorage.setItem('cities', JSON.stringify(this.allCities));
+                    this.items.institutionCity = this.allCities;
                 }
             },error=>{
                 console.log(<any>error);

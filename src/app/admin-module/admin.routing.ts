@@ -11,7 +11,8 @@ import { ProfessionsComponent } from './basicData/professions/professions.compon
 import { KnowledgeAreasComponent } from './basicData/knowledgeAreas/knowledgeAreas.component';
 import { NewUsersComponent } from './users/newUsers/newUsers.component';
 import { UsersComponent } from './users/users/users.component';
-import { AdminGuard } from '../guards/admin.guard';
+import { AdminGuard } from './guards/admin.guard';
+
 
 const adminRoutes: Routes = [
     {

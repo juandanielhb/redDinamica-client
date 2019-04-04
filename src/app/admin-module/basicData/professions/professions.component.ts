@@ -65,6 +65,7 @@ export class ProfessionsComponent implements OnInit {
 
     setAdd(){
         this.status = null;
+        this.submitted = false;
     }
     
     onSubmit() {
@@ -103,6 +104,7 @@ export class ProfessionsComponent implements OnInit {
             response=>{
                 if(response.professions){
                     this.allProfessions = response.professions;
+                    localStorage.setItem('professions', JSON.stringify(this.allProfessions));
                 }
             },error=>{
                 console.log(<any>error);

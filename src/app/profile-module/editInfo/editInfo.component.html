@@ -28,7 +28,7 @@
                 </label>
                 <div class="col">
                     <input type="file" class="form-control" name="image" id="profileImage"
-                        formControlName="profileImage" (change)="fileChangeEvent($event)">
+                        formControlName="profileImage" enctype="multipart/form-data" (change)="fileChangeEvent($event)">
                 </div>
             </div>
 

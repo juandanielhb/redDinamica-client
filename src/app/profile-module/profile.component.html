@@ -17,9 +17,12 @@
                                         <img class="img-fluid" src="{{this.url+'get-image-user/'+ ownProfile.picture}}"> 
                                     </div>
                                 </div>
-                                <div class="mt-2">
-                                    <button type="submit" class="btn btn-danger" [routerLink]="['/perfil/editar']">
+                                <div class="mt-2">                                    
+                                    <button *ngIf="identity._id == ownProfile._id" type="submit" class="btn btn-danger" [routerLink]="['/perfil/', ownProfile._id, 'editar']">
                                         Editar perfil
+                                    </button>
+                                    <button *ngIf="identity._id != ownProfile._id" type="submit" class="btn btn-success">
+                                        Seguir
                                     </button>
                                 </div>
 
@@ -33,7 +36,7 @@
                         <div class="col pt-5 text-white">
                             <h4 class="mb-0">
                                 <strong>{{ownProfile.name}} {{ownProfile.surname}}</strong>
-                                <span class="badge {{categories[ownProfile.role].class}}" style="position:relative; top: -15px; left: 10px">
+                                <span *ngIf="categories[ownProfile.role]" class="badge {{categories[ownProfile.role].class}}" style="position:relative; top: -15px; left: 10px">
                                 {{categories[ownProfile.role].label}}
                                 </span>
                             </h4>
@@ -44,9 +47,9 @@
                             </p>
                         </div>
 
-                        <div id="red" class="col-3 card border-0 bg-transparent p-4" [routerLink]="['/perfil/red']">
+                        <div id="red" class="col-3 card border-0 bg-transparent p-4" [routerLink]="['/perfil/', ownProfile._id, 'red']">
                             <div class="row my-auto px-4">
-                                <div class="col-6 p-1">
+                                <!-- <div class="col-6 p-1">
                                     <div class="text-center bg-white rounded-lg">
 
                                         <div class="px-1 py-3">
@@ -65,7 +68,7 @@
                                         </div>
                                     </div>
 
-                                </div>
+                                </div> -->
                             </div>
                         </div>
 
@@ -79,7 +82,7 @@
                 <div class="col-auto">
                     <div class="px-3" style="width:10rem"></div>
                 </div>
-                <div class="col py-3">
+                <div class="col-9 py-3">
                     {{ownProfile.about}}
                 </div>
             </div>
@@ -89,7 +92,7 @@
         <div class="float-left" id="profileMenu" style="display: inline-block">
             <div class="card rounded bg-light border-0">
                 <button *ngFor="let option of menuOptions, let ix = index" type="button"
-                    class="btn btn-block text-left py-2 {{option.buttonClass}}" [routerLink]="[option.routerLink]">
+                    class="btn btn-block text-left py-2 {{option.buttonClass}}" [routerLink]="[option.routerLink.replace('*id*', ownProfile._id)]">
                     <i class="text-ligth fas {{option.iconClass}}"></i>
                     <span class="ml-2"> {{option.spanContent}} </span>
                 </button>

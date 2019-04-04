@@ -53,7 +53,8 @@
     <div class="container bg-primary ">
 
         <a [routerLink]="['/inicio']" class="navbar-brand mr-2 pb-2" href="#">            
-            <img class="" src="assets/images/RDLogo.png" alt="Logo RedDinámica">
+            <img class="mr-2 d-inline" src="assets/images/RDLogo.png" alt="Logo RedDinámica">
+            <h4 class="d-inline align-middle rd font-weight-bolder">RedDinámica</h4>
         </a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
@@ -62,12 +63,12 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarColor01">
-            <form class="form-inline my-2 my-lg-0">
+            <!-- <form class="form-inline my-2 my-lg-0">
                 <input id="searchBar" class="form-control form-control-sm mr-sm-2" width="300px" type="search"
                     placeholder="Buscar" aria-label="Search">
                 <button class="btn btn-outline-success btn-sm my-2 my-sm-0 px-4" type="submit"><i
                         class="fas fa-search"></i></button>
-            </form>
+            </form> -->
             <ul class="navbar-nav ml-auto ">
                 <!-- <li class="nav-item">
                 <a  class="nav-link" href="#main">Inicio</a>
@@ -81,7 +82,7 @@
             <li class="nav-item mr-2">
                 <a class="nav-link" href="#section-3">Sección</a>
             </li> -->
-                <li [routerLink]="['/perfil']" class="nav-item " style="cursor: pointer">
+                <li [routerLink]="['/perfil', identity._id]" class="nav-item " style="cursor: pointer">
                     <a class="nav-link d-flex align-items-center">
                         <div class="rounded-circle border-1 overflow-hidden mr-2"
                             style="width: 30px; height:30px;">

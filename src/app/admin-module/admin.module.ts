@@ -15,9 +15,8 @@ import { KnowledgeAreasComponent } from './basicData/knowledgeAreas/knowledgeAre
 import { NewUsersComponent } from './users/newUsers/newUsers.component';
 import { UsersComponent } from './users/users/users.component';
 import { ProfessionsComponent } from './basicData/professions/professions.component';
+import { AdminGuard } from './guards/admin.guard';
 import { FilterPipe } from './pipes/filter.pipe';
-
-
 
 @NgModule({
     declarations: [
@@ -30,7 +29,7 @@ import { FilterPipe } from './pipes/filter.pipe';
         KnowledgeAreasComponent,
         ProfessionsComponent,
         UsersComponent,
-        FilterPipe,
+        FilterPipe
         
     ],
     imports: [
@@ -39,11 +38,12 @@ import { FilterPipe } from './pipes/filter.pipe';
         HttpClientModule,
         ReactiveFormsModule,
         NgSelectModule,
-        AdminRoutingModule
+        AdminRoutingModule,
+        
     ],
     exports: [
         AdminComponent
     ],
-    providers: [],
+    providers: [AdminGuard],
 })
 export class AdminModule { }

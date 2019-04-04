@@ -5,6 +5,12 @@ export let HOME_MENU = [
         "spanContent": "Inicio",
         "routerLink": "/inicio"
     },
+    {
+        "buttonClass": "btn-info",
+        "iconClass": "fa-users",
+        "spanContent": "Usuarios",
+        "routerLink": "/inicio/usuarios"
+    },
     // {
     //     "buttonClass": "btn-danger",
     //     "iconClass": "fa-newspaper",

@@ -4,7 +4,7 @@ import { User } from 'src/app/models/user.model';
 
 import { BasicDataService } from 'src/app/services/basicData.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ADD_FIELDS_FORM, CATEGORIES_ADMIN, CATEGORIES, LABEL_PROFILE, EDIT_FIELDS_FORM } from '../services/usersData';
+import { ADD_FIELDS_FORM, CATEGORIES, LABEL_PROFILE, EDIT_FIELDS_FORM } from './services/usersData';
 import { UserService } from 'src/app/services/user.service';
 
 import { City } from 'src/app/models/city.model';
@@ -20,6 +20,7 @@ import { GLOBAL } from 'src/app/services/global';
 export class UsersComponent {
     public title: string;
     public url;
+    
     public addFieldsForm = ADD_FIELDS_FORM;
     public editFieldsForm = EDIT_FIELDS_FORM;
     public categories;
@@ -71,10 +72,6 @@ export class UsersComponent {
         this.identity = _userService.getIdentity();
         this.categories = CATEGORIES;
         this.url = GLOBAL.url;
-
-        if (this.identity.role == 'admin') {
-            this.categories = CATEGORIES_ADMIN;
-        }
 
         this.addForm = new FormGroup({
             name: new FormControl('', Validators.required),
@@ -172,187 +169,6 @@ export class UsersComponent {
         }
     }
 
-    setAdd() {
-        if (!this.status) {
-            this.status = null;            
-        }
-        this.submitted = false;
-        this.items.city = this.allCities;
-        this.items.institution = this.allInstitutions;
-        this.items.profession = this.allProfessions;
-    }
-
-    async onSubmit() {
-        this.submitted = true;
-
-        if (this.addForm.invalid) {
-            return;
-        }
-
-        this.user.name = this.addForm.value.name;
-        this.user.surname = this.addForm.value.surname;
-        this.user.email = this.addForm.value.email;
-
-        if (this.addForm.value.city) {
-            this.user.city = this.addForm.value.city._id;
-        }
-
-        if (this.addForm.value.profession) {
-            this.user.profession = this.addForm.value.profession._id;
-        }
-
-        if (this.addForm.value.institution) {
-            this.user.institution = this.addForm.value.institution._id;
-        }
-
-        this.user.role = this.addForm.value.category;
-
-
-        if (!this.user.city && this.addForm.value.city) {
-
-            this.city.name = this.addForm.value.city.name;
-            this.city.state = this.state.value;
-            this.city.country = this.country.value;
-            this.city.used = true;
-
-            let responseAddCity = await this._bDService.addCity(this.city).toPromise();
-
-            if (responseAddCity.city && responseAddCity.city._id) {
-                this.user.city = responseAddCity.city._id;
-                this.state.reset();
-                this.country.reset();
-            } else {
-                console.log(<any>responseAddCity);
-            }
-
-            localStorage.removeItem('cities');
-            this.getAllCities();
-        }
-
-        if (!this.user.profession && this.addForm.value.profession) {
-
-            this.profession.name = this.addForm.value.profession.name;
-            this.profession.used = true;
-
-            
-
-            let responseAddProfession = await this._bDService.addProfession(this.profession).toPromise();
-
-            if (responseAddProfession.profession && responseAddProfession.profession._id) {
-                this.user.profession = responseAddProfession.profession._id;
-            } else {
-                console.log(<any>responseAddProfession);
-            }
-
-            localStorage.removeItem('professions');
-            this.getAllProfessions();
-        }
-
-        if (!this.user.institution && this.addForm.value.institution) {
-
-            this.institution.name = this.addForm.value.institution.name;
-            this.institution.used = true;
-
-
-            let responseAddinstitution = await this._bDService.addInstitution(this.institution).toPromise();
-            if (responseAddinstitution.institution && responseAddinstitution.institution._id) {
-                this.user.institution = responseAddinstitution.institution._id;
-            } else {
-                console.log(<any>responseAddinstitution);
-            }
-            localStorage.removeItem('institutions');
-            this.getAllInstitutions();
-        }
-
-        let responseAddUser = await this._userService.registerByAdmin(this.user).toPromise().catch((error) => {
-            this.status = "error";
-            console.log(<any>error);
-        });
-
-        if (responseAddUser.user && responseAddUser.user._id) {
-            this.addForm.reset();
-            this.status = "success";
-            this.submitted = false;
-        } else {
-            this.status = "error";
-        }
-
-        this.getUsers(this.page);
-        this.getAllUsers();
-        this.setAdd();
-
-    }
-
-    public tempUser;
-    setEdit(user) {
-        let city;
-        let profession;
-        let institution;
-
-        this.editStatus = null;
-        this.editSubmitted = false;
-
-        this.tempUser = user;
-        this.user = null;
-
-        if (this.tempUser.city) {
-            city = `${this.tempUser.city.name}, ${this.tempUser.city.state}, ${this.tempUser.city.country}`;
-        }
-
-        if (this.tempUser.profession) {
-            profession = this.tempUser.profession.name;
-        }
-
-        if (this.tempUser.institution) {
-            institution = this.tempUser.institution.name;
-        }
-
-        this.editForm.patchValue({
-            name: this.tempUser.name,
-            surname: this.tempUser.surname,
-            about: this.tempUser.about,
-            email: this.tempUser.email,
-            city: city,
-            profession: profession,
-            institution: institution,
-            category: this.tempUser.role
-        });
-
-
-    }
-
-    onEditSubmit() {
-        this.submitted = true;
-
-        if (this.editForm.invalid) {
-            return;
-        }
-
-
-        this.user = this.tempUser;
-        this.user.city = this.tempUser.city._id;
-        this.user.institution = this.tempUser.institution._id;
-        this.user.profession = this.tempUser.profession._id;
-        this.user.role = this.editForm.value.category;
-
-        this._userService.updateUser(this.user).subscribe(
-            response => {
-                if (response.user && response.user._id) {
-                    this.editStatus = 'success';
-                    this.getUsers(this.page);
-                    this.getAllUsers();
-
-                } else {
-                    this.editStatus = 'error';
-                }
-            },
-            error => {
-                this.editStatus = 'error';
-                console.log(<any>error);
-            }
-        )
-    }
-
     actualPage() {
         this._route.params.subscribe(params => {
             let page = +params['page'];
@@ -385,8 +201,9 @@ export class UsersComponent {
                     this.total = response.total;
                     this.pages = response.pages;
                     if (page > this.pages) {
-                        this._router.navigate(['/admin/usuarios']);
+                        this._router.navigate(['/inicio/usuarios']);
                     }
+                    
                 }
             }, error => {
                 console.log(<any>error);
@@ -409,61 +226,23 @@ export class UsersComponent {
                         });
 
                         this.allUsers = filteredUsers;
-
                     }
                 }
-
-
-
             }, error => {
                 console.log(<any>error);
             });
     }
 
-
-    onKeydown(e) {
-        if (e.keyCode === 13) {
-            // Cancel the default action, if needed
-            e.preventDefault();
-            // Trigger the button element with a click
-            document.getElementById("save").click();
-        }
-    }
-
-    removeUser(userId) {
-        this._userService.deleteUser(userId).subscribe(
-            response => {
-                if (response.user) {
-                    this.users = this.users.filter((item) => {
-                        return item._id != response.user._id;
-                    });
-                    this.getUsers(this.page);
-                    this.getAllUsers();
-                }
-
-            }, error => {
-                console.log(<any>error);
-            }
-        );
-    }
-
-
-    addToOpenItem(userId) {
-        this.openItem = userId;
-    }
-
-    addCityData(e, controlName) {
-        if (e && !e._id && controlName == "city") {
-            this.addCity = true;
-        } else {
-            this.addCity = false;
-        }
-    }
-
     setCategory(category) {
         if (this.selectedCategory.indexOf(category) >= 0) {
+            if(category == 'delegated_admin'){
+                this.selectedCategory.splice(this.selectedCategory.indexOf('admin'), 1);
+            }
             this.selectedCategory.splice(this.selectedCategory.indexOf(category), 1);
         } else {
+            if(category == 'delegated_admin'){
+                this.selectedCategory.push('admin');            
+            }
             this.selectedCategory.push(category);
         }
 

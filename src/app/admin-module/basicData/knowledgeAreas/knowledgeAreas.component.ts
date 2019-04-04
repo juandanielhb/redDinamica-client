@@ -108,6 +108,7 @@ export class KnowledgeAreasComponent {
             response=>{       
                 if(response.areas){
                     this.allAreas = response.areas;
+                    localStorage.setItem('areas', JSON.stringify(this.allAreas));
                 }
             },error=>{
                 console.log(<any>error);

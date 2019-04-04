@@ -127,15 +127,11 @@ export const CATEGORIES = [
     {
         label: "Invitado",
         value: "guest",
-    }            
-];
-
-export const CATEGORIES_ADMIN = [
-    ...CATEGORIES ,
+    },
     {
-        label: "Administrador delegado",
+        label: "Administrador",
         value: "delegated_admin",
-    }                 
+    }             
 ];
 
 export const LABEL_PROFILE = {
@@ -156,7 +152,7 @@ export const LABEL_PROFILE = {
         class:"badge-purple"
     },
     admin: {
-        label:"Administrador*",
+        label:"Administrador",
         class:"badge-green"
     },
     delegated_admin: {

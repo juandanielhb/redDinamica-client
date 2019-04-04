@@ -26,10 +26,11 @@ import { ResourcesComponent } from './components/resources/resources.component';
 import { UploadService } from './services/upload.service';
 
 // Guards
-import { AdminGuard } from './guards/admin.guard';
+
 import { BasicDataService } from './services/basicData.service';
 import { SecurityOptionsComponent } from './components/securityOptions/securityOptions.component';
 import { Location } from '@angular/common';
+import { FilterPipe } from './pipes/filter.pipe';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { Location } from '@angular/common';
     ProfileComponent,
     ResourcesComponent,
     SearchComponent,    
-    SecurityOptionsComponent
+    SecurityOptionsComponent,
+    FilterPipe
 
   ],
   imports: [
@@ -64,7 +66,6 @@ import { Location } from '@angular/common';
     UserService,
     UploadService,
     BasicDataService,
-    AdminGuard,
     Location
   ],
   bootstrap: [AppComponent]

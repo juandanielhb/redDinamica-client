@@ -2,6 +2,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { HomeComponent } from './home.component';
 import { MainComponent } from './main/main.component';
+import { UsersComponent } from './users/users.component';
 
 
 
@@ -12,7 +13,9 @@ const homeRoutes: Routes = [
         component: HomeComponent,
         children: [
             //{ path: '', redirectTo: 'add', pathMatch: 'full'},
-            { path: '', component: MainComponent}
+            { path: '', component: MainComponent},
+            { path: 'usuarios', component: UsersComponent},
+            { path: 'usuarios/:page', component: UsersComponent},
         ]
     }
 ];

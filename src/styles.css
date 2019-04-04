@@ -31,6 +31,11 @@ section .container{
     color: white;
 }
 
+.badge-green {
+    background-color: #07683b;
+    color: white;
+}
+
 .rounded-circle img {
     background-color:white;    
     object-fit: cover;

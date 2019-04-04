@@ -11,6 +11,7 @@ import { BasicDataService } from 'src/app/services/basicData.service';
 import { City } from 'src/app/models/city.model';
 import { Profession } from 'src/app/models/profession.model';
 import { Institution } from 'src/app/models/institution.model';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'editInfo',
@@ -45,7 +46,9 @@ export class EditInfoComponent {
         private _formBuilder: FormBuilder,
         private _userService: UserService,
         private _uploadService: UploadService,
-        private _bDService:BasicDataService
+        private _bDService:BasicDataService,
+        private _router:Router,
+        private _route: ActivatedRoute,
     ) {
 
         this.title = 'Editar perfil';
@@ -71,6 +74,7 @@ export class EditInfoComponent {
 
 
     ngOnInit(): void {
+        this.loadPage(); 
         this.getAllCities();
         this.getAllInstitutions();
         this.getAllProfessions();
@@ -86,6 +90,37 @@ export class EditInfoComponent {
             profileImage: ''
         });
     }
+
+    loadPage(){
+        this.identity = this._userService.getIdentity();                
+       
+        this._route.parent.params.subscribe(params => {
+            let id = params['id'];
+            
+            this.getUser(id);
+        })
+    }
+
+    getUser(userId){
+        this._userService.getUser(userId).subscribe(
+            response => {
+                if(response.user){
+                    this.identity = response.user;
+                }else{
+                    
+                    this.identity = this.identity;              
+                    // this._router.navigate(['/perfil/'+ this.identity._id]);
+                }
+
+            },
+            error => {
+                console.log(<any>error);  
+                this.identity = this.identity;              
+                // this._router.navigate(['/perfil/'+ this.identity._id]);
+            }
+        );
+    }
+
     
     async onSubmit(){
 

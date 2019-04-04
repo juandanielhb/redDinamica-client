@@ -14,15 +14,16 @@
 
         <div class="form-group">
             <form class="row">
-            <div *ngFor="let category of categories" class="col">
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="{{category.value}}" (click)="setCategory(category.value)">
-                    <label class="custom-control-label" for="{{category.value}}">
-                        {{category.label}}
-                    </label>
+                <div *ngFor="let category of categories" class="col">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="{{category.value}}"
+                            (click)="setCategory(category.value)">
+                        <label class="custom-control-label" for="{{category.value}}">
+                            {{category.label}}
+                        </label>
+                    </div>
                 </div>
-            </div>
-        </form>
+            </form>
         </div>
         <div class="form-group row">
             <div class="col">
@@ -52,7 +53,11 @@
                         </div>
 
                         <div class="col-6">
-                            <h5>{{user.name}} {{user.surname}}</h5>
+
+                            <a class="text-primary" [routerLink]="[ '/perfil', user._id ]">
+                                <h5>{{user.name}} {{user.surname}}</h5>
+                            </a>
+
 
                             <span
                                 class="badge {{labelProfile[user.role].class}}">{{labelProfile[user.role].label}}</span>
@@ -89,7 +94,9 @@
                         </div>
 
                         <div class="col-6">
-                            <h5>{{user.name}} {{user.surname}}</h5>
+                            <a class="text-primary" [routerLink]="[ '/perfil', user._id ]">
+                                <h5>{{user.name}} {{user.surname}}</h5>
+                            </a>
 
                             <span
                                 class="badge {{labelProfile[user.role].class}}">{{labelProfile[user.role].label}}</span>
@@ -236,8 +243,8 @@
                         El usuario fue editado correctamente.
                     </div>
 
-                    <div *ngIf="editStatus === 'success'; successMessage" class="alert alert-success fade show text-center"
-                        role="alert">
+                    <div *ngIf="editStatus === 'success'; successMessage"
+                        class="alert alert-success fade show text-center" role="alert">
                         <i class="fas fa-check-circle icon-message mr-2"></i>
                         El usuario no ha podido ser editado correctamente.
 
@@ -280,4 +287,3 @@
     </div>
 </div>
 <!-- /Modal edit-->
-

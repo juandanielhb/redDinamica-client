@@ -114,6 +114,15 @@ export class UserService {
         return this._http.delete(this.url + 'user/' + userId, {headers:headers});
     }
 
+    getUser(userId):Observable<any>{
+        let headers = new HttpHeaders({
+            'Content-Type':'application/json', 
+            'Authorization': this.getToken()
+        });
+
+        return this._http.get(this.url + 'user/' + userId, {headers:headers});
+    }
+
     getIdentity(){
         let identity = JSON.parse(localStorage.getItem('identity'));
 
@@ -138,6 +147,8 @@ export class UserService {
         return this.token;
 
     }
+
+
 
 
 

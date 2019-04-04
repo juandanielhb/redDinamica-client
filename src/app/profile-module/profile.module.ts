@@ -11,6 +11,8 @@ import { InfoComponent } from './info/info.component';
 import { LessonsComponent } from './lessons/lessons.component';
 import { FollowsComponent } from './follows/follows.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { ProfileGuard } from './guards/profile.guard';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 
 
 @NgModule({
@@ -29,10 +31,13 @@ import { NgSelectModule } from '@ng-select/ng-select';
         HttpClientModule,
         ProfileRoutingModule,
         NgSelectModule
+        
     ],
     exports: [
         ProfileComponent
     ],
-    providers: [],
+    providers: [
+        ProfileGuard,        
+    ],
 })
 export class ProfileModule { }

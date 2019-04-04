@@ -67,6 +67,7 @@ export class CitiesComponent {
 
     setAdd(){
         this.status = null;
+        this.submitted = false;
     }
     
     onSubmit() {
@@ -85,8 +86,8 @@ export class CitiesComponent {
 
                 if (response.city && response.city._id) {
                     this.status = 'success';
-                    this.cityForm.reset();
-                    this.submitted = false;
+                    this.cityForm.reset();                    
+                    this.submitted = false;                    
                     this.getCities(this.page);
                     this.getAllCities();     
 
@@ -109,6 +110,7 @@ export class CitiesComponent {
             response=>{       
                 if(response.cities){
                     this.allCities = response.cities;
+                    localStorage.setItem('cities', JSON.stringify(this.allCities));
                 }
             },error=>{
                 console.log(<any>error);
@@ -123,8 +125,9 @@ export class CitiesComponent {
                     this.total = response.total; 
                     this.pages = response.pages;
                     if(page > this.pages){
-                        this._router.navigate(['/admin/cities']);
+                        this._router.navigate(['/admin/ciudades']);
                     }
+                    
                 }
             },error=>{
                 console.log(<any>error);

@@ -1,112 +1,115 @@
-<div class="jumbotron bg-white py-4 mb-3" >
-    <h2 class="">Bienvenido a 
+<div *ngIf="!identity.actived" class="jumbotron bg-white py-4 mb-2">
+    <h2 class="">Bienvenido a
         <strong class="display-4 text-primary font-weight-bolder rd">
             RedDinámica
         </strong>
     </h2>
-    <hr class="my-2 text-primary" style="border: 3px solid">      
-    
-</div>
-<!-- 
-<div class="media">
-        <img src="assets/images/user-default.png" class="mr-3" alt="..." style="width: 64px;">
-        <div class="media-body">
-          <h5 class="mt-0">Media heading</h5>
-          Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-        </div>
-        <div class="media-body">
-                <h5 class="mt-0">Media heading</h5>
-                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-              </div>
-      </div> -->
-
-<!-- 
-<div class="card">
-    <div class="card-header py-1">
-        <h4 class="mb-0">Últimas noticias publicadas</h4>
-    </div>
-    <div class="card-body">
-        <div class="row">
-            <div class="col-sm-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Special title treatment</h5>
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Special title treatment</h5>
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Special title treatment</h5>
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-    <div class="card-footer py-1">
-        <a href="#" class="card-link text-right">
-            <h4 class="mb-0">Todas la noticias...</h4>
-        </a>
-    </div>
-
-
+    <hr class="my-2 text-primary" style="border: 3px solid">
 </div>
 
-<div class="card border-light mb-3">
-    <div class="card-header py-1">
-        <h4 class="mb-0">Últimas lecciones publicadas</h4>
-    </div>
-    <div class="card-body">
-        <div class="row">
-            <div class="col-sm-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Special title treatment</h5>
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+<div id="new-post" class="card mb-2">
+    <form [formGroup]="postForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+        <div class="card-header">
+            <label class="card-title m-0" style="font-size: 1.5em" for="">
+                <strong>Crear publicación: </strong>
+            </label>
+        </div>
+        <div class="card-body">
+
+            <div class="form-group row mb-0 justify-content-center">
+                <div class="col-2 align-items-center">
+                    <a class="nav-link d-flex">
+                        <div class=" flex-shrink-0 rounded-circle border-1 overflow-hidden mr-2" style="width: 55px; height:55px;">
+                            <img class="img-fluid" src="{{this.url+'get-image-user/'+ identity.picture}}">
+                        </div>
+                    </a>
+                </div>
+                <div class="col-10 pl-0">
+                    <textarea class="bg-light" formControlName="textPost" class="form-control" rows="3"
+                        (change)="onChanges()" [ngClass]="{ 'is-invalid': submitted && f.textPost.errors}"></textarea>
+                    <div *ngIf="submitted && f.textPost.errors" class="invalid-feedback">
+                        <div *ngIf="f.textPost.errors.required">
+                            Es necesario escribir algo para poder crear la publicación.
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="text-right py-1 px-0 bg-transparent">
+                <div class="form-group row mb-0 d-flex align-items-center">
+                    <div class="col-9">
+                        <div *ngIf="status === 'error'; successMessage"
+                            class="alert alert-danger fade show text-center m-0" role="alert">
+                            <i class="fas fa-times-circle icon-message mr-2"></i>
+                            Hubo un error creando la publicación. Intentalo de nuevo.
+
+                        </div>
+
+                        <div *ngIf="status === 'success'; successMessage"
+                            class="alert alert-success fade show text-center m-0" role="alert">
+                            <i class="fas fa-check-circle icon-message mr-2"></i>
+                            La publicación se ha creado correctamente.
+
+                        </div>
+                    </div>
+                    <div class="col-1 bg-transparent">
+                        <label class="m-0" style="font-size: 2.2em">
+                            <i class="fas fa-image text-success" style="cursor:pointer"></i>
+                            <input formControlName="filePost" style="display:none" type="file" class="form-control"
+                                name="image" (change)="fileChangeEvent($event)">
+                        </label>
+
+                    </div>
+                    <div class="col bg-transparent">
+                        <button type="submit" class="btn btn-success btn-block">Publicar</button>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Special title treatment</h5>
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+
+        </div>
+    </form>
+</div>
+
+<section *ngFor="let publication of publications">
+    <div id="new-post" class="card mb-2">
+        <div class="card-body">
+            <div class="row justify-content-center">
+                <div class="col-1 align-items-center">
+                    <div class="picture rounded-circle border-4 overflow-hidden" style="width: 55px; height: 55px">
+                        <a class="text-primary " [routerLink]="[ '/perfil', publication.user._id ]">
+                            <img *ngIf="!publication.user.picture" class="img-fluid"
+                                src="assets/images/user-default.png">
+                            <img *ngIf="publication.user.picture" class="img-fluid"
+                                src="{{this.url+'get-image-user/'+ publication.user.picture}}">
+                        </a>
                     </div>
                 </div>
+                <div class="col-11 align-items-center">
+                <h4>
+                    <a class="text-primary " [routerLink]="[ '/perfil', publication.user._id ]">
+                        <h5 class="m-0 text-primary">{{publication.user.name}} {{publication.user.surname}}</h5>
+                    </a>
+
+                </h4>
+                <p class=" text-muted">
+                    <small>{{publication.created_at}}</small>
+                </p>
+
+                </div>  
             </div>
-            <div class="col-sm-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Special title treatment</h5>
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
+            <div class="row">
+                <div class="col">
+                    <p class="publication-text">
+                        {{publication.text}}
+                    </p>
+
                 </div>
 
             </div>
         </div>
     </div>
-    <div class="card-footer py-1">
-        <a href="#" class="card-link text-right">
-            <h4 class="mb-0">Todas la lecciones...</h4>
-        </a>
-    </div>
+</section>
 
-
-</div> -->
+<div *ngIf="!noMore" class="text-center">
+    <button class="btn btn-primary" (click)="viewMore()" >Ver más publicaciones</button>
+</div>

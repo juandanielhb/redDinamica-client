@@ -10,7 +10,7 @@ export class UserService {
     public url:string;
     public identity;
     public token;
-
+    public stats;
 
     constructor(
         private _http:HttpClient
@@ -121,6 +121,30 @@ export class UserService {
         });
 
         return this._http.get(this.url + 'user/' + userId, {headers:headers});
+    }
+
+    getStats(){
+        let stats = JSON.parse(localStorage.getItem('stats'));
+
+        if(stats != 'undefined'){
+            this.stats = stats;            
+        }else{
+            this.stats = null;
+        }
+
+    }
+
+    getCounters(userId = null):Observable<any>{
+        let headers = new HttpHeaders({
+            'Content-Type':'application/json', 
+            'Authorization': this.getToken()
+        });
+
+        if(userId){
+            return this._http.get(this.url + 'counters/' + userId, {headers:headers});
+        }else{
+            return this._http.get(this.url + 'counters', {headers:headers});
+        }
     }
 
     getIdentity(){

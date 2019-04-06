@@ -1,12 +1,12 @@
 <!-- Users -->
 <div class="card">
-    <div class="card-header bg-info">
-        <h3 class="m-0 text-primary font-weight-bolder float-left text-light">{{title}}</h3>
+    <div class="card-header">
+        <h3 class="m-0 text-primary font-weight-bolder float-left">{{title}}</h3>
         <!-- Button trigger modal add-->
 
 
     </div>
-    
+
 
     <div class="card-body">
 
@@ -39,69 +39,109 @@
 
         </div>
         <div *ngIf="!filter.value && selectedCategory.length == 0">
-            <div *ngFor="let user of users" class="card">
-                <div class="card-body">
-                    <div class="row align-items-center">
-                        <div class="col-1">
-                            <div class="picture rounded-circle border-4 overflow-hidden">
-                                <img *ngIf="!user.picture" class="img-fluid" src="assets/images/user-default.png">
-                                <img *ngIf="user.picture" class="img-fluid"
-                                    src="{{this.url+'get-image-user/'+ user.picture}}">
+            <div *ngFor="let user of users">
+                <div *ngIf="identity._id != user._id" class="card">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-2">
+                                <div class="picture rounded-circle border-4 overflow-hidden">
+                                    <img *ngIf="!user.picture" class="img-fluid" src="assets/images/user-default.png">
+                                    <img *ngIf="user.picture" class="img-fluid"
+                                        src="{{this.url+'get-image-user/'+ user.picture}}">
+                                </div>
                             </div>
+
+                            <div class="col">
+
+                                <a class="text-primary" [routerLink]="[ '/perfil', user._id ]">
+                                    <h5>{{user.name}} {{user.surname}}</h5>
+                                </a>
+
+
+                                <span
+                                    class="badge {{labelProfile[user.role].class}}">{{labelProfile[user.role].label}}</span>
+                            </div>
+
+
+                            <div class="col text-center">
+                                <button *ngIf="following.indexOf(user._id) < 0" type="button"
+                                    class="btn btn-outline-primary btn-sm" (click)="followUser(user._id)">
+                                    <i class="fas fa-plus-square mr-2"></i>
+                                    Seguir
+                                </button>
+                                <button *ngIf="following.indexOf(user._id) >= 0" type="button"
+                                    class="btn btn-primary btn-sm" (mouseenter)="mouseEnter(user._id)"
+                                    (mouseleave)="mouseLeave()" [class.btn-danger]="user._id == followUserOver"
+                                    (click)="unfollowUser(user._id)">
+                                    <span *ngIf="user._id == followUserOver; else following">
+                                        <i class="fas fa-minus-square mr-2"></i>
+                                        Dejar de seguir
+                                    </span>
+                                    <ng-template #following>
+                                        <span>
+                                            <i class="fas fa-check-square mr-2"></i>
+                                            Siguiendo
+                                        </span>
+                                    </ng-template>
+
+                                </button>
+                            </div>
+
                         </div>
 
-                        <div class="col">
-
-                            <a class="text-primary" [routerLink]="[ '/perfil', user._id ]">
-                                <h5>{{user.name}} {{user.surname}}</h5>
-                            </a>
-
-
-                            <span
-                                class="badge {{labelProfile[user.role].class}}">{{labelProfile[user.role].label}}</span>
-                        </div>
-
-                        <!-- <div class="col-5 text-center">
-                            <button type="button" class="btn btn-success btn-sm m-1">
-                                <i class="fas fa-plus-square"></i>
-                                <span class="ml-2">Seguir</span>
-                            </button>
-                        </div> -->
                     </div>
-
                 </div>
             </div>
         </div>
 
         <div *ngIf="filter.value || selectedCategory.length > 0">
-            <div *ngFor="let user of allUsers | filter: filter.value" class="card">
-                <div class="card-body">
-                    <div class="row align-items-center">
-                        <div class="col-1">
-                            <div class="picture rounded-circle border-4 overflow-hidden">
-                                <img *ngIf="!user.picture" class="img-fluid" src="assets/images/user-default.png">
-                                <img *ngIf="user.picture" class="img-fluid"
-                                    src="{{this.url+'get-image-user/'+ user.picture}}">
+            <div *ngFor="let user of allUsers | filter: filter.value">
+                <div *ngIf="identity._id != user._id" class="card">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-2">
+                                <div class="picture rounded-circle border-4 overflow-hidden">
+                                    <img *ngIf="!user.picture" class="img-fluid" src="assets/images/user-default.png">
+                                    <img *ngIf="user.picture" class="img-fluid"
+                                        src="{{this.url+'get-image-user/'+ user.picture}}">
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <a class="text-primary" [routerLink]="[ '/perfil', user._id ]">
+                                    <h5>{{user.name}} {{user.surname}}</h5>
+                                </a>
+
+                                <span
+                                    class="badge {{labelProfile[user.role].class}}">{{labelProfile[user.role].label}}</span>
+                            </div>
+
+                            <div class="col text-center">
+                                <button *ngIf="following.indexOf(user._id) < 0" type="button"
+                                    class="btn btn-outline-primary btn-sm" (click)="followUser(user._id)">
+                                    <i class="fas fa-plus-square mr-2"></i>
+                                    Seguir
+                                </button>
+                                <button *ngIf="following.indexOf(user._id) >= 0" type="button"
+                                    class="btn btn-primary btn-sm" (mouseenter)="mouseEnter(user._id)"
+                                    (mouseleave)="mouseLeave()" [class.btn-danger]="user._id == followUserOver"
+                                    (click)="unfollowUser(user._id)">
+                                    <span *ngIf="user._id == followUserOver; else following">
+                                        <i class="fas fa-minus-square mr-2"></i>
+                                        Dejar de seguir
+                                    </span>
+                                    <ng-template #following>
+                                        <span>
+                                            <i class="fas fa-check-square mr-2"></i>
+                                            Siguiendo
+                                        </span>
+                                    </ng-template>
+
+                                </button>
                             </div>
                         </div>
 
-                        <div class="col">
-                            <a class="text-primary" [routerLink]="[ '/perfil', user._id ]">
-                                <h5>{{user.name}} {{user.surname}}</h5>
-                            </a>
-
-                            <span
-                                class="badge {{labelProfile[user.role].class}}">{{labelProfile[user.role].label}}</span>
-                        </div>
-
-                        <!-- <div class="col-5 text-center">
-                            <button type="button" class="btn btn-success btn-sm m-1">
-                                <i class="fas fa-plus-square"></i>
-                                <span class="ml-2">Seguir</span>
-                            </button>
-                        </div> -->
                     </div>
-
                 </div>
             </div>
         </div>

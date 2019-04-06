@@ -14,8 +14,11 @@ const homeRoutes: Routes = [
         children: [
             //{ path: '', redirectTo: 'add', pathMatch: 'full'},
             { path: '', component: MainComponent},
+            { path: 'post', component: MainComponent},
+            { path: 'post/:page', component: MainComponent},
             { path: 'usuarios', component: UsersComponent},
             { path: 'usuarios/:page', component: UsersComponent},
+            { path: '**', component: MainComponent}
         ]
     }
 ];

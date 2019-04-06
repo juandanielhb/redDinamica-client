@@ -1,12 +1,15 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { User } from 'src/app/models/user.model';
 
 import { BasicDataService } from 'src/app/services/basicData.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ADD_FIELDS_FORM, CATEGORIES, LABEL_PROFILE, EDIT_FIELDS_FORM } from './services/usersData';
 import { UserService } from 'src/app/services/user.service';
+import { FollowService } from 'src/app/services/follow.service';
 
+
+import { Follow } from 'src/app/models/follow.model';
+import { User } from 'src/app/models/user.model';
 import { City } from 'src/app/models/city.model';
 import { Profession } from 'src/app/models/profession.model';
 import { Institution } from 'src/app/models/institution.model';
@@ -20,6 +23,7 @@ import { GLOBAL } from 'src/app/services/global';
 export class UsersComponent {
     public title: string;
     public url;
+    public token;
     
     public addFieldsForm = ADD_FIELDS_FORM;
     public editFieldsForm = EDIT_FIELDS_FORM;
@@ -42,6 +46,8 @@ export class UsersComponent {
     public editForm;
     public user = new User();
     public users = [];
+    public following;
+    public followers;
 
     // Pagination
     public page; // Actual page
@@ -63,13 +69,15 @@ export class UsersComponent {
 
     constructor(
         private _bDService: BasicDataService,
-        private _userService: UserService,        
+        private _userService: UserService,   
+        private _followService: FollowService,     
         private _route: ActivatedRoute,
         private _router: Router,        
     ) {
 
         this.title = 'Usuarios';
         this.identity = _userService.getIdentity();
+        this.token = _userService.getToken();
         this.categories = CATEGORIES;
         this.url = GLOBAL.url;
 
@@ -197,9 +205,10 @@ export class UsersComponent {
             response => {
                 if (response.users) {
                     this.users = response.users;
-
                     this.total = response.total;
                     this.pages = response.pages;
+                    this.followers = response.followers;
+                    this.following = response.following;
                     if (page > this.pages) {
                         this._router.navigate(['/inicio/usuarios']);
                     }
@@ -217,6 +226,8 @@ export class UsersComponent {
             response => {
                 if (response.users) {
                     this.allUsers = response.users;
+                    this.followers = response.followers;
+                    this.following = response.following;
 
                     if (this.selectedCategory.length > 0) {
                         this.selectedCategory.forEach((category) => {
@@ -247,5 +258,53 @@ export class UsersComponent {
         }
 
         this.getAllUsers();
+    }
+
+    // Follower systems buttons
+    public followUserOver;
+    mouseEnter(userId){
+        this.followUserOver = userId;        
+    }
+
+    
+    mouseLeave(){
+        this.followUserOver = 0;        
+    }
+
+    followUser(userId){
+        let follow = new Follow();
+        follow.user = this.identity._id;
+        follow.followed = userId;
+
+        this._followService.addFollow(this.token, follow).subscribe(
+            response => {
+                                
+                if(response){
+                    this.following.push(response.followed);
+                }
+                
+            },
+            error => {
+                console.log(<any>error);
+            }
+        )
+    }
+
+    unfollowUser(userId){
+        let index;
+
+        this._followService.removeFollow(this.token, userId).subscribe(
+            response => {
+                index = this.following.indexOf(response.followed);
+                
+                if(index != -1){
+                    this.following.splice(index,1);
+                }
+                
+            },
+            error => {
+                console.log(<any>error);
+            }
+        )
     }
 }

@@ -1,11 +1,13 @@
 .rounded-circle {
-    width: 60px; 
-    height: 60px; 
+    width: 80px; 
+    height: 80px; 
     background-color: whitesmoke; 
-    border: 4px solid white;    
+    
 }
 
 .rounded-circle img {
     object-fit: cover;
     height: 100%;
+    width: 100%;
 }
+

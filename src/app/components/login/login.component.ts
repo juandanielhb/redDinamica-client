@@ -78,6 +78,7 @@ export class LoginComponent implements OnInit {
 
                                 this.getAllInstitutions();
                                 this.getAllProfessions();
+                                this.getCounters();
 
                                 this._router.navigate(['/inicio']);
 
@@ -129,5 +130,17 @@ export class LoginComponent implements OnInit {
                     console.log(<any>error);
                 });
         }
+    }
+
+    getCounters() {
+        this._userService.getCounters().subscribe(
+            response => {
+                if(response){
+                    localStorage.setItem('stats', JSON.stringify(response));
+                }
+            },
+            error => {
+                console.log(<any>error);
+            });
     }
 }

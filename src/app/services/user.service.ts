@@ -105,13 +105,19 @@ export class UserService {
         return this._http.get(this.url + 'new-users/'+ page, {headers:headers});
     }    
 
-    deleteUser(userId):Observable<any>{        
+    deleteUser(userId = null):Observable<any>{        
         let headers = new HttpHeaders({
             'Content-Type':'application/json', 
             'Authorization': this.getToken()
         });
 
-        return this._http.delete(this.url + 'user/' + userId, {headers:headers});
+        if(!userId){
+            return this._http.delete(this.url + 'user', {headers:headers});
+
+        }else{
+            return this._http.delete(this.url + 'user/' + userId, {headers:headers});
+
+        }
     }
 
     getUser(userId):Observable<any>{

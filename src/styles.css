@@ -8,10 +8,29 @@
     width: 100%; 
 }
 
+.img-profile-card{
+    width: 80px;
+    height: 80px;
+}
+
+.row img{
+    max-height: 350px;
+     
+}
+
+
+
+.publication-text {
+    font-size: 1em;
+}
 
 .icon-message{
     font-size: 1.5em;
 }  
+
+.line{
+    border: 1px solid #2C3E50;
+}
 
 section .container{
     padding: 64px 32px;

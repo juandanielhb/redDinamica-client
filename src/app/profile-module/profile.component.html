@@ -14,16 +14,44 @@
                             <div class="card-body " style="position: absolute; z-index: 5;">
                                 <div class="row px-4">
                                     <div class="picture rounded-circle border-4 overflow-hidden">
-                                        <img class="img-fluid" src="{{this.url+'get-image-user/'+ ownProfile.picture}}"> 
+                                        <img *ngIf="!ownProfile.picture" class="img-fluid"
+                                            src="assets/images/user-default.png">
+
+
+                                        <img *ngIf="ownProfile.picture" class="img-fluid"
+                                            src="{{this.url+'get-image-user/'+ ownProfile.picture}}">
                                     </div>
                                 </div>
-                                <div class="mt-2">                                    
-                                    <button *ngIf="identity._id == ownProfile._id" type="submit" class="btn btn-danger" [routerLink]="['/perfil/', ownProfile._id, 'editar']">
-                                        Editar perfil
+                                <div class="mt-2">
+                                    <button *ngIf="identity._id == ownProfile._id" class="btn btn-danger"
+                                        [routerLink]="['/perfil/', ownProfile._id, 'editar']"> Editar perfil
                                     </button>
-                                    <button *ngIf="identity._id != ownProfile._id" type="submit" class="btn btn-success">
+
+                                    <button *ngIf="!following && identity._id != ownProfile._id"
+                                        class="btn btn-outline-primary" (click)="followUser(ownProfile._id)">
+                                        <i class="fas fa-plus-square mr-2"></i>
                                         Seguir
                                     </button>
+                                    <button *ngIf="following" type="button" class="btn btn-primary"
+                                        (mouseenter)="mouseEnter(ownProfile._id)" (mouseleave)="mouseLeave()"
+                                        [class.btn-danger]="ownProfile._id == followUserOver"
+                                        (click)="unfollowUser(ownProfile._id)">
+                                        <span *ngIf="ownProfile._id == followUserOver; else following">
+                                            <i class="fas fa-minus-square mr-2"></i>
+                                            Dejar de seguir
+                                        </span>
+                                        <ng-template #following>
+                                            <span>
+                                                <i class="fas fa-check-square mr-2"></i>
+                                                Siguiendo
+                                            </span>
+                                        </ng-template>
+
+                                    </button>
+
+
+
+
                                 </div>
 
                             </div>
@@ -36,25 +64,34 @@
                         <div class="col pt-5 text-white">
                             <h4 class="mb-0">
                                 <strong>{{ownProfile.name}} {{ownProfile.surname}}</strong>
-                                <span *ngIf="categories[ownProfile.role]" class="badge {{categories[ownProfile.role].class}}" style="position:relative; top: -15px; left: 10px">
-                                {{categories[ownProfile.role].label}}
+                                <span *ngIf="categories[ownProfile.role]"
+                                    class="badge {{categories[ownProfile.role].class}}"
+                                    style="position:relative; top: -15px; left: 10px">
+                                    {{categories[ownProfile.role].label}}
                                 </span>
                             </h4>
                             <p class="card-text">
-                               <small *ngIf="ownProfile.profession">{{ownProfile.profession.name}}</small>  <br>
-                               <small *ngIf="ownProfile.institution">{{ownProfile.institution.name}}</small>  <br>
-                               <small *ngIf="ownProfile.city">{{ownProfile.city.name}}, {{ownProfile.city.state}}, {{ownProfile.city.country}}</small> 
+                                <small *ngIf="ownProfile.profession">{{ownProfile.profession.name}}</small> <br>
+                                <small *ngIf="ownProfile.institution">{{ownProfile.institution.name}}</small> <br>
+                                <small *ngIf="ownProfile.city">{{ownProfile.city.name}}, {{ownProfile.city.state}},
+                                    {{ownProfile.city.country}}</small>
                             </p>
                         </div>
 
-                        <div id="red" class="col-3 card border-0 bg-transparent p-4" [routerLink]="['/perfil/', ownProfile._id, 'red']">
+                        <div id="red" class="col-3 card border-0 bg-transparent p-4"
+                            [routerLink]="['/perfil/', ownProfile._id, 'red']">
                             <div class="row my-auto px-4">
-                                <!-- <div class="col-6 p-1">
+                                <div class="col-6 p-1">
                                     <div class="text-center bg-white rounded-lg">
 
                                         <div class="px-1 py-3">
-                                            <h4 class="mb-0">10</h4>
-                                            <small>Seguidos</small>
+                                            <h4 class="mb-0">{{counters.following}}</h4>
+                                            <small *ngIf="counters.following == 1; else plural">
+                                                Seguido
+                                            </small>
+                                            <ng-template #plural>
+                                                <small>Seguidos</small>
+                                            </ng-template>
                                         </div>
                                     </div>
 
@@ -63,12 +100,18 @@
                                     <div class="text-center bg-white rounded-lg">
 
                                         <div class="px-1 py-3">
-                                            <h4 class="mb-0">10</h4>
-                                            <small>Seguidores</small>
+                                            <h4 class="mb-0">{{counters.followed}}</h4>
+                                            <small *ngIf="counters.followed == 1; else plural">
+                                                Seguidor
+                                            </small>
+                                            <ng-template #plural>
+                                                <small>Seguidores</small>
+                                            </ng-template>
+
                                         </div>
                                     </div>
 
-                                </div> -->
+                                </div>
                             </div>
                         </div>
 
@@ -92,7 +135,8 @@
         <div class="float-left" id="profileMenu" style="display: inline-block">
             <div class="card rounded bg-light border-0">
                 <button *ngFor="let option of menuOptions, let ix = index" type="button"
-                    class="btn btn-block text-left py-2 {{option.buttonClass}}" [routerLink]="[option.routerLink.replace('*id*', ownProfile._id)]">
+                    class="btn btn-block text-left py-2 {{option.buttonClass}}"
+                    [routerLink]="[option.routerLink.replace('*id*', ownProfile._id)]">
                     <i class="text-ligth fas {{option.iconClass}}"></i>
                     <span class="ml-2"> {{option.spanContent}} </span>
                 </button>

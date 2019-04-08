@@ -225,6 +225,7 @@ export class UsersComponent {
         this._userService.getAllUsers().subscribe(
             response => {
                 if (response.users) {
+                    console.log(response.users)
                     this.allUsers = response.users;
                     this.followers = response.followers;
                     this.following = response.following;

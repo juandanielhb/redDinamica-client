@@ -6,6 +6,7 @@ import { InfoComponent } from './info/info.component';
 import { LessonsComponent } from './lessons/lessons.component';
 import { FollowsComponent } from './follows/follows.component';
 import { ProfileGuard } from './guards/profile.guard';
+import { PublicationsComponent } from './publications/publications.component';
 
 
 const profileRoutes: Routes = [
@@ -13,12 +14,13 @@ const profileRoutes: Routes = [
         path: 'perfil/:id',
         component: ProfileComponent,
         children: [
-            { path: '', component: InfoComponent},
+            { path: '', component: PublicationsComponent},
             { path: 'editar', component: EditInfoComponent, canActivate: [ProfileGuard]},
             { path: 'info', component: InfoComponent},
             { path: 'lecciones', component: LessonsComponent},
+            { path: 'posts', component: PublicationsComponent},
             { path: 'red', component: FollowsComponent},
-            { path: '**', component: InfoComponent},
+            { path: '**', component: PublicationsComponent},
         ]
     }
 

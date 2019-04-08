@@ -1,0 +1,233 @@
+<div *ngIf="identity._id == ownProfile._id" id="new-post" class="card mb-2">
+    <form [formGroup]="postForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+        <div class="card-header">
+            <label class="card-title m-0" style="font-size: 1.5em" for="">
+                <strong>Crear publicación: </strong>
+            </label>
+        </div>
+        <div class="card-body">
+
+            <div class="form-group row mb-0 justify-content-center">
+                <div class="col-2 align-items-center">
+                    <a class="nav-link d-flex">
+                        <div class=" flex-shrink-0 rounded-circle border-1 overflow-hidden mr-2"
+                            style="width: 55px; height:55px;">
+                            <img class="img-fluid" src="{{this.url+'get-image-user/'+ identity.picture}}">
+                        </div>
+                    </a>
+                </div>
+                <div class="col-10 pl-0">
+                    <textarea class="bg-light" formControlName="textPost" class="form-control" rows="3"
+                        (change)="onChanges()" [ngClass]="{ 'is-invalid': submitted}"></textarea>
+                    <div *ngIf="submitted && formError" class="invalid-feedback">
+                        <div *ngIf="formError">
+                            Es necesario escribir algo o cargar una imagen para poder crear la publicación.
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="text-right py-1 px-0 bg-transparent">
+                <div class="form-group row mb-0 d-flex align-items-center">
+                    <div class="col-9">
+                        <div *ngIf="status === 'error'; successMessage"
+                            class="alert alert-danger fade show text-center m-0" role="alert">
+                            <i class="fas fa-times-circle icon-message mr-2"></i>
+                            Hubo un error creando la publicación. Intentalo de nuevo.
+
+                        </div>
+
+                        <div *ngIf="status === 'success'; successMessage"
+                            class="alert alert-success fade show text-center m-0" role="alert">
+                            <i class="fas fa-check-circle icon-message mr-2"></i>
+                            La publicación se ha creado correctamente.
+
+                        </div>
+                    </div>
+                    <div class="col-1 bg-transparent">
+                        <label class="m-0" style="font-size: 2.2em">
+                            <i class="fas fa-image text-success" style="cursor:pointer"></i>
+                            <input formControlName="filePost" style="display:none" type="file" class="form-control"
+                                name="image" (change)="fileChangeEvent($event)" (click)="setUpload()">
+                        </label>
+
+                    </div>
+                    <div class="col bg-transparent">
+                        <button type="submit" class="btn btn-success btn-block">Publicar</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div>
+
+<div *ngIf="identity._id == ownProfile._id && publications.length == 0" class="card-body">
+    <h4 class="text-muted">
+        No hay publicaciones que mostrar. Comparte lo que quieras con los miembros de RedDinámica.
+        <i class="fas fa-laugh icon-message"></i>
+    </h4>
+</div>
+
+<div *ngIf="identity._id != ownProfile._id && publications.length == 0" class="card-body">
+    <h4 class="text-muted">
+        Parece que {{ownProfile.name}} no ha publicado nada aún.
+        <i class="fas fa-laugh icon-message"></i>
+    </h4>
+</div>
+
+<div *ngIf="publications.length != 0">
+    <section *ngFor="let publication of publications">
+        <div id="new-post" class="card my-3">
+            <div class="card-body">
+                <div class="row justify-content-center">
+                    <div class="col-1 align-items-center">
+                        <div class="picture rounded-circle border-4 overflow-hidden" style="width: 55px; height: 55px">
+                            <a class="text-primary " [routerLink]="[ '/perfil', ownProfile._id ]">
+                                <img *ngIf="!ownProfile.picture" class="img-fluid" src="assets/images/user-default.png">
+                                <img *ngIf="ownProfile.picture" class="img-fluid"
+                                    src="{{this.url+'get-image-user/'+ ownProfile.picture}}">
+
+                            </a>
+                        </div>
+
+                    </div>
+
+                    <div class="col align-items-center">
+                        <h4>
+                            <a class="text-primary " [routerLink]="[ '/perfil', ownProfile._id ]">
+                                <h5 class="m-0 text-primary">{{ownProfile.name}} {{ownProfile.surname}}</h5>
+                            </a>
+
+                        </h4>
+                        <small
+                            class=" text-muted">{{ (publication.created_at | amFromUnix) | amLocale:'es' | amDateFormat:'LLL' }}</small>
+
+
+                    </div>
+                    <div *ngIf="ownProfile._id == identity._id" class="col-auto">
+                        <!-- <button class="btn btn-link p-0 icon-message">
+                            <i class="fas fa-pen"></i>
+                        </button> -->
+                        <button class="btn btn-link p-0 icon-message text-danger" data-toggle="modal"
+                            data-target="#delete" (click)="setDelete(publication._id)">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="row mt-2">
+                    <div class="col">
+                        <p class="publication-text ">
+                            {{publication.text}}
+                        </p>
+                    </div>
+                </div>
+                <div *ngIf="publication.file" class="row mb-2 ">
+                    <div class="col-12 text-center">
+                        <img class="img-fluid mx-auto" src="{{this.url+'get-image-post/'+ publication.file}}">
+                    </div>
+                </div>
+
+                <div class="form-group row mt-3">
+                    <div class="col-1 align-items-center">
+                        <div class=" flex-shrink-0 rounded-circle border-1 overflow-hidden mr-2"
+                            style="width: 40px; height:40px;">
+                            <img class="img-fluid" src="{{this.url+'get-image-user/'+ identity.picture}}">
+                        </div>
+                    </div>
+                    <div class="col pl-0 align-items-center">
+                        <textarea class="bg-light" [formControl]="comment" class="form-control" rows="2"
+                            (change)="onChanges()" placeholder="Escribe un comentario..."></textarea>
+                        <div *ngIf="submitted && f.textPost.errors" class="invalid-feedback">
+                            <div *ngIf="f.textPost.errors.required">
+                                Es necesario escribir algo para poder crear la publicación.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-2 pl-0 align-items-center">
+                        <button type="submit" class="btn btn-primary btn-block">
+                            <i class="fas fa-comment-alt"></i><br>
+                            Comentar
+                        </button>
+                    </div>
+
+                </div>
+                <!-- *ngIf="publication.comments && publication.comments.length > 0" -->
+                <section class="container p-0" id="comments">
+
+                    <div class="row justify-content-center">
+                        <div class="col">
+                            <span class="text-primary"><strong>Comentarios:</strong></span>
+                            <hr class="my-1 line">
+                        </div>
+                    </div>
+
+                    <div *ngFor="let publication of [1,2,3]" class="row mt-2">
+                        <div class="col-1">
+                            <div class="flex-shrink-0 rounded-circle border-1 overflow-hidden"
+                                style="width: 40px; height:40px; background-color: aqua">
+                                <!-- <img class="img-fluid" src="{{this.url+'get-image-user/'+ identity.picture}}"> -->
+                            </div>
+                        </div>
+                        <div class="col bg-light rounded-left p-2">
+                            <h6 class="mb-1"><strong>Juan Daniel Hernández </strong> <small class="text-muted">
+                                    7/04/1212</small>
+                            </h6>
+                            <p class="card-text">
+                                Es necesario escribir algo para poder crear la publicación.
+
+                            </p>
+                        </div>
+                        <div class="col-auto bg-light rounded-right p-2 mr-3 align-items-center">
+                            <!-- <div *ngIf="ownProfile._id == identity._id" > -->
+                            <button class="btn btn-link p-0 text-dark">
+                                <i class="fas fa-pen"></i>
+                            </button>
+                            <button class="btn btn-link p-0 text-dark ml-1" data-toggle="modal" data-target="#delete"
+                                (click)="setDelete(publication._id)">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                            <!-- </div> -->
+                        </div>
+                    </div>
+
+
+                </section>
+
+
+            </div>
+        </div>
+    </section>
+</div>
+<div *ngIf="publications && publications.length > 0" class="text-center">
+    <button *ngIf="!noMore" class="btn btn-primary" (click)="viewMore()">Ver más publicaciones</button>
+</div>
+
+
+<!-- Modal warning  delete-->
+<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="delete" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteTitle">Eliminar publicación</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="alert alert-warning mb-0" role="alert">
+                    <i class="fas fa-exclamation-triangle icon-message mr-2"></i>
+                    ¿Esta seguro que desea eliminar la publicación?
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class=" btn btn-danger" data-dismiss="modal" (click)="deletePost()">Sí</button>
+                <button class="btn btn-primary text-white" data-dismiss="modal">No</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- /Modal warning delete-->

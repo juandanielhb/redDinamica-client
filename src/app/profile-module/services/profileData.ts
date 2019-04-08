@@ -1,4 +1,21 @@
-export const PROFILE_MENU = [
+export const PROFILE_MENU = [    
+    {
+        "id": "publications",
+        "buttonClass": "btn-info",
+        "iconClass": "fa-newspaper",
+        "spanContent": "Publicaciones",
+        "routerLink": "/perfil/*id*/posts",
+        "subOptions": [
+            {
+                "text": "Nuevos usuarios",
+                "routerLink": "/admin/usuarios-nuevos"
+            },
+            {
+                "text": "Todos los usuarios",
+                "routerLink": "/admin/usuarios"
+            }
+        ]
+    },
     {
         "id": "info",
         "buttonClass": "btn-success",
@@ -16,63 +33,6 @@ export const PROFILE_MENU = [
             }
         ]
     },
-    // {
-    //     "id": "newsResources",
-    //     "buttonClass": "btn-danger",
-    //     "iconClass": "fa-newspaper",
-    //     "spanContent": "Noticias y recursos",
-    //     "subOptions": [
-    //         {
-    //             "text": "Noticias",
-    //             "routerLink": "/admin/ciudades"
-    //         },
-    //         {
-    //             "text": "Recursos",
-    //             "routerLink": "/admin/instituciones"
-    //         }
-    //     ]
-    // },
-    // {
-    //     "id": "lessons",
-    //     "buttonClass": "btn-warning",
-    //     "iconClass": "fa-file-alt",
-    //     "spanContent": "Lecciones",
-    //     "subOptions": [
-    //         {
-    //             "text": "Propuestas",
-    //             "routerLink": "/admin/ciudades"
-    //         },
-    //         {
-    //             "text": "Crear convocatoria",
-    //             "routerLink": "/admin/instituciones"
-    //         },
-    //         {
-    //             "text": "Otra",
-    //             "routerLink": "/admin/areas"
-    //         }
-    //     ]
-    // },
-    // {
-    //     "id": "lessonsProfile",
-    //     "buttonClass": "btn-warning",
-    //     "iconClass": "fa-file-alt",
-    //     "spanContent": "Lecciones",
-    //     "routerLink": "/perfil/lecciones",
-    //     "subOptions": [
-    //         {
-    //             "text": "Ciudades",
-    //             "routerLink": "/admin/ciudades"
-    //         },
-    //         {
-    //             "text": "Instituciones",
-    //             "routerLink": "/admin/instituciones"
-    //         },
-    //         {
-    //             "text": "Áreas de conocimiento",
-    //             "routerLink": "/admin/areas"
-    //         }
-    //     ]
-    // },
     
 ];
 
@@ -197,11 +157,11 @@ export const LABEL_PROFILE = {
         class:"badge-purple"
     },
     admin: {
-        label:"Facilitador",
-        class:"badge-purple"
+        label:"Administrador",
+        class:"badge-green"
     },
     delegated_admin: {
-        label:"Facilitador",
-        class:"badge-purple"
+        label:"Administrador",
+        class:"badge-green"
     }
 };    

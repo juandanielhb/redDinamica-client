@@ -44,4 +44,14 @@ export class PublicationService {
 
         return this._http.get(this.url+'publications/' + page, {headers:headers});
     }
+
+    getUserPublications(token, userId, page = 1):Observable<any>{
+        let headers = new HttpHeaders({
+            'Content-Type':'application/json', 
+            'Authorization': token
+        });
+
+        return this._http.get(this.url+'user-publications/' + userId + '/' + page , {headers:headers});
+    }
+
 }

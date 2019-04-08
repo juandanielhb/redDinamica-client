@@ -20,23 +20,23 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class EditInfoComponent {
     public title: string;
-    public url:string;
-    public token:string;
+    public url: string;
+    public token: string;
     public identity;
     public addCity = false;
-    public fieldsForm;    
-    
-    public filesToUpload:Array<File>;
-    
+    public fieldsForm;
+
+    public filesToUpload: Array<File>;
+
     public status;
     public city = new City();
     public profession = new Profession('');
     public institution = new Institution();
     public state;
     public country;
-    public editForm:FormGroup;
+    public editForm: FormGroup;
     public user;
-    
+
     public items;
     public allCities;
     public allProfessions;
@@ -46,13 +46,13 @@ export class EditInfoComponent {
         private _formBuilder: FormBuilder,
         private _userService: UserService,
         private _uploadService: UploadService,
-        private _bDService:BasicDataService,
-        private _router:Router,
+        private _bDService: BasicDataService,
+        private _router: Router,
         private _route: ActivatedRoute,
     ) {
 
         this.title = 'Editar perfil';
-        this.identity = this._userService.getIdentity();                
+        this.identity = this._userService.getIdentity();
         this.url = GLOBAL.url;
 
         this.user = this._userService.getIdentity();
@@ -74,11 +74,11 @@ export class EditInfoComponent {
 
 
     ngOnInit(): void {
-        this.loadPage(); 
+        this.loadPage();
         this.getAllCities();
         this.getAllInstitutions();
         this.getAllProfessions();
-        
+
         this.editForm = this._formBuilder.group({
             name: this.identity.name,
             surname: this.identity.surname,
@@ -91,53 +91,62 @@ export class EditInfoComponent {
         });
     }
 
-    loadPage(){
-        this.identity = this._userService.getIdentity();                
-       
+
+    onChanges(): void {
+        this.editForm.valueChanges.subscribe(val => {
+            if (val) {
+                this.status = null;
+            }
+        });
+    }
+
+    loadPage() {
+        this.identity = this._userService.getIdentity();
+
         this._route.parent.params.subscribe(params => {
             let id = params['id'];
-            
+
             this.getUser(id);
         })
     }
 
-    getUser(userId){
+    getUser(userId) {
         this._userService.getUser(userId).subscribe(
             response => {
-                if(response.user){
+                if (response.user) {
                     this.identity = response.user;
-                }else{
-                    
-                    this.identity = this.identity;              
+                } else {
+
+                    this.identity = this.identity;
                     // this._router.navigate(['/perfil/'+ this.identity._id]);
                 }
 
             },
             error => {
-                console.log(<any>error);  
-                this.identity = this.identity;              
+                console.log(<any>error);
+                this.identity = this.identity;
                 // this._router.navigate(['/perfil/'+ this.identity._id]);
             }
         );
     }
 
-    
-    async onSubmit(){
+
+    async onSubmit() {
 
         this.user.name = this.editForm.value.name;
         this.user.surname = this.editForm.value.surname;
         this.user.about = this.editForm.value.about;
         this.user.postgraduate = this.editForm.value.postgraduate;
 
-        if(this.editForm.value.city){
+        if (this.editForm.value.city) {
             this.user.city = this.editForm.value.city._id;
         }
 
-        if(this.editForm.value.profession){
+        if (this.editForm.value.profession) {
             this.user.profession = this.editForm.value.profession._id;
         }
 
-        if(this.editForm.value.institution){
+        if (this.editForm.value.institution) {
             this.user.institution = this.editForm.value.institution._id;
         }
 
@@ -194,7 +203,7 @@ export class EditInfoComponent {
             this.getAllInstitutions();
         }
 
-        
+
         let response = await this._userService.updateUser(this.user).toPromise().catch((error) => {
             this.status = "error";
             console.log(<any>error);
@@ -205,42 +214,44 @@ export class EditInfoComponent {
             this.status = 'success';
             localStorage.setItem('identity', JSON.stringify(this.identity));
 
-            if(this.filesToUpload.length > 0){
+            if (this.filesToUpload.length > 0) {
 
                 //Upload profile imaage
                 this._uploadService.makeFileRequest(
-                    this.url+'upload-image-user/'+ this.identity._id,
-                [],
-                this.filesToUpload,
-                this.token,
-                'image'
-                ).then((result:any)=>{
+                    this.url + 'upload-image-user/' + this.identity._id,
+                    [],
+                    this.filesToUpload,
+                    this.token,
+                    'image'
+                ).then((result: any) => {
                     this.identity.picture = result.user.picture;
                     localStorage.setItem('identity', JSON.stringify(this.identity));
+
                 });
             }
 
             this.getAllCities();
             this.getAllInstitutions();
             this.getAllProfessions();
-            
+
+
         } else {
             this.status = "error";
         }
     }
 
-    fileChangeEvent(fileInput:any){
+    fileChangeEvent(fileInput: any) {
         this.filesToUpload = <Array<File>>fileInput.target.files;
     }
-    
-    getAllCities() {        
+
+    getAllCities() {
         this.allCities = JSON.parse(localStorage.getItem('cities'));
 
         if (!this.allCities) {
-            
+
             this._bDService.getAllCities().subscribe(
                 response => {
-                    
+
                     if (response.cities) {
                         this.allCities = response.cities;
                         localStorage.setItem('cities', JSON.stringify(this.allCities));
@@ -270,7 +281,7 @@ export class EditInfoComponent {
                 });
         }
 
-        
+
         this.items.profession = this.allProfessions;
     }
 

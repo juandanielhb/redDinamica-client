@@ -61,13 +61,16 @@ export class MainComponent implements OnInit {
         this.submitted = false;
         this.page = 1;
 
-        this.getPublications(this.page);
+        this.getPublications(1);
+
     }
 
     // Get controls form
     get f() { return this.postForm.controls; }
 
     onChanges(): void {
+        console.log(this.postForm.touched)
+
         this.postForm.get('textPost').valueChanges.subscribe(val => {
 
           if(val){
@@ -90,6 +93,10 @@ export class MainComponent implements OnInit {
                     this.total = response.total;
                     this.pages = response.pages;
                     this.itemsPerPage = response.itemsPerPage;
+
+                    if(this.page >= this.pages){
+                        this.noMore = true;
+                    }
 
                     if(!add){
                         this.publications = response.publications;
@@ -173,10 +180,10 @@ export class MainComponent implements OnInit {
     }
 
     viewMore(){
-        if(this.publications.length == this.total){
+        this.page += 1;
+
+        if(this.page >= this.pages){
             this.noMore = true;
-        }else{
-            this.page += 1;
         }
 
         this.getPublications(this.page, true);

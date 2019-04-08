@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-
+import { MomentModule } from 'ngx-moment';
 import { ProfileRoutingModule } from './profile.routing';
 
 import { ProfileComponent } from './profile.component';
@@ -13,6 +13,7 @@ import { FollowsComponent } from './follows/follows.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ProfileGuard } from './guards/profile.guard';
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { PublicationsComponent } from './publications/publications.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
         EditInfoComponent,
         InfoComponent,
         LessonsComponent,
-        FollowsComponent
+        FollowsComponent,
+        PublicationsComponent
         
     ],
     imports: [
@@ -30,7 +32,8 @@ import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
         ReactiveFormsModule,
         HttpClientModule,
         ProfileRoutingModule,
-        NgSelectModule
+        MomentModule,
+        NgSelectModule,
         
     ],
     exports: [

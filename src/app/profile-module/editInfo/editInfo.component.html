@@ -28,7 +28,7 @@
                 </label>
                 <div class="col">
                     <input type="file" class="form-control" name="image" id="profileImage"
-                        formControlName="profileImage" enctype="multipart/form-data" (change)="fileChangeEvent($event)">
+                        formControlName="profileImage" enctype="multipart/form-data" (change)="fileChangeEvent($event); onChanges()" >
                 </div>
             </div>
 
@@ -38,16 +38,16 @@
                 </label>
                 <div class="col-9">
                     <input *ngIf="field.type === 'text'" type="text" class="form-control" id="{{field.id}}"
-                        formControlName="{{field.id}}">
+                        formControlName="{{field.id}}" (change)="onChanges()">
 
                     <textarea *ngIf="field.type === 'textarea'" class="form-control" id="experience" rows="3"
-                        formControlName="{{field.id}}">
+                        formControlName="{{field.id}}" (change)="onChanges()">
                     </textarea>
 
                     <ng-select *ngIf="field.type == 'select' && field.autocomplete" [items]="items[field.id]"
                         bindLabel="name" [addTag]="true" addTagText="Agregar {{field.label}}"
                         formControlName="{{field.id}}" placeholder="{{field.label}}"
-                        (change)="addCityData($event, field.id)">
+                        (change)="addCityData($event, field.id); onChanges()">
                         <ng-template *ngIf="field.id == 'city'" ng-option-tmp let-item="item">
                             {{item.name}}, {{item.state}}, {{item.country}}
                         </ng-template>

@@ -151,7 +151,7 @@ export class SecurityOptionsComponent {
                 if (response) {
                     this.deleteStatus = 'success';                    
                     
-                    this._userService.deleteUser(this.user._id).subscribe(
+                    this._userService.deleteUser().subscribe(
                         response => {
 
                             if (response.user && response.user._id) {

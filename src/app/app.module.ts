@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { Routing, appRoutingProviders } from './app.routing';
 import { HttpClientModule } from '@angular/common/http';
+import { MomentModule } from 'ngx-moment';
 
 
 // Modules
@@ -35,6 +36,7 @@ import { FollowService } from './services/follow.service';
 import { PublicationService } from './services/publication.service';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -61,6 +63,7 @@ import { PublicationService } from './services/publication.service';
     AdminModule,
     LessonModule,    
     ProfileModule,
+    MomentModule,
     NgSelectModule
   ],
   providers: [

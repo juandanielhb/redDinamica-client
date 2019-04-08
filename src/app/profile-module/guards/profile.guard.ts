@@ -17,7 +17,9 @@ export class ProfileGuard implements CanActivate{
     canActivate(){    
         
         let identity = this._userService.getIdentity();
-        this.id = this._router.url.replace('/perfil/','');
+        let urlSegments = this._router.url.split('/');
+        
+        this.id = urlSegments[2];
 
         if(identity && this.id && (identity._id == this.id)){
             return true;

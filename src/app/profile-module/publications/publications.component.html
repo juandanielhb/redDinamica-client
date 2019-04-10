@@ -18,7 +18,7 @@
                 </div>
                 <div class="col-10 pl-0">
                     <textarea class="bg-light" formControlName="textPost" class="form-control" rows="3"
-                        (change)="onChanges()" [ngClass]="{ 'is-invalid': submitted}"></textarea>
+                        (input)="onChanges()" [ngClass]="{ 'is-invalid': submitted}"></textarea>
                     <div *ngIf="submitted && formError" class="invalid-feedback">
                         <div *ngIf="formError">
                             Es necesario escribir algo o cargar una imagen para poder crear la publicación.
@@ -48,7 +48,7 @@
                         <label class="m-0" style="font-size: 2.2em">
                             <i class="fas fa-image text-success" style="cursor:pointer"></i>
                             <input formControlName="filePost" style="display:none" type="file" class="form-control"
-                                name="image" (change)="fileChangeEvent($event)" (click)="setUpload()">
+                                name="image" (change)="fileChangeEvent($event);" (click)="setUpload()">
                         </label>
 
                     </div>
@@ -129,32 +129,29 @@
                     </div>
                 </div>
 
-                <div class="form-group row mt-3">
-                    <div class="col-1 align-items-center">
-                        <div class=" flex-shrink-0 rounded-circle border-1 overflow-hidden mr-2"
-                            style="width: 40px; height:40px;">
-                            <img class="img-fluid" src="{{this.url+'get-image-user/'+ identity.picture}}">
-                        </div>
-                    </div>
-                    <div class="col pl-0 align-items-center">
-                        <textarea class="bg-light" [formControl]="comment" class="form-control" rows="2"
-                            (change)="onChanges()" placeholder="Escribe un comentario..."></textarea>
-                        <div *ngIf="submitted && f.textPost.errors" class="invalid-feedback">
-                            <div *ngIf="f.textPost.errors.required">
-                                Es necesario escribir algo para poder crear la publicación.
+                <form [formGroup]="commentForm" (ngSubmit)="onCommentSubmit(publication._id)">
+                    <div class="form-group row mt-3">
+                        <div class="col-1 align-items-center">
+                            <div class=" flex-shrink-0 rounded-circle border-1 overflow-hidden mr-2"
+                                style="width: 40px; height:40px;">
+                                <img class="img-fluid" src="{{this.url+'get-image-user/'+ identity.picture}}">
                             </div>
                         </div>
-                    </div>
-                    <div class="col-2 pl-0 align-items-center">
-                        <button type="submit" class="btn btn-primary btn-block">
-                            <i class="fas fa-comment-alt"></i><br>
-                            Comentar
-                        </button>
-                    </div>
+                        <div class="col pl-0 align-items-center">
+                            <textarea class="bg-light" formControlName="text" class="form-control" rows="2" placeholder="Escribe un comentario..." (focus)="setFocusPublication(publication._id)"></textarea>
+                        </div>
+                        <div class="col-2 pl-0 align-items-center">
+                            <button type="submit" class="btn btn-primary btn-block" [disabled]="!commentForm.valid || focusPublication != publication._id">
+                                <i class="fas fa-comment-alt"></i><br>
+                                Comentar
+                            </button>
+                        </div>
 
-                </div>
-                <!-- *ngIf="publication.comments && publication.comments.length > 0" -->
-                <section class="container p-0" id="comments">
+                    </div>
+                </form>
+
+                <section *ngIf="publication.comments && publication.comments.length > 0" class="container p-0"
+                    id="comments">
 
                     <div class="row justify-content-center">
                         <div class="col">
@@ -163,32 +160,40 @@
                         </div>
                     </div>
 
-                    <div *ngFor="let publication of [1,2,3]" class="row mt-2">
+                    <div *ngFor="let comment of publication.comments" class="row mt-2">
                         <div class="col-1">
-                            <div class="flex-shrink-0 rounded-circle border-1 overflow-hidden"
-                                style="width: 40px; height:40px; background-color: aqua">
-                                <!-- <img class="img-fluid" src="{{this.url+'get-image-user/'+ identity.picture}}"> -->
-                            </div>
+                            <a class="text-primary" [routerLink]="[ '/perfil', comment.user._id]">
+                                <div class="flex-shrink-0 rounded-circle border-1 overflow-hidden"
+                                    style="width: 40px; height:40px;">
+                                    <img class="img-fluid" src="{{this.url+'get-image-user/'+ comment.user.picture}}">
+                                </div>
+                            </a>
                         </div>
                         <div class="col bg-light rounded-left p-2">
-                            <h6 class="mb-1"><strong>Juan Daniel Hernández </strong> <small class="text-muted">
-                                    7/04/1212</small>
+                            <h6 class="mb-1">
+                                <a class="text-primary" [routerLink]="[ '/perfil', comment.user._id]">
+                                    <strong>
+                                        {{comment.user.name}} {{comment.user.surname}}
+                                    </strong>
+                                </a>
+                                <small class=" text-muted">
+                                    {{ (comment.created_at | amFromUnix) | amLocale:'es' | amDateFormat:'LLL' }}
+                                </small>
                             </h6>
                             <p class="card-text">
-                                Es necesario escribir algo para poder crear la publicación.
-
+                                {{comment.text}}
                             </p>
                         </div>
                         <div class="col-auto bg-light rounded-right p-2 mr-3 align-items-center">
-                            <!-- <div *ngIf="ownProfile._id == identity._id" > -->
-                            <button class="btn btn-link p-0 text-dark">
+                            <div *ngIf="comment.user._id == identity._id">
+                                <!-- <button class="btn btn-link p-0 text-dark">
                                 <i class="fas fa-pen"></i>
-                            </button>
-                            <button class="btn btn-link p-0 text-dark ml-1" data-toggle="modal" data-target="#delete"
-                                (click)="setDelete(publication._id)">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                            <!-- </div> -->
+                            </button> -->
+                                <button class="btn btn-link p-0 text-dark ml-1" data-toggle="modal"
+                                    data-target="#deleteComment" (click)="setDeleteComment(comment._id)">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
 
@@ -200,6 +205,7 @@
         </div>
     </section>
 </div>
+
 <div *ngIf="publications && publications.length > 0" class="text-center">
     <button *ngIf="!noMore" class="btn btn-primary" (click)="viewMore()">Ver más publicaciones</button>
 </div>
@@ -223,7 +229,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button class=" btn btn-danger" data-dismiss="modal" (click)="deletePost()">Sí</button>
+                <button class="btn btn-danger" data-dismiss="modal" (click)="deletePost()">Sí</button>
                 <button class="btn btn-primary text-white" data-dismiss="modal">No</button>
             </div>
 
@@ -231,3 +237,30 @@
     </div>
 </div>
 <!-- /Modal warning delete-->
+
+<!-- Modal warning  delet commente-->
+<div class="modal fade" id="deleteComment" tabindex="-1" role="dialog" aria-labelledby="deleteComment" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteCommentTitle">Eliminar comentario</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+    
+                <div class="modal-body">
+                    <div class="alert alert-warning mb-0" role="alert">
+                        <i class="fas fa-exclamation-triangle icon-message mr-2"></i>
+                        ¿Esta seguro que desea eliminar el comentario?
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-danger" data-dismiss="modal" (click)="deleteComment()">Sí</button>
+                    <button class="btn btn-primary text-white" data-dismiss="modal">No</button>
+                </div>
+    
+            </div>
+        </div>
+    </div>
+    <!-- /Modal warning delete comment -->

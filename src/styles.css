@@ -70,3 +70,21 @@ section .container{
     background-color:white;    
     object-fit: cover;
 }
+
+
+/* Invalid feedback for ng-select */
+.ng-select.is-invalid .ng-select-container{
+    border: 1px solid #E74C3C;
+}
+
+.ng-select.is-invalid .ng-clear-wrapper{
+    color: #E74C3C;
+ 
+}
+
+.invalid-feedback-select{
+    font-size: 80%;
+    color: #E74C3C;    
+}
+/* /Invalid feedback for ng-select */
+

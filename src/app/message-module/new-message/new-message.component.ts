@@ -45,7 +45,7 @@ export class NewMessageComponent {
         this.categories = LABEL_ROLE;
         
         this.messageForm = new FormGroup({
-            to: new FormControl(''),
+            to: new FormControl('', Validators.required),
             message: new FormControl('', Validators.required)
         });
 
@@ -69,11 +69,11 @@ export class NewMessageComponent {
     public formError = false;
     onSubmit() {
 
-        // this.submitted = true;
-        // if (!this.messageForm.value.textPost) {
-        //     this.formError = true;
-        //     return;
-        // }
+        this.submitted = true;
+
+        if (this.messageForm.invalid) {            
+            return;
+        }
 
 
         this.message = new Message(
@@ -99,11 +99,17 @@ export class NewMessageComponent {
         )
     }
 
-    getAllUsers() {        
+    getAllUsers() { 
+        let index;       
         this._userService.getAllUsers().subscribe(
             response => {
                 if (response.users) {                    
                     this.allUsers = response.users;
+
+                    this.allUsers = this.allUsers.filter( (user) => {
+                        return user._id != this.identity._id;
+                    });
+                    
                     this.items = this.allUsers;
                 }
             }, error => {

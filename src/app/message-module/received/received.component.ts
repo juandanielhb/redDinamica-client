@@ -50,7 +50,11 @@ export class ReceivedComponent {
     
     ngOnInit(): void {
         this.actualPage();
-        // this.setviewed();
+        let unviewedMessage = parseInt(localStorage.getItem('unviewedMessages'));
+        if(unviewedMessage && unviewedMessage > 0){            
+            setInterval(() => this.setviewed(), 1000);
+            localStorage.setItem('unviewedMessages', "0");
+        }
     }
 
     getReceivedMessages(page = 1){
@@ -119,12 +123,12 @@ export class ReceivedComponent {
     setviewed(){
         this._messageService.setViewedMessage(this.token).subscribe(
             response => {
-                console.log(response)
+
             },
             error => {
                 console.log(<any>error);
             }
-        )
+        );
     }
 
 

@@ -1,15 +1,16 @@
 import { Component } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
-
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+
 import { PublicationService } from 'src/app/services/publication.service';
 import { UploadService } from 'src/app/services/upload.service';
+import { CommentService } from 'src/app/services/comment.service';
+
 import { GLOBAL } from 'src/app/services/global';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-
-
 import { User } from 'src/app/models/user.model';
 import { Publication } from 'src/app/models/publication.model';
+import { Comment } from 'src/app/models/comment.model';
 
 @Component({
     selector: 'publications',
@@ -39,15 +40,16 @@ export class PublicationsComponent {
     public noMore = false;
 
     // Comments
+    public commentForm;
     public comment;
 
     constructor(
         private _userService: UserService,
         private _publicationService: PublicationService,
+        private _commentService: CommentService,
         private _uploadService: UploadService,
         private _route: ActivatedRoute,
-        private _router: Router,
-
+        private _router: Router
     ) {
 
         this.identity = this._userService.getIdentity();
@@ -57,7 +59,7 @@ export class PublicationsComponent {
         this.filesToUpload = [];
 
         this.postForm = new FormGroup({
-            textPost: new FormControl(null),
+            textPost: new FormControl(''),
             filePost: new FormControl('')
         });
 
@@ -72,15 +74,17 @@ export class PublicationsComponent {
         this.loadPage();
         this.getUserPublications(this.page);
 
-        this.comment = new FormControl('');
+        this.commentForm = new FormGroup({
+            text: new FormControl('', Validators.required)
+        });
     }
 
     // Get controls form
     get f() { return this.postForm.controls; }
 
     onChanges(): void {
-        this.postForm.get('textPost').valueChanges.subscribe(val => {
 
+        this.postForm.get('textPost').valueChanges.subscribe(val => {
             if (val) {
                 this.status = null;
                 this.submitted = false;
@@ -129,8 +133,7 @@ export class PublicationsComponent {
 
                     if (this.page >= this.pages) {
                         this.noMore = true;
-                    }
-
+                    }    
 
                     if (!add) {
                         this.publications = response.publications;
@@ -141,9 +144,9 @@ export class PublicationsComponent {
                     }
 
                     // $('html, body').animate({scrollTop: $('body').prop("scrollHeight")}, 500);
-                    
 
-                    if (page > this.pages && this.pages > 0) {                        
+
+                    if (page > this.pages && this.pages > 0) {
                         this._router.navigate(['/perfil', this.ownProfile._id, 1]);
                     }
                 } else {
@@ -157,20 +160,19 @@ export class PublicationsComponent {
         )
     }
 
-    setUpload(){
+    setUpload() {
         this.status = null;
         this.submitted = false;
     }
-    
+
     public filesToUpload: Array<File>;
     fileChangeEvent(fileInput: any) {
         this.filesToUpload = <Array<File>>fileInput.target.files;
     }
 
+
     public formError = false;
     onSubmit() {
-
-
         this.submitted = true;
 
         if (!this.postForm.value.textPost && this.filesToUpload.length <= 0) {
@@ -210,7 +212,7 @@ export class PublicationsComponent {
                     }
 
                     this.status = 'success',
-                        this.formError = false;
+                    this.formError = false;
                     this.submitted = false;
                     this.postForm.reset();
 
@@ -222,15 +224,13 @@ export class PublicationsComponent {
                 console.log(<any>error);
                 this.status = 'error';
             }
-
         )
-
-
     }
 
-    public tempPublicationId
+    public tempPublicationId;    
     setDelete(publicationId) {
         this.tempPublicationId = publicationId;
+        
     }
 
     deletePost() {
@@ -247,14 +247,68 @@ export class PublicationsComponent {
         );
     }
 
+    public tempCommentId;    
+    setDeleteComment(commentId) {
+        this.tempCommentId = commentId;        
+    }
+
+    deleteComment() {
+        this._commentService.removeComment(this.token, this.tempCommentId).subscribe(
+            response => {
+                if (response.comment) {
+                    this.tempCommentId = null;
+                    this.getUserPublications(this.page);
+                }
+            },
+            error => {
+                console.log(<any>error);
+            }
+        );
+    }
+
     viewMore() {
         this.page += 1;
 
         if (this.page >= this.pages) {
             this.noMore = true;
-        }
+        }       
 
         this.getUserPublications(this.page, true);
+
+    }
+
+    public focusPublication
+    setFocusPublication(publicationId){
+        this.focusPublication = publicationId;
+    }
+
+
+    onCommentSubmit(publicationId) {
+        
+        this.comment = new Comment(
+            this.commentForm.value.text,
+            this.identity._id
+        );
+
+        this._commentService.addComment(this.token, this.comment).subscribe(
+            response => {
+                if(response.comment && response.comment._id){
+                    this._publicationService.updatePublicationComments(this.token, publicationId, response.comment).subscribe(
+                        response => {
+                            if(response.publication && response.publication._id){
+                                this.getUserPublications(this.page);                                this.commentForm.reset();
+                            }
+                        },
+                        error => {console.log(<any>error)}
+                    );
+                }
+            },
+            error => {
+                console.log(<any>error);
+            }
+
+        )
+
 
     }
 }

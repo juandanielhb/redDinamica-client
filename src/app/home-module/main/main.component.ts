@@ -1,29 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
-import { GLOBAL } from 'src/app/services/global';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Publication } from 'src/app/models/publication.model';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
+
 import { PublicationService } from 'src/app/services/publication.service';
 import { UploadService } from 'src/app/services/upload.service';
-import * as $ from 'jquery';
+import { CommentService } from 'src/app/services/comment.service';
+
+import { GLOBAL } from 'src/app/services/global';
+import { Publication } from 'src/app/models/publication.model';
+import { Comment } from 'src/app/models/comment.model';
 
 @Component({
     selector: 'main',
     templateUrl: './main.component.html',
     styleUrls: ['./main.component.css']
-  
+
 })
-export class MainComponent implements OnInit {
-    public title:string;
+export class MainComponent{
+    public title: string;
     public identity;
     public token;
     public url;
 
     public publication;
     public publications = [];
-
-    public filesToUpload:Array<File>;
 
     public postForm;
     public status;
@@ -38,14 +39,18 @@ export class MainComponent implements OnInit {
     public itemsPerPage;
     public noMore = false;
 
+    // Comments
+    public commentForm;
+    public comment;
+
     constructor(
-        private _userService:UserService,
+        private _userService: UserService,
         private _publicationService: PublicationService,
+        private _commentService: CommentService,
         private _uploadService: UploadService,
         private _route: ActivatedRoute,
         private _router: Router
-        
-    ) { 
+    ) {
         this.title = 'Bienvenidos a';
         this.identity = this._userService.getIdentity();
         this.token = this._userService.getToken();
@@ -54,14 +59,18 @@ export class MainComponent implements OnInit {
         this.filesToUpload = [];
 
         this.postForm = new FormGroup({
-            textPost: new FormControl(null, Validators.required),
-            filePost: new FormControl()
+            textPost: new FormControl(''),
+            filePost: new FormControl('')
         });
 
         this.submitted = false;
         this.page = 1;
 
-        this.getPublications(1);
+        this.getPublications(this.page);
+
+        this.commentForm = new FormGroup({
+            text: new FormControl('', Validators.required)
+        });
 
     }
 
@@ -69,49 +78,43 @@ export class MainComponent implements OnInit {
     get f() { return this.postForm.controls; }
 
     onChanges(): void {
-        console.log(this.postForm.touched)
-
         this.postForm.get('textPost').valueChanges.subscribe(val => {
-
-          if(val){
-              this.status = null;
-              this.submitted = false;
-          }
+            if (val) {
+                this.status = null;
+                this.submitted = false;
+            }
         });
-      }
-
-    ngOnInit(): void { 
-        
     }
 
-    getPublications(page, add = false){
+    getPublications(page, add = false) {
         let arrayA, arrayB;
 
         this._publicationService.getPublications(this.token, page).subscribe(
             response => {
-                if(response.publications){
+
+                if (response.publications) {
                     this.total = response.total;
                     this.pages = response.pages;
                     this.itemsPerPage = response.itemsPerPage;
 
-                    if(this.page >= this.pages){
+                    if (this.page >= this.pages) {
                         this.noMore = true;
                     }
 
-                    if(!add){
+                    if (!add) {
                         this.publications = response.publications;
-                    }else{
+                    } else {
                         arrayA = this.publications;
                         arrayB = response.publications;
                         this.publications = arrayA.concat(arrayB);
                     }
-                    
+
                     // $('html, body').animate({scrollTop: $('body').prop("scrollHeight")}, 500);
 
-                    if(page > this.pages){
+                    if (page > this.pages && this.pages > 0) {
                         this._router.navigate(['/inicio/post', 1]);
                     }
-                }else{
+                } else {
                     this.status = 'error';
                 }
             },
@@ -122,11 +125,23 @@ export class MainComponent implements OnInit {
         )
     }
 
-    onSubmit(){
+    setUpload() {
+        this.status = null;
+        this.submitted = false;
+    }
 
+    public filesToUpload: Array<File>;
+    fileChangeEvent(fileInput: any) {
+        this.filesToUpload = <Array<File>>fileInput.target.files;
+    }
+    
+    
+    public formError = false;
+    onSubmit() {
         this.submitted = true;
 
-        if (this.postForm.invalid) {
+        if (!this.postForm.value.textPost && this.filesToUpload.length <= 0) {
+            this.formError = true;
             return;
         }
 
@@ -134,34 +149,36 @@ export class MainComponent implements OnInit {
             this.postForm.value.textPost,
             this.identity._id
         );
-        
+
         this._publicationService.addPost(this.token, this.publication).subscribe(
             response => {
-                if(response.publication){
+                if (response.publication) {
+                    if (this.filesToUpload.length > 0) {
 
-                    if(this.filesToUpload.length > 0){
+                        // Upload post image
+                        this._uploadService.makeFileRequest(
+                            this.url + 'upload-file-post/' + response.publication._id,
+                            [],
+                            this.filesToUpload,
+                            this.token,
+                            'image'
+                        ).then((result: any) => {
 
-                        //Upload profile imaage
-                        // this._uploadService.makeFileRequest(
-                        //     this.url+'upload-image-user/'+ this.identity._id,
-                        // [],
-                        // this.filesToUpload,
-                        // this.token,
-                        // 'image'
-                        // ).then((result:any)=>{
-                        //     this.identity.picture = result.user.picture;
-                        //     localStorage.setItem('identity', JSON.stringify(this.identity));
-                        // });
+                            this.publication = result;
+                            this.publication = response.publication;
+                            this.getPublications(this.page);
+
+                        });
+                    } else {
+                        this.getPublications(this.page);
                     }
 
-
-                    this.publication = response.publication;
                     this.status = 'success',
+                    this.formError = false;
                     this.submitted = false;
                     this.postForm.reset();
-                    this.getPublications(1);
 
-                }else{
+                } else {
                     this.status = 'error';
                 }
             },
@@ -169,24 +186,91 @@ export class MainComponent implements OnInit {
                 console.log(<any>error);
                 this.status = 'error';
             }
+        )
+    }
+
+    public tempPublicationId;    
+    setDelete(publicationId) {
+        this.tempPublicationId = publicationId;
+        
+    }
+
+    deletePost() {
+        this._publicationService.removePost(this.token, this.tempPublicationId).subscribe(
+            response => {
+                if (response.publication) {
+                    this.tempPublicationId = null;
+                    this.getPublications(this.page);
+                }
+            },
+            error => {
+                console.log(<any>error);
+            }
+        );
+    }
+
+    public tempCommentId;    
+    setDeleteComment(commentId) {
+        this.tempCommentId = commentId;        
+    }
+
+    deleteComment() {
+        this._commentService.removeComment(this.token, this.tempCommentId).subscribe(
+            response => {
+                if (response.comment) {
+                    this.tempCommentId = null;
+                    this.getPublications(this.page);
+                }
+            },
+            error => {
+                console.log(<any>error);
+            }
+        );
+    }    
+
+    viewMore() {
+        this.page += 1;
+
+        if (this.page >= this.pages) {
+            this.noMore = true;
+        }       
+
+        this.getPublications(this.page, true);
+    }
+
+
+    public focusPublication
+    setFocusPublication(publicationId){
+        this.focusPublication = publicationId;
+    }
+
+
+    onCommentSubmit(publicationId) {
+        
+        this.comment = new Comment(
+            this.commentForm.value.text,
+            this.identity._id
+        );
+
+        this._commentService.addComment(this.token, this.comment).subscribe(
+            response => {
+                if(response.comment && response.comment._id){
+                    this._publicationService.updatePublicationComments(this.token, publicationId, response.comment).subscribe(
+                        response => {
+                            if(response.publication && response.publication._id){
+                                this.getPublications(this.page);                                this.commentForm.reset();
+                            }
+                        },
+                        error => {console.log(<any>error)}
+                    );
+                }
+            },
+            error => {
+                console.log(<any>error);
+            }
 
         )
 
 
-    }
-
-    fileChangeEvent(fileInput:any){
-        this.filesToUpload = <Array<File>>fileInput.target.files;
-    }
-
-    viewMore(){
-        this.page += 1;
-
-        if(this.page >= this.pages){
-            this.noMore = true;
-        }
-
-        this.getPublications(this.page, true);
-
-    }
+    }    
 }

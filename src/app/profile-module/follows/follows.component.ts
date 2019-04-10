@@ -171,7 +171,7 @@ export class FollowsComponent {
                     this.followersTotal = response.total;
                     this.followerUsersId = response.followers;
                     this.followingUsersId = response.following;
-                    console.log(this.followers);
+                    
 
                 } else {
                     this.status = 'error';

@@ -9,25 +9,29 @@
 
             <div class="form-group row">
                 <div class="col">
-                        <div *ngIf="status === 'error'; successMessage" class="alert alert-danger fade show text-center m-0" role="alert">
-                                <i class="fas fa-times-circle icon-message mr-2"></i>
-                                Hubo un error enviando el mensaje. Intentalo más tarde.
-                
-                            </div>
-                
-                            <div *ngIf="status === 'success'; successMessage" class="alert alert-success fade show text-center m-0" role="alert">
-                                <i class="fas fa-check-circle icon-message mr-2"></i>
-                                El mensaje se ha enviado correctamente. Ir a<a class="alert-link" [routerLink]="[ '/mensajes', 'enviados' ]"> mensajes enviados.</a>
-                            </div>
+                    <div *ngIf="status === 'error'; successMessage" class="alert alert-danger fade show text-center m-0"
+                        role="alert">
+                        <i class="fas fa-times-circle icon-message mr-2"></i>
+                        Hubo un error enviando el mensaje. Intentalo más tarde.
+
+                    </div>
+
+                    <div *ngIf="status === 'success'; successMessage"
+                        class="alert alert-success fade show text-center m-0" role="alert">
+                        <i class="fas fa-check-circle icon-message mr-2"></i>
+                        El mensaje se ha enviado correctamente. Ir a<a class="alert-link"
+                            [routerLink]="[ '/mensajes', 'enviados' ]"> mensajes enviados.</a>
+                    </div>
                 </div>
-                    
+
             </div>
 
             <div class="form-group row">
-                <label for="toinput" class="col-sm-2 col-form-label">Para:</label>
+                <label for="toinput" class="col-sm-2 col-form-label">Para*</label>
                 <div class="col-sm-10">
                     <ng-select [items]="items" bindLabel="name" formControlName="to" clearAllText="Limpiar"
-                        [searchFn]="customSearchFn" notFoundText="No se encuentra el usuario">
+                        [searchFn]="customSearchFn" notFoundText="No se encuentra el usuario"
+                        [ngClass]="{ 'is-invalid': submitted && f.to.errors}">
                         <ng-template ng-option-tmp let-item="item">
                             <div class=" flex-shrink-0 rounded-circle border-1 overflow-hidden mr-2 float-left"
                                 style="width: 30px; height:30px;">
@@ -37,14 +41,24 @@
                             <small>{{categories[item.role].label}}</small>
                         </ng-template>
                     </ng-select>
+                    <div *ngIf="submitted && f.to.errors" >
+                        <div *ngIf="f.to.errors.required" class="invalid-feedback-select">
+                            Debes elegir el destinatario del mensaje.
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="form-group row">
-                <label for="colFormLabel" class="col-sm-2 col-form-label">Mensaje:</label>
+                <label for="colFormLabel" class="col-sm-2 col-form-label">Mensaje*</label>
                 <div class="col-sm-10">
-                    <textarea class="bg-light" formControlName="message" class="form-control" rows="3"
-                        (change)="onChanges()" [ngClass]="{ 'is-invalid': submitted}"></textarea>
+                    <textarea class="bg-light" formControlName="message" class="form-control" rows="3" (change)="onChanges()" [ngClass]="{ 'is-invalid': submitted && f.message.errors}"></textarea>
+                    <div *ngIf="submitted && f.message.errors" class="invalid-feedback">
+                        <div *ngIf="f.message.errors.required">
+                            El campo mensaje es requerido.
+                        </div>
+                    </div>
                 </div>
+                
             </div>
             <div class="form-group text-right">
                 <button type="submit" class="btn btn-info">Enviar</button>

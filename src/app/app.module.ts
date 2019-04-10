@@ -35,6 +35,7 @@ import { FilterPipe } from './pipes/filter.pipe';
 import { FollowService } from './services/follow.service';
 import { PublicationService } from './services/publication.service';
 import { MessageService } from './services/message.service';
+import { CommentService } from './services/comment.service';
 
 
 
@@ -76,6 +77,7 @@ import { MessageService } from './services/message.service';
     PublicationService,
     BasicDataService,
     MessageService,
+    CommentService,
     Location
   ],
   bootstrap: [AppComponent]

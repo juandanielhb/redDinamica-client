@@ -62,18 +62,17 @@ export class MessageService {
             'Authorization': token
         });
 
-        return this._http.put(this.url + 'setviewed-messages', {headers:headers});
+        return this._http.get(this.url + 'unviewed-messages', {headers:headers});
     }
 
     setViewedMessage(token):Observable<any>{
-        let headers = new HttpHeaders({
+        const httpOptions = {
+            headers: new HttpHeaders({
             'Content-Type':'application/json', 
-            'Authorization': this.token
-        });
+            'Authorization': token
+        })};
 
-        let http = this._http.put(this.url + 'setviewed-messages', {headers:headers});
-
-        return http;
+        return this._http.put(this.url + 'setviewed_messages', null, httpOptions );
     }
 
 }

@@ -159,8 +159,8 @@ export class LoginComponent implements OnInit {
     getUnviewMessages(){
         this._messageService.getUnviewMessages(this.token).subscribe(
             response => {
-                console.log(response.unviewed)
-                if(response.unviewed){                    
+                console.log(response)
+                if(response){                    
                     localStorage.setItem('unviewedMessages', response.unviewed);
                 }
             },

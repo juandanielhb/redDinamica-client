@@ -154,11 +154,14 @@ export class ProfileComponent implements OnInit {
 
                     this.getCounters(userId);
 
-                    this._route.children[0].url.subscribe(value => {
-                        if(value[0].path == 'red'){
-                            this._router.navigate(['perfil', this.ownProfile._id, 'red', 'true']);
-                        }
-                    });
+                    if(location.pathname.search('red') != -1){
+                        
+                        this._route.children[0].url.subscribe(value => {                        
+                            if(value && value[0].path == 'red'){
+                                this._router.navigate(['perfil', this.ownProfile._id, 'red', 'true']);
+                            }
+                        });
+                    }
                 }
             },
             error => {
@@ -170,9 +173,6 @@ export class ProfileComponent implements OnInit {
     unfollowUser(userId) {
         let index;
 
-        
-       
-
         this._followService.removeFollow(this.token, userId).subscribe(
             response => {
                 
@@ -180,11 +180,14 @@ export class ProfileComponent implements OnInit {
                     this.following = null;
                     this.getCounters(userId);
 
-                    this._route.children[0].url.subscribe(value => {
-                        if(value[0].path == 'red'){
-                            this._router.navigate(['perfil', this.ownProfile._id, 'red', 'true']);
-                        }
-                    });
+                    if(location.pathname.search('red') != -1){
+                        
+                        this._route.children[0].url.subscribe(value => {                        
+                            if(value && value[0].path == 'red'){
+                                this._router.navigate(['perfil', this.ownProfile._id, 'red', 'true']);
+                            }
+                        });
+                    }
                 }
             },
             error => {

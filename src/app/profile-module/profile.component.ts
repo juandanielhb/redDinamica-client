@@ -100,23 +100,35 @@ export class ProfileComponent implements OnInit {
     }
 
     getCounters(userId){
-        this._userService.getCounters(userId).subscribe(
-            response => {
-                if (response) {
-                    this.counters = response;
-                                       
-                } else {
-                    this.status = 'error';
+                
+            this._userService.getCounters(userId).subscribe(
+                response => {
+                    if (response) {       
+                        
+                        if(this.identity._id != userId){
+                            localStorage.setItem('ownProfileStats', JSON.stringify(response));
+                            this.counters = JSON.parse(localStorage.getItem('ownProfileStats'));
+                        }else{
+                            localStorage.setItem('stats', JSON.stringify(response));
+                            this.counters = JSON.parse(localStorage.getItem('stats'));
+                        }                        
+                                           
+                    } else {
+                        this.status = 'error';
+                        this.ownProfile = this.identity;
+                    }
+    
+                },
+                error => {
+                    console.log(<any>error);
                     this.ownProfile = this.identity;
+                    this._router.navigate(['/perfil/' + this.identity._id]);
                 }
+            );
+        
+            
+        
 
-            },
-            error => {
-                console.log(<any>error);
-                this.ownProfile = this.identity;
-                this._router.navigate(['/perfil/' + this.identity._id]);
-            }
-        );
     }
 
     // Follower systems buttons
@@ -141,6 +153,12 @@ export class ProfileComponent implements OnInit {
                     this.following = response;
 
                     this.getCounters(userId);
+
+                    this._route.children[0].url.subscribe(value => {
+                        if(value[0].path == 'red'){
+                            this._router.navigate(['perfil', this.ownProfile._id, 'red', 'true']);
+                        }
+                    });
                 }
             },
             error => {
@@ -152,13 +170,21 @@ export class ProfileComponent implements OnInit {
     unfollowUser(userId) {
         let index;
 
+        
+       
+
         this._followService.removeFollow(this.token, userId).subscribe(
             response => {
                 
                 if(response){
                     this.following = null;
-
                     this.getCounters(userId);
+
+                    this._route.children[0].url.subscribe(value => {
+                        if(value[0].path == 'red'){
+                            this._router.navigate(['perfil', this.ownProfile._id, 'red', 'true']);
+                        }
+                    });
                 }
             },
             error => {

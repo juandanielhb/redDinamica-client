@@ -6,12 +6,12 @@ import { Routing, appRoutingProviders } from './app.routing';
 import { HttpClientModule } from '@angular/common/http';
 import { MomentModule } from 'ngx-moment';
 
-
 // Modules
 import { HomeModule } from './home-module/home.module';
 import { AdminModule } from './admin-module/admin.module';
 import { LessonModule } from './lesson-module/lesson.module';
 import { ProfileModule } from './profile-module/profile.module';
+import { MessageModule } from './message-module/message.module';
 
 // Components
 import { AppComponent } from './app.component';
@@ -34,6 +34,7 @@ import { Location } from '@angular/common';
 import { FilterPipe } from './pipes/filter.pipe';
 import { FollowService } from './services/follow.service';
 import { PublicationService } from './services/publication.service';
+import { MessageService } from './services/message.service';
 
 
 
@@ -63,6 +64,7 @@ import { PublicationService } from './services/publication.service';
     AdminModule,
     LessonModule,    
     ProfileModule,
+    MessageModule,
     MomentModule,
     NgSelectModule
   ],
@@ -73,6 +75,7 @@ import { PublicationService } from './services/publication.service';
     UploadService,
     PublicationService,
     BasicDataService,
+    MessageService,
     Location
   ],
   bootstrap: [AppComponent]

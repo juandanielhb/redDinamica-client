@@ -3,6 +3,7 @@ import { UserService } from './services/user.service';
 import { Router } from '@angular/router';
 import { GLOBAL } from './services/global';
 
+
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
@@ -14,19 +15,25 @@ export class AppComponent {
     public identity;    
     public token;    
 
+    public unviewMessages;
+
     constructor(
-        private _userService: UserService,
+        private _userService: UserService,        
         private _router: Router
     ){}
 
     ngOnInit(): void {
-        this.token = this._userService.getToken();                        
+        this.token = this._userService.getToken();
+                      
     }
     
     ngDoCheck(): void {        
         // this.token = this._userService.getToken();
         this.identity = this._userService.getIdentity();
+        this.unviewMessages = localStorage.getItem('unviewedMessages');
     }
+
+
 
     logout(){
         localStorage.clear();

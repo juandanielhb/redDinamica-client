@@ -8,6 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BasicDataService } from 'src/app/services/basicData.service';
 import { Profession } from 'src/app/models/profession.model';
 import { Institution } from 'src/app/models/institution.model';
+import { MessageService } from 'src/app/services/message.service';
 
 @Component({
     selector: 'register',
@@ -35,6 +36,7 @@ export class RegisterComponent implements OnInit {
         private _formBuilder: FormBuilder,
         private _userService: UserService,
         private _bDService: BasicDataService,
+        private _messageService: MessageService,
         private _route: ActivatedRoute,
         private _router: Router
     ) {
@@ -106,10 +108,14 @@ export class RegisterComponent implements OnInit {
             this.user.about = '';
         }
 
-
         if (!this.user.profession && this.registerForm.value.profession) {
 
-            this.profession.name = this.registerForm.value.profession.name;
+            if(this.registerForm.value.profession.name){
+                this.profession.name = this.registerForm.value.profession.name;
+            }else{
+                this.profession.name = this.registerForm.value.profession;
+            }
+
             this.profession.used = true;
 
             let responseAddProfession = await this._bDService.addProfession(this.profession).toPromise().catch(error => console.log(<any>error));
@@ -127,7 +133,12 @@ export class RegisterComponent implements OnInit {
 
         if (!this.user.institution && this.registerForm.value.institution) {
 
-            this.institution.name = this.registerForm.value.institution.name;
+            if(this.registerForm.value.institution.name){
+                this.institution.name = this.registerForm.value.institution.name;
+            }else{
+                this.institution.name = this.registerForm.value.institution;
+            }
+
             this.institution.used = true;
 
             let responseAddinstitution = await this._bDService.addInstitution(this.institution).toPromise();
@@ -146,28 +157,48 @@ export class RegisterComponent implements OnInit {
             console.log(<any>error);
         });
 
+        
         if (response.user && response.user._id) {
-            localStorage.setItem('identity', JSON.stringify(response.user));
-            
-            this._userService.signup(this.user, true).subscribe(
+            this._userService.signup(this.user).subscribe(                
                 response => {
-                    this.token = response.token;
 
-                    if (this.token.length <= 0) {
+                    if(response.user && response.user._id){
+                        
+                        localStorage.setItem('identity', JSON.stringify(response.user)); 
+
+                        this._userService.signup(this.user, true).subscribe(
+                            response => {
+
+                                this.token = response.token;
+                    
+                                if (this.token.length <= 0) {
+                                    this.status = 'error';
+                                } else {
+                                    this.status = 'success';
+                                    localStorage.setItem('token', this.token);
+            
+                                    this.getAllInstitutions();
+                                    this.getAllProfessions();
+                                    this.getCounters();
+                                    this.getUnviewMessages();  
+            
+                                    this._router.navigate(['/inicio']);
+            
+                                }
+                            },
+                            error => {
+                                console.log(<any>error);
+                                this.status = 'error';
+                            }
+                        )
+
+                    }else{
                         this.status = 'error';
-                    } else {
-                        this.status = 'success';
-                        localStorage.setItem('token', this.token);
-
-                        this.getAllInstitutions();
-                        this.getAllProfessions();
-
-                        this._router.navigate(['/inicio']);
-
                     }
                 },
                 error => {
                     console.log(<any>error);
+                    this.status = 'error';
                 }
             );
 
@@ -206,6 +237,7 @@ export class RegisterComponent implements OnInit {
             this._bDService.getAllInstitutions().subscribe(
                 response => {
                     if (response.institutions) {
+
                         this.allInstitutions = response.institutions;
                         this.items.institution = this.allInstitutions;
                         localStorage.setItem('institutions', JSON.stringify(this.allInstitutions));
@@ -218,4 +250,29 @@ export class RegisterComponent implements OnInit {
         }
     }
 
+    getCounters() {
+        this._userService.getCounters().subscribe(
+            response => {
+                if(response){
+                    localStorage.setItem('stats', JSON.stringify(response));
+                }
+            },
+            error => {
+                console.log(<any>error);
+            });
+    }
+
+    getUnviewMessages(){
+        this._messageService.getUnviewMessages(this.token).subscribe(
+            response => {
+                console.log(response.unviewed)
+                if(response.unviewed){                    
+                    localStorage.setItem('unviewedMessages', response.unviewed);
+                }
+            },
+            error => {
+                console.log(<any>error);
+            }
+        )
+    }
 }

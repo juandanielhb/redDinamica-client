@@ -83,32 +83,32 @@
                             <div class="row my-auto px-4">
                                 <div class="col-6 p-1">
                                     <div class="text-center bg-white rounded-lg">
-
                                         <div class="px-1 py-3">
-                                            <h4 class="mb-0">{{counters.following}}</h4>
-                                            <small *ngIf="counters.following == 1; else plural">
-                                                Seguido
+                                            <h4 class="mb-0">{{counters.followed}}</h4>
+                                            <small *ngIf="counters.followed == 1; else pluralFollowers">
+                                                Seguidor
                                             </small>
-                                            <ng-template #plural>
-                                                <small>Seguidos</small>
+                                            <ng-template #pluralFollowers>
+                                                <small>Seguidores</small>
                                             </ng-template>
+
                                         </div>
+
                                     </div>
 
                                 </div>
                                 <div class="col-6 p-1">
                                     <div class="text-center bg-white rounded-lg">
-
                                         <div class="px-1 py-3">
-                                            <h4 class="mb-0">{{counters.followed}}</h4>
-                                            <small *ngIf="counters.followed == 1; else plural">
-                                                Seguidor
+                                            <h4 class="mb-0">{{counters.following}}</h4>
+                                            <small *ngIf="counters.following == 1; else pluralFollowing">
+                                                Seguido
                                             </small>
-                                            <ng-template #plural>
-                                                <small>Seguidores</small>
+                                            <ng-template #pluralFollowing>
+                                                <small>Seguidos</small>
                                             </ng-template>
-
                                         </div>
+
                                     </div>
 
                                 </div>

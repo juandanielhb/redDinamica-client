@@ -5,33 +5,23 @@ export const PROFILE_MENU = [
         "iconClass": "fa-newspaper",
         "spanContent": "Publicaciones",
         "routerLink": "/perfil/*id*/posts",
-        "subOptions": [
-            {
-                "text": "Nuevos usuarios",
-                "routerLink": "/admin/usuarios-nuevos"
-            },
-            {
-                "text": "Todos los usuarios",
-                "routerLink": "/admin/usuarios"
-            }
-        ]
+        "subOptions": []
+    },
+    {
+        "id": "red",
+        "buttonClass": "btn-success",
+        "iconClass": "fa-users",
+        "spanContent": "Red",
+        "routerLink": "/perfil/*id*/red",
+        "subOptions": []
     },
     {
         "id": "info",
-        "buttonClass": "btn-success",
+        "buttonClass": "btn-warning",
         "iconClass": "fa-info-circle",
         "spanContent": "Información",
         "routerLink": "/perfil/*id*/info",
-        "subOptions": [
-            {
-                "text": "Nuevos usuarios",
-                "routerLink": "/admin/usuarios-nuevos"
-            },
-            {
-                "text": "Todos los usuarios",
-                "routerLink": "/admin/usuarios"
-            }
-        ]
+        "subOptions": []
     },
     
 ];

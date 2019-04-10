@@ -58,8 +58,6 @@ export class EditInfoComponent {
         this.user = this._userService.getIdentity();
         this.token = this._userService.getToken();
 
-
-
         this.fieldsForm = FIELDS_FORM;
         this.filesToUpload = [];
 
@@ -79,6 +77,8 @@ export class EditInfoComponent {
         this.getAllInstitutions();
         this.getAllProfessions();
 
+        console.log(this.identity.profession)
+
         this.editForm = this._formBuilder.group({
             name: this.identity.name,
             surname: this.identity.surname,
@@ -89,8 +89,10 @@ export class EditInfoComponent {
             postgraduate: this.identity.postgraduate,
             profileImage: ''
         });
-    }
 
+
+    }
+    
 
     onChanges(): void {
         this.editForm.valueChanges.subscribe(val => {
@@ -118,14 +120,14 @@ export class EditInfoComponent {
                 } else {
 
                     this.identity = this.identity;
-                    // this._router.navigate(['/perfil/'+ this.identity._id]);
+                    
                 }
 
             },
             error => {
                 console.log(<any>error);
                 this.identity = this.identity;
-                // this._router.navigate(['/perfil/'+ this.identity._id]);
+                
             }
         );
     }
@@ -152,7 +154,12 @@ export class EditInfoComponent {
 
         if (!this.user.city && this.editForm.value.city) {
 
-            this.city.name = this.editForm.value.city.name;
+            if (this.editForm.value.city.name) {
+                this.city.name = this.editForm.value.city.name;
+            } else {
+                this.city.name = this.editForm.value.city;
+            }
+
             this.city.state = this.state.value;
             this.city.country = this.country.value;
             this.city.used = true;
@@ -173,8 +180,13 @@ export class EditInfoComponent {
 
         if (!this.user.profession && this.editForm.value.profession) {
 
-            this.profession.name = this.editForm.value.profession.name;
             this.profession.used = true;
+
+            if (this.editForm.value.profession.name) {
+                this.profession.name = this.editForm.value.profession.name;
+            } else {
+                this.profession.name = this.editForm.value.profession;
+            }
 
             let responseAddProfession = await this._bDService.addProfession(this.profession).toPromise();
 
@@ -190,7 +202,12 @@ export class EditInfoComponent {
 
         if (!this.user.institution && this.editForm.value.institution) {
 
-            this.institution.name = this.editForm.value.institution.name;
+            if (this.editForm.value.institution.name) {
+                this.institution.name = this.editForm.value.institution.name;
+            } else {
+                this.institution.name = this.editForm.value.institution;
+            }
+
             this.institution.used = true;
 
             let responseAddinstitution = await this._bDService.addInstitution(this.institution).toPromise();

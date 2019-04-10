@@ -4,6 +4,7 @@ import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/user.model';
 import { Router } from '@angular/router';
 import { BasicDataService } from 'src/app/services/basicData.service';
+import { MessageService } from 'src/app/services/message.service';
 
 
 
@@ -29,6 +30,7 @@ export class LoginComponent implements OnInit {
         private _formBuilder: FormBuilder,
         private _userService: UserService,
         private _bDService: BasicDataService,
+        private _messageService: MessageService,
         private _router: Router
     ) {
         this.user = new User();
@@ -41,6 +43,15 @@ export class LoginComponent implements OnInit {
             email: ['', [Validators.required, Validators.email]],
             password: ['', Validators.required],
         })
+
+    }
+
+    onChanges(): void {
+        this.loginForm.valueChanges.subscribe(val => {
+            if (val) {
+                this.invalid = null;
+            }
+        });
     }
 
     // Get controls form
@@ -79,6 +90,7 @@ export class LoginComponent implements OnInit {
                                 this.getAllInstitutions();
                                 this.getAllProfessions();
                                 this.getCounters();
+                                this.getUnviewMessages();  
 
                                 this._router.navigate(['/inicio']);
 
@@ -142,5 +154,19 @@ export class LoginComponent implements OnInit {
             error => {
                 console.log(<any>error);
             });
+    }
+    
+    getUnviewMessages(){
+        this._messageService.getUnviewMessages(this.token).subscribe(
+            response => {
+                console.log(response.unviewed)
+                if(response.unviewed){                    
+                    localStorage.setItem('unviewedMessages', response.unviewed);
+                }
+            },
+            error => {
+                console.log(<any>error);
+            }
+        )
     }
 }

@@ -44,11 +44,14 @@
                         formControlName="{{field.id}}" (change)="onChanges()">
                     </textarea>
 
-                    <ng-select *ngIf="field.type == 'select' && field.autocomplete" [items]="items[field.id]"
+                    <ng-select *ngIf="field.type == 'select' && field.autocomplete && field.id != 'city'" [items]="items[field.id]" bindLabel="name" [addTag]="true" addTagText="Agregar {{field.label}}" formControlName="{{field.id}}" placeholder="{{field.label}}" (change)="onChanges()">                        
+                    </ng-select>
+
+                    <ng-select *ngIf="field.type == 'select' && field.autocomplete && field.id == 'city'" [items]="items[field.id]"
                         bindLabel="name" [addTag]="true" addTagText="Agregar {{field.label}}"
                         formControlName="{{field.id}}" placeholder="{{field.label}}"
                         (change)="addCityData($event, field.id); onChanges()">
-                        <ng-template *ngIf="field.id == 'city'" ng-option-tmp let-item="item">
+                        <ng-template ng-option-tmp let-item="item">
                             {{item.name}}, {{item.state}}, {{item.country}}
                         </ng-template>
                     </ng-select>

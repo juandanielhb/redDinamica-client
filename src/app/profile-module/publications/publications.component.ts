@@ -184,7 +184,6 @@ export class PublicationsComponent {
             this.identity._id
         );
 
-        console.log(this.publication)
         this._publicationService.addPost(this.token, this.publication).subscribe(
             response => {
 

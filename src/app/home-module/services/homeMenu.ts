@@ -1,12 +1,12 @@
 export let HOME_MENU = [
     {
-        "buttonClass": "btn-success",
+        "buttonClass": "btn-info",
         "iconClass": "fa-home",
         "spanContent": "Inicio",
         "routerLink": "/inicio"
     },
     {
-        "buttonClass": "btn-info",
+        "buttonClass": "btn-success",
         "iconClass": "fa-users",
         "spanContent": "Usuarios",
         "routerLink": "/inicio/usuarios"

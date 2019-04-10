@@ -26,18 +26,11 @@
                         
 
                         <form class="px-2 px-sm-4 py-sm-3" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-                            <div *ngIf="status == 'error'" class="alert alert-danger alert-dismissible fade show"
-                                role="alert">
-                                No fue posible iniciar sesión. Intentalo de nuevo.
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-
+                            
                             <div class="form-group text-left">
                                 <label for="FormEmail">Correo electrónico</label>
                                 <input type="email" class="form-control" id="FormEmail" placeholder="correo@ejemplo.com"
-                                    formControlName="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+                                    formControlName="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" (change)="onChanges()">
                                 <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
                                     <div *ngIf="f.email.errors.required">El campo correo electrónico es obligatorio.
                                     </div>
@@ -49,7 +42,7 @@
                             <div class="form-group text-left">
                                 <label for="FormPassword">Contraseña</label>
                                 <input type="password" class="form-control" id="FormPassword" placeholder="Contraseña" formControlName="password" [ngClass]="{'is-invalid': submitted && f.password.errors}"
-                                >
+                                (change)="onChanges()">
                                 <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
                                         <div *ngIf="f.password.errors.required">
                                             Por favor ingresa la contraseña de inicio de sesión.

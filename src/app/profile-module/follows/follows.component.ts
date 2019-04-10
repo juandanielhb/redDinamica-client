@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 import { GLOBAL } from 'src/app/services/global';
 import { FollowService } from 'src/app/services/follow.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/models/user.model';
 import { LABEL_PROFILE } from '../services/profileData';
 import { Follow } from 'src/app/models/follow.model';
@@ -25,6 +25,8 @@ export class FollowsComponent {
     public status;
 
     public followers = [];
+    public followingUsersId = [];
+    public followerUsersId = [];
     public followersTotal;
     public followersPages;
     public followersPage;
@@ -43,15 +45,16 @@ export class FollowsComponent {
     constructor(
         private _userService: UserService,
         private _followService: FollowService,
-        private _route: ActivatedRoute
+        private _route: ActivatedRoute,
+        private _router: Router
     ) {
         this.title = 'Red';
         this.identity = this._userService.getIdentity();
         this.token = this._userService.getToken();
         this.url = GLOBAL.url;
-
+        this.activeButton = 'followers';
         this.followingPage = 1;
-        
+
 
         this._route.parent.params.subscribe(params => {
             let id = params['id'];
@@ -60,9 +63,9 @@ export class FollowsComponent {
 
         this.actualPage();
         this.loadPage();
-        this.getFollowerUsers(this.page);      
-        
-        
+        this.getFollowerUsers(this.page);
+
+
 
     }
 
@@ -70,9 +73,9 @@ export class FollowsComponent {
     setActiveButton(activeButton) {
         this.activeButton = activeButton;
 
-        if(this.activeButton == 'followers'){
+        if (this.activeButton == 'followers') {
             this.getFollowerUsers(this.page);
-        }else{
+        } else {
             this.getFollowingUsers(this.page);
         }
     }
@@ -82,10 +85,20 @@ export class FollowsComponent {
 
         this._route.parent.params.subscribe(params => {
             let id = params['id'];
-            this.getUser(id);            
+
+            this.getUser(id);
         });
 
-        
+        this._route.params.subscribe(params => {
+            let reload = params['reload'];
+
+            if (reload) {
+               this._router.navigate(['perfil', this.ownProfile._id, 'red']);
+               
+            }
+
+        });
+
     }
 
     actualPage() {
@@ -116,8 +129,7 @@ export class FollowsComponent {
                     this.ownProfile = response.user;
                     this.getFollowerUsers(this.followersPage);
                     this.getFollowingUsers(this.followingPage);
-                    console.log(this.following)
-                    console.log(this.following)
+
                 } else {
                     this.status = 'error';
                     this.ownProfile = this.identity;
@@ -140,7 +152,7 @@ export class FollowsComponent {
                     this.followingPages = response.pages;
                     this.followingTotal = response.total;
                 } else {
-                    this.status = 'error';                    
+                    this.status = 'error';
                 }
             },
             error => {
@@ -157,9 +169,12 @@ export class FollowsComponent {
                     this.followers = response.follows;
                     this.followersPages = response.pages;
                     this.followersTotal = response.total;
-                    
+                    this.followerUsersId = response.followers;
+                    this.followingUsersId = response.following;
+                    console.log(this.followers);
+
                 } else {
-                    this.status = 'error';                    
+                    this.status = 'error';
                 }
             },
             error => {
@@ -170,28 +185,28 @@ export class FollowsComponent {
 
     // Follower systems buttons
     public followUserOver;
-    mouseEnter(userId){
-        this.followUserOver = userId;        
+    mouseEnter(userId) {
+        this.followUserOver = userId;
     }
 
-    
-    mouseLeave(){
-        this.followUserOver = 0;        
+
+    mouseLeave() {
+        this.followUserOver = 0;
     }
 
-    followUser(userId){
+    followUser(userId) {
         let follow = new Follow();
         follow.user = this.identity._id;
         follow.followed = userId;
 
         this._followService.addFollow(this.token, follow).subscribe(
             response => {
-                    console.log(response)
-                if(response){
+
+                if (response) {
                     this.getFollowingUsers(this.page);
                     this.getFollowerUsers(this.page);
                 }
-                
+
             },
             error => {
                 console.log(<any>error);
@@ -199,17 +214,17 @@ export class FollowsComponent {
         )
     }
 
-    unfollowUser(userId){
+    unfollowUser(userId) {
         let index;
 
         this._followService.removeFollow(this.token, userId).subscribe(
             response => {
                 console.log(response)
-                if(response){
+                if (response) {
                     this.getFollowingUsers(this.page);
                     this.getFollowerUsers(this.page);
                 }
-                
+
             },
             error => {
                 console.log(<any>error);

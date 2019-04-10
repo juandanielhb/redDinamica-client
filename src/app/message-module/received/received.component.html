@@ -1,0 +1,118 @@
+<!-- received -->
+<div class="card">
+    <div class="card-header">
+        <h3 class="m-0 text-primary font-weight-bolder float-left">{{title}}</h3>
+        <!-- Button trigger modal add-->
+    </div>
+
+
+    <div class="card-body">
+
+        <div *ngIf="messages.length == 0" class="card-body">
+            <h4 class="text-muted">
+                No has recibido ningún mensaje.
+            </h4>
+        </div>
+
+        <div *ngIf="messages.length != 0">
+                <div *ngFor="let message of messages">
+                    <div class="card" [ngClass]="{'bg-light': !message.viewed}">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-1">
+                                    <div class="picture rounded-circle border-4 overflow-hidden"
+                                        style="width: 40px; height: 40px"
+                                        [routerLink]="[ '/perfil', message.emitter._id ]">
+                                        <img *ngIf="!message.emitter.picture" class="img-fluid"
+                                            src="assets/images/user-default.png">
+                                        <img *ngIf="message.emitter.picture" class="img-fluid"
+                                            src="{{this.url+'get-image-user/'+ message.emitter.picture}}">
+                                    </div>
+                                </div>
+    
+                                <div class="col">
+    
+                                    <h6>
+                                        De:
+                                        <a class="text-primary" [routerLink]="[ '/perfil', message.emitter._id ]">
+                                            <strong>
+                                                {{message.emitter.name}} {{message.emitter.surname}}
+                                            </strong>
+                                            <small>({{categories[message.emitter.role].label}})</small>
+                                        </a>
+                                        <br>
+                                        <small class=" text-muted">Recibido el:
+                                            {{ (message.created_at | amFromUnix) | amLocale:'es' | amDateFormat:'LLL' }}</small>
+                                    </h6>
+    
+                                </div>
+    
+                                <div class="col-auto">
+                                    <button class="btn btn-link p-0 text-muted" data-toggle="modal" data-target="#delete"
+                                        (click)="setDelete(message._id)" title="Eliminar mensaje">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+    
+    
+    
+                            </div>
+    
+    
+                            <div class="row">
+                                <div class="col offset-1">
+                                    {{message.text}}
+                                </div>
+                            </div>
+    
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+    
+            <nav *ngIf="messages.length > 0" class="mt-3" aria-label="Page navigation">
+                <ul class="pagination justify-content-end">
+                    <li *ngIf="page > 1" class="page-item">
+                        <a class="page-link bg-primary" [routerLink]="['/mensajes/enviados', prevPage]">Anterior</a>
+                    </li>
+                    <li *ngIf="page < pages && page != pages" class="page-item">
+                        <a class="page-link bg-info" [routerLink]="['/mensajes/enviados', nextPage]">Siguiente</a>
+                    </li>
+                </ul>
+            </nav>
+                    
+    </div>
+
+
+</div>
+<!-- /received -->
+
+
+
+<!-- Modal warning  delete-->
+<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="delete" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteTitle">Eliminar mensaje</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+    
+                <div class="modal-body">
+                    <div class="alert alert-warning mb-0" role="alert">
+                        <i class="fas fa-exclamation-triangle icon-message mr-2"></i>
+                        ¿Esta seguro que desea eliminar el mensaje?
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class=" btn btn-danger" data-dismiss="modal" (click)="delete()">Sí</button>
+                    <button class="btn btn-primary text-white" data-dismiss="modal">No</button>
+                </div>
+    
+            </div>
+        </div>
+    </div>
+    <!-- /Modal warning delete-->

@@ -20,6 +20,7 @@ const profileRoutes: Routes = [
             { path: 'lecciones', component: LessonsComponent},
             { path: 'posts', component: PublicationsComponent},
             { path: 'red', component: FollowsComponent},
+            { path: 'red/:reload', component: FollowsComponent},
             { path: '**', component: PublicationsComponent},
         ]
     }

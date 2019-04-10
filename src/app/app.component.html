@@ -98,13 +98,13 @@
                         <span class="mx-1">Inicio</span>                        
                     </a>
                 </li>
-                <!-- <li class="nav-item d-flex align-items-center">
-                    <a [routerLink]="['/registro']" class="nav-link btn btn-primary  d-flex align-items-center">  
+                <li class="nav-item d-flex align-items-center">
+                    <a [routerLink]="['/mensajes']" class="nav-link btn btn-primary  d-flex align-items-center">  
                         <i class="fas fa-envelope" style="font-size:1.5em"></i>
                         <span class="mx-1">Mensajes</span>
-                        <span class="badge badge-pill badge-info">10</span>
+                        <span *ngIf="unviewMessages > 0" class="badge badge-pill badge-info">{{unviewMessages}}</span>
                     </a>
-                </li> -->
+                </li>
                 <!-- <li class="nav-item d-flex align-items-center">
                     <a [routerLink]="['/registro']" class="nav-link btn btn-primary">
                         Notificaciones

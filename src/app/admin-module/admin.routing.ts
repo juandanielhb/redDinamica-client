@@ -2,8 +2,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 
 import { AdminComponent } from './admin.component';
-import { LessonsComponent } from './lessons/news.component';
-import { NewsComponent } from './news/news.component';
+
 
 import { CitiesComponent } from './basicData/cities/cities.component';
 import { InstitutionsComponent } from './basicData/institutions/institutions.component';
@@ -12,6 +11,12 @@ import { KnowledgeAreasComponent } from './basicData/knowledgeAreas/knowledgeAre
 import { NewUsersComponent } from './users/newUsers/newUsers.component';
 import { UsersComponent } from './users/users/users.component';
 import { AdminGuard } from './guards/admin.guard';
+import { LessonsComponent } from './lessons/lessons/lessons.component';
+import { ExperiencesComponent } from './lessons/experiences/experiences.component';
+import { CallsComponent } from './lessons/calls/calls.component';
+import { ProposedComponent } from './lessons/proposed/proposed.component';
+import { ResourcesComponent } from './resources/resources/resources.component';
+import { ProposedResourceComponent } from './resources/proposed/proposed-resource.component';
 
 
 const adminRoutes: Routes = [
@@ -26,11 +31,21 @@ const adminRoutes: Routes = [
             { path: 'usuarios', component: UsersComponent},
             { path: 'usuarios/:page', component: UsersComponent},
             { path: 'lecciones', component: LessonsComponent},
-            { path: 'noticias', component: NewsComponent},
+            { path: 'lecciones/:page', component: LessonsComponent},            
             { path: 'ciudades', component: CitiesComponent},
             { path: 'ciudades/:page', component: CitiesComponent},
             { path: 'instituciones', component: InstitutionsComponent},
             { path: 'instituciones/:page', component: InstitutionsComponent},
+            { path: 'lecciones-propuestas', component: ProposedComponent},
+            { path: 'lecciones-propuestas/:page', component: ProposedComponent},
+            { path: 'experiencias', component: ExperiencesComponent},
+            { path: 'experiencias/:page', component: ExperiencesComponent},
+            { path: 'convocatorias', component: CallsComponent},
+            { path: 'convocatorias/:page', component: CallsComponent},
+            { path: 'recursos', component: ResourcesComponent},
+            { path: 'recursos/:page', component: ResourcesComponent},
+            { path: 'recursos-propuestas', component: ProposedResourceComponent},
+            { path: 'recursos-propuestas/:page', component: ProposedResourceComponent},
             { path: 'areas', component: KnowledgeAreasComponent},
             { path: 'areas/:page', component: KnowledgeAreasComponent},            
             { path: 'profesiones/:page', component: ProfessionsComponent},

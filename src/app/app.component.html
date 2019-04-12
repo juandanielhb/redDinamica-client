@@ -99,18 +99,20 @@
                     </a>
                 </li>
                 <li class="nav-item d-flex align-items-center">
-                    <a [routerLink]="['/mensajes']" class="nav-link btn btn-primary  d-flex align-items-center">  
+                    <a [routerLink]="['/mensajes']" class="nav-link btn btn-primary d-flex align-items-center">  
                         <i class="fas fa-envelope" style="font-size:1.5em"></i>
                         <span class="mx-1">Mensajes</span>
                         <span *ngIf="unviewMessages > 0" class="badge badge-pill badge-info">{{unviewMessages}}</span>
                     </a>
                 </li>
-                <!-- <li class="nav-item d-flex align-items-center">
-                    <a [routerLink]="['/registro']" class="nav-link btn btn-primary">
-                        Notificaciones
-                        <span class="badge badge-info">10</span>
+                <li *ngIf="['admin', 'delegated_admin'].includes(identity.role)" class="nav-item d-flex align-items-center">
+                    <a [routerLink]="['/admin']" class="nav-link btn btn-primary d-flex align-items-center">
+                        <i class="fas fa-user-cog
+                        " style="font-size:1.5em"></i>
+                        <span class="mx-1">Panel de administración</span>
+                        <span *ngIf="unviewMessages > 0" class="badge badge-pill badge-info">{{unviewMessages}}</span>
                     </a>
-                </li> -->
+                </li>
 
             </ul>
             <div class="btn-group">
@@ -120,9 +122,9 @@
                 </button>
                 <div class="dropdown-menu dropdown-menu-lg-right">
 
-                    <button *ngIf="['admin', 'delegated_admin'].includes(identity.role)"  class="dropdown-item" type="button" [routerLink]="['/admin']">
+                    <!-- <button *ngIf="['admin', 'delegated_admin'].includes(identity.role)"  class="dropdown-item" type="button" [routerLink]="['/admin']">
                         Panel de administración
-                    </button>
+                    </button> -->
                     <button  class="dropdown-item" type="button" [routerLink]="['/seguridad']">
                         Opciones de seguridad
                     </button>

@@ -1,54 +1,49 @@
 <!-- admin-menu -->
 <div class="container">
-<div class="row py-3">
-    <div class="col-3" style="position:relative;">
-        <div class="accordion" id="adminMenu" style="width:253px; position:fixed">
-            <div class="card rounded">
-                <div class="card-header bg-primary text-white">
-                    <h4 class="card-title text-center mb-0">
-                        <strong>{{title}}</strong>
-                    </h4>
-                </div>
-            </div>
 
-            <div *ngFor="let option of menuOptions, let ix = index" class="card mt-2 rounded">
-                <button type="button"
-                    class="btn btn-block text-left d-flex justify-content-between py-2 {{option.buttonClass}}"
-                    data-toggle="collapse" attr.data-target="#{{option.id}}" aria-expanded="true"
-                    attr.aria-controls="{{option.id}}">
-                    <div>
-                        <i class="text-ligth fas {{option.iconClass}}"></i>
-                        <span class="ml-2"> {{option.spanContent}} </span>
+    <div class="row py-3">
+
+        <div class="col-3" style="position:relative;">
+            <div class="accordion" id="menu" style="width:253px; position:fixed">
+
+                <div class="card rounded">
+                    <div class="card-header bg-primary text-white">
+                        <h4 class="card-title text-center mb-0">
+                            <strong>{{title}}</strong>
+                        </h4>
                     </div>
-                    <span><i class="text-ligth fas fa-sort-down"></i></span>
-                </button>
+                </div>
 
-                <div id="{{option.id}}" class="collapse" aria-labelledby="headingOne" data-parent="#adminMenu">
-                    <div class="card-body py-2 px-0">
-                        <ul class="nav flex-column">
-                            <li *ngFor="let subOption of option.subOptions" subclass="nav-item">
-                                <a class="nav-link dropdown-item text-left" 
-                                [routerLink]="[subOption.routerLink]"
-                                routerLinkActive="active">{{subOption.text}}</a>
-                            </li>
-                            <!-- <li class="nav-item">
-                                <a class="nav-link dropdown-item text-left" [routerLink]="['/admin/datos-basicos']"
-                                    routerLinkActive="active">Usuarios</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link dropdown-item text-left" [routerLink]="['/admin/lecciones']"
-                                    routerLinkActive="active">Usuarios</a>
-                            </li> -->
-                        </ul>
+                <div *ngFor="let option of menuOptions, let ix = index" class="card mt-2 rounded">
+                    <button type="button"
+                        class="btn btn-block text-left d-flex justify-content-between py-2 {{option.buttonClass}}"
+                        data-toggle="collapse" attr.data-target="#{{option.id}}" aria-expanded="true"
+                        attr.aria-controls="{{option.id}}">
+                        <div>
+                            <i class="text-ligth fas {{option.iconClass}}"></i>
+                            <span class="ml-2"> {{option.spanContent}} </span>
+                        </div>
+                        <span><i class="text-ligth fas fa-sort-down"></i></span>
+                    </button>
+
+                    <div id="{{option.id}}" class="collapse" aria-labelledby="headingOne" data-parent="#menu">
+                        <div class="card-body py-2 px-0">
+                            <ul class="nav flex-column">
+                                <li *ngFor="let subOption of option.subOptions" subclass="nav-item">
+                                    <a class="nav-link dropdown-item text-left" [routerLink]="[subOption.routerLink]"
+                                        routerLinkActive="active">{{subOption.text}}</a>
+                                </li>
+
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- /admin-menu -->
+        <!-- /admin-menu -->
 
-    <div class="col-9 pl-0">
-        <router-outlet></router-outlet>
+        <div class="col-9 pl-0">
+            <router-outlet></router-outlet>
+        </div>
     </div>
-</div>
 </div>

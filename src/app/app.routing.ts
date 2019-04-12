@@ -25,4 +25,4 @@ const routes: Routes = [
 ];
 
 export const appRoutingProviders: any[] = [];
-export const Routing: ModuleWithProviders = RouterModule.forRoot(routes, { scrollPositionRestoration: 'top', onSameUrlNavigation: 'reload'});
+export const Routing: ModuleWithProviders = RouterModule.forRoot(routes, { scrollPositionRestoration: 'disabled', onSameUrlNavigation: 'reload'});

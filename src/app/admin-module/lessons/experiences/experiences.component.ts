@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'main',
-    templateUrl: './main.component.html'
+    selector: 'experiences',
+    templateUrl: './experiences.component.html'
   
 })
-export class MainComponent implements OnInit {
+export class ExperiencesComponent implements OnInit {
     public title:string;
     
     constructor() { 
-        this.title = 'Bienvenidos a';
+        this.title = 'Experiencias';
     }
 
     ngOnInit(): void { 

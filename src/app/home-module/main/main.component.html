@@ -1,3 +1,5 @@
+<span id="top"></span>
+
 <div *ngIf="!identity.actived" class="jumbotron bg-white py-4 mb-2">
     <h2 class="">Bienvenido a
         <strong class="display-4 text-primary font-weight-bolder rd">
@@ -80,7 +82,7 @@
     </h4>
 </div>
 <section *ngFor="let publication of publications">
-    <div id="new-post" class="card my-3">
+    <div id="{{publication._id}}" class="card my-3">
         <div class="card-body">
             <div class="row justify-content-center">
                 <div class="col-1 align-items-center">
@@ -159,7 +161,7 @@
             </form>
 
             <section *ngIf="publication.comments && publication.comments.length > 0" class="container p-0"
-                id="comments">
+                id="comments{{publication._id}}">
 
                 <div class="row justify-content-center">
                     <div class="col">

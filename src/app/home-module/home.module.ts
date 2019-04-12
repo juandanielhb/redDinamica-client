@@ -9,6 +9,11 @@ import { HomeComponent } from './home.component';
 import { MainComponent } from './main/main.component';
 import { UsersComponent } from './users/users.component';
 import { FilterPipe } from './pipes/filter.pipe';
+import { ResourcesComponent } from './resources/resources.component';
+import { LessonsComponent } from './lessons/lessons/lessons.component';
+import { SuggestComponent } from './resources/suggest/suggest.component';
+import { MyLessonsComponent } from './lessons/my-lessons/my-lessons.component';
+import { CallsComponent } from './lessons/calls/calls.component';
 
 
 
@@ -17,6 +22,11 @@ import { FilterPipe } from './pipes/filter.pipe';
         HomeComponent,
         MainComponent,
         UsersComponent,
+        ResourcesComponent,
+        LessonsComponent,
+        MyLessonsComponent,
+        CallsComponent,
+        SuggestComponent,
         FilterPipe
     ],
     imports: [

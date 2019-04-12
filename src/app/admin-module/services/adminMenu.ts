@@ -1,7 +1,7 @@
 export const ADMIN_MENU = [
     {
         "id": "users",
-        "buttonClass": "btn-success",
+        "buttonClass": "btn-info",
         "iconClass": "fa-user",
         "spanContent": "Usuarios",
         "subOptions": [
@@ -15,45 +15,49 @@ export const ADMIN_MENU = [
             }
         ]
     },
-    // {
-    //     "id": "newsResources",
-    //     "buttonClass": "btn-danger",
-    //     "iconClass": "fa-newspaper",
-    //     "spanContent": "Noticias y recursos",
-    //     "subOptions": [
-    //         {
-    //             "text": "Noticias",
-    //             "routerLink": "/admin/ciudades"
-    //         },
-    //         {
-    //             "text": "Recursos",
-    //             "routerLink": "/admin/instituciones"
-    //         }
-    //     ]
-    // },
-    // {
-    //     "id": "lessons",
-    //     "buttonClass": "btn-warning",
-    //     "iconClass": "fa-file-alt",
-    //     "spanContent": "Lecciones",
-    //     "subOptions": [
-    //         {
-    //             "text": "Propuestas",
-    //             "routerLink": "/admin/ciudades"
-    //         },
-    //         {
-    //             "text": "Crear convocatoria",
-    //             "routerLink": "/admin/instituciones"
-    //         },
-    //         {
-    //             "text": "Otra",
-    //             "routerLink": "/admin/areas"
-    //         }
-    //     ]
-    // },
+    {
+        "id": "lessons",
+        "buttonClass": "btn-warning",
+        "iconClass": "fa-file-alt",
+        "spanContent": "Lecciones",
+        "subOptions": [
+            {
+                "text": "Lecciones",
+                "routerLink": "/admin/lecciones"
+            },
+            {
+                "text": "Propuestas",
+                "routerLink": "/admin/lecciones-propuestas"
+            },
+            {
+                "text": "Experiencias",
+                "routerLink": "/admin/experiencias"
+            },
+            {
+                "text": "Convocatorias",
+                "routerLink": "/admin/convocatorias"
+            },
+        ]
+    },
+    {
+        "id": "resources",
+        "buttonClass": "btn-danger",
+        "iconClass": "fa-paperclip",
+        "spanContent": "Recursos",
+        "subOptions": [
+            {
+                "text": "Propuestas",
+                "routerLink": "/admin/recursos-propuestas"
+            },
+            {
+                "text": "Todos recursos",
+                "routerLink": "/admin/recursos"
+            }
+        ]
+    },
     {
         "id": "basicData",
-        "buttonClass": "btn-info",
+        "buttonClass": "btn-success",
         "iconClass": "fa-database",
         "spanContent": "Datos básicos",
         "subOptions": [
@@ -75,5 +79,5 @@ export const ADMIN_MENU = [
             }
         ]
     },
-    
+
 ];

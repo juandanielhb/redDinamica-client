@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LESSON_MENU } from './services/lessonMenu';
+import { Location } from '@angular/common';
 
 @Component({
     selector: 'lesson',
@@ -8,13 +8,18 @@ import { LESSON_MENU } from './services/lessonMenu';
 })
 export class LessonComponent implements OnInit {
     public title: string;
-    public menuOptions = LESSON_MENU;    
-
-    constructor() {
-        this.title = 'Lecciones';
+    public menuOptions;    
+    
+    constructor(private _location:Location) {
+        this.title = 'Leccion en';
+        
     }
 
     ngOnInit(): void {
         
+    }
+
+    onBackButton(){
+        this._location.back();
     }
 }

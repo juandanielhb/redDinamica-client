@@ -1,10 +1,10 @@
-<!-- Resources suggest modal-->
+<!-- suggest lesson -->
 <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="add" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
         <form [formGroup]="addForm" (ngSubmit)="onSubmit()" class="modal-content" enctype="multipart/form-data">
             <!-- modal-header -->
             <div class="modal-header">
-                <h5 class="modal-title" id="addTitle">Sugerir un recurso</h5>
+                <h5 class="modal-title" id="addTitle">Sugerir lección</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="restartValues()">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -13,6 +13,13 @@
 
             <!-- modal-body -->
             <div class="modal-body">
+                <div class="mb-2">
+                    <p>Está opción le permite solicitar o dar sugerencia de un tema sobre cual considera que se debe
+                        desarrollar una lección en RedDinámica.</p>
+                    <p>El administrador se encargará de enviar una convocatoria pública para formar el grupo de desarrollo
+                        de la lección.</p>
+
+                </div>
 
                 <div *ngIf="status === 'error'; successMessage" class="alert alert-danger fade show text-center"
                     role="alert">
@@ -35,10 +42,10 @@
                         <input *ngIf="field.type == 'text'" type="text" class="form-control" id="{{field.id}}"
                             autocomplete="off" formControlName="{{field.id}}"
                             [ngClass]="{ 'is-invalid': submitted && f[field.id].errors}">
-                        
+
                         <textarea *ngIf="field.type === 'textarea'" class="form-control" id="experience" rows="3"
                             formControlName="{{field.id}}" [ngClass]="{ 'is-invalid': submitted && f[field.id].errors}">
-                        </textarea>
+                            </textarea>
 
                         <select *ngIf="field.type == 'select'" formControlName="{{field.id}}" class="form-control"
                             id="{{field.id}}" [ngClass]="{'is-invalid': submitted && f[field.id].errors}"
@@ -78,4 +85,4 @@
         </form>
     </div>
 </div>
-<!-- /Resources suggest modal-->
+<!-- /suggest lesson -->

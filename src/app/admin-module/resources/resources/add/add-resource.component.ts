@@ -1,18 +1,19 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { FIELDS_FORM } from '../resourcesData';
+import { Component, OnInit } from '@angular/core';
+
 import { Validators, FormControl, FormGroup } from '@angular/forms';
 import { Resource } from 'src/app/models/resource.model';
 import { UserService } from 'src/app/services/user.service';
 import { ResourceService } from 'src/app/services/resource.service';
-import { UploadService } from 'src/app/services/upload.service';
+import { FIELDS_FORM } from '../resourcesData';
 import { GLOBAL } from 'src/app/services/global';
+import { UploadService } from 'src/app/services/upload.service';
 
 @Component({
-    selector: 'suggest',
-    templateUrl: './suggest.component.html'
+    selector: 'add-resource',
+    templateUrl: './add-resource.component.html'
 
 })
-export class SuggestComponent implements OnInit {
+export class AddResourceComponent implements OnInit {
     public title;
     public identity;
     public token;
@@ -29,7 +30,7 @@ export class SuggestComponent implements OnInit {
 
     public resource;
 
-    public maxSize = 20*1024*1024;
+    public maxSize = 20 * 1024 * 1024;
     public maxSizeError = false;
 
     constructor(
@@ -37,21 +38,20 @@ export class SuggestComponent implements OnInit {
         private _resourceService: ResourceService,
         private _uploadService: UploadService,
     ) {
-        this.title = 'Sugerir recurso';
+        this.title = 'Agregar recurso';
         this.identity = this._userService.getIdentity();
         this.token = this._userService.getToken();
         this.url = GLOBAL.url;
 
         this.fields = FIELDS_FORM;
 
-        this.errorMsg = 'Hubo un error al enviar la sugerencia para el nuevo recurso. Intentalo de nuevo más tarde.';
-        this.successMsg = 'Se ha enviado la sugerencia para el nuevo recurso correctamente. Gracias por tu sugerencia.';
+        this.errorMsg = 'Hubo un error agregando el nuevo recurso. Intentalo de nuevo más tarde.';
+        this.successMsg = 'Se ha creado el nuevo recurso correctamente.';
 
         this.addForm = new FormGroup({
             name: new FormControl('', Validators.required),
             type: new FormControl('', Validators.required),
             description: new FormControl('', Validators.required),
-            justification: new FormControl('', Validators.required),
             source: new FormControl('', Validators.required),
             file: new FormControl('', Validators.required),
             link: new FormControl('', Validators.required)
@@ -93,20 +93,19 @@ export class SuggestComponent implements OnInit {
     fileChangeEvent(fileInput: any) {
         this.filesToUpload = <Array<File>>fileInput.target.files;
 
-        if(this.maxSize < fileInput.target.files[0].size){
+        if (this.maxSize < fileInput.target.files[0].size) {
             this.maxSizeError = true;
             return;
         }
 
         this.maxSizeError = false;
-        
-    }
 
+    }
 
     onSubmit() {
         this.submitted = true;
 
-        if (this.addForm.invalid || this.maxSizeError) {
+        if (this.addForm.invalid) {
             return;
         }
 
@@ -117,17 +116,16 @@ export class SuggestComponent implements OnInit {
             this.addForm.value.description,
             this.identity._id);
 
-        this.resource.justification = this.addForm.value.justification;
         this.resource.link = this.addForm.value.link;
-        this.resource.accepted = false;
+        this.resource.accepted = true;
 
-        
+
         this._resourceService.addResource(this.token, this.resource).subscribe(
-            response => {                
+            response => {
                 if (response.resource && response.resource._id) {
 
                     if (this.filesToUpload && this.filesToUpload.length > 0) {
-                  
+
                         // Upload post image
                         this._uploadService.makeFileRequest(
                             this.url + 'upload-resource/' + response.resource._id,
@@ -147,11 +145,9 @@ export class SuggestComponent implements OnInit {
                         this.status = 'error';
                     }
 
-                    
                     this.status = 'success';
                     this.addForm.reset();
-
-                }else{
+                } else {
                     this.status = 'error';
                 }
             },

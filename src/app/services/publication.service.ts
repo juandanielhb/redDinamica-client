@@ -9,7 +9,7 @@ import { Publication } from '../models/publication.model';
 export class PublicationService {
     public url:string;
     public identity;
-    public token;
+
 
     constructor(
         private _http:HttpClient

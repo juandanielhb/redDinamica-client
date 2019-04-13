@@ -229,9 +229,9 @@
 
 <!-- Modal edit -->
 <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <form [formGroup]="editForm" (ngSubmit)="onEditSubmit()">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        
+            <form class="modal-content" [formGroup]="editForm" (ngSubmit)="onEditSubmit()">
                 <div class="modal-header">
                     <h5 class="modal-title" id="editTitle">Editar usuario</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -287,7 +287,7 @@
                     <button id="save" type="submit" class=" btn btn-success">Guardar</button>
                 </div>
             </form>
-        </div>
+        
     </div>
 </div>
 <!-- /Modal edit-->

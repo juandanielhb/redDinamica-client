@@ -14,6 +14,15 @@ import { LessonsComponent } from './lessons/lessons/lessons.component';
 import { SuggestComponent } from './resources/suggest/suggest.component';
 import { MyLessonsComponent } from './lessons/my-lessons/my-lessons.component';
 import { CallsComponent } from './lessons/calls/calls.component';
+import { LessonComponent } from './lesson/lesson.component';
+import { LessonDetailsComponent } from './lesson/details/lesson-details.component';
+import { RatingComponent } from './lesson/rating/rating.component';
+import { EditComponent } from './lesson/edit/edit.component';
+import { GroupComponent } from './lesson/group/group.component';
+import { ActivityComponent } from './lesson/activity/activity.component';
+import { SuggestLessonComponent } from './lessons/lessons/suggest/suggest-lesson.component';
+import { SendExperienceComponent } from './lessons/lessons/send-experiences/send-experience.component';
+
 
 
 
@@ -27,13 +36,21 @@ import { CallsComponent } from './lessons/calls/calls.component';
         MyLessonsComponent,
         CallsComponent,
         SuggestComponent,
+        LessonComponent,
+        SuggestLessonComponent,
+        SendExperienceComponent,
+        LessonDetailsComponent,
+        RatingComponent,
+        EditComponent,
+        GroupComponent,
+        ActivityComponent,
         FilterPipe
     ],
     imports: [
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        MomentModule,
+        MomentModule,        
         HomeRoutingModule
     ],
     exports: [

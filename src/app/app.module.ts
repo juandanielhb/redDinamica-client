@@ -9,7 +9,6 @@ import { MomentModule } from 'ngx-moment';
 // Modules
 import { HomeModule } from './home-module/home.module';
 import { AdminModule } from './admin-module/admin.module';
-import { LessonModule } from './lesson-module/lesson.module';
 import { ProfileModule } from './profile-module/profile.module';
 import { MessageModule } from './message-module/message.module';
 
@@ -36,6 +35,7 @@ import { FollowService } from './services/follow.service';
 import { PublicationService } from './services/publication.service';
 import { MessageService } from './services/message.service';
 import { CommentService } from './services/comment.service';
+import { ResourceService } from './services/resource.service';
 
 
 
@@ -62,8 +62,7 @@ import { CommentService } from './services/comment.service';
     Routing,
     ReactiveFormsModule,
     HomeModule,
-    AdminModule,
-    LessonModule,    
+    AdminModule,    
     ProfileModule,
     MessageModule,
     MomentModule,
@@ -78,6 +77,7 @@ import { CommentService } from './services/comment.service';
     BasicDataService,
     MessageService,
     CommentService,
+    ResourceService,
     Location
   ],
   bootstrap: [AppComponent]

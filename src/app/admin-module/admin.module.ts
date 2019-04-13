@@ -22,6 +22,7 @@ import { ProposedComponent } from './lessons/proposed/proposed.component';
 import { CallsComponent } from './lessons/calls/calls.component';
 import { ResourcesComponent } from './resources/resources/resources.component';
 import { ProposedResourceComponent } from './resources/proposed/proposed-resource.component';
+import { AddResourceComponent } from './resources/resources/add/add-resource.component';
 
 @NgModule({
     declarations: [
@@ -32,6 +33,7 @@ import { ProposedResourceComponent } from './resources/proposed/proposed-resourc
         ProposedComponent,        
         CallsComponent,
         ResourcesComponent,
+        AddResourceComponent,
         ProposedResourceComponent,
         CitiesComponent,
         InstitutionsComponent,

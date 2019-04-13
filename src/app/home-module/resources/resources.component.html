@@ -3,7 +3,7 @@
     <div class="card-header">
         <h3 class="m-0 text-primary font-weight-bolder float-left">{{title}}</h3>
 
-        <button type="button" class="btn btn-primary float-right">
+        <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#add">
             <i class="fas fa-plus"></i>
             <span class="ml-2">Sugerir recurso</span>
         </button>
@@ -44,7 +44,7 @@
 
         </div>
         <!-- /Filters input -->
-        
+
         <!-- Filters links -->
         <div class=" text-right mb-3">
 
@@ -61,93 +61,96 @@
         </div>
         <!-- /Filters links -->
 
+
         <!-- Resources items -->
-        <div class="card">
-            <div class="card-body">
+        <button class="btn p-0 text-left">
+            <div class="card">
+                <div class="card-body">
 
-                <div class="media-body">
+                    <div class="media-body">
 
-                    <div class="row">
+                        <div class="row">
 
-                        <div class="col-auto">
+                            <div class="col-auto">
 
-                            <div class="row">
-                                <div class="col">
-                                    <div class="p-2 rounded-lg border border-ligth"
-                                        style="width: 80px; height: 80px; overflow: hidden; background: red">
-                                        <i class="text-white fas fa-link" style="font-size:62px"></i>
-                                        <!-- <img src="assets/images/descarga.jpg" class="mr-3" alt="..."> -->
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="p-2 rounded-lg border border-ligth"
+                                            style="width: 80px; height: 80px; overflow: hidden; background: red">
+                                            <i class="text-white fas fa-link" style="font-size:62px"></i>
+                                            <!-- <img src="assets/images/descarga.jpg" class="mr-3" alt="..."> -->
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="row mt-1">
+                                <div class="row mt-1">
 
-                                <div class="col-12">
-                                    <button class="btn btn-block btn-sm" disabled title="Ver calificaciones">
-                                        <i class="fas fa-star"></i> 5
-                                    </button>
-                                    <button class="btn btn-block btn-sm text-truncate" disabled>
-                                        <span>
-                                            <i class="fas fa-download"></i>
-                                            <span class="text-truncate">222222</span>
-                                        </span>
-                                    </button>
+                                    <div class="col-12">
+                                        <button class="btn btn-block btn-sm" disabled title="Ver calificaciones">
+                                            <i class="fas fa-star"></i> 5
+                                        </button>
+                                        <button class="btn btn-block btn-sm text-truncate" disabled>
+                                            <span>
+                                                <i class="fas fa-download"></i>
+                                                <span class="text-truncate">222222</span>
+                                            </span>
+                                        </button>
+                                    </div>
+
+
                                 </div>
 
-
                             </div>
+                            <div class="col">
+                                <h5 class="mt-0 text-truncate">
+                                    <strong>Asociación Colombiana de dinámica de Sistemas</strong>
+                                </h5>
+                                <p>Cras sit amet nibh libero, in gravida nulla. Nulla velCras sit amet nibh libero, in
+                                    gravida nulla. Nulla vel</p>
+                                <p><strong>Subido por:</strong></p>
 
-                        </div>
-                        <div class="col">
-                            <h5 class="mt-0 text-truncate">
-                                <strong>Asociación Colombiana de dinámica de Sistemas</strong>
-                            </h5>
-                            <p>Cras sit amet nibh libero, in gravida nulla. Nulla velCras sit amet nibh libero, in
-                                gravida nulla. Nulla vel</p>
-                            <p><strong>Subido por:</strong></p>
-
-                            <div class="row">
-                                <div class="col-auto pr-0">
-                                    <a class="text-primary">
-                                        <div class="flex-shrink-0 rounded-circle border-1 overflow-hidden"
-                                            style="width: 40px; height:40px; background-color: aqua">
-                                            <!-- <img class="img-fluid" src="{{this.url+'get-image-user/'+ comment.user.picture}}"> -->
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="col rounded px-2">
-                                    <h6 class="mb-1">
+                                <div class="row">
+                                    <div class="col-auto pr-0">
                                         <a class="text-primary">
-                                            <strong>
-                                                Juan Daniel Hernández
-                                            </strong>
+                                            <div class="flex-shrink-0 rounded-circle border-1 overflow-hidden"
+                                                style="width: 40px; height:40px; background-color: aqua">
+                                                <!-- <img class="img-fluid" src="{{this.url+'get-image-user/'+ comment.user.picture}}"> -->
+                                            </div>
                                         </a>
-                                        <br>
-                                        <small class=" text-muted">
-                                            10/10/1010
-                                        </small>
-                                    </h6>
+                                    </div>
+                                    <div class="col rounded px-2">
+                                        <h6 class="mb-1">
+                                            <a class="text-primary">
+                                                <strong>
+                                                    Juan Daniel Hernández
+                                                </strong>
+                                            </a>
+                                            <br>
+                                            <small class=" text-muted">
+                                                10/10/1010
+                                            </small>
+                                        </h6>
 
+                                    </div>
                                 </div>
+
                             </div>
 
+
+                            <div class="col-auto">
+                                <button class="btn btn-warning mr-2" title="Calificar recurso">
+                                    <i class="fas fa-star"></i>
+                                </button>
+                                <button class="btn btn-secondary" title="Obtener recurso">
+                                    <i class="fas fa-download"></i></button>
+
+                            </div>
                         </div>
 
-
-                        <div class="col-auto">
-                            <button class="btn btn-warning mr-2" title="Calificar recurso">
-                                <i class="fas fa-star"></i>
-                            </button>
-                            <button class="btn btn-secondary" title="Obtener recurso">
-                                <i class="fas fa-download"></i></button>
-
-                        </div>
                     </div>
-
                 </div>
             </div>
-        </div>
+        </button>
         <!-- /Resources items -->
 
     </div>

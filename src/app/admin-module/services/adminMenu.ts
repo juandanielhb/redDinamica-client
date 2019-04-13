@@ -46,12 +46,12 @@ export const ADMIN_MENU = [
         "spanContent": "Recursos",
         "subOptions": [
             {
-                "text": "Propuestas",
-                "routerLink": "/admin/recursos-propuestas"
-            },
-            {
                 "text": "Todos recursos",
                 "routerLink": "/admin/recursos"
+            },
+            {
+                "text": "Propuestas",
+                "routerLink": "/admin/recursos-propuestas"
             }
         ]
     },

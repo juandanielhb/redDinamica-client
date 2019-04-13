@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ResourcesComponent implements OnInit {
     public title:string;
-    public categories;
+    public categories;    
     
     constructor() { 
         this.title = 'Recursos';
@@ -35,4 +35,5 @@ export class ResourcesComponent implements OnInit {
     ngOnInit(): void { 
         
     }
+
 }

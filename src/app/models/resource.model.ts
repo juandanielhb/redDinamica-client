@@ -1,16 +1,20 @@
 export class Resource {
-    public _id:String;
-    public views:String;
-    public visible:String;
-    public comments:Array<String>;
+    public _id;
+    public downloads;
+    public visible;
+    public comments;
+    public score;
+    public justification;
+    public accepted;
+    public file;
+    public url;
+    public created_at;
 
     constructor(
-        public name:String,
-        public type:String,
-        public source:String,
-        public description:String,
-        public author:String,
-        public created_at:String
+        public name,
+        public type,
+        public source,
+        public description,
+        public author,
     ){}
 }
-

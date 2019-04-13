@@ -67,7 +67,11 @@ export class NewUsersComponent {
                 if(response.user){
                     this.users = this.users.filter((item) => {                          
                         return item._id != response.user._id;
-                    })
+                    });
+
+                    if(this.users.length == 0){
+                        this._router.navigate(['/admin/usuarios-nuevos']);
+                    }
                 }
             },error=>{
                 console.log(<any>error);
@@ -83,6 +87,10 @@ export class NewUsersComponent {
                         this.users = this.users.filter((item) => {                     
                             return item._id != response.user._id;
                         });
+
+                        if(this.users.length == 0){
+                            this._router.navigate(['/admin/usuarios-nuevos']);
+                        }
                     }
 
             },error=>{

@@ -1,68 +1,31 @@
-<!-- Lessons -->
+<!-- resources -->
 <div class="card">
     <div class="card-header">
         <h3 class="m-0 text-primary font-weight-bolder float-left">{{title}}</h3>
-
-        <button type="button" class="btn btn-primary float-right ml-3">
+        <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#add">
             <i class="fas fa-plus"></i>
-            <span class="ml-2">Sugerir leccion</span>
-        </button>
-        <button type="button" class="btn btn-secondary float-right">
-            <i class="fas fa-plus"></i>
-            <span class="ml-2">Enviar experiencias</span>
+            <span class="ml-2">Agregar recurso</span>
         </button>
     </div>
 
     <div class="card-body">
 
-        <!-- checkbox filter -->
-        <div class="row">
-            <div class="col">
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col">
-                            <h6 class="text-primary font-weight-bold">Área de conocimiento</h6>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div *ngFor="let category of categories2" class="col">
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="{{category.value}}"
-                                    (click)="setCategory(category.value)">
-                                <label class="custom-control-label" for="{{category.value}}">
-                                    {{category.label}}
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-            </div>
-            <div class="col">
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col">
-                            <h6 class="text-primary font-weight-bold">Nivel académico</h6>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div *ngFor="let category of categories" class="col">
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="{{category.value}}"
-                                    (click)="setCategory(category.value)">
-                                <label class="custom-control-label" for="{{category.value}}">
-                                    {{category.label}}
-                                </label>
-                            </div>
-                        </div>
+        <!-- Filters checkboxes -->
+        <div class="form-group">
+            <div class="row">
+                <div *ngFor="let category of categories" class="col">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="{{category.value}}"
+                            (click)="setCategory(category.value)">
+                        <label class="custom-control-label" for="{{category.value}}">
+                            {{category.label}}
+                        </label>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- /checkbox filter -->
-
-        <!-- input filter -->
+        <!-- /Filters checkboxes -->
+        <!-- Filters input -->
         <div class="form-group row mb-1">
             <div class="col">
                 <form>
@@ -79,14 +42,14 @@
             </div>
 
         </div>
-        <!-- /input filter -->
+        <!-- /Filters input -->
 
         <!-- Filters links -->
         <div class=" text-right mb-3">
 
             <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                <a href="#" class="card-link">
-                    Más vistos
+                <a href="www.facebook.com" class="card-link">
+                    Más descargados
                 </a>
                 <a href="#" class="card-link">
                     Más populares
@@ -97,144 +60,101 @@
         </div>
         <!-- /Filters links -->
 
-        <!-- lesson items -->
-        <div class="card">
-            <div class="card-body">
 
-                <div class="media-body">
+        <!-- Resources items -->
+        <button class="btn p-0 text-left">
+            <div class="card">
+                <div class="card-body">
 
-                    <div class="row">
+                    <div class="media-body">
 
-                        <div class="col-auto">
+                        <div class="row">
 
-                            <div class="row">
-                                <div class="col">
-                                    <div class="p-2 rounded-lg border border-ligth text-center bg-warning"
-                                        style="width: 80px; height: 80px; overflow: hidden;">
-                                        <i class="text-white fas fa-file-alt" style="font-size:62px"></i>
-                                        <!-- <img src="assets/images/descarga.jpg" class="mr-3" alt="..."> -->
+                            <div class="col-auto">
+
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="p-2 rounded-lg border border-ligth"
+                                            style="width: 80px; height: 80px; overflow: hidden; background: red">
+                                            <i class="text-white fas fa-link" style="font-size:62px"></i>
+                                            <!-- <img src="assets/images/descarga.jpg" class="mr-3" alt="..."> -->
+                                        </div>
                                     </div>
                                 </div>
+
+                                <div class="row mt-1">
+
+                                    <div class="col-12">
+                                        <button class="btn btn-block btn-sm" disabled title="Ver calificaciones">
+                                            <i class="fas fa-star"></i> 5
+                                        </button>
+                                        <button class="btn btn-block btn-sm text-truncate" disabled>
+                                            <span>
+                                                <i class="fas fa-download"></i>
+                                                <span class="text-truncate">222222</span>
+                                            </span>
+                                        </button>
+                                    </div>
+
+
+                                </div>
+
                             </div>
+                            <div class="col">
+                                <h5 class="mt-0 text-truncate">
+                                    <strong>Asociación Colombiana de dinámica de Sistemas</strong>
+                                </h5>
+                                <p>Cras sit amet nibh libero, in gravida nulla. Nulla velCras sit amet nibh libero, in
+                                    gravida nulla. Nulla vel</p>
+                                <p><strong>Subido por:</strong></p>
 
-                            <div class="row mt-1">
-
-                                <div class="col-12">
-                                    <button class="btn btn-block" disabled title="Calificación">
-                                        <i class="fas fa-star"></i> 5
-                                    </button>
-                                    <button class="btn btn-block btn-sm" disabled title="Número de visualizaciones">
-                                        <span>
-                                            <i class="fas fa-eye"></i>
-                                            <span>100</span>
-                                        </span>
-                                    </button>
-                                </div>
-
-
-                            </div>
-
-                        </div>
-                        <div class="col">
-                            <h5 class="mb-0 text-truncate">
-                                <strong>Asociación Colombiana de dinámica de Sistemas</strong>
-
-                            </h5>
-
-                            <a href="#" class="badge mr-1 badge-primary">Quimica</a>
-                            <a href="#" class="badge mr-1 badge-secondary">Matemáticas</a>
-                            <a href="#" class="badge mr-1 badge-success">Sociales</a>
-                            <a href="#" class="badge mr-1 badge-danger">Danger</a>
-                            <a href="#" class="badge mr-1 badge-warning">Warning</a>
-                            <a href="#" class="badge mr-1 badge-info">Info</a>
-                            <a href="#" class="badge mr-1 badge-light">Light</a>
-                            <a href="#" class="badge mr-1 badge-dark">Dark</a>
-
-                            <p class="mt-3">Cras sit amet nibh libero, in gravida nulla. Nulla velCras sit amet nibh
-                                libero, in
-                                gravida nulla. Nulla vel</p>
-
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="row">
-                                        <div class="col">
-                                            <strong>Nivel académico:</strong>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col">
-                                            <p>Primaria</p>
-                                        </div>
-
-                                    </div>
-
-
-                                </div>
-                                <div class="col-6">
-                                    <div class="row">
-                                        <div class="col">
-                                            <strong>Fecha publicación:</strong>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col">
-                                            <p class="text-muted">Fecha</p>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col">
-                                    <div class="row">
-                                        <div class="col">
-                                            <strong>Desarrollada por:</strong>
-                                        </div>
-                                    </div>
-                                    <div class="card">
-                                        <div class="card-body p-1">
-                                            <div class="row">
-
-                                                <div *ngFor="let user of [1,2,3,4,5,6,7,8,9,10]" class="col-auto pr-0">
-                                                    <a class="text-primary">
-                                                        <button
-                                                            class="btn flex-shrink-0 rounded-circle  overflow-hidden p-0"
-                                                            style="width: 40px; height:40px;"
-                                                            title="Juan Daniel Hernández">
-                                                            <!-- <img class="img-fluid" src="{{this.url+'get-image-user/'+ comment.user.picture}}"> -->
-                                                            <img class="img-fluid" src="assets/images/user-default.png">
-                                                        </button>
-                                                    </a>
-                                                </div>
+                                <div class="row">
+                                    <div class="col-auto pr-0">
+                                        <a class="text-primary">
+                                            <div class="flex-shrink-0 rounded-circle border-1 overflow-hidden"
+                                                style="width: 40px; height:40px; background-color: aqua">
+                                                <!-- <img class="img-fluid" src="{{this.url+'get-image-user/'+ comment.user.picture}}"> -->
                                             </div>
-                                        </div>
+                                        </a>
+                                    </div>
+                                    <div class="col rounded px-2">
+                                        <h6 class="mb-1">
+                                            <a class="text-primary">
+                                                <strong>
+                                                    Juan Daniel Hernández
+                                                </strong>
+                                            </a>
+                                            <br>
+                                            <small class=" text-muted">
+                                                10/10/1010
+                                            </small>
+                                        </h6>
+
                                     </div>
                                 </div>
+
                             </div>
 
+
+                            <div class="col-auto">
+                                <button class="btn btn-warning mr-2" title="Calificar recurso">
+                                    <i class="fas fa-star"></i>
+                                </button>
+                                <button class="btn btn-secondary" title="Obtener recurso">
+                                    <i class="fas fa-download"></i></button>
+
+                            </div>
                         </div>
-
-
 
                     </div>
-
                 </div>
             </div>
+        </button>
+        <!-- /Resources items -->
 
-            <div class="card-footer text-right">
-
-
-                <button class="btn btn-info" title="Obtener recurso">
-                    <i class="fas fa-eye"></i> Ver lección
-                </button>
-
-
-            </div>
-        </div>
-        <!-- /lesson items -->
     </div>
 
 </div>
-<!-- /Lessons -->
+<!-- /resources -->
+
+<add-resource></add-resource>

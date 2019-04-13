@@ -14,8 +14,7 @@ import { SecurityOptionsComponent } from './components/securityOptions/securityO
 const routes: Routes = [
     { path: '', component: LandingComponent },    
     { path: 'login', component: LoginComponent },
-    { path: 'registro', component: RegisterComponent },
-    { path: 'inicio', component: LandingComponent },
+    { path: 'registro', component: RegisterComponent },    
     { path: 'pass/reset', component: RecoverPasswordComponent },
     { path: 'perfil', component: ProfileComponent },
     { path: 'recursos', component: ResourcesComponent },

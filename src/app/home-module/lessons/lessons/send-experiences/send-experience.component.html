@@ -1,10 +1,10 @@
-<!-- Resources suggest modal-->
-<div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="add" aria-hidden="true">
+<!-- send experiences -->
+<div class="modal fade" id="send" tabindex="-1" role="dialog" aria-labelledby="send" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
-        <form [formGroup]="addForm" (ngSubmit)="onSubmit()" class="modal-content" enctype="multipart/form-data">
+        <form [formGroup]="sendForm" (ngSubmit)="onSubmit()" class="modal-content" enctype="multipart/form-data">
             <!-- modal-header -->
             <div class="modal-header">
-                <h5 class="modal-title" id="addTitle">Sugerir un recurso</h5>
+                <h5 class="modal-title" id="sendTitle">Enviar experiencia</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="restartValues()">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -13,6 +13,24 @@
 
             <!-- modal-body -->
             <div class="modal-body">
+                <div class="mb-2">
+                    <p>Esta opción te permite compartir tu experiencia y el material que has desarrollado para aplicarlo
+                        en la escuela. Debes escoger el tipo de lección que deseas que se desarrolle.</p>
+
+                    <p>Lección tipo Consideración: En este tipo de lección el administrador decide si se publica o no.
+                        Cuando la lección es publicada, los usuarios podrán consultarla y dar opiniones sobre ella, pero
+                        sabrán que esta lección no ha seguido un desarrollo completo que certifique que la lección es
+                        confiable.</p>
+
+                    <p>Lección tipo Desarrollo: Las lecciones de este tipo pasan por un proceso de desarrollo en el cual
+                        se asigna un usuario experto que asesora la lección y decide en que momento la lección está
+                        lista para publicarse. Para estas lecciones, el administrador abre una convocatoria pública para
+                        los participantes de RedDínamica, con el fin de formar un grupo de desarrollo que se encargue de
+                        realizar el proceso de construcción y prueba de la lección; de este grupo se escoge un lider de
+                        desarrollo quien es el encargado de hacer modificaciones a la lección. Las lecciones que siguen
+                        este proceso se consideran lecciones confiables y con un buen nivel de calidad.</p>
+
+                </div>
 
                 <div *ngIf="status === 'error'; successMessage" class="alert alert-danger fade show text-center"
                     role="alert">
@@ -35,10 +53,10 @@
                         <input *ngIf="field.type == 'text'" type="text" class="form-control" id="{{field.id}}"
                             autocomplete="off" formControlName="{{field.id}}"
                             [ngClass]="{ 'is-invalid': submitted && f[field.id].errors}">
-                        
+
                         <textarea *ngIf="field.type === 'textarea'" class="form-control" id="experience" rows="3"
                             formControlName="{{field.id}}" [ngClass]="{ 'is-invalid': submitted && f[field.id].errors}">
-                        </textarea>
+                                </textarea>
 
                         <select *ngIf="field.type == 'select'" formControlName="{{field.id}}" class="form-control"
                             id="{{field.id}}" [ngClass]="{'is-invalid': submitted && f[field.id].errors}"
@@ -78,4 +96,4 @@
         </form>
     </div>
 </div>
-<!-- /Resources suggest modal-->
+<!-- /send experiences -->

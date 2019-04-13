@@ -3,11 +3,11 @@
     <div class="card-header">
         <h3 class="m-0 text-primary font-weight-bolder float-left">{{title}}</h3>
 
-        <button type="button" class="btn btn-primary float-right ml-3">
+        <button type="button" class="btn btn-primary float-right ml-3" data-toggle="modal" data-target="#add">
             <i class="fas fa-plus"></i>
             <span class="ml-2">Sugerir leccion</span>
         </button>
-        <button type="button" class="btn btn-secondary float-right">
+        <button type="button" class="btn btn-secondary float-right" data-toggle="modal" data-target="#send">
             <i class="fas fa-plus"></i>
             <span class="ml-2">Enviar experiencias</span>
         </button>
@@ -226,7 +226,7 @@
             <div class="card-footer text-right">
 
 
-                <button class="btn btn-info" title="Obtener recurso">
+                <button [routerLink]="['/inicio/leccion', 1]" class="btn btn-info" title="Obtener recurso">
                     <i class="fas fa-eye"></i> Ver lección
                 </button>
 
@@ -238,3 +238,7 @@
 
 </div>
 <!-- /Lessons -->
+
+<suggest-lesson></suggest-lesson>
+
+<send-experience></send-experience>

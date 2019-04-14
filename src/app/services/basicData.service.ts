@@ -121,6 +121,17 @@ export class BasicDataService {
         return this._http.post(this.url + 'area', params, {headers:headers});
     } 
 
+    addKnowledgeAreas(knowledgeAreas):Observable<any>{
+        console.log(knowledgeAreas)
+        let params = JSON.stringify(knowledgeAreas);
+        let headers = new HttpHeaders({
+            'Content-Type':'application/json', 
+            'Authorization': this.getToken()
+        });
+
+        return this._http.post(this.url + 'areas', params, {headers:headers});
+    } 
+
     getKnowledgeAreas(page = null):Observable<any>{ 
         let headers = new HttpHeaders({
             'Content-Type':'application/json', 

@@ -12,7 +12,8 @@ export const FIELDS_FORM = [
     },
     {
         id: "institutionEmail",
-        label: "Correo electrónico",attr: "email"        
+        label: "Correo electrónico",
+        attr: "email"        
     },
     {
         id: "institutionCity",

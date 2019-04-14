@@ -27,18 +27,27 @@ export class ResourceService {
         return this._http.post(this.url + 'resource', params, {headers:headers});
     }
     
-    // getresources(page = null):Observable<any>{        
-    //     let headers = new HttpHeaders({
-    //         'Content-Type':'application/json', 
-    //         'Authorization': this.getToken()
-    //     });        
+    getResources(token, page = null):Observable<any>{        
+        let headers = new HttpHeaders({
+            'Content-Type':'application/json', 
+            'Authorization': token
+        });        
 
-    //     return this._http.get(this.url + 'resources/' + page, {headers:headers});
-    // }   
+        if(page){
+            return this._http.get(this.url + 'resources/' + page, {headers:headers});
+        }else{
+            return this._http.get(this.url + 'resources', {headers:headers});
+        }
+    }   
     
-    // getAllresources():Observable<any>{     
-    //     return this._http.get(this.url + 'all-resources');
-    // }   
+    getAllResources(token):Observable<any>{   
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Authorization': token
+        });    
+
+        return this._http.get(this.url + 'all-resources', {headers:headers});
+    }   
 
     // editresource(resourceId, resource:resource):Observable<any>{        
     //     let params = JSON.stringify(resource);        

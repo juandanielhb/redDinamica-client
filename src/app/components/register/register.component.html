@@ -92,19 +92,29 @@
 
 
                                 <div class="form-group col-12">
-                                    <label for="profession">Profesión</label>
+                                    <label for="profession">Profesión*</label>
                                     <ng-select [items]="items.profession" bindLabel="name" [addTag]="true"
                                         addTagText="Agregar profesión" formControlName="profession"
-                                        placeholder="Profesión">
+                                        placeholder="Profesión" [ngClass]="{ 'is-invalid': submitted && f.profession.errors }">
                                     </ng-select>
+                                    <div *ngIf="submitted && f.profession.errors">
+                                        <div *ngIf="f.profession.errors.required" class="invalid-feedback-select">
+                                            El campo profesión es obligatorio.
+                                        </div>                                    
+                                    </div>
                                 </div>
 
                                 <div class="form-group col-12">
-                                    <label for="institution">Institución</label>
+                                    <label for="institution">Institución*</label>
                                     <ng-select [items]="items.institution" bindLabel="name" [addTag]="true"
                                         addTagText="Agregar institución" formControlName="institution"
-                                        placeholder="Profesión">
+                                        placeholder="Institución" [ngClass]="{ 'is-invalid': submitted && f.institution.errors }">
                                     </ng-select>
+                                    <div *ngIf="submitted && f.institution.errors">
+                                        <div *ngIf="f.institution.errors.required" class="invalid-feedback-select">
+                                            El campo institución es obligatorio.
+                                        </div>                                    
+                                    </div>
                                 </div>
 
 
@@ -137,18 +147,23 @@
 
                             <div class="form-group">
                                 <label for="category">
-                                    Categoria
+                                    Categoria* 
                                     <a data-toggle="modal" data-target="#help" style="cursor: pointer">
                                         <i class="fas fa-question-circle"></i>
                                     </a>
                                 </label>
 
-                                <select size=4 formControlName="category" class="form-control" id="category">
+                                <select size=4 formControlName="category" class="form-control" id="category" [ngClass]="{ 'is-invalid': submitted && f.category.errors }">
                                     <option value="expert">Facilitador</option>
                                     <option value="teacher">Docente</option>
                                     <option value="student">Estudiante</option>
                                     <option value="guest">Invitado</option>
                                 </select>
+                                <div *ngIf="submitted && f.category.errors" class="invalid-feedback">
+                                    <div *ngIf="f.category.errors.required" >
+                                        Debes seleccionar una de las categorias.
+                                    </div>                                    
+                                </div>
                             </div>
 
                             <div *ngIf="f.category.value=='expert' || f.category.value==='teacher'" class="form-group">

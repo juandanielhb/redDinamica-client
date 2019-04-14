@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MomentModule } from 'ngx-moment';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 
 import { HomeRoutingModule } from './home.routing';
@@ -50,7 +51,8 @@ import { SendExperienceComponent } from './lessons/lessons/send-experiences/send
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        MomentModule,        
+        MomentModule,  
+        NgSelectModule,      
         HomeRoutingModule
     ],
     exports: [

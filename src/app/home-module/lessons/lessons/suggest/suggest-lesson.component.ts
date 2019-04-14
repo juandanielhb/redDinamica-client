@@ -5,6 +5,8 @@ import { Validators, FormControl, FormGroup } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
 
 import { GLOBAL } from 'src/app/services/global';
+import { Lesson } from 'src/app/models/lesson.model';
+import { LessonService } from 'src/app/services/lesson.service';
 
 @Component({
     selector: 'suggest-lesson',
@@ -26,8 +28,11 @@ export class SuggestLessonComponent implements OnInit {
     public errorMsg;
     public successMsg;
     
+    public lesson;
+
     constructor(
         private _userService: UserService,
+        private _lessonService:LessonService
     ) { 
         this.title = 'Enviar experiencia';
         this.identity = this._userService.getIdentity();
@@ -60,13 +65,38 @@ export class SuggestLessonComponent implements OnInit {
 
     onSubmit() {
         this.submitted = true;
-        this.status = 'error';
 
         if (this.addForm.invalid) {
             return;
         }
 
+        this.lesson = new Lesson();
+
+        this.lesson.title = this.addForm.value.title;
+        this.lesson.resume = this.addForm.value.resume;
+        this.lesson.references = this.addForm.value.references;
+        this.lesson.justification = this.addForm.value.justification;        
+        this.lesson.accepted = false;
         
+        this._lessonService.addLesson(this.token, this.lesson).subscribe(
+            response => {
+                if (response.lesson && response.lesson._id) {
+                    this.status = 'success';
+                    this.addForm.reset();
+                    
+                } else {
+                    this.status = 'error';
+                    console.log(<any>response);
+                }
+        
+            },
+            error => {
+                this.status = 'error';
+                console.log(<any>error);
+            }
+        );
+  
+        this.submitted = false;        
     }
 
 

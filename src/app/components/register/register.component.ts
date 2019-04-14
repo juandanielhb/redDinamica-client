@@ -26,6 +26,7 @@ export class RegisterComponent implements OnInit {
     public items;
     public allProfessions: any;
     public allInstitutions;
+    public allAreas;
     public profession = new Profession('');
     public institution = new Institution();
     public status;
@@ -67,7 +68,7 @@ export class RegisterComponent implements OnInit {
             confirmPassword: ['', Validators.required],
             profession: ['', Validators.required],
             institution: ['', Validators.required],
-            category: '',
+            category: ['', Validators.required],
             experience: ''
         },
             {
@@ -179,6 +180,7 @@ export class RegisterComponent implements OnInit {
             
                                     this.getAllInstitutions();
                                     this.getAllProfessions();
+                                    this.getAllAreas();
                                     this.getCounters();
                                     this.getUnviewMessages();  
             
@@ -229,6 +231,23 @@ export class RegisterComponent implements OnInit {
         }
     }
 
+    getAllAreas() {
+        this.allAreas = JSON.parse(localStorage.getItem('areas'));
+
+        if (!this.allAreas) {
+
+            this._bDService.getAllKnowledgeAreas().subscribe(
+                response => {
+                    if (response.areas) {
+                        this.allAreas = response.areas;                        
+                        localStorage.setItem('areas', JSON.stringify(this.allAreas));
+                    }
+                }, error => {
+                    console.log(<any>error);
+                });
+                   
+        }
+    }
 
     getAllInstitutions() {
         this.allInstitutions = JSON.parse(localStorage.getItem('institutions'));

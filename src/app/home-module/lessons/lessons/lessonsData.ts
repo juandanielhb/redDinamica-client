@@ -46,6 +46,14 @@ export const FIELDS_SEND_FORM = [
         required: true
     },
     {
+        id: "areas",
+        label: "Áreas de conocimiento",
+        type: "select",
+        attr: "areas",
+        required: true,
+        autocomplete: true  
+    },
+    {
         id: "references",
         label: "Referencias",
         type: "textarea",
@@ -54,10 +62,11 @@ export const FIELDS_SEND_FORM = [
     },
     {
         id: "level",
-        label: "Tipo",
+        label: "Nivel",
         type: "select",
         attr: "level",
         required: true,
+        autocomplete: false,  
         options: [
             {
                 label: "Básico",
@@ -89,12 +98,5 @@ export const FIELDS_SEND_FORM = [
                 value: "consideration"
             }
         ]
-    },
-    {
-        id: "areas",
-        label: "Áreas de conocimiento",
-        type: "text",
-        attr: "areas",
-        required: true
     }
 ];

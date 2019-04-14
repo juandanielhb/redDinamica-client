@@ -1,25 +1,35 @@
 export class Lesson{
-    public _id:String;
-    public development_group:Array<String>;
-    public leader:String;
-    public expert:String;
-    public published_at:String;
-    public comments:Array<String>;
-    public files:String;
-    public views:String;
-    public rating:String;
-    public knowledge_area:Array<String>;
-    public grade:Array<String>;
+    public _id;
+    public title;
+    public objectives;
+    public resume;
+    public references;
+    public type;
+    public level;
+    public development_level;
+    public state;
 
-    constructor(
-        public title:String,
-        public objectives:Array<String>,
-        public resume:String,
-        public references:String,
-        public created_at:String,
-        public state:String,
-        public entries:String,
-        public earlier_version:String,
-        public next_version:String,
-    ){}
+    public expert;
+    public author;
+    public leader;
+
+    public development_group;
+    public created_at;
+    public published_at;
+    public visible;
+    public accepted;
+    public knowledge_area;
+    public grade;
+    public views;
+    public score;
+    public entries;
+    public comments;
+    public files;
+    public father_lesson;
+    public version;
+    public justification;
+
+    constructor(){
+
+    }
 }

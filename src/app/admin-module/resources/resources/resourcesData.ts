@@ -67,3 +67,22 @@ export const FIELDS_FORM = [
         required: true
     }
 ];
+
+export const TYPE_OF_RESOURCES = [
+    {
+        label: "Documentos",
+        value: "document",
+    },
+    {
+        label: "Enlaces",
+        value: "link",
+    },
+    {
+        label: "Video",
+        value: "video",
+    },
+    {
+        label: "Software",
+        value: "software",
+    }
+];

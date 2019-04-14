@@ -13,18 +13,18 @@
         <!-- Filters checkboxes -->
         <div class="form-group">
             <div class="row">
-                <div *ngFor="let category of categories" class="col">
+                <div *ngFor="let type of types" class="col">
                     <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="{{category.value}}"
-                            (click)="setCategory(category.value)">
-                        <label class="custom-control-label" for="{{category.value}}">
-                            {{category.label}}
+                        <input type="checkbox" class="custom-control-input" id="{{type.value}}" (click)="setType(type.value)">
+                        <label class="custom-control-label" for="{{type.value}}">
+                            {{type.label}}
                         </label>
                     </div>
                 </div>
             </div>
         </div>
         <!-- /Filters checkboxes -->
+
         <!-- Filters input -->
         <div class="form-group row mb-1">
             <div class="col">
@@ -33,33 +33,25 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text">Filtrar:</div>
                         </div>
-                        <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Filtro"
-                            autocomplete="off">
+                        <input type="text" class="form-control" id="filter" placeholder="Filtro" autocomplete="off">
                     </div>
-
-
                 </form>
             </div>
-
         </div>
         <!-- /Filters input -->
 
         <!-- Filters links -->
         <div class=" text-right mb-3">
-
             <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                <a href="www.facebook.com" class="card-link">
+                <a href="" class="card-link">
                     Más descargados
                 </a>
                 <a href="#" class="card-link">
                     Más populares
                 </a>
-
             </div>
-
         </div>
         <!-- /Filters links -->
-
 
         <!-- Resources items -->
         <button class="btn p-0 text-left">

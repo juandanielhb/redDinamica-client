@@ -36,6 +36,7 @@ import { PublicationService } from './services/publication.service';
 import { MessageService } from './services/message.service';
 import { CommentService } from './services/comment.service';
 import { ResourceService } from './services/resource.service';
+import { LessonService } from './services/lesson.service';
 
 
 
@@ -78,6 +79,7 @@ import { ResourceService } from './services/resource.service';
     MessageService,
     CommentService,
     ResourceService,
+    LessonService,
     Location
   ],
   bootstrap: [AppComponent]

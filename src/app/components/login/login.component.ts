@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit {
 
     public allProfessions = [];
     public allInstitutions = [];
+    public allAreas = [];
 
     constructor(
         private _formBuilder: FormBuilder,
@@ -90,6 +91,7 @@ export class LoginComponent implements OnInit {
                                 this.getAllInstitutions();
                                 this.getAllProfessions();
                                 this.getCounters();
+                                this.getAllAreas();
                                 this.getUnviewMessages();  
 
                                 this._router.navigate(['/inicio']);
@@ -109,6 +111,23 @@ export class LoginComponent implements OnInit {
                 this.invalid = true;
             }
         );
+    }
+
+    getAllAreas() {
+        this.allAreas = JSON.parse(localStorage.getItem('areas'));
+
+        if (!this.allAreas) {
+
+            this._bDService.getAllKnowledgeAreas().subscribe(
+                response => {
+                    if (response.areas) {
+                        this.allAreas = response.areas;                        
+                        localStorage.setItem('areas', JSON.stringify(this.allAreas));
+                    }
+                }, error => {
+                    console.log(<any>error);
+                });                   
+        }
     }
 
     getAllProfessions() {

@@ -58,16 +58,24 @@
                             formControlName="{{field.id}}" [ngClass]="{ 'is-invalid': submitted && f[field.id].errors}">
                                 </textarea>
 
-                        <select *ngIf="field.type == 'select'" formControlName="{{field.id}}" class="form-control"
-                            id="{{field.id}}" [ngClass]="{'is-invalid': submitted && f[field.id].errors}"
-                            (input)="setDisabled()">
+                        <select *ngIf="field.type == 'select' && !field.autocomplete" formControlName="{{field.id}}" class="form-control"
+                            id="{{field.id}}" [ngClass]="{'is-invalid': submitted && f[field.id].errors}">
                             <option *ngFor="let option of field.options" value="{{option.value}}">
                                 {{option.label}}</option>
                         </select>
 
-                        <input *ngIf="field.type == 'file'" formControlName="{{field.id}}" type="file"
-                            class="form-control" name="file" id="{{field.id}}" (change)="fileChangeEvent($event)"
-                            [ngClass]="{'is-invalid': submitted && f[field.id].errors|| maxSizeError}">
+                        <ng-select *ngIf="field.type == 'select' && field.autocomplete" [items]="items[field.id]" 
+                        bindLabel="name" 
+                        formControlName="{{field.id}}" 
+                        [multiple]="true"
+                        [addTag]="true" 
+                        [hideSelected]="true"
+                        notFoundText="No se encontro"
+                        addTagText="Agregar área">
+
+                        </ng-select>                                             
+
+
 
                         <div *ngIf="submitted && f[field.id].errors" class="invalid-feedback">
                             <div *ngIf="f[field.id].errors.required">

@@ -22,7 +22,7 @@ export const ADMIN_MENU = [
         "spanContent": "Lecciones",
         "subOptions": [
             {
-                "text": "Lecciones",
+                "text": "Todas las lecciones",
                 "routerLink": "/admin/lecciones"
             },
             {
@@ -51,7 +51,7 @@ export const ADMIN_MENU = [
             },
             {
                 "text": "Propuestas",
-                "routerLink": "/admin/recursos-propuestas"
+                "routerLink": "/admin/recursos-propuestos"
             }
         ]
     },

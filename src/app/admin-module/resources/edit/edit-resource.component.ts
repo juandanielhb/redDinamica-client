@@ -59,7 +59,7 @@ export class EditResourceComponent implements OnInit {
             type: new FormControl('', Validators.required),
             description: new FormControl('', Validators.required),
             source: new FormControl('', Validators.required),
-            file: new FormControl('', Validators.required),
+            file: new FormControl(''),
             url: new FormControl('', Validators.required)
         });
 

@@ -42,8 +42,18 @@ export class ResourceService {
             'Content-Type': 'application/json',
             'Authorization': token
         });        
-
+        
         return this._http.get(`${this.url}all-resources/${visibleOnes}/${orderBy}`, { headers: headers });
+    }
+
+    getSuggestedResources(token, page = 1): Observable<any> {
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Authorization': token
+        });
+
+        return this._http.get(`${this.url}suggest-resources/${page}`, { headers: headers });
+
     }
 
     editResource(token, resource:Resource):Observable<any>{        

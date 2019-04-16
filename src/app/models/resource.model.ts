@@ -8,7 +8,7 @@ export class Resource {
     public accepted;
     public file;
     public url;
-    public created_at;
+    public created_at;    
 
     constructor(
         public name,

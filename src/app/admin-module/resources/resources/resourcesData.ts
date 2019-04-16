@@ -52,13 +52,6 @@ export const FIELDS_FORM = [
         attr: "file",
         required: true
     },
-    // {
-    //     id: "justification",
-    //     label: "Justificación",
-    //     type: "textarea",
-    //     attr: "justification",
-    //     required: true
-    // },
     {
         id: "source",
         label: "Fuente",

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input} from '@angular/core';
 
 import { Validators, FormControl, FormGroup } from '@angular/forms';
 import { Resource } from 'src/app/models/resource.model';
@@ -7,14 +7,14 @@ import { ResourceService } from 'src/app/services/resource.service';
 
 import { GLOBAL } from 'src/app/services/global';
 import { UploadService } from 'src/app/services/upload.service';
-import { FIELDS_FORM,  ICON_STYLE } from '../resources/resourcesData';
+import { FIELDS_FORM, ICON_STYLE } from '../resources/resourcesData';
 
 @Component({
     selector: 'details-resource',
     templateUrl: './details-resource.component.html'
 
 })
-export class DetailsResourceComponent implements OnInit {
+export class DetailsResourceComponent implements OnInit, OnDestroy {
     public title;
     public identity;
     public token;
@@ -24,6 +24,7 @@ export class DetailsResourceComponent implements OnInit {
     public types;
 
     @Input() resource;
+    @Input() parent;
 
     constructor(
         private _userService: UserService
@@ -35,22 +36,34 @@ export class DetailsResourceComponent implements OnInit {
         this.url = GLOBAL.url;
 
         this.fields = FIELDS_FORM;
-
-        this.types = ICON_STYLE;    
+        this.types = ICON_STYLE;
 
     }
 
     ngOnInit(): void {
+        if (this.parent == 'proposed-resource') {
+            this.fields.push(
+                {
+                    id: "justification",
+                    label: "Justificación",
+                    type: "textarea",
+                    attr: "justification",
+                    required: true
+                });
+        }       
 
     }
 
+    ngOnDestroy(): void {
+        this.fields.pop();
+    }
 
-    getLink(url){
-        if(url.includes('http://') || url.includes('https://')){
+    getLink(url) {
+        if (url.includes('http://') || url.includes('https://')) {
             return url;
-        }else{
+        } else {
             return `http://${url}`;
         }
     }
-    
+
 }

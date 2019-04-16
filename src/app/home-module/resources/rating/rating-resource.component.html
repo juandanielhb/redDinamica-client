@@ -1,0 +1,74 @@
+<!-- rating -->
+<div class="modal fade" id="rating" tabindex="-1" role="dialog" aria-labelledby="rating" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <form [formGroup]="ratingForm" (ngSubmit)="onSubmit()" class="modal-content">
+
+            <!-- modal-header -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="ratingTitle">{{title}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="restartValues()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <!-- /modal-header -->
+
+            <!-- modal-body -->
+            <div class="text-center modal-body">
+
+                <div *ngIf="status === 'error'" class="alert alert-danger fade show text-center" role="alert">
+                    <i class="fas fa-times-circle icon-message mr-2"></i>
+                    {{errorMsg}}
+                </div>
+
+                <div *ngIf="status === 'success'" class="alert alert-success fade show text-center" role="alert">
+                    <i class="fas fa-check-circle icon-message mr-2"></i>
+                    {{successMsg}}
+                </div>
+
+                <div class="my-2 clasificacion">
+                    <input id="radio1" type="radio" name="rating" value="5" formControlName="rating">
+                    <label for="radio1"><i class="fas fa-star icon-message"></i></label>
+                    <input id="radio2" type="radio" name="rating" value="4" formControlName="rating">
+                    <label for="radio2"><i class="fas fa-star icon-message"></i></label>
+                    <input id="radio3" type="radio" name="rating" value="3" formControlName="rating">
+                    <label for="radio3"><i class="fas fa-star icon-message"></i></label>
+                    <input id="radio4" type="radio" name="rating" value="2" formControlName="rating">
+                    <label for="radio4"><i class="fas fa-star icon-message"></i></label>
+                    <input id="radio5" type="radio" name="rating" value="1" formControlName="rating">
+                    <label for="radio5"><i class="fas fa-star icon-message"></i></label>
+                </div>
+
+                <div class="form-group row mt-3">
+                    <div class="col-2 align-items-center">
+                        <div class=" flex-shrink-0 rounded-circle border-1 overflow-hidden mr-2"
+                            style="width: 40px; height:40px;">
+                            <img class="img-fluid" src="{{this.url+'get-image-user/'+ identity.picture}}">
+                        </div>
+                    </div>
+                    <div class="col pl-0 align-items-center">
+                        <textarea class="bg-light" formControlName="text" class="form-control" rows="2"
+                            placeholder="Escribe un comentario sobre el recurso..."
+                            [ngClass]="{ 'is-invalid': submitted && ratingForm.controls.rating.errors}"></textarea>
+                        <div *ngIf="submitted && ratingForm.controls.rating.errors" class="invalid-feedback">
+                            <div class="text-left" *ngIf="ratingForm.controls.rating.errors.required">
+                                Debes elegir el número de estrellas para calificar el recurso.
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <!-- /modal-body -->
+
+                <!-- modal-footer -->
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-warning">Enviar calificación</button>
+                    <button class="btn btn-secondary" data-dismiss="modal" (click)="restartValues()">Cerrar</button>
+
+                </div>
+                <!-- /modal-footer -->
+            </div>
+        </form>
+    </div>
+</div>
+<!-- /rating -->

@@ -53,13 +53,6 @@ export const FIELDS_FORM = [
         required: true
     },
     {
-        id: "justification",
-        label: "Justificación",
-        type: "textarea",
-        attr: "justification",
-        required: true
-    },
-    {
         id: "source",
         label: "Fuente",
         type: "textarea",
@@ -67,3 +60,47 @@ export const FIELDS_FORM = [
         required: true
     }
 ];
+
+export const TYPE_OF_RESOURCES = [
+    {
+        label: "Documentos",
+        value: "document",       
+    },
+    {
+        label: "Enlaces",
+        value: "link"
+    },
+    {
+        label: "Video",
+        value: "video"
+    },
+    {
+        label: "Software",
+        value: "software"
+    }
+];
+
+export const ICON_STYLE = {
+    document: {
+        label: "Documento",
+        icon: "fa-file-alt",
+        class: "bg-success"
+    },
+    link: {
+        label: "Enlace",
+        icon: "fa-link",
+        class: "bg-danger"
+    },
+    video: {
+        label: "Video",
+        icon: "fa-file-video",
+        class: "bg-warning"
+    },
+    software: {
+        label: "Software",
+        icon: "fa-mouse-pointer",
+        class: "bg-info"
+    }
+};
+
+

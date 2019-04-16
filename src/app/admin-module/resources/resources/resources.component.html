@@ -15,7 +15,8 @@
             <div class="row">
                 <div *ngFor="let type of types" class="col">
                     <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="{{type.value}}" (click)="setType(type.value)">
+                        <input type="checkbox" class="custom-control-input" id="{{type.value}}"
+                            (click)="setType(type.value)">
                         <label class="custom-control-label" for="{{type.value}}">
                             {{type.label}}
                         </label>
@@ -33,120 +34,327 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text">Filtrar:</div>
                         </div>
-                        <input type="text" class="form-control" id="filter" placeholder="Filtro" autocomplete="off">
+                        <input type="text" class="form-control" id="filter" placeholder="Filtro" autocomplete="off"
+                            [formControl]="filter">
                     </div>
                 </form>
             </div>
         </div>
         <!-- /Filters input -->
 
-        <!-- Filters links -->
-        <div class=" text-right mb-3">
-            <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                <a href="" class="card-link">
-                    Más descargados
-                </a>
-                <a href="#" class="card-link">
-                    Más populares
-                </a>
+        <!-- Order -->
+        <div *ngIf="filter.value || selectedTypes.length > 0" class="form-group row mb-3">
+            <label for="order" class="col-3 offset-6 col-form-label text-right">
+                <small class="text-muted">Ordenar por:</small>
+            </label>
+
+            <div class="col-3">
+                <select class="form-control" [formControl]="orderControl" id="orderOptions"
+                    (change)="reloadResources()">
+                    <option value="downloads">Más descargados</option>
+                    <option value="score"> Más populares</option>
+                </select>
             </div>
         </div>
-        <!-- /Filters links -->
+        <!-- /Order -->
 
         <!-- Resources items -->
-        <button class="btn p-0 text-left">
-            <div class="card">
-                <div class="card-body">
+        <div *ngIf="!filter.value && selectedTypes.length == 0">
+            <div *ngFor="let resource of resources, let i=index">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="media-body">
+                            <div class="row">
+                                <div class="col-auto">
+                                    <div class="row">
+                                        <div class="col">
 
-                    <div class="media-body">
-
-                        <div class="row">
-
-                            <div class="col-auto">
-
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="p-2 rounded-lg border border-ligth"
-                                            style="width: 80px; height: 80px; overflow: hidden; background: red">
-                                            <i class="text-white fas fa-link" style="font-size:62px"></i>
-                                            <!-- <img src="assets/images/descarga.jpg" class="mr-3" alt="..."> -->
+                                            <div class="text-center p-2 rounded-lg border border-ligth {{iconResource[resource.type].class}}"
+                                                style="width: 80px; height: 80px; overflow:hidden">
+                                                <i class="text-white fas {{iconResource[resource.type].icon}}"
+                                                    style="font-size:62px"></i>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div class="row mt-1">
+                                    <div class="row mt-1">
 
-                                    <div class="col-12">
-                                        <button class="btn btn-block btn-sm" disabled title="Ver calificaciones">
-                                            <i class="fas fa-star"></i> 5
-                                        </button>
-                                        <button class="btn btn-block btn-sm text-truncate" disabled>
-                                            <span>
-                                                <i class="fas fa-download"></i>
-                                                <span class="text-truncate">222222</span>
-                                            </span>
-                                        </button>
+                                        <div class="col-12">
+                                            <button class="btn btn-block btn-sm" disabled title="Ver calificaciones">
+                                                <i class="fas fa-star"></i> {{resource.score}}
+                                            </button>
+                                            <button class="btn btn-block btn-sm text-truncate" disabled>
+                                                <span>
+                                                    <i class="fas fa-download"></i>
+                                                    <span> {{resource.downloads}}</span>
+                                                </span>
+                                            </button>
+                                        </div>
+
+
                                     </div>
 
-
                                 </div>
+                                <div class="col">
+                                    <h5 class="mt-0 text-truncate">
+                                        <strong>{{resource.name}}</strong>
+                                    </h5>
+                                    <p>{{resource.description}}</p>
+                                    <p><strong>Subido por:</strong></p>
 
-                            </div>
-                            <div class="col">
-                                <h5 class="mt-0 text-truncate">
-                                    <strong>Asociación Colombiana de dinámica de Sistemas</strong>
-                                </h5>
-                                <p>Cras sit amet nibh libero, in gravida nulla. Nulla velCras sit amet nibh libero, in
-                                    gravida nulla. Nulla vel</p>
-                                <p><strong>Subido por:</strong></p>
-
-                                <div class="row">
-                                    <div class="col-auto pr-0">
-                                        <a class="text-primary">
-                                            <div class="flex-shrink-0 rounded-circle border-1 overflow-hidden"
-                                                style="width: 40px; height:40px; background-color: aqua">
-                                                <!-- <img class="img-fluid" src="{{this.url+'get-image-user/'+ comment.user.picture}}"> -->
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div class="col rounded px-2">
-                                        <h6 class="mb-1">
+                                    <div class="row">
+                                        <div class="col-auto pr-0">
                                             <a class="text-primary">
-                                                <strong>
-                                                    Juan Daniel Hernández
-                                                </strong>
+                                                <div class="flex-shrink-0 rounded-circle border-1 overflow-hidden"
+                                                    style="width: 40px; height:40px; background-color: aqua">
+                                                    <a [routerLink]="['/perfil', resource.author._id]">
+                                                        <img class="img-fluid"
+                                                            src="{{this.url +'get-image-user/'+ resource.author.picture}}">
+                                                    </a>
+                                                </div>
+
                                             </a>
-                                            <br>
-                                            <small class=" text-muted">
-                                                10/10/1010
-                                            </small>
-                                        </h6>
+                                        </div>
+                                        <div class="col rounded px-2">
+                                            <h6 class="mb-1">
+                                                <a [routerLink]="['/perfil', resource.author._id]" class="text-primary">
+                                                    <strong>
+                                                        {{resource.author.name}} {{resource.author.surname}}
+                                                    </strong>
+                                                </a>
+                                                <br>
+                                                <small
+                                                    class=" text-muted">{{ (resource.created_at | amFromUnix) | amLocale:'es' | amDateFormat:'LLL' }}</small>
+                                            </h6>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-auto">
+
+                                    <div class="row">
+                                        <div class="col">
+
+                                            <button class="btn btn-info mr-2" title="Ver detalles" data-toggle="modal"
+                                                data-target="#details" (click)="setDetailResource(resource)">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="btn btn-warning mr-2" title="Editar recurso"
+                                                data-toggle="modal" data-target="#edit"
+                                                (click)="setEditResource(resource)">
+                                                <i class="fas fa-pen-square"></i>
+                                            </button>
+                                            <button class="btn btn-danger mr-2" title="Eliminar recurso"
+                                                data-toggle="modal" data-target="#delete"
+                                                (click)="setDeleteResource(resource._id)">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                            <ng-container *ngIf="resource.type == 'link'; else getResource">
+                                                <button class="btn btn-secondary" title="Ir al enlace"
+                                                    (click)="goToUrl(resource.url)">
+                                                    <i class="fas fa-hand-pointer"></i>
+                                                </button>
+                                            </ng-container>
+                                            <ng-template #getResource>
+                                                <a class="btn btn-secondary"
+                                                    title="Descargar recurso: {{resource.file}}"
+                                                    href="{{this.url + 'get-resource/' + resource.file}}"
+                                                    target="_blank">
+                                                    <i class="fas fa-download"></i>
+                                                </a>
+                                            </ng-template>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="text-center col">
+                                            <span class="text-muted">Visible: </span>
+                                            <div class="custom-control custom-switch">
+
+                                                <input type="checkbox" class="custom-control-input" id="resource{{i}}"
+                                                    (click)="editResource(resource, true)" [checked]="resource.visible">
+                                                <ng-container *ngIf="resource.visible; else noTemplate">
+                                                    <label class="custom-control-label" for="resource{{i}}">Sí</label>
+                                                </ng-container>
+                                                <ng-template #noTemplate>
+                                                    <label class="custom-control-label" for="resource{{i}}">No</label>
+                                                </ng-template>
+
+                                            </div>
+                                        </div>
 
                                     </div>
                                 </div>
-
                             </div>
 
-
-                            <div class="col-auto">
-                                <button class="btn btn-warning mr-2" title="Calificar recurso">
-                                    <i class="fas fa-star"></i>
-                                </button>
-                                <button class="btn btn-secondary" title="Obtener recurso">
-                                    <i class="fas fa-download"></i></button>
-
-                            </div>
                         </div>
-
                     </div>
                 </div>
             </div>
-        </button>
+        </div>
         <!-- /Resources items -->
 
+        <!-- filtered Resources items -->
+        <div *ngIf="filter.value || selectedTypes.length > 0">
+            <div *ngFor="let resource of allResources | filter: filter.value">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="media-body">
+                            <div class="row">
+                                <div class="col-auto">
+                                    <div class="row">
+                                        <div class="col">
+
+                                            <div class="text-center p-2 rounded-lg border border-ligth {{iconResource[resource.type].class}}"
+                                                style="width: 80px; height: 80px; overflow:hidden">
+                                                <i class="text-white fas {{iconResource[resource.type].icon}}"
+                                                    style="font-size:62px"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-1">
+
+                                        <div class="col-12">
+                                            <button class="btn btn-block btn-sm" disabled title="Ver calificaciones">
+                                                <i class="fas fa-star"></i> {{resource.score}}
+                                            </button>
+                                            <button class="btn btn-block btn-sm text-truncate" disabled>
+                                                <span>
+                                                    <i class="fas fa-download"></i>
+                                                    <span> {{resource.downloads}}</span>
+                                                </span>
+                                            </button>
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+                                <div class="col">
+                                    <h5 class="mt-0 text-truncate">
+                                        <strong>{{resource.name}}</strong>
+                                    </h5>
+                                    <p>{{resource.description}}</p>
+                                    <p><strong>Subido por:</strong></p>
+
+                                    <div class="row">
+                                        <div class="col-auto pr-0">
+                                            <a class="text-primary">
+                                                <div class="flex-shrink-0 rounded-circle border-1 overflow-hidden"
+                                                    style="width: 40px; height:40px; background-color: aqua">
+                                                    <a [routerLink]="['/perfil', resource.author._id]">
+                                                        <img class="img-fluid"
+                                                            src="{{this.url +'get-image-user/'+ resource.author.picture}}">
+                                                    </a>
+                                                </div>
+
+                                            </a>
+                                        </div>
+                                        <div class="col rounded px-2">
+                                            <h6 class="mb-1">
+                                                <a [routerLink]="['/perfil', resource.author._id]" class="text-primary">
+                                                    <strong>
+                                                        {{resource.author.name}} {{resource.author.surname}}
+                                                    </strong>
+                                                </a>
+                                                <br>
+                                                <small
+                                                    class=" text-muted">{{ (resource.created_at | amFromUnix) | amLocale:'es' | amDateFormat:'LLL' }}</small>
+                                            </h6>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-auto">
+
+                                    <div class="row">
+                                        <div class="col">
+
+                                            <button class="btn btn-info mr-2" title="Ver detalles" data-toggle="modal"
+                                                data-target="#details" (click)="setDetailResource(resource)">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="btn btn-warning mr-2" title="Editar recurso"
+                                                data-toggle="modal" data-target="#edit"
+                                                (click)="setEditResource(resource)">
+                                                <i class="fas fa-pen-square"></i>
+                                            </button>
+                                            <button class="btn btn-danger mr-2" title="Eliminar recurso"
+                                                data-toggle="modal" data-target="#delete"
+                                                (click)="setDeleteResource(resource._id)">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                            <ng-container *ngIf="resource.type == 'link'; else getResource">
+                                                <button class="btn btn-secondary" title="Ir al enlace"
+                                                    (click)="goToUrl(resource.url)">
+                                                    <i class="fas fa-hand-pointer"></i>
+                                                </button>
+                                            </ng-container>
+                                            <ng-template #getResource>
+                                                <a class="btn btn-secondary"
+                                                    title="Descargar recurso: {{resource.file}}"
+                                                    href="{{this.url + 'get-resource/' + resource.file}}"
+                                                    target="_blank">
+                                                    <i class="fas fa-download"></i>
+                                                </a>
+                                            </ng-template>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="text-center col">
+                                            <span class="text-muted">Visible: </span>
+                                            <div class="custom-control custom-switch">
+
+                                                <input type="checkbox" class="custom-control-input" id="resource{{i}}"
+                                                    (click)="editResource(resource, true)" [checked]="resource.visible">
+                                                <ng-container *ngIf="resource.visible; else noTemplate">
+                                                    <label class="custom-control-label" for="resource{{i}}">Sí</label>
+                                                </ng-container>
+                                                <ng-template #noTemplate>
+                                                    <label class="custom-control-label" for="resource{{i}}">No</label>
+                                                </ng-template>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /filtered Resources items -->
+
+        <!-- Navigation -->
+        <nav *ngIf="!filter.value && selectedTypes.length == 0" class="mt-3" aria-label="Page navigation">
+            <ul class="pagination justify-content-end">
+                <li *ngIf="page > 1" class="page-item">
+                    <a class="page-link bg-primary" [routerLink]="['/admin/recursos', prevPage]">Anterior</a>
+                </li>
+                <li *ngIf="page < pages && page != pages" class="page-item">
+                    <a class="page-link bg-info" [routerLink]="['/admin/recursos', nextPage]">Siguiente</a>
+                </li>
+            </ul>
+        </nav>
+        <!-- /Navigation -->
     </div>
 
 </div>
 <!-- /resources -->
 
-<add-resource></add-resource>
+<add-resource (added)="setNeedReload($event)">
+</add-resource>
+
+<details-resource *ngIf="detailsResourceItem" [resource]="detailsResourceItem"></details-resource>
+
+<edit-resource *ngIf="editResourceItem" [resource]="editResourceItem" (edited)="setNeedReload($event)"></edit-resource>
+
+<delete-resource *ngIf="deleteResourceId" [resourceId]="deleteResourceId" (deleted)="setNeedReload($event)">
+</delete-resource>

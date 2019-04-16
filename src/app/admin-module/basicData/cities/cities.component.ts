@@ -139,7 +139,7 @@ export class CitiesComponent {
     setEditCity(city){
         this.status = null;
         this.tempCity = city;
-        console.log(this.tempCity);
+        
         this.editCityForm.patchValue({
             cityName: this.tempCity.name,
             cityState: this.tempCity.state,

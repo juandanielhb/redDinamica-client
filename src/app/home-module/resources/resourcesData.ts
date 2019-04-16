@@ -39,10 +39,10 @@ export const FIELDS_FORM = [
         ]
     },
     {
-        id: "link",
+        id: "url",
         label: "Enlace",
         type: "text",
-        attr: "link",
+        attr: "url",
         required: true
     },
     {

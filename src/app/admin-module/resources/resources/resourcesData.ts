@@ -39,10 +39,10 @@ export const FIELDS_FORM = [
         ]
     },
     {
-        id: "link",
+        id: "url",
         label: "Enlace",
         type: "text",
-        attr: "link",
+        attr: "url",
         required: true
     },
     {
@@ -71,18 +71,43 @@ export const FIELDS_FORM = [
 export const TYPE_OF_RESOURCES = [
     {
         label: "Documentos",
-        value: "document",
+        value: "document",       
     },
     {
         label: "Enlaces",
-        value: "link",
+        value: "link"
     },
     {
         label: "Video",
-        value: "video",
+        value: "video"
     },
     {
         label: "Software",
-        value: "software",
+        value: "software"
     }
 ];
+
+export const ICON_STYLE = {
+    document: {
+        label: "Documento",
+        icon: "fa-file-alt",
+        class: "bg-success"
+    },
+    link: {
+        label: "Enlace",
+        icon: "fa-link",
+        class: "bg-danger"
+    },
+    video: {
+        label: "Video",
+        icon: "fa-file-video",
+        class: "bg-warning"
+    },
+    software: {
+        label: "Software",
+        icon: "fa-mouse-pointer",
+        class: "bg-info"
+    }
+};
+
+

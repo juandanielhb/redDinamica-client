@@ -23,6 +23,10 @@ import { CallsComponent } from './lessons/calls/calls.component';
 import { ResourcesComponent } from './resources/resources/resources.component';
 import { ProposedResourceComponent } from './resources/proposed/proposed-resource.component';
 import { AddResourceComponent } from './resources/resources/add/add-resource.component';
+import { MomentModule } from 'ngx-moment';
+import { DetailsResourceComponent } from './resources/details/details-resource.component';
+import { EditResourceComponent } from './resources/edit/edit-resource.component';
+import { DeleteResourceComponent } from './resources/delete/delete-resource.component';
 
 @NgModule({
     declarations: [
@@ -35,6 +39,9 @@ import { AddResourceComponent } from './resources/resources/add/add-resource.com
         ResourcesComponent,
         AddResourceComponent,
         ProposedResourceComponent,
+        DetailsResourceComponent,
+        EditResourceComponent,
+        DeleteResourceComponent,
         CitiesComponent,
         InstitutionsComponent,
         KnowledgeAreasComponent,
@@ -49,6 +56,7 @@ import { AddResourceComponent } from './resources/resources/add/add-resource.com
         HttpClientModule,
         ReactiveFormsModule,
         NgSelectModule,
+        MomentModule,
         AdminRoutingModule,
         
     ],

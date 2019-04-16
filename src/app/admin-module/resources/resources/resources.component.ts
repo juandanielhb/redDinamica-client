@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ResourceService } from 'src/app/services/resource.service';
 import { UserService } from 'src/app/services/user.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { TYPE_OF_RESOURCES } from './resourcesData';
+import { TYPE_OF_RESOURCES, ICON_STYLE } from './resourcesData';
+import { FormControl } from '@angular/forms';
+import { GLOBAL } from 'src/app/services/global';
 
 @Component({
     selector: 'resources',
@@ -13,11 +15,15 @@ export class ResourcesComponent implements OnInit {
     public title: string;
     public identity;
     public token;
+    public url;
 
-    public types;   
+    public types;
 
     public allResources = [];
     public resources = [];
+    public iconResource = ICON_STYLE;
+
+    public visible = new FormControl();
 
     // Pagination
     public page; // Actual page
@@ -30,8 +36,10 @@ export class ResourcesComponent implements OnInit {
     public filter;
     public allUsers;
     public selectedTypes = [];
+    public selectedOrder = [];
+    public orderControl;
 
-    public areas;
+    public areas;    
 
     constructor(
         private _userService: UserService,
@@ -40,11 +48,15 @@ export class ResourcesComponent implements OnInit {
         private _route: ActivatedRoute
     ) {
         this.title = 'Recursos';
+        this.url = GLOBAL.url;
         this.token = this._userService.getToken();
         this.identity = this._userService.getIdentity();
         this.areas = localStorage.getItem('areas');
-        this.types = TYPE_OF_RESOURCES;
-        
+
+        this.types = TYPE_OF_RESOURCES;        
+
+        this.orderControl = new FormControl('');
+        this.filter = new FormControl('');
     }
 
     ngOnInit(): void {
@@ -52,24 +64,57 @@ export class ResourcesComponent implements OnInit {
         this.actualPage();
     }
 
+    ngDoCheck(): void {
+        if(this.needReloadData){
+            this.actualPage();
+            this.needReloadData = false;
+        }
+    }
+
+    setOrder(){
+        
+        if(this.orderControl){
+            
+            if(this.orderControl.value == 'downloads'){
+                return 'downloads';
+            }else if(this.orderControl.value == 'score'){
+                return 'score';
+            }
+            
+        }
+        return '';
+    }
+
     getAllResources() {
-        this._resourceService.getAllResources(this.token).subscribe(
-            response => {
-                console.log(response.resources)
+        let filteredResources = [];
+        let orderBy = this.setOrder();
+
+        this._resourceService.getAllResources(this.token, orderBy).subscribe(
+            response => {                
                 if (response.resources) {
                     this.allResources = response.resources;
 
+                    // Filter by category
+                    if (this.selectedTypes.length > 0) {
+                        this.selectedTypes.forEach((type) => {
+                            filteredResources = filteredResources.concat(this.allResources.filter((resource) => {
+                                return resource.type == type;
+                            }));
+                        });                     
+
+                        this.allResources = filteredResources;
+                    }                    
                 }
             }, error => {
                 console.log(<any>error);
             });
     }
 
-    getResources(page = null) {
+    getResources(page = 1) {        
 
         this._resourceService.getResources(this.token, page).subscribe(
-            response => {
-                console.log(response)
+            response => {               
+                
                 if (response.resources) {
                     this.resources = response.resources;
                     this.total = response.total;
@@ -86,6 +131,7 @@ export class ResourcesComponent implements OnInit {
     }
 
     actualPage() {
+
         this._route.params.subscribe(params => {
             let page = +params['page'];
 
@@ -107,17 +153,72 @@ export class ResourcesComponent implements OnInit {
         });
     }
 
-    setType(selectedType){
+    setType(selectedType) {
         if (this.selectedTypes.indexOf(selectedType) >= 0) {
             this.selectedTypes.splice(this.selectedTypes.indexOf(selectedType), 1);
 
         } else {
             this.selectedTypes.push(selectedType);
 
-        }
-        console.log(this.selectedTypes);
-        // this.getAllResources();
+        }        
+        this.getAllResources();
     }
 
-    
+    reloadResources(){        
+        this.getAllResources();
+    }
+
+    goToUrl(url){
+
+        if(url.includes('http://') || url.includes('https://')){
+            window.open(url, '_blank');            
+        }else{
+            window.open(`http://${url}`, '_blank');
+        }
+    }
+
+   
+    editResource(resource, setVisibility = null){
+        
+        if(setVisibility){
+            if(resource.visible){
+                resource.visible = false;
+            }else{
+                resource.visible = true;                
+            }
+        }
+
+        this._resourceService.editResource(this.token, resource).subscribe(
+            response =>{                
+                if(response && response.resource._id){
+                    this.getResources(this.page);
+                }
+             },
+             error => {
+                 console.log(<any>error);
+             }
+        )
+    }
+
+    public detailsResourceItem;
+    setDetailResource(resource){
+        this.detailsResourceItem = resource;
+    }
+
+    public editResourceItem;
+    public reloadForm;
+    setEditResource(resource){        
+        this.reloadForm = true;
+        this.editResourceItem = resource;
+    }
+
+    public deleteResourceId;
+    setDeleteResource(resourceId){
+        this.deleteResourceId = resourceId;
+    }
+
+    public needReloadData;
+    setNeedReload(){
+        this.needReloadData = true;
+    }
 }

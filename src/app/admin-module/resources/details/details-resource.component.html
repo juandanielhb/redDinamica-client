@@ -1,0 +1,126 @@
+<!-- Resources suggest modal-->
+<div class="modal fade" id="details" tabindex="-1" role="dialog" aria-labelledby="details" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <!-- modal-header -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="detailsTitle">Detalles del recurso</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <!-- /modal-header -->
+
+            <!-- modal-body -->
+            <div class="modal-body">
+
+                <div *ngFor="let field of fields" class="row">
+
+                    <label *ngIf="resource[field.id]" for="{{field.id}}" class="col-3">
+                        <strong>{{field.label}}:</strong>
+                    </label>
+
+                    <div class="col">
+
+                        <p *ngIf="resource[field.id] && field.id == 'type'">{{types[resource[field.id]].label}}</p>
+
+                        <p
+                            *ngIf="resource[field.id] && field.type != 'file' && field.id != 'type' && field.id != 'url'">
+                            {{resource[field.id]}}
+                        </p>
+
+                        <p *ngIf="resource[field.id] && field.id == 'url'">
+                            <a href="{{getLink(resource.url)}}" target="_blank">
+                                {{resource.url}}
+                            </a>
+                        </p>
+
+                        <p *ngIf="resource[field.id] && field.type == 'file'">
+                            <a class="btn btn-info" title="Descargar recurso: {{resource.file}}"
+                                href="{{this.url + 'get-resource/' + resource.file}}" target="_blank">
+                                <i class="fas fa-download"></i> {{resource.file}}
+                            </a>
+                        </p>
+                    </div>
+
+
+                </div>
+
+                <div class="row">
+                    <label class="col-3">
+                        <strong>Calificación:</strong>
+                    </label>
+
+                    <div class="col">
+                        <p>
+                            <button class="btn btn-sm btn-warning">
+                                <i class="fas fa-star"></i> {{resource.score}}
+                            </button>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <label class="col-3">
+                        <strong>Descargas:</strong>
+                    </label>
+
+                    <div class="col">
+                        <p>
+                            <button class="btn btn-sm btn-info">
+                                <i class="fas fa-download"></i> {{resource.downloads}}
+                            </button>
+                        </p>
+                    </div>
+                </div>
+
+                <div *ngFor="let comment of resource.comments" class="row mt-2">
+                    <div class="col-auto">
+                        <a class="text-primary" [routerLink]="[ '/perfil', comment.user._id]" data-dismiss="modal">
+                            <div class="flex-shrink-0 rounded-circle border-1 overflow-hidden"
+                                style="width: 40px; height:40px;">
+                                <img class="img-fluid" src="{{this.url+'get-image-user/'+ comment.user.picture}}">
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col bg-light rounded-left p-2">
+                        <h6 class="mb-1">
+                            <a class="text-primary" [routerLink]="[ '/perfil', comment.user._id]" data-dismiss="modal">
+                                <strong>
+                                    {{comment.user.name}} {{comment.user.surname}}
+                                </strong>
+                            </a> <br>
+                            <small class=" text-muted">
+                                {{ (comment.created_at | amFromUnix) | amLocale:'es' | amDateFormat:'LLL' }}
+                            </small>
+                        </h6>
+                        <p class="card-text">
+                            {{comment.text}}
+                        </p>
+                    </div>
+                    <div class="col-auto bg-light rounded-right p-2 mr-3 align-items-center">
+
+                        <button class="btn btn-warning py-0 ml-1">
+                            <i class="fas fa-star"></i> {{comment.score}}
+                        </button>
+
+                    </div>
+                </div>
+
+
+            </div>
+            <!-- /modal-body -->
+
+            <!-- modal-footer -->
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+
+            </div>
+            <!-- /modal-footer -->
+
+        </div>
+
+
+    </div>
+</div>
+<!-- /Resources suggest modal-->

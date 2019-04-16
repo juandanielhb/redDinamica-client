@@ -1,27 +1,27 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { Validators, FormControl, FormGroup } from '@angular/forms';
 import { Resource } from 'src/app/models/resource.model';
 import { UserService } from 'src/app/services/user.service';
 import { ResourceService } from 'src/app/services/resource.service';
-import { FIELDS_FORM } from '../resourcesData';
+
 import { GLOBAL } from 'src/app/services/global';
 import { UploadService } from 'src/app/services/upload.service';
-import { CachedSource } from 'webpack-sources';
+import { FIELDS_FORM } from '../resources/resourcesData';
 
 @Component({
-    selector: 'add-resource',
-    templateUrl: './add-resource.component.html'
+    selector: 'edit-resource',
+    templateUrl: './edit-resource.component.html'
 
 })
-export class AddResourceComponent implements OnInit {
+export class EditResourceComponent implements OnInit {
     public title;
     public identity;
     public token;
     public url;
 
     public fields;
-    public addForm;
+    public editForm;
 
     public status;
     public submitted;
@@ -29,29 +29,32 @@ export class AddResourceComponent implements OnInit {
     public errorMsg;
     public successMsg;
 
-    public resource;
+    public prevResource = new Resource('', '', '', '', '');
+    @Input() resource = new Resource('', '', '', '', '');
+
+    @Output() edited = new EventEmitter();
 
     public maxSize = 20 * 1024 * 1024;
     public maxSizeError = false;
 
-    @Output() added = new EventEmitter();
+    
 
     constructor(
         private _userService: UserService,
         private _resourceService: ResourceService,
         private _uploadService: UploadService,
     ) {
-        this.title = 'Agregar recurso';
+        this.title = 'Editar recurso';
         this.identity = this._userService.getIdentity();
         this.token = this._userService.getToken();
         this.url = GLOBAL.url;
 
         this.fields = FIELDS_FORM;
 
-        this.errorMsg = 'Hubo un error agregando el nuevo recurso. Intentalo de nuevo más tarde.';
-        this.successMsg = 'Se ha creado el nuevo recurso correctamente.';
+        this.errorMsg = 'Hubo un error al editar el recurso. Intentalo de nuevo más tarde.';
+        this.successMsg = 'Se ha editado el recurso correctamente.';
 
-        this.addForm = new FormGroup({
+        this.editForm = new FormGroup({
             name: new FormControl('', Validators.required),
             type: new FormControl('', Validators.required),
             description: new FormControl('', Validators.required),
@@ -60,33 +63,68 @@ export class AddResourceComponent implements OnInit {
             url: new FormControl('', Validators.required)
         });
 
-
-
+        this.editForm.controls.type.disable();
     }
 
     ngOnInit(): void {
+        this.editForm.patchValue({
+            name: this.resource.name,
+            type: this.resource.type,
+            description: this.resource.description,
+            source: this.resource.source,
+            url: this.resource.url
+        });
+
 
     }
 
-    get f() { return this.addForm.controls; }
+    ngDoCheck(): void {
+        if (this.prevResource._id != this.resource._id) {
+            this.editForm.patchValue({
+                name: this.resource.name,
+                type: this.resource.type,
+                description: this.resource.description,
+                source: this.resource.source,
+                url: this.resource.url
+            });
+
+            if (['video', 'document', 'software'].includes(this.resource.type)) {
+                this.editForm.controls.url.disable();
+                this.editForm.controls.url.setValue('');
+                this.editForm.controls.file.enable();
+            } else {
+                this.editForm.controls.url.enable();
+                this.editForm.controls.file.setValue('');
+                this.filesToUpload = null;
+                this.editForm.controls.file.disable();
+            }
+
+
+            this.prevResource = this.resource;
+        }
+    }
+
+    get f() { return this.editForm.controls; }
 
     restartValues() {
         this.status = null;
         this.submitted = false;
+        this.edited.emit();
+        this.editForm.controls.file.reset();
     }
 
     setDisabled() {
-        this.addForm.get('type').valueChanges.subscribe(
+        this.editForm.get('type').valueChanges.subscribe(
             value => {
                 if (['video', 'document', 'software'].includes(value)) {
-                    this.addForm.controls.url.disable();
-                    this.addForm.controls.url.setValue('');
-                    this.addForm.controls.file.enable();
+                    this.editForm.controls.url.disable();
+                    this.editForm.controls.url.setValue('');
+                    this.editForm.controls.file.enable();
                 } else {
-                    this.addForm.controls.url.enable();
-                    this.addForm.controls.file.setValue('');
+                    this.editForm.controls.url.enable();
+                    this.editForm.controls.file.setValue('');
                     this.filesToUpload = null;
-                    this.addForm.controls.file.disable();
+                    this.editForm.controls.file.disable();
                 }
             }
         );
@@ -94,9 +132,8 @@ export class AddResourceComponent implements OnInit {
 
     public filesToUpload: Array<File>;
     fileChangeEvent(fileInput: any) {
-
         this.filesToUpload = <Array<File>>fileInput.target.files;
-        console.log(this.filesToUpload);
+
         if (this.maxSize < fileInput.target.files[0].size) {
             this.maxSizeError = true;
             return;
@@ -109,31 +146,24 @@ export class AddResourceComponent implements OnInit {
     onSubmit() {
         this.submitted = true;
 
-        if (this.addForm.invalid) {
+        if (this.editForm.invalid) {
             return;
         }
 
-        this.resource = new Resource(
-            this.addForm.value.name,
-            this.addForm.value.type,
-            this.addForm.value.source,
-            this.addForm.value.description,
-            this.identity._id);
-
-        if (this.addForm.value.url) {
-            this.resource.url = this.addForm.value.url;
+        if (this.editForm.value.url) {
+            this.resource.url = this.editForm.value.url;
         }
 
-        this.resource.accepted = true;
+        this.resource.name = this.editForm.value.name;        
+        this.resource.description = this.editForm.value.description;
+        this.resource.source = this.editForm.value.source;
 
-
-        this._resourceService.addResource(this.token, this.resource).subscribe(
+        this._resourceService.editResource(this.token, this.resource).subscribe(
             response => {
-
                 if (response.resource && response.resource._id) {
-                    this.status = 'success';
-
-
+                    
+                    this.resource = response.resource;                    
+                    
                     if (this.filesToUpload && this.filesToUpload.length > 0) {
 
                         // Upload post image
@@ -147,34 +177,20 @@ export class AddResourceComponent implements OnInit {
 
                             if (result.resource._id) {
                                 this.status = 'success';
-                                this.added.emit();
-
-                            } else {
-                                this.status = 'error';
-
+                                this.resource = result.resource;
                             }
 
-                        }).catch( error =>{
-                            console.log(<any>error)
-                            this.status = 'error';
-                        }
-
-                        );
-
-                        this.added.emit();
-                        this.addForm.reset();
+                        });
 
                     } else {
                         this.status = 'error';
                     }
 
-
+                    this.status = 'success';
 
                 } else {
                     this.status = 'error';
                 }
-
-
             },
             error => {
                 this.status = 'error';

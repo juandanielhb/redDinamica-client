@@ -43,7 +43,7 @@ const adminRoutes: Routes = [
             { path: 'convocatorias', component: CallsComponent},
             { path: 'convocatorias/:page', component: CallsComponent},
             { path: 'recursos', component: ResourcesComponent},
-            { path: 'recursos/:page', component: ResourcesComponent},
+            { path: 'recursos/:page', component: ResourcesComponent},            
             { path: 'recursos-propuestas', component: ProposedResourceComponent},
             { path: 'recursos-propuestas/:page', component: ProposedResourceComponent},
             { path: 'areas', component: KnowledgeAreasComponent},

@@ -54,7 +54,7 @@ export class SuggestComponent implements OnInit {
             justification: new FormControl('', Validators.required),
             source: new FormControl('', Validators.required),
             file: new FormControl('', Validators.required),
-            link: new FormControl('', Validators.required)
+            url: new FormControl('', Validators.required)
         });
 
 
@@ -76,11 +76,11 @@ export class SuggestComponent implements OnInit {
         this.addForm.get('type').valueChanges.subscribe(
             value => {
                 if (['video', 'document', 'software'].includes(value)) {
-                    this.addForm.controls.link.disable();
-                    this.addForm.controls.link.setValue('');
+                    this.addForm.controls.url.disable();
+                    this.addForm.controls.url.setValue('');
                     this.addForm.controls.file.enable();
                 } else {
-                    this.addForm.controls.link.enable();
+                    this.addForm.controls.url.enable();
                     this.addForm.controls.file.setValue('');
                     this.filesToUpload = null;
                     this.addForm.controls.file.disable();
@@ -118,7 +118,7 @@ export class SuggestComponent implements OnInit {
             this.identity._id);
 
         this.resource.justification = this.addForm.value.justification;
-        this.resource.link = this.addForm.value.link;
+        this.resource.url = this.addForm.value.url;
         this.resource.accepted = false;
 
         

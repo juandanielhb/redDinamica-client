@@ -27,12 +27,16 @@ import { MomentModule } from 'ngx-moment';
 import { DetailsResourceComponent } from './resources/details/details-resource.component';
 import { EditResourceComponent } from './resources/edit/edit-resource.component';
 import { DeleteResourceComponent } from './resources/delete/delete-resource.component';
+import { DetailsLessonComponent } from './lessons/details/details-lesson.component';
+import { DeleteLessonComponent } from './lessons/delete/delete-lesson.component';
 
 @NgModule({
     declarations: [
         AdminComponent,
         NewUsersComponent,
         LessonsComponent,
+        DetailsLessonComponent,
+        DeleteLessonComponent,
         ExperiencesComponent,
         ProposedComponent,        
         CallsComponent,

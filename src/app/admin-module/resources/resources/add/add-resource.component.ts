@@ -96,7 +96,7 @@ export class AddResourceComponent implements OnInit {
     fileChangeEvent(fileInput: any) {
 
         this.filesToUpload = <Array<File>>fileInput.target.files;
-        console.log(this.filesToUpload);
+        
         if (this.maxSize < fileInput.target.files[0].size) {
             this.maxSizeError = true;
             return;

@@ -29,7 +29,7 @@ export class SuggestComponent implements OnInit {
 
     public resource;
 
-    public maxSize = 20*1024*1024;
+    public maxSize = 20 * 1024 * 1024;
     public maxSizeError = false;
 
     constructor(
@@ -65,11 +65,13 @@ export class SuggestComponent implements OnInit {
 
     }
 
+
     get f() { return this.addForm.controls; }
 
     restartValues() {
         this.status = null;
         this.submitted = false;
+        this.maxSizeError = false;
     }
 
     setDisabled() {
@@ -93,13 +95,13 @@ export class SuggestComponent implements OnInit {
     fileChangeEvent(fileInput: any) {
         this.filesToUpload = <Array<File>>fileInput.target.files;
 
-        if(this.maxSize < fileInput.target.files[0].size){
+        if (this.maxSize < fileInput.target.files[0].size) {
             this.maxSizeError = true;
             return;
         }
 
         this.maxSizeError = false;
-        
+
     }
 
 
@@ -121,13 +123,13 @@ export class SuggestComponent implements OnInit {
         this.resource.url = this.addForm.value.url;
         this.resource.accepted = false;
 
-        
+
         this._resourceService.addResource(this.token, this.resource).subscribe(
-            response => {                
+            response => {
                 if (response.resource && response.resource._id) {
 
                     if (this.filesToUpload && this.filesToUpload.length > 0) {
-                  
+
                         // Upload post image
                         this._uploadService.makeFileRequest(
                             this.url + 'upload-resource/' + response.resource._id,
@@ -137,7 +139,7 @@ export class SuggestComponent implements OnInit {
                             'file'
                         ).then((result: any) => {
 
-                            if(result.resource._id){
+                            if (result.resource._id) {
                                 this.status = 'success';
                             }
 
@@ -147,11 +149,12 @@ export class SuggestComponent implements OnInit {
                         this.status = 'error';
                     }
 
-                    
+
                     this.status = 'success';
                     this.addForm.reset();
+                    
 
-                }else{
+                } else {
                     this.status = 'error';
                 }
             },

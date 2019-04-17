@@ -25,36 +25,62 @@ export class LessonService {
         
         return this._http.post(this.url + 'lesson', params, {headers:headers});
     }
-    
-    // getlessons(page = null):Observable<any>{        
-    //     let headers = new HttpHeaders({
-    //         'Content-Type':'application/json', 
-    //         'Authorization': this.getToken()
-    //     });        
 
-    //     return this._http.get(this.url + 'lessons/' + page, {headers:headers});
-    // }   
-    
-    // getAlllessons():Observable<any>{     
-    //     return this._http.get(this.url + 'all-lessons');
-    // }   
+    getLesson(token, page = 1, visibleOnes = false): Observable<any> {
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Authorization': token
+        });
 
-    // editlesson(lessonId, lesson:lesson):Observable<any>{        
-    //     let params = JSON.stringify(lesson);        
-    //     let headers = new HttpHeaders({
-    //         'Content-Type':'application/json', 
-    //         'Authorization': this.getToken()
-    //     });
+        return this._http.get(`${this.url}lessons/${visibleOnes}/${page}`, { headers: headers });
 
-    //     return this._http.put(this.url+'lesson/' + lessonId, params, {headers:headers});
-    // } 
+    }
 
-    // deletelesson(lessonId):Observable<any>{        
-    //     let headers = new HttpHeaders({
-    //         'Content-Type':'application/json', 
-    //         'Authorization': this.getToken()
-    //     });
+    getAllLesson(token, orderBy = '', visibleOnes = false): Observable<any> {
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Authorization': token
+        });        
+        
+        return this._http.get(`${this.url}all-lessons/${visibleOnes}/${orderBy}`, { headers: headers });
+    }
 
-    //     return this._http.delete(this.url + 'lesson/' + lessonId, {headers:headers});
-    // }
+    getSuggestedLesson(token, page = 1): Observable<any> {
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Authorization': token
+        });
+
+        return this._http.get(`${this.url}suggest-lessons/${page}`, { headers: headers });
+
+    }
+
+    getExperiences(token, page = 1): Observable<any> {
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Authorization': token
+        });
+
+        return this._http.get(`${this.url}experiences/${page}`, { headers: headers });
+
+    }
+
+    editLesson(token, lesson:Lesson):Observable<any>{        
+        let params = JSON.stringify(lesson);        
+        let headers = new HttpHeaders({
+            'Content-Type':'application/json', 
+            'Authorization': token
+        });
+
+        return this._http.put(this.url+'lesson/' + lesson._id, params, {headers:headers});
+    } 
+
+    deleteLesson(token, lessonId):Observable<any>{        
+        let headers = new HttpHeaders({
+            'Content-Type':'application/json', 
+            'Authorization': token
+        });
+
+        return this._http.delete(this.url + 'lesson/' + lessonId, {headers:headers});
+    }
 }

@@ -77,6 +77,7 @@ export class SuggestLessonComponent implements OnInit {
         this.lesson.references = this.addForm.value.references;
         this.lesson.justification = this.addForm.value.justification;        
         this.lesson.accepted = false;
+        this.lesson.author = this.identity._id;
         
         this._lessonService.addLesson(this.token, this.lesson).subscribe(
             response => {

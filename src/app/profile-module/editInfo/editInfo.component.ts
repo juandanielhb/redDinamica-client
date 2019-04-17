@@ -77,8 +77,6 @@ export class EditInfoComponent {
         this.getAllInstitutions();
         this.getAllProfessions();
 
-        console.log(this.identity.profession)
-
         this.editForm = this._formBuilder.group({
             name: this.identity.name,
             surname: this.identity.surname,

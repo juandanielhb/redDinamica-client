@@ -3,24 +3,25 @@ import { Component, Input} from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 
 import { GLOBAL } from 'src/app/services/global';
-import { ICON_STYLE, FIELDS_DETAILS } from '../resourcesData';
+//import { ICON_STYLE, FIELDS_DETAILS } from '../resourcesData';
 
 
 @Component({
-    selector: 'details-resource',
-    templateUrl: './details-resource.component.html'
+    selector: 'details-lesson',
+    templateUrl: './details-lesson.component.html'
 
 })
-export class DetailsResourceComponent {
+export class DetailsLessonComponent {
     public title;
     public identity;
     public token;
     public url;
 
-    public fields;
-    public types;
+    public level = { basic: "Básico", medium: "Medio", advanced: "Avanzado"};
+    public type = { consideration: "Consideración", development: "Desarrollo"};
 
-    @Input() resource;
+    @Input() lesson;
+    @Input() parent;
 
     constructor(
         private _userService: UserService
@@ -31,21 +32,16 @@ export class DetailsResourceComponent {
         this.token = this._userService.getToken();
         this.url = GLOBAL.url;
 
-        this.fields = FIELDS_DETAILS;
-        this.types = ICON_STYLE;
+        // this.fields = FIELDS_DETAILS;
+        // this.types = ICON_STYLE;
+
 
 
     }
 
     ngOnInit(): void {
+        
     }
 
-    getLink(url) {
-        if (url.includes('http://') || url.includes('https://')) {
-            return url;
-        } else {
-            return `http://${url}`;
-        }
-    }
 
 }

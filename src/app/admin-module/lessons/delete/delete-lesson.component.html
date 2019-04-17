@@ -1,0 +1,35 @@
+<!-- Resources suggest modal-->
+<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="delete" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+        <!-- modal-header -->
+        <div class="modal-header">
+            <h5 class="modal-title" id="deleteTitle">{{title}}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <!-- /modal-header -->
+
+        <!-- modal-body -->
+        <div class="modal-body">
+            <div class="alert alert-warning mb-0" role="alert">
+                <i class="fas fa-exclamation-triangle icon-message mr-2"></i>
+                {{message}}
+            </div>
+        </div>
+        <!-- /modal-body -->
+
+        <!-- modal-footer -->
+        <div class="modal-footer">
+            <button class=" btn btn-danger" data-dismiss="modal" (click)="delete()">Sí</button>
+            <button class="btn btn-primary text-white" data-dismiss="modal">No</button>
+        </div>
+        <!-- /modal-footer -->
+
+    </div>
+    </div>
+</div>
+<!-- /Resources suggest modal-->
+
+

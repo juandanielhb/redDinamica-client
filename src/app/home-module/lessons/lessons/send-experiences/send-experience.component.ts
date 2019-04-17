@@ -84,21 +84,22 @@ export class SendExperienceComponent implements OnInit {
 
         this.submitted = true;
         
-
         if (this.sendForm.invalid) {
             return;
         }
-
+        
         this.lesson = new Lesson();
-
+        
         this.lesson.title = this.sendForm.value.title;
         this.lesson.resume = this.sendForm.value.resume;
         this.lesson.references = this.sendForm.value.references;
-        this.lesson.level = this.sendForm.value.level;
+        this.lesson.development_level = this.sendForm.value.level;
         this.lesson.type = this.sendForm.value.type;
         this.lesson.accepted = false;
         this.lesson.knowledge_area = [];
-
+        this.lesson.author = this.identity._id;
+        
+        
         this.sendForm.value.areas.forEach(element => {
             if (element._id) {
                 tempArray.push(element._id);
@@ -132,6 +133,7 @@ export class SendExperienceComponent implements OnInit {
             localStorage.removeItem('areas');
             this.getAllAreas();
         }
+        
 
         let responseAddLesson = await this._lessonService.addLesson(this.token, this.lesson)
             .toPromise()
@@ -143,6 +145,7 @@ export class SendExperienceComponent implements OnInit {
         if (responseAddLesson.lesson && responseAddLesson.lesson._id) {
             this.status = 'success';
             this.sendForm.reset();
+            
         } else {
             this.status = 'error';
             console.log(<any>responseAddLesson);

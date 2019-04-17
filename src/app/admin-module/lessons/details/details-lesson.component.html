@@ -1,0 +1,140 @@
+<!-- lessons suggest modal-->
+<div class="modal fade" id="details" tabindex="-1" role="dialog" aria-labelledby="details" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <!-- modal-header -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="detailsTitle">Detalles de la lección propuesta</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <!-- /modal-header -->
+
+            <!-- modal-body -->
+            <div class="modal-body">
+
+                <div class="row">
+                    <label class="col-3">
+                        <strong>Título:</strong>
+                    </label>
+
+                    <div class="col">
+                        <p>{{lesson.title}}</p>
+                    </div>
+                </div>
+
+                <div *ngIf="parent == 'experiences'" class="row">
+                    <label class="col-3">
+                        <strong>Áreas de conocimiento:</strong>
+                    </label>
+
+                    <div class="col">
+                        <div *ngIf="lesson.knowledge_area.length > 0">
+                            <small *ngFor="let area of lesson.knowledge_area"
+                                class="badge badge-info mr-1">{{area.name}}</small>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="row">
+                    <label class="col-3">
+                        <strong>Resumen:</strong>
+                    </label>
+
+                    <div class="col">
+                        <p>{{lesson.resume}}</p>
+                    </div>
+                </div>
+
+                <div *ngIf="parent == 'proposed-lesson'" class="row">
+                    <label class="col-3">
+                        <strong>Justificación:</strong>
+                    </label>
+
+                    <div class="col">
+                        <p>{{lesson.justification}}</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <label class="col-3">
+                        <strong>Referencias:</strong>
+                    </label>
+
+                    <div class="col">
+                        <p>{{lesson.references}}</p>
+                    </div>
+                </div>
+
+                <div *ngIf="parent == 'experiences'" class="row">
+                    <label class="col-3">
+                        <strong>Nivel de desarrollo:</strong>
+                    </label>
+
+                    <div class="col">
+                        <p>{{level[lesson.development_level]}}</p>
+                    </div>
+                </div>
+
+                <div *ngIf="parent == 'experiences'" class="row">
+                    <label class="col-3">
+                        <strong>Tipo:</strong>
+                    </label>
+
+                    <div class="col">
+                        <p>{{type[lesson.type]}}</p>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <label class="col-3">
+                        <strong *ngIf="parent == 'proposed-lesson'">Sugerido por:</strong>
+                        <strong *ngIf="parent == 'experiences'">Experiencia enviada por:</strong>
+                    </label>
+
+                    <div class="col-auto pr-0">
+                        <a class="text-primary">
+                            <div class="flex-shrink-0 rounded-circle border-1 overflow-hidden"
+                                style="width: 40px; height:40px; background-color: aqua">
+                                <a [routerLink]="['/perfil', lesson.author._id]" data-dismiss="modal">
+                                    <img class="img-fluid" src="{{this.url +'get-image-user/'+ lesson.author.picture}}">
+                                </a>
+                            </div>
+
+                        </a>
+                    </div>
+                    <div class="col rounded px-2">
+                        <h6 class="mb-1">
+                            <a [routerLink]="['/perfil', lesson.author._id]" class="text-primary" data-dismiss="modal">
+                                <strong>
+                                    {{lesson.author.name}} {{lesson.author.surname}}
+                                </strong>
+                            </a>
+                            <br>
+                            <small
+                                class=" text-muted">{{ (lesson.created_at | amFromUnix) | amLocale:'es' | amDateFormat:'LLL' }}</small>
+                        </h6>
+
+                    </div>
+                </div>
+
+            </div>
+            <!-- /modal-body -->
+
+            <!-- modal-footer -->
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+
+            </div>
+            <!-- /modal-footer -->
+
+        </div>
+
+
+    </div>
+</div>
+<!-- /lessons suggest modal-->

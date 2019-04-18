@@ -29,6 +29,7 @@ import { EditResourceComponent } from './resources/edit/edit-resource.component'
 import { DeleteResourceComponent } from './resources/delete/delete-resource.component';
 import { DetailsLessonComponent } from './lessons/details/details-lesson.component';
 import { DeleteLessonComponent } from './lessons/delete/delete-lesson.component';
+import { LessonModule } from '../lesson-module/lesson.module';
 
 @NgModule({
     declarations: [
@@ -62,6 +63,7 @@ import { DeleteLessonComponent } from './lessons/delete/delete-lesson.component'
         NgSelectModule,
         MomentModule,
         AdminRoutingModule,
+        LessonModule
         
     ],
     exports: [

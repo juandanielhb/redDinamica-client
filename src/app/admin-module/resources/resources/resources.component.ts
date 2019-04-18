@@ -34,7 +34,6 @@ export class ResourcesComponent implements OnInit {
 
     // Filter
     public filter;
-    public allUsers;
     public selectedTypes = [];
     public selectedOrder = [];
     public orderControl;

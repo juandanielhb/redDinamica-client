@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 
 import { GLOBAL } from './global';
 import { Resource } from '../models/resource.model';
-import { tokenKey } from '@angular/core/src/view';
 
 @Injectable()
 export class ResourceService {

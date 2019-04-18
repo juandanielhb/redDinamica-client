@@ -17,7 +17,7 @@ import { CallsComponent } from './lessons/calls/calls.component';
 import { ProposedComponent } from './lessons/proposed/proposed.component';
 import { ResourcesComponent } from './resources/resources/resources.component';
 import { ProposedResourceComponent } from './resources/proposed/proposed-resource.component';
-
+import { LessonComponent } from '../lesson-module/lesson.component';
 
 const adminRoutes: Routes = [
     {
@@ -25,7 +25,7 @@ const adminRoutes: Routes = [
         component: AdminComponent,
         canActivate: [AdminGuard],
         children: [
-            { path: '', component: NewUsersComponent},
+            // { path: '', component: NewUsersComponent},
             { path: 'usuarios-nuevos', component: NewUsersComponent},
             { path: 'usuarios-nuevos/:page', component: NewUsersComponent},
             { path: 'usuarios', component: UsersComponent},
@@ -35,7 +35,8 @@ const adminRoutes: Routes = [
             { path: 'ciudades', component: CitiesComponent},
             { path: 'ciudades/:page', component: CitiesComponent},
             { path: 'instituciones', component: InstitutionsComponent},
-            { path: 'instituciones/:page', component: InstitutionsComponent},
+            { path: 'instituciones/:page', component: InstitutionsComponent},   
+            { path: 'leccion/:id', component: LessonComponent, data:['admin']},
             { path: 'lecciones-propuestas', component: ProposedComponent},
             { path: 'lecciones-propuestas/:page', component: ProposedComponent},
             { path: 'experiencias', component: ExperiencesComponent},
@@ -50,9 +51,7 @@ const adminRoutes: Routes = [
             { path: 'areas/:page', component: KnowledgeAreasComponent},            
             { path: 'profesiones/:page', component: ProfessionsComponent},
             { path: 'profesiones', component: ProfessionsComponent},
-            
-
-            { path: '**', component: NewUsersComponent},
+            // { path: '**', component: NewUsersComponent},
         ]
     }
 

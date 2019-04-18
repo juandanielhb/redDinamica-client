@@ -26,7 +26,17 @@ export class LessonService {
         return this._http.post(this.url + 'lesson', params, {headers:headers});
     }
 
-    getLesson(token, page = 1, visibleOnes = false): Observable<any> {
+    getLesson(token, lessonId): Observable<any> {
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Authorization': token
+        });
+
+        return this._http.get(`${this.url}lesson/${lessonId}`, { headers: headers });
+
+    }
+
+    getLessons(token, page = 1, visibleOnes = false): Observable<any> {
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'Authorization': token
@@ -36,7 +46,7 @@ export class LessonService {
 
     }
 
-    getAllLesson(token, orderBy = '', visibleOnes = false): Observable<any> {
+    getAllLessons(token, orderBy = '', visibleOnes = false): Observable<any> {
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'Authorization': token

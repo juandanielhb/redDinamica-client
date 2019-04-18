@@ -80,18 +80,16 @@
                                     <div class="row mt-1">
 
                                         <div class="col-12">
-                                            <button class="btn btn-block btn-sm" disabled title="Ver calificaciones">
+                                            <button class="btn btn-block btn-sm" disabled title="Calificación">
                                                 <i class="fas fa-star"></i> {{resource.score.toFixed(2)}}
                                             </button>
-                                            <button class="btn btn-block btn-sm text-truncate" disabled>
+                                            <button class="btn btn-block btn-sm" disabled title="Descargas">
                                                 <span>
                                                     <i class="fas fa-download"></i>
                                                     <span> {{resource.downloads}}</span>
                                                 </span>
                                             </button>
                                         </div>
-
-
                                     </div>
 
                                 </div>
@@ -99,7 +97,7 @@
                                     <h5 class="mt-0 text-truncate">
                                         <strong>{{resource.name}}</strong>
                                     </h5>
-                                    <p>{{resource.description}}</p>
+                                    <p class="text-break">{{resource.description}}</p>
                                     <p><strong>Subido por:</strong></p>
 
                                     <div class="row">
@@ -217,7 +215,7 @@
                                     <div class="row mt-1">
 
                                         <div class="col-12">
-                                            <button class="btn btn-block btn-sm" disabled title="Ver calificaciones">
+                                            <button class="btn btn-block btn-sm" disabled title="Calificación">
                                                 <i class="fas fa-star"></i> {{resource.score.toFixed(2)}}
                                             </button>
                                             <button class="btn btn-block btn-sm text-truncate" disabled>

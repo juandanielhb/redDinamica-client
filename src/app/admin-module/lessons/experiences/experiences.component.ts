@@ -94,10 +94,17 @@ export class ExperiencesComponent implements OnInit {
     editLesson(lesson){
         lesson.accepted = true;
 
+        if(lesson.type == 'consideration'){
+            lesson.state = 'development';
+            
+        }else if( lesson.type == 'development'){
+            lesson.state = 'proposed';
+        }
+
         this._lessonService.editLesson(this.token, lesson).subscribe(
             response =>{                
                 if(response && response.lesson._id){
-                    
+                    console.log(response)
                     this.getLessons(this.page);
                 }
              },

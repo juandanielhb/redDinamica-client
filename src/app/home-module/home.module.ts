@@ -26,10 +26,7 @@ import { SendExperienceComponent } from './lessons/lessons/send-experiences/send
 import { DetailsResourceComponent } from './resources/details/details-resource.component';
 import { RatingResourceComponent } from './resources/rating/rating-resource.component';
 import { RatingComponent } from './lesson/rating/rating.component';
-
-
-
-
+import { DetailsCallComponent } from './lessons/details/details-call.component';
 
 @NgModule({
     declarations: [
@@ -43,6 +40,7 @@ import { RatingComponent } from './lesson/rating/rating.component';
         LessonsComponent,
         MyLessonsComponent,
         CallsComponent,
+        DetailsCallComponent,
         LessonComponent,
         RatingComponent,
         SuggestLessonComponent,        

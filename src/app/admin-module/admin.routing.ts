@@ -13,7 +13,6 @@ import { UsersComponent } from './users/users/users.component';
 import { AdminGuard } from './guards/admin.guard';
 import { LessonsComponent } from './lessons/lessons/lessons.component';
 import { ExperiencesComponent } from './lessons/experiences/experiences.component';
-import { CallsComponent } from './lessons/calls/calls.component';
 import { ProposedComponent } from './lessons/proposed/proposed.component';
 import { ResourcesComponent } from './resources/resources/resources.component';
 import { ProposedResourceComponent } from './resources/proposed/proposed-resource.component';
@@ -41,8 +40,6 @@ const adminRoutes: Routes = [
             { path: 'lecciones-propuestas/:page', component: ProposedComponent},
             { path: 'experiencias', component: ExperiencesComponent},
             { path: 'experiencias/:page', component: ExperiencesComponent},
-            { path: 'convocatorias', component: CallsComponent},
-            { path: 'convocatorias/:page', component: CallsComponent},
             { path: 'recursos', component: ResourcesComponent},
             { path: 'recursos/:page', component: ResourcesComponent},            
             { path: 'recursos-propuestos', component: ProposedResourceComponent},

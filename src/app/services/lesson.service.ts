@@ -55,6 +55,26 @@ export class LessonService {
         return this._http.get(`${this.url}all-lessons/${visibleOnes}/${orderBy}`, { headers: headers });
     }
 
+    getCalls(token, page = 1): Observable<any> {
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Authorization': token
+        });
+
+        return this._http.get(`${this.url}calls/${page}`, { headers: headers });
+
+    }
+
+    getAllCalls(token): Observable<any> {
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Authorization': token
+        });        
+        
+        return this._http.get(`${this.url}all-calls`, { headers: headers });
+    }
+
+
     getSuggestedLesson(token, page = 1): Observable<any> {
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',

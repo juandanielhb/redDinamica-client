@@ -1,15 +1,13 @@
 import { Component, Input} from '@angular/core';
-
 import { UserService } from 'src/app/services/user.service';
-
 import { GLOBAL } from 'src/app/services/global';
+
 import { ICON_STYLE, FIELDS_DETAILS } from '../resourcesData';
 
 
 @Component({
     selector: 'details-resource',
     templateUrl: './details-resource.component.html'
-
 })
 export class DetailsResourceComponent {
     public title;
@@ -24,8 +22,7 @@ export class DetailsResourceComponent {
 
     constructor(
         private _userService: UserService
-
-    ) {
+    ){
         this.title = 'Agregar recurso';
         this.identity = this._userService.getIdentity();
         this.token = this._userService.getToken();
@@ -33,8 +30,6 @@ export class DetailsResourceComponent {
 
         this.fields = FIELDS_DETAILS;
         this.types = ICON_STYLE;
-
-
     }
 
     ngOnInit(): void {

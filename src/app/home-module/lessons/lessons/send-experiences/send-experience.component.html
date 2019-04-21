@@ -68,16 +68,18 @@
                         bindLabel="name" 
                         formControlName="{{field.id}}" 
                         [multiple]="true"
-                        [addTag]="true" 
                         [hideSelected]="true"
                         notFoundText="No se encontro"
-                        addTagText="Agregar área">
-
+                        [ngClass]="{ 'is-invalid': submitted && f.areas.errors }">
                         </ng-select>                                             
 
-
-
+                  
                         <div *ngIf="submitted && f[field.id].errors" class="invalid-feedback">
+                            <div *ngIf="f[field.id].errors.required">
+                                El campo {{field.label}} es obligatorio.
+                            </div>
+                        </div>
+                        <div *ngIf="submitted && f[field.id].errors && field.id == 'areas'" class="invalid-feedback-select mt-1">
                             <div *ngIf="f[field.id].errors.required">
                                 El campo {{field.label}} es obligatorio.
                             </div>

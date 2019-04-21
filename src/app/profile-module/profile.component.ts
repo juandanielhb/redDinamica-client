@@ -72,7 +72,7 @@ export class ProfileComponent implements OnInit {
             let id = params['id'];
 
             this.getUser(id);
-        })
+        });
     }
 
     getUser(userId) {

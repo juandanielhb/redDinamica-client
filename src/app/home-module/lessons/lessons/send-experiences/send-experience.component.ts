@@ -40,7 +40,6 @@ export class SendExperienceComponent implements OnInit {
     };
 
     public allAreas;
-    public area;
 
     constructor(
         private _userService: UserService,
@@ -101,39 +100,10 @@ export class SendExperienceComponent implements OnInit {
         
         
         this.sendForm.value.areas.forEach(element => {
-            if (element._id) {
-                tempArray.push(element._id);
-            } else {
-                let area = new KnowledgeArea(element.name);
-                area.used = true;
-                areasToAdd.push(area);
-            }
+            tempArray.push(element._id);
         });
 
         this.lesson.knowledge_area = tempArray;
-
-        if (areasToAdd.length > 0) {            
-
-            let responseAddAreas = await this._bDService.addKnowledgeAreas(areasToAdd)
-            .toPromise()
-            .catch((error) => {
-                this.status = 'error';
-                console.log(<any>error);
-            });
-
-            if (responseAddAreas.areas) {
-                responseAddAreas.areas.forEach(element => {
-                    this.lesson.knowledge_area.push(element._id);
-                });                
-            } else {
-                this.status = 'error';
-                return;
-            }
-
-            localStorage.removeItem('areas');
-            this.getAllAreas();
-        }
-        
 
         let responseAddLesson = await this._lessonService.addLesson(this.token, this.lesson)
             .toPromise()

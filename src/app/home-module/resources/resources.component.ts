@@ -200,7 +200,6 @@ export class ResourcesComponent implements OnInit {
             response =>{                
                 if(response && response.resource._id){
                     this.getResources(this.page);
-                    console.log(response)
                 }
              },
              error => {

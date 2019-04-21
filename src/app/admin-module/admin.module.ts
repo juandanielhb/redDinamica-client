@@ -19,7 +19,7 @@ import { AdminGuard } from './guards/admin.guard';
 import { FilterPipe } from './pipes/filter.pipe';
 import { ExperiencesComponent } from './lessons/experiences/experiences.component';
 import { ProposedComponent } from './lessons/proposed/proposed.component';
-import { CallsComponent } from './lessons/calls/calls.component';
+
 import { ResourcesComponent } from './resources/resources/resources.component';
 import { ProposedResourceComponent } from './resources/proposed/proposed-resource.component';
 import { AddResourceComponent } from './resources/resources/add/add-resource.component';
@@ -30,6 +30,8 @@ import { DeleteResourceComponent } from './resources/delete/delete-resource.comp
 import { DetailsLessonComponent } from './lessons/details/details-lesson.component';
 import { DeleteLessonComponent } from './lessons/delete/delete-lesson.component';
 import { LessonModule } from '../lesson-module/lesson.module';
+import { AddCallComponent } from './lessons/add-call/add-call.component';
+import { CallComponent } from './lessons/call/call.component';
 
 @NgModule({
     declarations: [
@@ -37,10 +39,11 @@ import { LessonModule } from '../lesson-module/lesson.module';
         NewUsersComponent,
         LessonsComponent,
         DetailsLessonComponent,
+        AddCallComponent,
         DeleteLessonComponent,
         ExperiencesComponent,
         ProposedComponent,        
-        CallsComponent,
+        CallComponent,
         ResourcesComponent,
         AddResourceComponent,
         ProposedResourceComponent,

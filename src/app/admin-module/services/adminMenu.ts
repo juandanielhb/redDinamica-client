@@ -32,11 +32,7 @@ export const ADMIN_MENU = [
             {
                 "text": "Experiencias",
                 "routerLink": "/admin/experiencias"
-            },
-            {
-                "text": "Convocatorias",
-                "routerLink": "/admin/convocatorias"
-            },
+            }
         ]
     },
     {

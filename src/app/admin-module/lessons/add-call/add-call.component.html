@@ -1,0 +1,113 @@
+<!-- Resources suggest modal-->
+<div class="modal fade" id="addCall" tabindex="-1" role="dialog" aria-labelledby="addCall" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <form [formGroup]="callForm" (ngSubmit)="onSubmit()" class="modal-content" enctype="multipart/form-data">
+            <!-- modal-header -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="addCallTitle">{{title}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="restartValues()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <!-- /modal-header -->
+
+            <!-- modal-body -->
+
+            <div class="modal-body">
+                <div *ngIf="status === 'error'; successMessage" class="alert alert-danger fade show text-center"
+                    role="alert">
+                    <i class="fas fa-times-circle icon-message mr-2"></i>
+                    {{errorMsg}}
+                </div>
+
+                <div *ngIf="status === 'success'; successMessage" class="alert alert-success fade show text-center"
+                    role="alert">
+                    <i class="fas fa-check-circle icon-message mr-2"></i>
+                    {{successMsg}}
+                </div>
+
+                <div class="form-group row">
+                    <label for="title" class="col-3 col-form-label">
+                        <strong>Lección</strong>
+                    </label>
+
+                    <div class="col-9">
+                        <input type="text" class="form-control" id="title" value="{{lesson.title}}" disabled>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="title" class="col-3 col-form-label">
+                        <strong>Áreas de conocimiento*</strong>
+                    </label>
+
+                    <div class="col-9">
+                        <ng-select [items]="areas" bindLabel="name" formControlName="areas" [multiple]="true"
+                            [hideSelected]="true" notFoundText="No se encontro"
+                            [ngClass]="{ 'is-invalid': submitted && f.areas.errors }">
+                        </ng-select>
+                        <div *ngIf="submitted && f.areas.errors">
+                            <div *ngIf="f.areas.errors.required" class="invalid-feedback-select mt-1">
+                                El campo áreas de conocimiento es obligatorio.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="title" class="col-3 col-form-label">
+                        <strong>Nivel académico*</strong>
+                    </label>
+
+                    <div class="col-9">
+                        <select formControlName="level" class="form-control" id="level"
+                            [ngClass]="{ 'is-invalid': submitted && f.level.errors }">
+                            <option value="garden">Preescolar</option>
+                            <option value="school">Primaria</option>
+                            <option value="highschool">Secundaria</option>
+                            <option value="university">Universitario</option>
+                        </select>
+                        <div *ngIf="submitted && f.level.errors">
+                            <div *ngIf="f.level.errors.required" class="invalid-feedback">
+                                El campo nivel académico es obligatorio.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="form-group row">
+                    <label for="text" class="col-3 col-form-label">
+                        <strong>Descripción convocatoria*</strong>
+                    </label>
+                    <div class="col-9">
+                        <textarea class="form-control" id="source" rows="3" formControlName="text"
+                            [ngClass]="{ 'is-invalid': submitted && f.text.errors}">
+                                        </textarea>
+                        <div *ngIf="submitted && f.text.errors" class="invalid-feedback">
+                            <div *ngIf="f.text.errors.required">
+                                El campo descripción es obligatorio.
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <!-- /modal-body -->
+
+            <!-- modal-footer -->
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-dismiss="modal" (click)="restartValues()">Cerrar</button>
+                <button [disabled]="status == 'success'" type="submit" class="btn btn-success">Crear y publicar</button>
+            </div>
+            <!-- /modal-footer -->
+
+        </form>
+
+
+    </div>
+</div>
+<!-- /Resources suggest modal-->

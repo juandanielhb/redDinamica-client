@@ -29,7 +29,6 @@ import { UploadService } from './services/upload.service';
 
 import { BasicDataService } from './services/basicData.service';
 import { SecurityOptionsComponent } from './components/securityOptions/securityOptions.component';
-import { Location } from '@angular/common';
 import { FilterPipe } from './pipes/filter.pipe';
 import { FollowService } from './services/follow.service';
 import { PublicationService } from './services/publication.service';
@@ -37,6 +36,7 @@ import { MessageService } from './services/message.service';
 import { CommentService } from './services/comment.service';
 import { ResourceService } from './services/resource.service';
 import { LessonService } from './services/lesson.service';
+import { CallService } from './services/call.service';
 
 
 
@@ -80,7 +80,8 @@ import { LessonService } from './services/lesson.service';
     CommentService,
     ResourceService,
     LessonService,
-    Location
+    CallService
+
   ],
   bootstrap: [AppComponent]
 })

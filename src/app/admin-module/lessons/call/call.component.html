@@ -1,0 +1,186 @@
+<!-- Call -->
+<div class="modal fade" id="call" tabindex="-1" role="dialog" aria-labelledby="call" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <!-- modal-header -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="callTitle">{{title}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <!-- /modal-header -->
+
+            <!-- modal-body -->
+            <div class="modal-body">
+                <p>{{lesson.call.text}}</p>
+
+                <p><strong>Lección</strong></p>
+                <div class="row mb-2">
+                    <div class="col-2">
+                        <strong>Título:</strong>
+                    </div>
+                    <div class="col-10">
+                        {{lesson.title}}
+                    </div>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col-2">
+                        <strong>Resumen:</strong>
+                    </div>
+                    <div class="col-10">
+                        {{lesson.resume}}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-6">
+                        <div class="card mt-2">
+                            <div class="card-header text-center">
+                                <strong>Interesados en participar</strong>
+                            </div>
+                            <div class="card-body p-1">
+                                <div *ngFor="let interested of lesson.call.interested" class="row mb-1">
+
+                                    <div class="col-auto pr-0">
+                                        <a class="text-primary">
+                                            <button [routerLink]="['/perfil', interested._id]"
+                                                class="btn flex-shrink-0 rounded-circle  overflow-hidden p-0"
+                                                style="width: 40px; height:40px;" data-dismiss="modal">
+                                                <img class="img-fluid"
+                                                    src="{{this.url +'get-image-user/'+ interested.picture}}">
+
+                                            </button>
+                                        </a>
+                                    </div>
+
+                                    <div class="col rounded px-2">
+                                        <h6 class="mb-1">
+                                            <a [routerLink]="['/perfil', interested._id]" class="text-primary"
+                                                data-dismiss="modal">
+                                                <strong>
+                                                    {{interested.name}} {{interested.surname}}
+                                                </strong>
+                                            </a>
+                                            <br>
+                                            <span *ngIf="interested.role"
+                                                class="text-muted">{{profile_label[interested.role].label}}</span>
+                                        </h6>
+
+                                    </div>
+
+                                    <div *ngIf="!isInDevelopmentGroup(interested)" class="col-auto">
+
+                                        <button class="btn btn-success mr-2" title="Agregar al grupo de desarrollo"
+                                            (click)="addGroup(interested)">
+                                            <i class="fas fa-plus"></i>
+                                        </button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-6">
+                        <div class="card mt-2">
+                            <div class="card-header text-center">
+                                <strong>Grupo de desarrollo</strong>
+                            </div>
+                            <div class="card-body p-1">
+                                <div *ngFor="let interested of lesson.development_group" class="row mb-1">
+
+                                    <div class="col-auto pr-0">
+                                        <a class="text-primary">
+                                            <button [routerLink]="['/perfil', interested._id]"
+                                                class="btn flex-shrink-0 rounded-circle  overflow-hidden p-0"
+                                                style="width: 40px; height:40px;" data-dismiss="modal">
+                                                <img class="img-fluid"
+                                                    src="{{this.url +'get-image-user/'+ interested.picture}}">
+
+                                            </button>
+                                        </a>
+                                    </div>
+
+                                    <div class="col rounded px-2 text-truncate">
+                                        <h6 class="mb-1">
+                                            <a [routerLink]="['/perfil', interested._id]" class="text-primary"
+                                                data-dismiss="modal">
+                                                <strong>
+                                                    {{interested.name}} {{interested.surname}}
+                                                </strong>
+                                            </a>
+                                            <br>
+                                            <span *ngIf="interested.role"
+                                                class="text-muted">{{profile_label[interested.role].label}}</span>
+                                        </h6>
+
+                                    </div>
+
+                                    <div class="col-auto">
+
+                                        <button class="btn btn-danger mr-2" title="Eliminar del grupo de desarrollo"
+                                            (click)="removeGroup(interested)">
+                                            <i class="fas fa-minus"></i>
+                                        </button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="form-group row my-4">
+                    <label for="toinput" class="col-sm-3 col-form-label">
+                        <strong>Líder de desarrollo*</strong>
+                    </label>
+                    <div class="col-sm-9">
+                        <select class="form-control" [disabled]="lesson.development_group.length <= 0">
+                            <option *ngFor="let member of lesson.development_group" value="{{member}}">{{member.name}}
+                                {{member.surname}}</option>
+                        </select>
+                        <div *ngIf="submitted && f.to.errors">
+                            <div *ngIf="f.to.errors.required" class="invalid-feedback-select">
+                                Debes elegir el destinatario del mensaje.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                        <label for="toinput" class="col-sm-3 col-form-label">
+                            <strong>Facilitador experto*</strong>
+                        </label>
+                        <div class="col-sm-9">
+                            <select class="form-control" [disabled]="lesson.development_group.length <= 0">
+                                <option *ngFor="let member of lesson.development_group" value="{{member}}">{{member.name}}
+                                    {{member.surname}}</option>
+                            </select>
+                            <div *ngIf="submitted && f.to.errors">
+                                <div *ngIf="f.to.errors.required" class="invalid-feedback-select">
+                                    Debes elegir el destinatario del mensaje.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+            </div>
+            <!-- /modal-body -->
+
+            <!-- modal-footer -->
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button [disabled]="status == 'success'" type="submit" class="btn btn-success">Asignar grupo a la
+                    lección</button>
+            </div>
+            <!-- /modal-footer -->
+
+        </div>
+
+
+    </div>
+</div>
+<!-- /Call -->

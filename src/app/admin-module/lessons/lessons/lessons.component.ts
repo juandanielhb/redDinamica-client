@@ -24,7 +24,40 @@ export class LessonsComponent implements OnInit {
 
     public level = { basic: "Básico", medium: "Medio", advanced: "Avanzado" };
     public type = { consideration: "Consideración", development: "Desarrollo" };
-    public academic_level: Object = { school: "Primaria", garden: "Preescolar", highschool: "Secundaria", university: "Universitario" };
+    public academic_level: Object = { 
+        school: "Primaria", 
+        garden: "Preescolar", 
+        highschool: "Secundaria", 
+        university: "Universitario" 
+    };
+    
+    public lesson_states = {
+        proposed: {
+            label: "Propuesta",
+            value: "proposed",
+            class: "secondary"
+        },
+        assigned: {
+            label: "Asignada",
+            value: "assigned",
+            class: "warning"
+        },
+        development: {
+            label: "Desarrollo",
+            value: "development",
+            class: "info"
+        },
+        test: {
+            label: "Prueba",
+            value: "test",
+            class: "primary"
+        },
+        completed: {
+            label: "Terminada",
+            value: "completed",
+            class: "success"
+        }
+    };
 
 
     public visible = new FormControl();
@@ -47,17 +80,22 @@ export class LessonsComponent implements OnInit {
         {
             label: "Propuesta",
             value: "proposed",
-            class: "primary"
+            class: "secondary"
+        },
+        {
+            label: "Asignada",
+            value: "assigned",
+            class: "warning"
         },
         {
             label: "Desarrollo",
             value: "development",
-            class: "warning"
+            class: "info"
         },
         {
             label: "Prueba",
             value: "test",
-            class: "info"
+            class: "primary"
         },
         {
             label: "Terminada",
@@ -84,7 +122,7 @@ export class LessonsComponent implements OnInit {
             label: "Universitario",
             value: "university"
         }
-    ];;
+    ];
 
     constructor(
         private _userService: UserService,
@@ -222,6 +260,7 @@ export class LessonsComponent implements OnInit {
                         });
 
                         this.allLessons = filteredLessons;
+                        filteredLessons = [];
                     }
 
                     // Filter by level
@@ -233,6 +272,7 @@ export class LessonsComponent implements OnInit {
                         });
 
                         this.allLessons = filteredLessons;
+                        filteredLessons = [];
                     }
 
                 }
@@ -248,8 +288,8 @@ export class LessonsComponent implements OnInit {
                 if (response.lessons) {
                     this.lessons = response.lessons;
                     this.total = response.total;
-                    this.pages = response.pages;
-
+                    this.pages = response.pages;   
+                                 
                     if (page > this.pages) {
                         this._router.navigate(['/admin/lecciones']);
                     }
@@ -310,26 +350,42 @@ export class LessonsComponent implements OnInit {
         )
     }
 
-    public detailsLessonItem;
-    setDetailLesson(lesson) {
-        this.detailsLessonItem = lesson;
-    }
-
-    public editLessonItem;
-    public reloadForm;
-    setEditLesson(lesson) {
-        this.reloadForm = true;
-        this.editLessonItem = lesson;
-    }
-
     public deleteLessonId;
-    setDeleteLesson(lessonId) {
+    setDeleteLesson(lessonId){
         this.deleteLessonId = lessonId;
+    }
+
+    public callLesson;
+    setCallLesson(lesson){
+        this.callLesson = lesson;
+    }
+
+    public addCallLesson;
+    setAddCallLesson(lesson){
+        this.addCallLesson = lesson;
     }
 
     public needReloadData;
     setNeedReload() {
         this.needReloadData = true;
+    }
+
+    public showAreas = false; 
+    setShowAreas(){
+        if(this.showAreas){
+            this.showAreas = false;
+        }else{
+            this.showAreas = true;
+        }
+    }
+
+    public showLevels = false; 
+    setShowLevels(){
+        if(this.showLevels){
+            this.showLevels = false;
+        }else{
+            this.showLevels = true;
+        }
     }
 }
 

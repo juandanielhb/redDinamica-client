@@ -40,17 +40,18 @@ export class DeleteLessonComponent implements OnInit {
         if(this.parent == 'experiences'){
             this.message = '¿Esta seguro que desea eliminar la experiencia?';
             this.title = 'Eliminar experiencia';
-        }else{
-
+        }else if(this.parent == 'proposed-lesson'){
             this.message = '¿Esta seguro que desea eliminar la propuesta para lección?';
             this.title = 'Eliminar propuesta';
+        }else{
+            this.message = '¿Esta seguro que desea eliminar la lección?';
+            this.title = 'Eliminar lección';
         }
     }
 
     delete(){
         this._lessonService.deleteLesson(this.token, this.lessonId).subscribe(
             response => {
-                console.log(response)
                 if(response && response.lesson){
                     this.deleted.emit();                    
                 }

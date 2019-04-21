@@ -53,7 +53,7 @@ export class ExperiencesComponent implements OnInit {
             response => {               
                 
                 if (response.lessons) {
-                    console.log(response)
+
                     this.lessons = response.lessons;
                     this.total = response.total;
                     this.pages = response.pages;
@@ -104,7 +104,6 @@ export class ExperiencesComponent implements OnInit {
         this._lessonService.editLesson(this.token, lesson).subscribe(
             response =>{                
                 if(response && response.lesson._id){
-                    console.log(response)
                     this.getLessons(this.page);
                 }
              },

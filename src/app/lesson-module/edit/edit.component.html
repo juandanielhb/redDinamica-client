@@ -1,14 +1,196 @@
 <!-- edit -->
 <div class="card-body">
-        {{title}}
 
-        <h3 class="card-title">
-            Lección numero 1 alorem Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eius deserunt nostrum perferendis quas! Nemo repellendus facilis dolor! Natus at ea fuga et voluptatibus accusamus, quam odio dolorum vero cumque corrupti.
-            <button class="btn btn-warning ml-2">Editar</button>
-        </h3>
-        <div class="card-text">
-            Hola soy el contenido de la tarjeta
+    <div class="row">
+        <div class="col">
+            <div class="card mb-3 text-center">
+                <div *ngIf="lesson.state" class="card-header bg-{{lesson_states[lesson.state].class}}">
+                    <h4 class="mb-0 text-white">
+                        {{title}}
+                    </h4>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="status === 'error'; successMessage" class="alert alert-danger fade show text-center" role="alert">
+        <i class="fas fa-times-circle icon-message mr-2"></i>
+        {{errorMsg}}
+    </div>
+
+    <div *ngIf="status === 'success'; successMessage" class="alert alert-success fade show text-center" role="alert">
+        <i class="fas fa-check-circle icon-message mr-2"></i>
+        {{successMsg}}
+    </div>
+
+    <form [formGroup]="lessonForm" (ngSubmit)="onSubmit()">
+        <div *ngIf="lesson.resume != undefined" class="row">
+            <div class="col-7">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="text" class="form-label">
+                                <h5>Título*</h5>
+                            </label>
+
+                            <textarea class="form-control" id="source" rows="3" formControlName="title"
+                                [ngClass]="{ 'is-invalid': submitted && f.title.errors }">
+                            </textarea>
+                            <div *ngIf="submitted && f.title.errors" class="invalid-feedback">
+                                <div *ngIf="f.title.errors.required">
+                                    El campo título es obligatorio.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="text" class="form-label">
+                                <h5>Resumen*</h5>
+                            </label>
+
+                            <textarea class="form-control" id="source" rows="5" formControlName="resume"
+                                [ngClass]="{ 'is-invalid': submitted && f.resume.errors }">
+                                    </textarea>
+                            <div *ngIf="submitted && f.resume.errors" class="invalid-feedback">
+                                <div *ngIf="f.resume.errors.required">
+                                    El campo resumen es obligatorio.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="text" class="form-label">
+                                <h5>Justificación*</h5>
+                            </label>
+
+                            <textarea class="form-control" id="source" rows="5" formControlName="justification"
+                                [ngClass]="{ 'is-invalid': submitted && f.justification.errors }">
+                                    </textarea>
+                            <div *ngIf="submitted && f.justification.errors" class="invalid-feedback">
+                                <div *ngIf="f.justification.errors.required">
+                                    El campo justificación es obligatorio.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="text" class="form-label">
+                                <h5>Referencias*</h5>
+                            </label>
+
+                            <textarea class="form-control" id="source" rows="5" formControlName="references"
+                                [ngClass]="{ 'is-invalid': submitted && f.references.errors }">
+                                </textarea>
+                            <div *ngIf="submitted && f.references.errors" class="invalid-feedback">
+                                <div *ngIf="f.references.errors.required">
+                                    El campo referencias es obligatorio.
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-5">
+                <div class="card mb-3">
+                    <div class="card-body">
+
+                        <div class="form-group">
+                            <label for="title" class="form-label">
+                                <strong>Estado</strong>
+                            </label>
+
+                            <div class="">
+                                <select class="form-control" id="level" formControlName="state"
+                                    [ngClass]="{ 'is-invalid': submitted && f.state.errors }">
+                                    <option value="assigned">Asignada</option>
+                                    <option value="development">Desarrollo</option>
+                                    <option value="test">Prueba</option>
+                                    <option value="completed">Terminada</option>
+                                </select>
+                                <div *ngIf="submitted && f.state.errors">
+                                    <div *ngIf="f.state.errors.required" class="invalid-feedback">
+                                        El campo estado es obligatorio.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </div>
+
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h6 class="card-title">
+                            <strong>Áreas de conocimiento</strong>
+                        </h6>
+                        <div class="card-text">
+                            <p><label *ngFor="let area of lesson.knowledge_area"
+                                    class="badge badge-{{lesson_states[lesson.state].class}} mr-1">{{area.name}}</label>
+                            </p>
+                        </div>
+
+                        <h6 class="card-title">
+                            <strong>Nivel académico</strong>
+                        </h6>
+                        <div class="card-text">
+                            {{academic_level[lesson.level]}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="card-title">
+                            <strong>Propuesto por</strong>
+                        </div>
+                        <div class="card-text">
+                            <div class="row p-1">
+                                <div class="col-auto pr-0">
+                                    <a class="text-primary">
+                                        <button [routerLink]="['/perfil', lesson.author._id]"
+                                            class="btn flex-shrink-0 rounded-circle  overflow-hidden p-0"
+                                            style="width: 40px; height:40px;">
+                                            <img class="img-fluid"
+                                                src="{{this.url +'get-image-user/'+ lesson.author.picture}}">
+
+                                        </button>
+                                    </a>
+                                </div>
+
+                                <div class="col rounded px-2">
+                                    <h6 class="mb-1">
+                                        <a [routerLink]="['/perfil', lesson.author._id]" class="text-primary">
+                                            <strong>
+                                                {{lesson.author.name}} {{lesson.author.surname}}
+                                            </strong>
+                                            <br>
+                                            <small
+                                                class=" text-muted">{{ (lesson.created_at | amFromUnix) | amLocale:'es' | amDateFormat:'LLL' }}</small>
+                                        </a>
+                                    </h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success btn-block">Guardar cambios</button>
+                </div>
+            </div>
+
+
         </div>
 
+
+
+    </form>
+
+
+
 </div>
-<!-- /edit -->    
+<!-- /edit -->

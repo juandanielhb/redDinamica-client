@@ -1,7 +1,142 @@
-<!-- details -->
+<!-- group -->
 <div class="card-body">
-    {{title}}
+
+    <div class="row">
+        <div class="col">
+            <div class="card mb-3 text-center">
+                <div *ngIf="lesson.state" class="card-header bg-{{lesson_states[lesson.state].class}}">
+                        <h4 class="mb-0 text-white">
+                        {{title}}
+                    </h4>
+                </div>
+                <div class="card-body text-left">
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="row">
+                                <div class="col">
+                                    <strong>Líder</strong>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col">
+                                    <div class="card">
+                                        <div class="row p-1">
+                                            <div class="col-auto pr-0">
+                                                <a class="text-primary">
+                                                    <button [routerLink]="['/perfil', lesson.leader._id]"
+                                                        class="btn flex-shrink-0 rounded-circle  overflow-hidden p-0"
+                                                        style="width: 40px; height:40px;">
+                                                        <img class="img-fluid"
+                                                            src="{{this.url +'get-image-user/'+ lesson.leader.picture}}">
+
+                                                    </button>
+                                                </a>
+                                            </div>
+
+                                            <div class="col rounded px-2">
+                                                <h6 class="mb-1">
+                                                    <a [routerLink]="['/perfil', lesson.leader._id]"
+                                                        class="text-primary">
+                                                        <strong>
+                                                            {{lesson.leader.name}} {{lesson.leader.surname}}
+                                                        </strong>
+                                                    </a>
+                                                </h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mt-2">
+                                <div class="col">
+                                    <strong>Facilitador</strong>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col">
+                                    <div class="card">
+                                        <div class="row p-1">
+                                            <div class="col-auto pr-0">
+                                                <a class="text-primary">
+                                                    <button [routerLink]="['/perfil', lesson.expert._id]"
+                                                        class="btn flex-shrink-0 rounded-circle  overflow-hidden p-0"
+                                                        style="width: 40px; height:40px;">
+                                                        <img class="img-fluid"
+                                                            src="{{this.url +'get-image-user/'+ lesson.expert.picture}}">
+
+                                                    </button>
+                                                </a>
+                                            </div>
+
+                                            <div class="col rounded px-2">
+                                                <h6 class="mb-1">
+                                                    <a [routerLink]="['/perfil', lesson.expert._id]"
+                                                        class="text-primary">
+                                                        <strong>
+                                                            {{lesson.expert.name}} {{lesson.expert.surname}}
+                                                        </strong>
+                                                    </a>
+                                                </h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-6">
+                                <div class="row">
+                                        <div class="col">
+                                            <strong>Integrantes</strong>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col">
+                                            <div class="card">
         
+                                                <div *ngIf="lesson.development_group.length > 0" class="row p-1">
+                                                    <div *ngFor="let user of lesson.development_group" class="col-12">
+                                                        <div *ngIf="user._id != lesson.leader._id" class="row mt-1">
+                                                            <div class="col-auto pr-0">
+                                                                <a class="text-primary ml-1">
+                                                                    <button [routerLink]="['/perfil', user._id]"
+                                                                        class="btn flex-shrink-0 rounded-circle  overflow-hidden p-0"
+                                                                        style="width: 40px; height:40px;">
+                                                                        <img class="img-fluid"
+                                                                            src="{{this.url +'get-image-user/'+ user.picture}}">
+        
+                                                                    </button>
+                                                                </a>
+                                                            </div>
+        
+                                                            <div class="col rounded px-2">
+                                                                <h6 class="mb-1">
+                                                                    <a [routerLink]="['/perfil', user._id]"
+                                                                        class="text-primary">
+                                                                        <strong>
+                                                                            {{user.name}} {{user.surname}}
+                                                                        </strong>
+                                                                    </a>
+                                                                </h6>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+        
+                                            </div>
+                                        </div>
+                                    </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
 
 </div>
-<!-- /details -->    
+<!-- /group -->

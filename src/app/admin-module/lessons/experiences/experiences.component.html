@@ -38,8 +38,8 @@
                                     <small *ngFor="let area of lesson.knowledge_area" class="badge badge-info mr-1">{{area.name}}</small>                                    
                                 </div>
 
-                                <p>
-                                    <small>{{lesson.resume}}</small>
+                                <p *ngFor="let text of lesson.resume.split('\n')" class="text-break">
+                                    {{text}}
                                 </p>
 
                                 <p><strong>Enviada por:</strong></p>

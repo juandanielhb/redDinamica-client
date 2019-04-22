@@ -87,3 +87,7 @@ section .container{
     color: #E74C3C;    
 }
 /* /Invalid feedback for ng-select */
+
+textarea {
+    word-break: break-all;
+}

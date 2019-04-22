@@ -1,26 +1,27 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Location } from '@angular/common';
+import { Component, Input } from '@angular/core';
+import { GLOBAL } from 'src/app/services/global';
+import { LESSON_STATES, ACADEMIC_LEVEL } from 'src/app/services/DATA';
 
 @Component({
     selector: 'lesson-details',
     templateUrl: './lesson-details.component.html'
     
 })
-export class LessonDetailsComponent implements OnInit {
-    public title: string;
+export class LessonDetailsComponent {
+    public url;
     
     @Input() lesson; 
+
+    public academic_level = ACADEMIC_LEVEL;    
+    public lesson_states = LESSON_STATES;
     
-    constructor(private _location:Location) {
-        this.title = 'Leccion en';
-        
+    constructor() {        
+        this.url = GLOBAL.url;
     }
 
     ngOnInit(): void {
-        
+
     }
 
-    onBackButton(){
-        this._location.back();
-    }
+
 }

@@ -1,74 +1,80 @@
 <!-- Lesson/:id -->
 <div class="card">
     <div class="card-header p-1">
-        <button type="button" class="btn float-left" title="Detalles lección" (click)="setSelectedOption('details')">
-            <div class="v1">
-                <i class="fas fa-file-alt text-info icon-message"></i>                
-            </div>
+        <button class="btn float-left" title="Detalles lección" (click)="setSelectedOption('details')">
+            <i class="fas fa-home text-primary icon-message"></i>
         </button>
 
+        <button class="btn border-left" title="Recursos" (click)="setSelectedOption('resources')">
+            <i class="fas fa-boxes icon-message text-primary"></i>
+        </button>
+
+
+        <button class="btn border-left" title="Grupo de desarrollo" (click)="setSelectedOption('group')">
+            <i class="fas fa-users icon-message text-primary"></i>
+        </button>
 
 
 
         <!-- Example split danger button -->
         <div class="btn-group text-primary float-right">
 
+            <button class="btn" title="Editar" (click)="setSelectedOption('edit')">
+                <i class="fas fa-edit icon-message text-primary"></i>
+            </button>            
 
-            <button type="button" class="btn" title="Grupo de desarrollo" (click)="setSelectedOption('group')">
-                <div class="v1">
-                    <i class="fas fa-user-friends text-info icon-message"></i>
-                    <span>10</span>
-                </div>
+            <!-- <button class="btn border-left" title="Actividad de la lecciòn"
+                (click)="setSelectedOption('activity')">
+                <i class="fas fa-clock icon-message text-primary"></i>
+            </button> -->
+
+            <button class="btn border-left" title="Conversación"
+                (click)="setSelectedOption('conversation')">
+                <i class="fas fa-comment-dots icon-message text-primary"></i>
             </button>
 
+            <button *ngIf="lesson.state == 'test'" class="btn border-left" title="Resultados de pruebas"
+                (click)="setSelectedOption('tests')">
+                <i class="fas fa-clipboard-check icon-message text-primary"></i>
+            </button>
 
+            <button class="btn border-left" title="Comentarios del facilitador"
+                (click)="setSelectedOption('expert-comments')">
+                <i class="fas fa-clipboard-list icon-message text-primary"></i>
+            </button>
+            
+            
+            <!-- <button class="btn btn-primary" title="Versión anterior">
+                <i class="fas fa-angle-left icon-message"></i>
+            </button> -->
+            
+            <button *ngIf="lesson.version" class="btn btn-primary">
+                <span>V. {{lesson.version.toFixed(1)}}</span>
+            </button>
+            
+            <!-- <button class="btn btn-primary" title="Versión siguiente">
+                <i class="fas fa-angle-right icon-message"></i>
+            </button> -->
 
-            <button type="button" class="btn border-left" title="Calificación" (click)="setSelectedOption('rating')">
+            <!-- <button class="btn border-left ml-2" title="Calificar"
+                (click)="setSelectedOption('rating')">
                 <div class="vl">
-                    <i class="fas fa-star icon-message text-warning"></i>
-                    <span>10</span>
+                    <i class="fas fa-star icon-message text-primary"></i>
+                    
+                    <span> {{lesson.score.toFixed(2)}}</span>
                 </div>
-            </button>
+            </button> -->
 
-
-            <button type="button" class="btn btn-sm border-left dropdown-toggle-split" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-                <div class="v1">
-                    <i class="fas fa-ellipsis-v icon-message"></i>
-                </div>
-            </button>
-            <div class="dropdown-menu dropdown-menu-right">
-                <button class="dropdown-item" (click)="setSelectedOption('details')">Detalles</button>
-                <button class="dropdown-item" (click)="setSelectedOption('edit')">Editar lección</button>
-                <button class="dropdown-item" (click)="setSelectedOption('activity')">Actividad en la lecciòn</button>
-                <button class="dropdown-item">Conversaciòn</button>
-                <button class="dropdown-item">Resultados de prueba</button>
-                <button class="dropdown-item">Recursos</button>
-            </div>
         </div>
-
-        <div class="dropdown float-right mr-2">
-            <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Versión 1.0
-            </a>
-
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                <a class="dropdown-item" href="#">1.0</a>
-                <a class="dropdown-item" href="#">2.0</a>
-                <a class="dropdown-item" href="#">3.0</a>
-            </div>
-        </div>
-
     </div>
 
     <lesson-details *ngIf="selectedOption == 'details'" [lesson]="lesson">
     </lesson-details>
 
-    <activity *ngIf="selectedOption == 'activity'" [lesson]="lesson">
-    </activity>
+    <!-- <activity *ngIf="selectedOption == 'activity'" [lesson]="lesson">
+    </activity> -->
 
-    <edit *ngIf="selectedOption == 'edit'" [lesson]="lesson">
+    <edit *ngIf="selectedOption == 'edit'" [lesson]="lesson" (edited)="setNeedReload($event)">
     </edit>
 
     <group *ngIf="selectedOption == 'group'" [lesson]="lesson">

@@ -34,12 +34,11 @@ export class DetailsLessonComponent {
 
         // this.fields = FIELDS_DETAILS;
         // this.types = ICON_STYLE;
-
-
-
+        
     }
-
+    
     ngOnInit(): void {
+        
         
     }
 

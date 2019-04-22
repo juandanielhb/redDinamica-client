@@ -13,7 +13,21 @@
 
             <!-- modal-body -->
             <div class="modal-body">
-                <p>{{lesson.call.text}}</p>
+                <div *ngIf="status === 'error'" class="alert alert-danger fade show text-center" role="alert">
+                    <i class="fas fa-times-circle icon-message mr-2"></i>
+                    No se ha podido asignar el grupo de desarrollo. Intentalo de nuevo.
+
+                </div>
+
+                <div *ngIf="status === 'success'" class="alert alert-success fade show text-center" role="alert">
+                    <i class="fas fa-check-circle icon-message mr-2"></i>
+                    Se ha asignado el grupo de desarrollo correctamente.
+
+                </div>
+
+                <p *ngFor="let text of lesson.call.text.split('\n')" class="text-break mt-2">
+                    {{text}}
+                </p>
 
                 <p><strong>Lección</strong></p>
                 <div class="row mb-2">
@@ -30,7 +44,9 @@
                         <strong>Resumen:</strong>
                     </div>
                     <div class="col-10">
-                        {{lesson.resume}}
+                        <p *ngFor="let text of lesson.resume.split('\n')" class="text-break">
+                            {{text}}
+                        </p>
                     </div>
                 </div>
 
@@ -90,7 +106,6 @@
                             </div>
                             <div class="card-body p-1">
                                 <div *ngFor="let interested of lesson.development_group" class="row mb-1">
-
                                     <div class="col-auto pr-0">
                                         <a class="text-primary">
                                             <button [routerLink]="['/perfil', interested._id]"
@@ -138,43 +153,50 @@
                         <strong>Líder de desarrollo*</strong>
                     </label>
                     <div class="col-sm-9">
-                        <select class="form-control" [disabled]="lesson.development_group.length <= 0">
-                            <option *ngFor="let member of lesson.development_group" value="{{member}}">{{member.name}}
+                        <select class="form-control" [formControl]="leader"
+                            [ngClass]="{ 'is-invalid': submitted && leader.errors}">
+                            <option *ngFor="let member of lesson.development_group" value="{{member._id}}">
+                                {{member.name}}
                                 {{member.surname}}</option>
                         </select>
-                        <div *ngIf="submitted && f.to.errors">
-                            <div *ngIf="f.to.errors.required" class="invalid-feedback-select">
-                                Debes elegir el destinatario del mensaje.
+                        <small *ngIf="!submitted" class="form-text text-muted">
+                            Selecciona el líder del grupo de desarrollo.
+                        </small>
+                        <div *ngIf="submitted && leader.errors">
+                            <div *ngIf="leader.errors.required" class="invalid-feedback-select">
+                                El campo líder de desarrollo es obligatorio.
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="form-group row">
-                        <label for="toinput" class="col-sm-3 col-form-label">
-                            <strong>Facilitador experto*</strong>
-                        </label>
-                        <div class="col-sm-9">
-                            <select class="form-control" [disabled]="lesson.development_group.length <= 0">
-                                <option *ngFor="let member of lesson.development_group" value="{{member}}">{{member.name}}
-                                    {{member.surname}}</option>
-                            </select>
-                            <div *ngIf="submitted && f.to.errors">
-                                <div *ngIf="f.to.errors.required" class="invalid-feedback-select">
-                                    Debes elegir el destinatario del mensaje.
-                                </div>
+                <div *ngIf="expertUsers" class="form-group row">
+                    <label for="toinput" class="col-sm-3 col-form-label">
+                        <strong>Facilitador experto*</strong>
+                    </label>
+                    <div class="col-sm-9">
+                        <select class="form-control" [formControl]="expert"
+                            [ngClass]="{ 'is-invalid': submitted && expert.errors}">
+                            <option *ngFor="let user of expertUsers" value="{{user._id}}">{{user.name}}
+                                {{user.surname}}</option>
+                        </select>
+                        <div *ngIf="submitted && expert.errors">
+                            <div *ngIf="expert.errors.required" class="invalid-feedback-select">
+                                Es necesario asignar un facilitador.
                             </div>
                         </div>
                     </div>
+                </div>
 
             </div>
             <!-- /modal-body -->
 
             <!-- modal-footer -->
             <div class="modal-footer">
-                <button class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button [disabled]="status == 'success'" type="submit" class="btn btn-success">Asignar grupo a la
-                    lección</button>
+                <button class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button [disabled]="status == 'success'" type="submit" class="btn btn-success" (click)="editLesson()">
+                    Asignar grupo a la lección
+                </button>
             </div>
             <!-- /modal-footer -->
 

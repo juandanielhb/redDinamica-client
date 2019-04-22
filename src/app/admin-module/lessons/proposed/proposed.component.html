@@ -34,11 +34,11 @@
                                 <h5 class="mt-0 text-truncate">
                                     <strong>{{lesson.title}}</strong>
                                 </h5>
-                                <p class="text-break">
-                                    <small>{{lesson.resume}}</small>
+                                <p *ngFor="let text of lesson.resume.split('\n')" class="text-break mb-1">
+                                    <small>{{text}}</small>
                                 </p>
 
-                                <p><strong>Enviada por:</strong></p>
+                                <p class="mt-1"><strong>Enviada por:</strong></p>
 
                                 <div class="row">
                                     <div class="col-auto pr-0">
@@ -120,4 +120,5 @@
 
 <details-lesson *ngIf="detailsLessonItem" [parent]="'proposed-lesson'" [lesson]="detailsLessonItem"></details-lesson>
 
-<delete-lesson *ngIf="deleteLessonId" [parent]="'proposed-lesson'" [lessonId]="deleteLessonId" (deleted)="setNeedReload($event)"></delete-lesson>
+<delete-lesson *ngIf="deleteLessonId" [parent]="'proposed-lesson'" [lessonId]="deleteLessonId"
+    (deleted)="setNeedReload($event)"></delete-lesson>

@@ -169,9 +169,9 @@
                                     </div>
 
                                 </div>
-                                <div class="col-10">
+                                <div class="col">
                                     <div class="row">
-                                        <div class="col-10">
+                                        <div class="col">
                                             <h5 class="mt-0">
                                                 <strong>{{lesson.title}}</strong>
                                             </h5>
@@ -181,7 +181,9 @@
                                                     {{lesson_states[lesson.state].label}}
                                                 </span>
                                             </h5>
-                                            <p class="text-break">{{lesson.resume}}</p>
+                                            <p *ngFor="let text of lesson.resume.split('\n')" class="text-break">
+                                                <small>{{text}}</small>
+                                            </p>
 
                                         </div>
 
@@ -257,7 +259,8 @@
 
                                     </div>
 
-                                    <div *ngIf="lesson.development_group.length > 0 && lesson.state == 'completed'" class="row">
+                                    <div *ngIf="lesson.development_group.length > 0 && lesson.state == 'completed'"
+                                        class="row">
                                         <div class="col">
                                             <div class="row">
                                                 <div class="col">
@@ -286,7 +289,8 @@
                                         </div>
                                     </div>
 
-                                    <div *ngIf="lesson.development_group.length <= 0 || lesson.state == 'proposed'" class="row">
+                                    <div *ngIf="lesson.development_group.length <= 0 || lesson.state == 'proposed'"
+                                        class="row">
                                         <div class="col">
                                             <div class="row">
                                                 <div class="col">
@@ -410,9 +414,9 @@
                                     </div>
 
                                 </div>
-                                <div class="col-10">
+                                <div class="col">
                                     <div class="row">
-                                        <div class="col-10">
+                                        <div class="col">
                                             <h5 class="mt-0">
                                                 <strong>{{lesson.title}}</strong>
                                             </h5>
@@ -422,7 +426,9 @@
                                                     {{lesson_states[lesson.state].label}}
                                                 </span>
                                             </h5>
-                                            <p class="text-break">{{lesson.resume}}</p>
+                                            <p *ngFor="let text of lesson.resume.split('\n')" class="text-break">
+                                                <small>{{text}}</small>
+                                            </p>
 
                                         </div>
 
@@ -642,4 +648,4 @@
     (added)="setNeedReload($event)">
 </add-call>
 
-<call *ngIf="callLesson && areas.length>0" [lesson]="callLesson"></call>
+<call *ngIf="callLesson && areas.length>0" [lesson]="callLesson" (assigned)="setNeedReload($event)"></call>

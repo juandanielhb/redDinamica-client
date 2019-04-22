@@ -97,8 +97,7 @@ export class SendExperienceComponent implements OnInit {
         this.lesson.accepted = false;
         this.lesson.knowledge_area = [];
         this.lesson.author = this.identity._id;
-        
-        
+               
         this.sendForm.value.areas.forEach(element => {
             tempArray.push(element._id);
         });

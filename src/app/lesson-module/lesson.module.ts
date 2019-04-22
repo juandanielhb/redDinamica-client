@@ -10,6 +10,7 @@ import { EditComponent } from './edit/edit.component';
 import { GroupComponent } from './group/group.component';
 import { RatingComponent } from './rating/rating.component';
 import { LessonDetailsComponent } from './details/lesson-details.component';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -27,7 +28,8 @@ import { LessonDetailsComponent } from './details/lesson-details.component';
         FormsModule,
         ReactiveFormsModule,
         HttpClientModule,
-        MomentModule
+        MomentModule,
+        RouterModule
     ],
     exports: [
         LessonComponent

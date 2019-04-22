@@ -40,29 +40,29 @@ export class LessonComponent implements OnInit {
         this.loadLesson();
     }
 
+    ngDoCheck(): void {
+        if (this.needReloadData) {
+            this.loadLesson();
+            this.needReloadData = false;
+        }
+    }
+
     loadLesson(){
         this._route.params.subscribe(params => {
-            console.log(params)
-            
             let id = params['id'];
 
             this.getLesson(id);
         });
-
-        console.log(this._route.parent)
-        this._route.parent.url.subscribe(params => {
-            console.log(params)})
-        this._route.parent.data.subscribe(params => {
-            console.log(params)})
     }
 
     getLesson(lessonId){
         this._lessonService.getLesson(this.token,lessonId).subscribe(
             response => {
-                console.log(response)
+                
                 if (response.lesson) {
                     this.status = 'success';
                     this.lesson = response.lesson;
+
                 } else {
                     this.status = 'error';
                     
@@ -81,4 +81,8 @@ export class LessonComponent implements OnInit {
         this.selectedOption = selectedOption;
     }
 
+    public needReloadData;
+    setNeedReload() {
+        this.needReloadData = true;
+    }
 }

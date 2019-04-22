@@ -113,42 +113,7 @@ export class AddCallComponent implements OnInit {
         this.call = new Call(this.callForm.value.text);
         this.call.visible = true;
         this.call.author = this.identity.id;
-
-        // this._callService.addCall(this.token, this.call).subscribe(
-        //     response => {
-        //         if (response.call && response.call._id) {
-        //             this.call = response.call;
-        //             this.status = 'success';
-        //             this.lesson.call = response.call._id;
-
-        //             this._lessonService.editLesson(this.token, this.lesson).subscribe(
-        //                 response => {
-        //                     if (response.lesson._id) {
-        //                         this.status = 'success';
-        //                         this.added.emit();
-
-
-        //                     } else {
-        //                         this.status = 'error';
-        //                     }
-        //                 },
-        //                 error => {
-        //                     this.status = 'error';
-        //                     console.log(<any>error);
-        //                 }
-        //             );
-
-
-        //         } else {
-        //             this.status = 'error';
-        //         }
-        //     },
-        //     error => {
-        //         this.status = 'error';
-        //         console.log(<any>error);
-        //     }
-        // );
-
+        
         this.lesson.call = this.call;
         this._lessonService.editLesson(this.token, this.lesson).subscribe(
             response => {

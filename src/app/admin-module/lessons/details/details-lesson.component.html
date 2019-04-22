@@ -45,7 +45,9 @@
                     </label>
 
                     <div class="col">
-                        <p>{{lesson.resume}}</p>
+                        <p *ngFor="let text of lesson.resume.split('\n')" class="text-break">
+                            {{text}}
+                        </p>
                     </div>
                 </div>
 
@@ -55,7 +57,9 @@
                     </label>
 
                     <div class="col">
-                        <p>{{lesson.justification}}</p>
+                        <p *ngFor="let text of lesson.justification.split('\n')" class="text-break">
+                            {{text}}
+                        </p>
                     </div>
                 </div>
 
@@ -65,7 +69,9 @@
                     </label>
 
                     <div class="col">
-                        <p>{{lesson.references}}</p>
+                        <p *ngFor="let text of lesson.references.split('\n')" class="text-break">
+                            {{text}}
+                        </p>
                     </div>
                 </div>
 

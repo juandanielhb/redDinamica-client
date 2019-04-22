@@ -213,7 +213,7 @@ export class UsersComponent {
             this.city.name = this.addForm.value.city.name;
             this.city.state = this.state.value;
             this.city.country = this.country.value;
-            this.city.used = true;
+
 
             let responseAddCity = await this._bDService.addCity(this.city).toPromise();
 
@@ -232,7 +232,7 @@ export class UsersComponent {
         if (!this.user.profession && this.addForm.value.profession) {
 
             this.profession.name = this.addForm.value.profession.name;
-            this.profession.used = true;
+            // this.profession.used = true;
 
             
 
@@ -251,7 +251,7 @@ export class UsersComponent {
         if (!this.user.institution && this.addForm.value.institution) {
 
             this.institution.name = this.addForm.value.institution.name;
-            this.institution.used = true;
+            // this.institution.used = true;
 
 
             let responseAddinstitution = await this._bDService.addInstitution(this.institution).toPromise();

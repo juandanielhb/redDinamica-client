@@ -85,4 +85,20 @@ export class LessonComponent implements OnInit {
     setNeedReload() {
         this.needReloadData = true;
     }
+
+    isInTheDevelopmentGroup(){
+        let response;
+
+        if(this.lesson.development_group){
+            response = this.lesson.development_group.find(user => {
+                return this.identity._id == user._id;
+            })
+        }
+ 
+        if(response || this.lesson.expert && this.lesson.expert._id == this.identity){
+            return true;
+        }else{            
+            return false;
+        }
+    }
 }

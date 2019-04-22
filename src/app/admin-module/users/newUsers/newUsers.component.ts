@@ -47,6 +47,7 @@ export class NewUsersComponent {
         this._UserService.getNewUsers(page).subscribe(
             response=>{                  
                 if(response.users){
+                    console.log(response.users)
                     this.users = response.users; 
                     this.total = response.total; 
                     this.pages = response.pages;

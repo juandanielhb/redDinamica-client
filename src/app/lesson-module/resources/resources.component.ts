@@ -1,13 +1,14 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Location } from '@angular/common';
+import { Lesson } from 'src/app/models/lesson.model';
 import { LESSON_STATES } from 'src/app/services/DATA';
 
 @Component({
-    selector: 'rating',
-    templateUrl: './rating.component.html'
+    selector: 'resources',
+    templateUrl: './resources.component.html'
     
 })
-export class RatingComponent implements OnInit {
+export class ResourcesComponent implements OnInit {
     public title: string;
     
     public lesson_states = LESSON_STATES;
@@ -15,7 +16,7 @@ export class RatingComponent implements OnInit {
     @Input() lesson;
     
     constructor(private _location:Location) {
-        this.title = 'Calificaciones y comentarios';
+        this.title = 'Recursos';
         
     }
 

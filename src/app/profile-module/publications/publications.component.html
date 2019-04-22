@@ -1,4 +1,4 @@
-<div *ngIf="identity._id == ownProfile._id" id="new-post" class="card mb-2">
+<div *ngIf="identity._id == ownProfile._id" id="new-post" class="card mb-3">
     <form [formGroup]="postForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
         <div class="card-header">
             <label class="card-title m-0" style="font-size: 1.5em" for="">
@@ -78,7 +78,7 @@
 
 <div *ngIf="publications.length != 0">
     <section *ngFor="let publication of publications">
-        <div id="new-post" class="card my-3">
+        <div id="new-post" class="card mb-3">
             <div class="card-body">
                 <div class="row justify-content-center">
                     <div class="col-1 align-items-center">

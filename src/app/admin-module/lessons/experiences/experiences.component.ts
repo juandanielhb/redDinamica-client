@@ -96,10 +96,13 @@ export class ExperiencesComponent implements OnInit {
 
         if(lesson.type == 'consideration'){
             lesson.state = 'development';
+            lesson.development_group.push(lesson.author);
+            lesson.leader = lesson.author;
             
         }else if( lesson.type == 'development'){
             lesson.state = 'proposed';
         }
+
 
         this._lessonService.editLesson(this.token, lesson).subscribe(
             response =>{                

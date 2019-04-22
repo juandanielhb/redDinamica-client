@@ -11,6 +11,9 @@ import { GroupComponent } from './group/group.component';
 import { RatingComponent } from './rating/rating.component';
 import { LessonDetailsComponent } from './details/lesson-details.component';
 import { RouterModule } from '@angular/router';
+import { ReviewComponent } from './review/review.component';
+import { ConversationComponent } from './conversation/conversation.component';
+import { ResourcesComponent } from './resources/resources.component';
 
 
 
@@ -18,6 +21,9 @@ import { RouterModule } from '@angular/router';
     declarations: [
         LessonComponent,
         ActivityComponent,
+        ReviewComponent,
+        ConversationComponent,
+        ResourcesComponent,
         EditComponent,
         GroupComponent,
         RatingComponent,

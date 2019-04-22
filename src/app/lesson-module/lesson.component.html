@@ -19,7 +19,7 @@
         <!-- Example split danger button -->
         <div class="btn-group text-primary float-right">
 
-            <button class="btn" title="Editar" (click)="setSelectedOption('edit')">
+            <button *ngIf="lesson.leader && identity._id == lesson.leader._id" class="btn" title="Editar" (click)="setSelectedOption('edit')">
                 <i class="fas fa-edit icon-message text-primary"></i>
             </button>            
 
@@ -28,18 +28,18 @@
                 <i class="fas fa-clock icon-message text-primary"></i>
             </button> -->
 
-            <button class="btn border-left" title="Conversación"
+            <button *ngIf="isInTheDevelopmentGroup()" class="btn border-left" title="Conversación"
                 (click)="setSelectedOption('conversation')">
                 <i class="fas fa-comment-dots icon-message text-primary"></i>
             </button>
 
-            <button *ngIf="lesson.state == 'test'" class="btn border-left" title="Resultados de pruebas"
+            <button *ngIf="lesson.state == 'test' && isInTheDevelopmentGroup()" class="btn border-left" title="Resultados de pruebas"
                 (click)="setSelectedOption('tests')">
                 <i class="fas fa-clipboard-check icon-message text-primary"></i>
             </button>
 
-            <button class="btn border-left" title="Comentarios del facilitador"
-                (click)="setSelectedOption('expert-comments')">
+            <button *ngIf="isInTheDevelopmentGroup()" class="btn border-left" title="Comentarios del facilitador"
+                (click)="setSelectedOption('review')">
                 <i class="fas fa-clipboard-list icon-message text-primary"></i>
             </button>
             
@@ -56,14 +56,14 @@
                 <i class="fas fa-angle-right icon-message"></i>
             </button> -->
 
-            <!-- <button class="btn border-left ml-2" title="Calificar"
+            <button *ngIf="!isInTheDevelopmentGroup()"                           
+             class="btn border-left ml-2" title="Calificar"
                 (click)="setSelectedOption('rating')">
                 <div class="vl">
-                    <i class="fas fa-star icon-message text-primary"></i>
-                    
-                    <span> {{lesson.score.toFixed(2)}}</span>
+                    <i class="fas fa-star icon-message text-primary"></i>                    
+                    <span *ngIf="lesson.score != undefined"> {{lesson.score.toFixed(2)}}</span>
                 </div>
-            </button> -->
+            </button>
 
         </div>
     </div>
@@ -82,6 +82,15 @@
 
     <rating *ngIf="selectedOption == 'rating'" [lesson]="lesson">
     </rating>
+
+    <conversation *ngIf="selectedOption == 'conversation'" [lesson]="lesson">
+    </conversation>
+
+    <review *ngIf="selectedOption == 'review'" [lesson]="lesson">
+    </review>
+
+    <resources *ngIf="selectedOption == 'resources'" [lesson]="lesson">
+    </resources>
 
 </div>
 <!-- /Lesson/:id -->

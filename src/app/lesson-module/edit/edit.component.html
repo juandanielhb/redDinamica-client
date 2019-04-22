@@ -104,6 +104,7 @@
                             <div class="">
                                 <select class="form-control" id="level" formControlName="state"
                                     [ngClass]="{ 'is-invalid': submitted && f.state.errors }">
+                                    <option value="proposed">Propuesta</option>
                                     <option value="assigned">Asignada</option>
                                     <option value="development">Desarrollo</option>
                                     <option value="test">Prueba</option>

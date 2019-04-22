@@ -117,7 +117,7 @@ export class RegisterComponent implements OnInit {
                 this.profession.name = this.registerForm.value.profession;
             }
 
-            this.profession.used = true;
+            // this.profession.used = true;
 
             let responseAddProfession = await this._bDService.addProfession(this.profession).toPromise().catch(error => console.log(<any>error));
             
@@ -140,7 +140,7 @@ export class RegisterComponent implements OnInit {
                 this.institution.name = this.registerForm.value.institution;
             }
 
-            this.institution.used = true;
+            // this.institution.used = true;
 
             let responseAddinstitution = await this._bDService.addInstitution(this.institution).toPromise();
             if (responseAddinstitution.institution && responseAddinstitution.institution._id) {

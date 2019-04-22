@@ -24,12 +24,14 @@
                         {{text}}
                     </p>
 
-                    <h5 class="card-title">
-                        Justificación
-                    </h5>
-                    <p *ngFor="let text of lesson.justification.split('\n')" class="card-text">
-                        {{text}}
-                    </p>
+                    <section *ngIf="lesson.justification">
+                        <h5 class="card-title">
+                            Justificación
+                        </h5>
+                        <p *ngFor="let text of lesson.justification.split('\n')" class="card-text">
+                            {{text}}
+                        </p>
+                    </section>
 
                     <h5 class="card-title">
                         Referencias

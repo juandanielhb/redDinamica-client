@@ -88,7 +88,7 @@ export class CallComponent implements OnInit {
         this._userService.getAllUsers().subscribe(
             response => {             
                 this.expertUsers = response.users.filter(user => {
-                    return user.role == 'expert';
+                    return user.role == 'expert' || user.role == 'admin' || user.role == 'delegated_admin';
                 });
             },
             error => {
@@ -141,7 +141,7 @@ export class CallComponent implements OnInit {
         this.lesson.leader = this.leader.value;
         this.lesson.expert = this.expert.value;    
         this.lesson.state = 'assigned';
-        this.lesson.visible = false;
+        this.lesson.call.visible = false;
 
         this._lessonService.editLesson(this.token, this.lesson).subscribe(
             response => {

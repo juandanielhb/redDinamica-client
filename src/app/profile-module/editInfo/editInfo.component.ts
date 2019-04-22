@@ -160,7 +160,7 @@ export class EditInfoComponent {
 
             this.city.state = this.state.value;
             this.city.country = this.country.value;
-            this.city.used = true;
+            // this.city.used = true;
 
             let responseAddCity = await this._bDService.addCity(this.city).toPromise();
 
@@ -178,7 +178,7 @@ export class EditInfoComponent {
 
         if (!this.user.profession && this.editForm.value.profession) {
 
-            this.profession.used = true;
+            // this.profession.used = true;
 
             if (this.editForm.value.profession.name) {
                 this.profession.name = this.editForm.value.profession.name;
@@ -206,7 +206,7 @@ export class EditInfoComponent {
                 this.institution.name = this.editForm.value.institution;
             }
 
-            this.institution.used = true;
+            // this.institution.used = true;
 
             let responseAddinstitution = await this._bDService.addInstitution(this.institution).toPromise();
             if (responseAddinstitution.institution && responseAddinstitution.institution._id) {

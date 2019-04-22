@@ -60,9 +60,28 @@
                 <div id="item{{ix}}" class="collapse" aria-labelledby="headingOne"
                     data-parent="#usersAccordion">
                     <div class="card-footer">
-                        <p *ngFor="let field of fields">
-                            <strong>{{field.label}}:</strong> {{user[field.attr]}}
-                        </p>
+                        <div *ngFor="let field of fields" class="row">
+                            
+                            <label *ngIf="user[field.attr]" for="{{field.id}}" class="col-2">
+                                <strong> {{field.label}}:</strong>
+                                
+                            </label>
+                            <div class="col-10">
+                                <p *ngIf="user[field.attr] && field.type == 'text'" id="{{field.id}}">
+                                    {{user[field.attr]}}
+                                </p>   
+                                <p *ngIf="user[field.attr] && field.type == 'select' && field.autocomplete && field.id != 'city'" id="{{field.id}}">
+                                    {{user[field.attr].name}}
+                                </p>
+                                <p *ngIf="user[field.attr] && field.type == 'textarea'" id="{{field.id}}">
+                                    {{user[field.attr]}}
+                                </p>
+                                <p *ngIf="user[field.attr] && field.type == 'select' && field.autocomplete && field.id == 'city'" id="{{field.id}}">
+                                    {{user[field.attr].name}}, {{user[field.attr].state}}, {{user[field.attr].country}}
+                                </p>
+        
+                            </div>
+                        </div> 
                     </div>
                 </div>
             </div>

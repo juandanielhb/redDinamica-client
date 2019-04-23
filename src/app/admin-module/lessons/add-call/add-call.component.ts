@@ -1,9 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { Validators, FormControl, FormGroup } from '@angular/forms';
-import { Lesson } from 'src/app/models/lesson.model';
+
 import { UserService } from 'src/app/services/user.service';
-import { CallService } from 'src/app/services/call.service';
+
 
 import { GLOBAL } from 'src/app/services/global';
 import { UploadService } from 'src/app/services/upload.service';
@@ -40,8 +40,7 @@ export class AddCallComponent implements OnInit {
     constructor(
         private _userService: UserService,
         private _lessonService: LessonService,
-        private _bDService: BasicDataService,
-        private _callService: CallService,
+        private _bDService: BasicDataService,        
         private _uploadService: UploadService,
     ) {
         this.title = 'Crear convocatoria';

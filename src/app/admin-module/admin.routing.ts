@@ -18,6 +18,7 @@ import { ResourcesComponent } from './resources/resources/resources.component';
 import { ProposedResourceComponent } from './resources/proposed/proposed-resource.component';
 import { LessonComponent } from '../lesson-module/lesson.component';
 
+
 const adminRoutes: Routes = [
     {
         path: 'admin',
@@ -35,7 +36,7 @@ const adminRoutes: Routes = [
             { path: 'ciudades/:page', component: CitiesComponent},
             { path: 'instituciones', component: InstitutionsComponent},
             { path: 'instituciones/:page', component: InstitutionsComponent},   
-            { path: 'leccion/:id', component: LessonComponent, data:['admin']},
+            { path: 'leccion/:id', component: LessonComponent},
             { path: 'lecciones-propuestas', component: ProposedComponent},
             { path: 'lecciones-propuestas/:page', component: ProposedComponent},
             { path: 'experiencias', component: ExperiencesComponent},

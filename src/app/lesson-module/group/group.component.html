@@ -9,9 +9,16 @@
                         {{title}}
                     </h4>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="card">
                 <div *ngIf="lesson.development_group.length > 0" class="card-body text-left">
 
-                    <div  *ngIf="lesson.leader" class="row">
+                    <div *ngIf="lesson.leader" class="row">
                         <div class="col-6">
                             <div class="row">
                                 <div class="col">
@@ -99,7 +106,8 @@
 
                                         <div *ngIf="lesson.development_group.length > 0" class="row p-1">
                                             <div *ngFor="let user of lesson.development_group" class="col-12">
-                                                <div *ngIf="lesson.leader && user._id != lesson.leader._id" class="row mt-1">
+                                                <div *ngIf="lesson.leader && user._id != lesson.leader._id"
+                                                    class="row mt-1">
                                                     <div class="col-auto pr-0">
                                                         <a class="text-primary ml-1">
                                                             <button [routerLink]="['/perfil', user._id]"
@@ -134,11 +142,11 @@
                     </div>
                 </div>
                 <div *ngIf="lesson.development_group.length <= 0" class="card-body text-left">
-                        <h4 class="text-muted">
-                            No se ha asignado el grupo de desarrollo.
-    
-                        </h4>
-                    </div>
+                    <h4 class="text-muted">
+                        No se ha asignado el grupo de desarrollo.
+
+                    </h4>
+                </div>
             </div>
         </div>
     </div>

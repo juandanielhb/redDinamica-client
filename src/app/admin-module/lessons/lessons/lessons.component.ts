@@ -7,6 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { GLOBAL } from 'src/app/services/global';
 import { BasicDataService } from 'src/app/services/basicData.service';
+import { ACADEMIC_LEVEL, LESSON_STATES } from 'src/app/services/DATA';
 
 @Component({
     selector: 'lessons',
@@ -24,40 +25,9 @@ export class LessonsComponent implements OnInit {
 
     public level = { basic: "Básico", medium: "Medio", advanced: "Avanzado" };
     public type = { consideration: "Consideración", development: "Desarrollo" };
-    public academic_level: Object = { 
-        school: "Primaria", 
-        garden: "Preescolar", 
-        highschool: "Secundaria", 
-        university: "Universitario" 
-    };
+    public academic_level = ACADEMIC_LEVEL;
     
-    public lesson_states = {
-        proposed: {
-            label: "Propuesta",
-            value: "proposed",
-            class: "secondary"
-        },
-        assigned: {
-            label: "Asignada",
-            value: "assigned",
-            class: "warning"
-        },
-        development: {
-            label: "Desarrollo",
-            value: "development",
-            class: "info"
-        },
-        test: {
-            label: "Prueba",
-            value: "test",
-            class: "primary"
-        },
-        completed: {
-            label: "Terminada",
-            value: "completed",
-            class: "success"
-        }
-    };
+    public lesson_states = LESSON_STATES;
 
 
     public visible = new FormControl();
@@ -251,10 +221,13 @@ export class LessonsComponent implements OnInit {
                             filteredLessons = filteredLessons.concat(this.allLessons.filter((lesson) => {
                                 res = false;
 
-                                lesson.knowledge_area.forEach(function (knowledge_area) {
+                                lesson.knowledge_area.some(function (knowledge_area) {
                                     res = knowledge_area.name == area;
+                                    if(res){
+                                        return true;
+                                    }
                                 });
-
+                                
                                 return res;
                             }));
                         });

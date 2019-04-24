@@ -15,18 +15,14 @@ import { LessonsComponent } from './lessons/lessons/lessons.component';
 import { SuggestComponent } from './resources/suggest/suggest.component';
 import { MyLessonsComponent } from './lessons/my-lessons/my-lessons.component';
 import { CallsComponent } from './lessons/calls/calls.component';
-import { LessonComponent } from './lesson/lesson.component';
-import { LessonDetailsComponent } from './lesson/details/lesson-details.component';
-
-import { EditComponent } from './lesson/edit/edit.component';
-import { GroupComponent } from './lesson/group/group.component';
-import { ActivityComponent } from './lesson/activity/activity.component';
 import { SuggestLessonComponent } from './lessons/lessons/suggest/suggest-lesson.component';
 import { SendExperienceComponent } from './lessons/lessons/send-experiences/send-experience.component';
 import { DetailsResourceComponent } from './resources/details/details-resource.component';
 import { RatingResourceComponent } from './resources/rating/rating-resource.component';
-import { RatingComponent } from './lesson/rating/rating.component';
 import { DetailsCallComponent } from './lessons/details/details-call.component';
+import { LessonModule } from '../lesson-module/lesson.module';
+
+
 
 @NgModule({
     declarations: [
@@ -41,14 +37,8 @@ import { DetailsCallComponent } from './lessons/details/details-call.component';
         MyLessonsComponent,
         CallsComponent,
         DetailsCallComponent,
-        LessonComponent,
-        RatingComponent,
         SuggestLessonComponent,        
         SendExperienceComponent,
-        LessonDetailsComponent,        
-        EditComponent,
-        GroupComponent,
-        ActivityComponent,
         FilterPipe
     ],
     imports: [
@@ -56,8 +46,11 @@ import { DetailsCallComponent } from './lessons/details/details-call.component';
         FormsModule,
         ReactiveFormsModule,
         MomentModule,  
-        NgSelectModule,      
+        NgSelectModule,  
+        LessonModule,    
         HomeRoutingModule
+        
+               
     ],
     exports: [
         HomeComponent

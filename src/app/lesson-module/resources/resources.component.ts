@@ -1,11 +1,11 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-
 import { LESSON_STATES, ICON_STYLE, MAX_FILE_SIZE } from 'src/app/services/DATA';
 import { Validators, FormControl } from '@angular/forms';
 import { LessonService } from 'src/app/services/lesson.service';
 import { LessonFile } from 'src/app/models/lesson-file.model';
 import { UserService } from 'src/app/services/user.service';
 import { GLOBAL } from 'src/app/services/global';
+import { UploadService } from 'src/app/services/upload.service';
 
 @Component({
     selector: 'resources',
@@ -45,7 +45,8 @@ export class ResourcesComponent implements OnInit {
 
     constructor(
         private _userService: UserService,
-        private _lessonService: LessonService
+        private _lessonService: LessonService,
+        private _uploadService: UploadService
 
     ) {
         this.title = 'Recursos';
@@ -138,7 +139,6 @@ export class ResourcesComponent implements OnInit {
             }
         }
 
-
     }
 
     deleteGroup(group) {
@@ -174,7 +174,7 @@ export class ResourcesComponent implements OnInit {
         }
 
         if (this.filesToUpload.length > 0) {
-
+            
             for (let i = 0; i < this.filesToUpload.length; i++) {
                 tempFile = new LessonFile();
 
@@ -188,13 +188,14 @@ export class ResourcesComponent implements OnInit {
 
         }
 
+        
         this.lesson.files = this.lesson.files.concat(this.filesUploaded);
         this.filesUploaded = [];
-
+        
         if (group != null) {
             
             if (group != this.name.value) {
-            
+                
                 this.filesUploaded = this.lesson.files.map(file => {
                     if(file.groupTitle == group){
                         file.groupTitle = this.name.value;
@@ -206,24 +207,44 @@ export class ResourcesComponent implements OnInit {
                 this.filesUploaded = [];
             }
         }
+        
         this.editLesson(this.lesson);
-
+        
     }
-
+    
     editLesson(lesson) {
         this._lessonService.editLesson(this.token, lesson).subscribe(
             response => {
-
+                
                 if (response.lesson && response.lesson._id) {
+
                     this.status = 'success';
                     this.submitted = false;
 
                     if (!this.editMode) {
                         this.name.reset();                        
                     }
+
+                    if (this.filesToUpload.length > 0) {
+                        //Upload profile imaage
+                        this._uploadService.makeFileRequest(
+                            this.url + 'upload-lesson/' + this.lesson._id,
+                            [],
+                            this.filesToUpload,
+                            this.token,
+                            'files'
+                        ).then((result: any) => {
+                            
                     
+                        }).catch((error) => {
+                            this.status = 'error';
+                            console.log(<any>error);
+                        });
+                    }
+
                     this.files.reset();
                     this.getGroups();
+
                 } else {
                     this.status = 'error';
 

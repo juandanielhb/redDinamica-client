@@ -2,7 +2,8 @@ import { Component, Input} from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 import { GLOBAL } from 'src/app/services/global';
 
-import { ICON_STYLE, FIELDS_DETAILS } from '../resourcesData';
+import { FIELDS_DETAILS } from '../resourcesData';
+import { ICON_STYLE } from 'src/app/services/DATA';
 
 
 @Component({

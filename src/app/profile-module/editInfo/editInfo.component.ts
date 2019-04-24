@@ -26,8 +26,6 @@ export class EditInfoComponent {
     public addCity = false;
     public fieldsForm;
 
-    public filesToUpload: Array<File>;
-
     public status;
     public city = new City();
     public profession = new Profession('');
@@ -59,7 +57,6 @@ export class EditInfoComponent {
         this.token = this._userService.getToken();
 
         this.fieldsForm = FIELDS_FORM;
-        this.filesToUpload = [];
 
         this.state = new FormControl('');
         this.country = new FormControl('');
@@ -255,6 +252,7 @@ export class EditInfoComponent {
         }
     }
 
+    public filesToUpload = [];
     fileChangeEvent(fileInput: any) {
         this.filesToUpload = <Array<File>>fileInput.target.files;
     }

@@ -1,13 +1,12 @@
 import { Component, OnInit, OnDestroy, Input} from '@angular/core';
 
-import { Validators, FormControl, FormGroup } from '@angular/forms';
-import { Resource } from 'src/app/models/resource.model';
+
 import { UserService } from 'src/app/services/user.service';
-import { ResourceService } from 'src/app/services/resource.service';
 
 import { GLOBAL } from 'src/app/services/global';
-import { UploadService } from 'src/app/services/upload.service';
-import { FIELDS_FORM, ICON_STYLE } from '../resources/resourcesData';
+import { FIELDS_FORM } from '../resources/resourcesData';
+import { ICON_STYLE } from 'src/app/services/DATA';
+
 
 @Component({
     selector: 'details-resource',

@@ -8,6 +8,7 @@ import { FIELDS_FORM } from '../resourcesData';
 import { GLOBAL } from 'src/app/services/global';
 import { UploadService } from 'src/app/services/upload.service';
 import { CachedSource } from 'webpack-sources';
+import { MAX_FILE_SIZE } from 'src/app/services/DATA';
 
 @Component({
     selector: 'add-resource',
@@ -31,7 +32,8 @@ export class AddResourceComponent implements OnInit {
 
     public resource;
 
-    public maxSize = 20 * 1024 * 1024;
+    public MAX_FILE_SIZE = MAX_FILE_SIZE;
+    public maxSize = MAX_FILE_SIZE * 1024 * 1024;
     public maxSizeError = false;
 
     @Output() added = new EventEmitter();

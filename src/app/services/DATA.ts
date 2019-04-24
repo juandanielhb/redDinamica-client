@@ -1,3 +1,7 @@
+export const MAX_FILE_SIZE = 20; // eN MEGABYTES
+
+
+// LESSON_DATA
 export const LESSON_STATES = {
     proposed: {
         label: "Propuesta",
@@ -31,4 +35,30 @@ export const ACADEMIC_LEVEL = {
     garden: "Preescolar", 
     highschool: "Secundaria", 
     university: "Universitario" 
+};
+
+
+// RESOURCES DATA 
+
+export const ICON_STYLE = {
+    document: {
+        label: "Documento",
+        icon: "fa-file-alt",
+        class: "bg-success"
+    },
+    link: {
+        label: "Enlace",
+        icon: "fa-link",
+        class: "bg-danger"
+    },
+    video: {
+        label: "Video",
+        icon: "fa-file-video",
+        class: "bg-warning"
+    },
+    software: {
+        label: "Software",
+        icon: "fa-mouse-pointer",
+        class: "bg-info"
+    }
 };

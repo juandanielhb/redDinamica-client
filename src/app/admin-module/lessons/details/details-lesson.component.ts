@@ -3,7 +3,6 @@ import { Component, Input} from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 
 import { GLOBAL } from 'src/app/services/global';
-//import { ICON_STYLE, FIELDS_DETAILS } from '../resourcesData';
 
 
 @Component({
@@ -32,8 +31,6 @@ export class DetailsLessonComponent {
         this.token = this._userService.getToken();
         this.url = GLOBAL.url;
 
-        // this.fields = FIELDS_DETAILS;
-        // this.types = ICON_STYLE;
         
     }
     

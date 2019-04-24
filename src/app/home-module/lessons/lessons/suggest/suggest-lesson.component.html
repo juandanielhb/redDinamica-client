@@ -16,7 +16,8 @@
                 <div class="mb-2">
                     <p>Está opción le permite solicitar o dar sugerencia de un tema sobre cual considera que se debe
                         desarrollar una lección en RedDinámica.</p>
-                    <p>El administrador se encargará de enviar una convocatoria pública para formar el grupo de desarrollo
+                    <p>El administrador se encargará de enviar una convocatoria pública para formar el grupo de
+                        desarrollo
                         de la lección.</p>
 
                 </div>
@@ -65,7 +66,8 @@
                         </div>
                         <div *ngIf="maxSizeError && field.id == 'file'" class="invalid-feedback">
                             <div *ngIf="maxSizeError">
-                                El archivo es demasiado grande, el tamaño maximo permitido es de 20MB.
+                                El archivo es demasiado grande, el tamaño maximo permitido es de
+                                {{MAX_FILE_SIZE}}MB.
                             </div>
                         </div>
 

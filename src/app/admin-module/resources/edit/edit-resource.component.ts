@@ -8,6 +8,7 @@ import { ResourceService } from 'src/app/services/resource.service';
 import { GLOBAL } from 'src/app/services/global';
 import { UploadService } from 'src/app/services/upload.service';
 import { FIELDS_FORM } from '../resources/resourcesData';
+import { MAX_FILE_SIZE } from 'src/app/services/DATA';
 
 @Component({
     selector: 'edit-resource',
@@ -34,10 +35,9 @@ export class EditResourceComponent implements OnInit {
 
     @Output() edited = new EventEmitter();
 
-    public maxSize = 20 * 1024 * 1024;
-    public maxSizeError = false;
-
-    
+    public MAX_FILE_SIZE = MAX_FILE_SIZE;
+    public maxSize = MAX_FILE_SIZE * 1024 * 1024;
+    public maxSizeError = false;    
 
     constructor(
         private _userService: UserService,

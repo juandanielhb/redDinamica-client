@@ -3,7 +3,8 @@ import { GLOBAL } from 'src/app/services/global';
 import { UserService } from 'src/app/services/user.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ResourceService } from 'src/app/services/resource.service';
-import { ICON_STYLE } from '../resources/resourcesData';
+import { ICON_STYLE } from 'src/app/services/DATA';
+
 
 @Component({
     selector: 'proposed-resource',

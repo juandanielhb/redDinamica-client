@@ -100,18 +100,18 @@
                 </div>
 
                 <div *ngIf="resource.type != 'link'" class="form-group row">
-                        <label for="type" class="col-3 col-form-label">
-                            <strong>Archivo actual*</strong>
-                        </label>
-                        <div class="col-9">
-                                <a class="btn btn-info" title="Descargar recurso: {{resource.file}}"
-                                href="{{this.url + 'get-resource/' + resource.file}}" target="_blank">
-                                <i class="fas fa-download"></i> {{resource.file}}
-                            </a>
-                        </div>
+                    <label for="type" class="col-3 col-form-label">
+                        <strong>Archivo actual*</strong>
+                    </label>
+                    <div class="col-9">
+                        <a class="btn btn-info" title="Descargar recurso: {{resource.file}}"
+                            href="{{this.url + 'get-resource/' + resource.file}}" target="_blank">
+                            <i class="fas fa-download"></i> {{resource.file}}
+                        </a>
                     </div>
+                </div>
 
-              
+
 
 
                 <div *ngIf="resource.type != 'link'" class="form-group row">
@@ -125,7 +125,8 @@
                             [ngClass]="{'is-invalid': submitted && f.file.errors || maxSizeError}">
                         <div *ngIf="maxSizeError" class="invalid-feedback">
                             <div *ngIf="maxSizeError">
-                                El archivo es demasiado grande, el tamaño maximo permitido es de 20MB.
+                                El archivo es demasiado grande, el tamaño maximo permitido es de
+                                {{MAX_FILE_SIZE}}MB.
                             </div>
                         </div>
                     </div>

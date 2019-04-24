@@ -150,27 +150,3 @@ export const TYPE_OF_RESOURCES = [
     }
 ];
 
-export const ICON_STYLE = {
-    document: {
-        label: "Documento",
-        icon: "fa-file-alt",
-        class: "bg-success"
-    },
-    link: {
-        label: "Enlace",
-        icon: "fa-link",
-        class: "bg-danger"
-    },
-    video: {
-        label: "Video",
-        icon: "fa-file-video",
-        class: "bg-warning"
-    },
-    software: {
-        label: "Software",
-        icon: "fa-mouse-pointer",
-        class: "bg-info"
-    }
-};
-
-

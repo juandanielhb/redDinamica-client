@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ResourceService } from 'src/app/services/resource.service';
 import { UserService } from 'src/app/services/user.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { TYPE_OF_RESOURCES, ICON_STYLE } from './resourcesData';
+import { TYPE_OF_RESOURCES } from './resourcesData';
 import { FormControl } from '@angular/forms';
 import { GLOBAL } from 'src/app/services/global';
+import { ICON_STYLE } from 'src/app/services/DATA';
 
 @Component({
     selector: 'resources',

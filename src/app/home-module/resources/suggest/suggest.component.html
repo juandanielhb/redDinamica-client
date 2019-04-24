@@ -35,7 +35,7 @@
                         <input *ngIf="field.type == 'text'" type="text" class="form-control" id="{{field.id}}"
                             autocomplete="off" formControlName="{{field.id}}"
                             [ngClass]="{ 'is-invalid': submitted && f[field.id].errors}">
-                        
+
                         <textarea *ngIf="field.type === 'textarea'" class="form-control" id="experience" rows="3"
                             formControlName="{{field.id}}" [ngClass]="{ 'is-invalid': submitted && f[field.id].errors}">
                         </textarea>
@@ -58,7 +58,8 @@
                         </div>
                         <div *ngIf="maxSizeError && field.id == 'file'" class="invalid-feedback">
                             <div *ngIf="maxSizeError">
-                                El archivo es demasiado grande, el tamaño maximo permitido es de 20MB.
+                                El archivo es demasiado grande, el tamaño maximo permitido es de
+                                {{MAX_FILE_SIZE}}MB.
                             </div>
                         </div>
 

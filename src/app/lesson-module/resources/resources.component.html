@@ -1,6 +1,5 @@
 <!-- resources -->
 <div class="card-body">
-
     <div class="row">
         <div class="col">
             <div class="card mb-3 text-center">
@@ -10,8 +9,185 @@
                     </h4>
                 </div>
             </div>
-
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-5">
+            <div class="border rounded nav flex-column nav-pills" id="v-pills-tab" role="tablist"
+                aria-orientation="vertical">
+
+                <div *ngFor="let group of groups, let ix = index" class="nav-link" [ngClass]="{'active': ix == 0}"
+                    id="{{removeSpaces(group)}}-tab" data-toggle="pill" attr.href="#{{removeSpaces(group)}}" role="tab"
+                    attr.aria-controls="{{removeSpaces(group)}}" attr.aria-selected="true" (click)="restartValues(group)">
+                    {{group}}
+                    <section *ngIf="selectedGroup == group" class="float-right">
+                        <a class="resource-edit mr-1" title="Editar grupo"><i class="fas fa-edit"
+                                (click)="initEditGroup($event, group)"></i></a>
+                        <a class="resource-delete ml-1" title="Eliminar grupo"><i class="fas fa-trash"
+                                (click)="deleteGroup(group)"></i></a>
+                    </section>
+                </div>
+
+
+                <div class="nav-link" [ngClass]="{'active': lesson.files.length == 0}" id="addGroup-tab"
+                    data-toggle="pill" href="#addGroup" role="tab" aria-controls="addGroup" aria-selected="false"
+                    (click)="restartValues()">
+                    <i class="fas fa-plus"></i> Agregar grupo de recursos
+                </div>
+
+
+            </div>
+        </div>
+
+        <div class="col-7">
+
+
+            <div class="tab-content" id="v-pills-tabContent">
+                <div *ngFor="let group of groups, let ix = index" class="tab-pane fade"
+                    [ngClass]="{'show active': ix == 0}" id="{{removeSpaces(group)}}" role="tabpanel"
+                    attr.aria-labelledby="{{removeSpaces(group)}}-tab">
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="card">
+                                <div class="card-body">
+
+                                    <section *ngIf="editMode">
+                                        <div *ngIf="status === 'error'; successMessage"
+                                            class="alert alert-danger fade show text-center" role="alert">
+                                            <i class="fas fa-times-circle icon-message mr-2"></i>
+                                            {{errorMsgEdit}}
+                                        </div>
+
+                                        <div *ngIf="status === 'success'; successMessage"
+                                            class="alert alert-success fade show text-center" role="alert">
+                                            <i class="fas fa-check-circle icon-message mr-2"></i>
+                                            {{successMsgEdit}}
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="name"><strong>Nombre*</strong></label>
+                                            <input type="text" class="form-control" id="name" [formControl]="name"
+                                                [ngClass]="{ 'is-invalid': submitted && name.errors}"
+                                                autocomplete="off">
+                                            <div *ngIf="submitted && name.errors" class="invalid-feedback">
+                                                <div *ngIf="name.errors.required">
+                                                    El campo nombre es obligatorio.
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </section>
+                                    <p *ngFor="let file of getfiles(group)">
+                                        <a href="#">
+                                            <i class="fas fa-paperclip"></i>
+                                            {{file.fileName}}
+                                        </a>
+                                        <a *ngIf="editMode" class="resource-delete mx-1 float-right text-muted"
+                                            title="Eliminar archivo" (click)="deleteFile(file._id)"><i class="fas fa-trash"></i></a>
+                                    </p>
+
+                                    <section *ngIf="editMode">
+                                        <div class="form-group">
+                                            <label for="resourcesFiles"><strong>Archivos</strong></label>
+                                            <input multiple type="file" class="form-control" name="files"
+                                                id="resourcesFiles" enctype="multipart/form-data"
+                                                (change)="fileChangeEvent($event)" [formControl]="files"
+                                                [ngClass]="{ 'is-invalid': submitted && files.errors || maxSizeError}">
+                                            <div *ngIf="submitted && files.errors || maxSizeError"
+                                                class="invalid-feedback">
+                                                <div *ngIf="files.errors && files.errors.required">
+                                                    Debes agregar al menos un archivo.
+                                                </div>
+                                                <div *ngIf="maxSizeError">
+                                                    El archivo es demasiado grande, el tamaño maximo permitido es de
+                                                    {{MAX_FILE_SIZE}}MB.
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <button type="submit" class="btn btn-success mb-2 float-right"
+                                            (click)="onSubmit(group)">Guardar</button>
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="tab-pane fade" [ngClass]="{'show active': lesson.files.length == 0}" id="addGroup"
+                    role="tabpanel" aria-labelledby="addGroup-tab">
+
+
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="card">
+                                <div class="card-body">
+
+                                    <div *ngIf="status === 'error'; successMessage"
+                                        class="alert alert-danger fade show text-center" role="alert">
+                                        <i class="fas fa-times-circle icon-message mr-2"></i>
+                                        {{errorMsg}}
+                                    </div>
+
+                                    <div *ngIf="status === 'success'; successMessage"
+                                        class="alert alert-success fade show text-center" role="alert">
+                                        <i class="fas fa-check-circle icon-message mr-2"></i>
+                                        {{successMsg}}
+                                    </div>
+
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="name"><strong>Nombre*</strong></label>
+                                            <input type="text" class="form-control" id="name" [formControl]="name"
+                                                [ngClass]="{ 'is-invalid': submitted && name.errors}"
+                                                autocomplete="off">
+                                            <div *ngIf="submitted && name.errors" class="invalid-feedback">
+                                                <div *ngIf="name.errors.required">
+                                                    El campo nombre es obligatorio.
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="resourcesFiles"><strong>Archivos</strong></label>
+                                            <input multiple type="file" class="form-control" name="files"
+                                                id="resourcesFiles" enctype="multipart/form-data"
+                                                (change)="fileChangeEvent($event)" [formControl]="files"
+                                                [ngClass]="{ 'is-invalid': submitted && files.errors || maxSizeError}">
+                                            <div *ngIf="submitted && files.errors || maxSizeError"
+                                                class="invalid-feedback">
+                                                <div *ngIf="files.errors && files.errors.required">
+                                                    Debes agregar al menos un archivo.
+                                                </div>
+                                                <div *ngIf="maxSizeError">
+                                                    El archivo es demasiado grande, el tamaño maximo permitido es de
+                                                    {{MAX_FILE_SIZE}}MB.
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <button type="submit" class="btn btn-success mb-2 float-right"
+                                            (click)="onSubmit()">Guardar</button>
+
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
 </div>
 <!-- /resources -->

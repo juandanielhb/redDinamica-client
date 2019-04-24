@@ -6,6 +6,7 @@ import { UserService } from 'src/app/services/user.service';
 import { ResourceService } from 'src/app/services/resource.service';
 import { UploadService } from 'src/app/services/upload.service';
 import { GLOBAL } from 'src/app/services/global';
+import { MAX_FILE_SIZE } from 'src/app/services/DATA';
 
 @Component({
     selector: 'suggest',
@@ -29,7 +30,8 @@ export class SuggestComponent implements OnInit {
 
     public resource;
 
-    public maxSize = 20 * 1024 * 1024;
+    public MAX_FILE_SIZE = MAX_FILE_SIZE;
+    public maxSize = MAX_FILE_SIZE * 1024 * 1024;
     public maxSizeError = false;
 
     constructor(

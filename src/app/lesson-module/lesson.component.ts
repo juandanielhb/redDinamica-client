@@ -83,6 +83,7 @@ export class LessonComponent implements OnInit {
 
     public needReloadData;
     setNeedReload() {
+        console.log('aca')
         this.needReloadData = true;
     }
 

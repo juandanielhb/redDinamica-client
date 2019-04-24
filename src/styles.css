@@ -91,3 +91,12 @@ section .container{
 textarea {
     word-break: break-all;
 }
+
+
+.resource-edit:hover {
+    color: #F39C12 !important;
+}
+
+.resource-delete:hover {
+    color: #E74C3C !important;
+}

@@ -68,28 +68,28 @@
         </div>
     </div>
 
-    <lesson-details *ngIf="selectedOption == 'details'" [lesson]="lesson">
+    <lesson-details *ngIf="lesson && selectedOption == 'details'" [lesson]="lesson">
     </lesson-details>
 
     <!-- <activity *ngIf="selectedOption == 'activity'" [lesson]="lesson">
     </activity> -->
 
-    <edit *ngIf="selectedOption == 'edit'" [lesson]="lesson" (edited)="setNeedReload($event)">
+    <edit *ngIf="lesson && selectedOption == 'edit'" [lesson]="lesson" (edited)="setNeedReload($event)">
     </edit>
 
-    <group *ngIf="selectedOption == 'group'" [lesson]="lesson">
+    <group *ngIf="lesson && selectedOption == 'group'" [lesson]="lesson">
     </group>
 
-    <rating *ngIf="selectedOption == 'rating'" [lesson]="lesson">
+    <rating *ngIf="lesson &&  selectedOption == 'rating'" [lesson]="lesson">
     </rating>
 
-    <conversation *ngIf="selectedOption == 'conversation'" [lesson]="lesson">
+    <conversation *ngIf="lesson &&  selectedOption == 'conversation'" [lesson]="lesson">
     </conversation>
 
-    <review *ngIf="selectedOption == 'review'" [lesson]="lesson">
+    <review *ngIf="lesson && selectedOption == 'review'" [lesson]="lesson">
     </review>
 
-    <resources *ngIf="selectedOption == 'resources'" [lesson]="lesson">
+    <resources *ngIf="lesson && selectedOption == 'resources'" [lesson]="lesson" (added)="setNeedReload($event)">
     </resources>
 
 </div>

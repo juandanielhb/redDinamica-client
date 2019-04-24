@@ -58,35 +58,34 @@
                             formControlName="{{field.id}}" [ngClass]="{ 'is-invalid': submitted && f[field.id].errors}">
                                 </textarea>
 
-                        <select *ngIf="field.type == 'select' && !field.autocomplete" formControlName="{{field.id}}" class="form-control"
-                            id="{{field.id}}" [ngClass]="{'is-invalid': submitted && f[field.id].errors}">
+                        <select *ngIf="field.type == 'select' && !field.autocomplete" formControlName="{{field.id}}"
+                            class="form-control" id="{{field.id}}"
+                            [ngClass]="{'is-invalid': submitted && f[field.id].errors}">
                             <option *ngFor="let option of field.options" value="{{option.value}}">
                                 {{option.label}}</option>
                         </select>
 
-                        <ng-select *ngIf="field.type == 'select' && field.autocomplete" [items]="items[field.id]" 
-                        bindLabel="name" 
-                        formControlName="{{field.id}}" 
-                        [multiple]="true"
-                        [hideSelected]="true"
-                        notFoundText="No se encontro"
-                        [ngClass]="{ 'is-invalid': submitted && f.areas.errors }">
-                        </ng-select>                                             
+                        <ng-select *ngIf="field.type == 'select' && field.autocomplete" [items]="items[field.id]"
+                            bindLabel="name" formControlName="{{field.id}}" [multiple]="true" [hideSelected]="true"
+                            notFoundText="No se encontro" [ngClass]="{ 'is-invalid': submitted && f.areas.errors }">
+                        </ng-select>
 
-                  
+
                         <div *ngIf="submitted && f[field.id].errors" class="invalid-feedback">
                             <div *ngIf="f[field.id].errors.required">
                                 El campo {{field.label}} es obligatorio.
                             </div>
                         </div>
-                        <div *ngIf="submitted && f[field.id].errors && field.id == 'areas'" class="invalid-feedback-select mt-1">
+                        <div *ngIf="submitted && f[field.id].errors && field.id == 'areas'"
+                            class="invalid-feedback-select mt-1">
                             <div *ngIf="f[field.id].errors.required">
                                 El campo {{field.label}} es obligatorio.
                             </div>
                         </div>
                         <div *ngIf="maxSizeError && field.id == 'file'" class="invalid-feedback">
                             <div *ngIf="maxSizeError">
-                                El archivo es demasiado grande, el tamaño maximo permitido es de 20MB.
+                                El archivo es demasiado grande, el tamaño maximo permitido es de
+                                {{MAX_FILE_SIZE}}MB.
                             </div>
                         </div>
 

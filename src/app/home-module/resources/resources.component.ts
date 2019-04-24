@@ -5,7 +5,8 @@ import { ResourceService } from 'src/app/services/resource.service';
 import { FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { GLOBAL } from 'src/app/services/global';
-import { ICON_STYLE, TYPE_OF_RESOURCES } from './resourcesData';
+import { TYPE_OF_RESOURCES } from './resourcesData';
+import { ICON_STYLE } from 'src/app/services/DATA';
 
 @Component({
     selector: 'resources',

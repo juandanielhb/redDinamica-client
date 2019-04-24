@@ -5,7 +5,7 @@
             <i class="fas fa-home text-primary icon-message"></i>
         </button>
 
-        <button class="btn border-left" title="Recursos" (click)="setSelectedOption('resources')">
+        <button *ngIf="lesson.leader" class="btn border-left" title="Recursos" (click)="setSelectedOption('resources')">
             <i class="fas fa-boxes icon-message text-primary"></i>
         </button>
 
@@ -28,7 +28,7 @@
                 <i class="fas fa-clock icon-message text-primary"></i>
             </button> -->
 
-            <button *ngIf="isInTheDevelopmentGroup()" class="btn border-left" title="Conversación"
+            <button *ngIf="isInTheDevelopmentGroup() && lesson.leader" class="btn border-left" title="Conversación"
                 (click)="setSelectedOption('conversation')">
                 <i class="fas fa-comment-dots icon-message text-primary"></i>
             </button>
@@ -38,7 +38,7 @@
                 <i class="fas fa-clipboard-check icon-message text-primary"></i>
             </button>
 
-            <button *ngIf="isInTheDevelopmentGroup()" class="btn border-left" title="Comentarios del facilitador"
+            <button *ngIf="isInTheDevelopmentGroup() && lesson.expert" class="btn border-left" title="Comentarios del facilitador"
                 (click)="setSelectedOption('review')">
                 <i class="fas fa-clipboard-list icon-message text-primary"></i>
             </button>
@@ -56,12 +56,12 @@
                 <i class="fas fa-angle-right icon-message"></i>
             </button> -->
 
-            <button *ngIf="!isInTheDevelopmentGroup()"                           
+            <button *ngIf="!isInTheDevelopmentGroup() && lesson.state == 'completed'"                           
              class="btn border-left ml-2" title="Calificar"
                 (click)="setSelectedOption('rating')">
                 <div class="vl">
                     <i class="fas fa-star icon-message text-primary"></i>                    
-                    <span *ngIf="lesson.score != undefined"> {{lesson.score.toFixed(2)}}</span>
+                    <span *ngIf="lesson.score != undefined && lesson.score > 0"> {{lesson.score.toFixed(2)}}</span>
                 </div>
             </button>
 
@@ -86,7 +86,7 @@
     <conversation *ngIf="lesson &&  selectedOption == 'conversation'" [lesson]="lesson">
     </conversation>
 
-    <review *ngIf="lesson && selectedOption == 'review'" [lesson]="lesson">
+    <review *ngIf="lesson && selectedOption == 'review' && lesson.expert" [lesson]="lesson">
     </review>
 
     <resources *ngIf="lesson && selectedOption == 'resources'" [lesson]="lesson" (added)="setNeedReload($event)">

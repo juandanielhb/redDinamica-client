@@ -97,8 +97,7 @@ export class ProposedComponent implements OnInit {
 
         this._lessonService.editLesson(this.token, lesson).subscribe(
             response =>{                
-                if(response && response.lesson._id){
-                    console.log(response)
+                if(response && response.lesson._id){        
                     this.getLessons(this.page);
                 }
              },

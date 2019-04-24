@@ -1,6 +1,5 @@
-<!-- activity -->
+<!-- review -->
 <div class="card-body">
-    
         <div class="row">
             <div class="col">
                 <div class="card mb-3 text-center">
@@ -12,6 +11,242 @@
                 </div>
             </div>
         </div>
+
+        <div *ngIf="lesson.expert_comments.length > 0 || identity._id == lesson.expert._id" class="row">
     
-</div>
-<!-- /activity -->
+            <div class="col-4">
+                <div class="border rounded nav flex-column nav-pills" id="v-pills-tab" role="tablist"
+                    aria-orientation="vertical">
+    
+                    <div *ngFor="let group of groups, let ix = index" class="nav-link" [ngClass]="{'show active': ix == 0}"
+                        id="{{removeSpaces(group)}}-tab" data-toggle="pill" attr.href="#{{removeSpaces(group)}}" role="tab"
+                        attr.aria-controls="{{removeSpaces(group)}}" attr.aria-selected="true"
+                        (click)="restartValues(group)">
+                        {{group}}
+                    </div>
+    
+    
+                    <div *ngIf="identity._id == lesson.expert._id" class="nav-link"
+                    [ngClass]="{'show active': lesson.expert_comments.length == 0}" id="addGroup-tab" data-toggle="pill"
+                        href="#addGroup" role="tab" aria-controls="addGroup" aria-selected="false"
+                        (click)="restartValues()">
+                        <i class="fas fa-plus"></i> Crear conversación
+                    </div>
+    
+    
+                </div>
+            </div>
+    
+            <div class="col-8">
+    
+    
+                <div class="tab-content" id="v-pills-tabContent">
+                    <div *ngFor="let group of groups, let ix = index" class="tab-pane fade"
+                        [ngClass]="{'show active': ix == 0}" id="{{removeSpaces(group)}}" role="tabpanel"
+                        attr.aria-labelledby="{{removeSpaces(group)}}-tab">
+    
+                        <div class="row">
+                            <div class="col">
+                                <div class="card" style="max-height: 60vh; overflow: auto">
+                                    <div class="card-body py-1">
+    
+                                        <div *ngFor="let message of getMessages(group)" class="row mt-2">
+                                            <div *ngIf="message.author != undefined" class="col-auto">
+                                                <a class="text-primary" [routerLink]="[ '/perfil', message.author._id]"
+                                                    data-dismiss="modal">
+                                                    <div class="flex-shrink-0 rounded-circle border-1 overflow-hidden"
+                                                        style="width: 40px; height:40px;">
+                                                        <img class="img-fluid"
+                                                            src="{{this.url+'get-image-user/'+ message.author.picture}}">
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <div *ngIf="message.author != undefined" class="col bg-light rounded-left p-2">
+                                                <h6 class="mb-1">
+                                                    <a class="text-primary" [routerLink]="[ '/perfil', message.author._id]"
+                                                        data-dismiss="modal">
+                                                        <strong>
+                                                            {{message.author.name}} {{message.author.surname}}
+                                                        </strong>
+                                                    </a> <br>
+                                                    <small class=" text-muted">
+                                                        {{ (message.created_at | amFromUnix) | amLocale:'es' | amDateFormat:'LLL' }}
+                                                    </small>
+                                                </h6>
+                                                <p class="card-text">
+                                                    {{message.text}}
+                                                    <br>
+                                                    <a *ngIf=" message.file" title="Descargar : {{message.file.fileName}}"
+                                                        href="{{this.url + 'get-lesson/' + message.file.fileName}}"
+                                                        target="_blank">
+                                                        <i class="fas fa-paperclip"></i>
+                                                        {{message.file.fileName}}
+                                                    </a>
+    
+                                                </p>
+                                            </div>
+                                        </div>
+    
+                                        <div class="row mt-3">
+                                            <div class="col-auto">
+                                                <a class="text-primary" [routerLink]="[ '/perfil', identity._id]"
+                                                    data-dismiss="modal">
+                                                    <div class="flex-shrink-0 rounded-circle border-1 overflow-hidden"
+                                                        style="width: 40px; height:40px;">
+                                                        <img class="img-fluid"
+                                                            src="{{this.url+'get-image-user/'+ identity.picture}}">
+                                                    </div>
+                                                </a>
+                                            </div>
+    
+                                            <div class="col px-0">
+    
+                                                <div class="form-group mb-1">
+                                                    <textarea rows="2" placeholder="Escribe un mensaje..."
+                                                        class="form-control" id="message" [formControl]="message"
+                                                        [ngClass]="{ 'is-invalid': submitted && message.errors}"
+                                                        autofocus></textarea>
+                                                    <div *ngIf="submitted && message.errors || maxSizeError"
+                                                        class="invalid-feedback">
+                                                        <div *ngIf="message.errors.required">
+                                                            El campo mensaje es obligatorio.
+                                                        </div>
+                                                        <div *ngIf="maxSizeError">
+                                                            El archivo es demasiado grande, el tamaño maximo permitido es de
+                                                            {{MAX_FILE_SIZE}}MB.
+                                                        </div>
+                                                    </div>
+    
+    
+    
+                                                </div>
+    
+                                                <small *ngIf="filesToUpload.length > 0" class="text-muted">
+                                                    <i class="fas fa-paperclip"></i>
+                                                    {{filesToUpload[0].name}}
+                                                </small>
+    
+                                            </div>
+    
+                                            <div class="col-auto pl-3 pr-0">
+                                                <label for="files" class="btn btn-sm text-success" title="Adjuntar archivo">
+                                                    <i class="fas fa-paperclip" style="cursor:pointer"></i>
+                                                    <input type="file" class="form-control" name="files" id="files"
+                                                        enctype="multipart/form-data" (change)="fileChangeEvent($event)"
+                                                        [formControl]="files" style="display:none">
+                                                </label>
+    
+                                                <br>
+                                                <button class="btn btn-sm btn-success" (click)="onSubmit(group)"
+                                                    title="Enviar mensaje">
+                                                    <i class="fas fa-paper-plane"></i>
+                                                </button>
+                                            </div>
+    
+    
+                                        </div>
+    
+    
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+    
+                    </div>
+    
+                    <div *ngIf="identity._id == lesson.leader._id" class="tab-pane fade"
+                        [ngClass]="{'show active': lesson.expert_comments.length == 0}" id="addGroup" role="tabpanel"
+                        aria-labelledby="addGroup-tab">
+    
+                        <div class="row">
+                            <div class="col">
+                                <div class="card" style="height: 70vh; overflow: auto">
+                                    <div class="card-body">
+    
+                                        <div *ngIf="status === 'error'; successMessage"
+                                            class="alert alert-danger fade show text-center" role="alert">
+                                            <i class="fas fa-times-circle icon-message mr-2"></i>
+                                            {{errorMsg}}
+                                        </div>
+    
+                                        <div *ngIf="status === 'success'; successMessage"
+                                            class="alert alert-success fade show text-center" role="alert">
+                                            <i class="fas fa-check-circle icon-message mr-2"></i>
+                                            {{successMsg}}
+                                        </div>
+    
+                                        <form>
+                                            <div class="form-group">
+                                                <label for="name"><strong>Título*</strong></label>
+                                                <input type="text" class="form-control" id="name" [formControl]="name"
+                                                    [ngClass]="{ 'is-invalid': submitted && name.errors}"
+                                                    autocomplete="off">
+                                                <div *ngIf="submitted && name.errors" class="invalid-feedback">
+                                                    <div *ngIf="name.errors.required">
+                                                        El campo título es obligatorio.
+                                                    </div>
+                                                </div>
+                                            </div>
+    
+                                            <div class="form-group">
+                                                <label for="message"><strong>Mensaje*</strong></label>
+                                                <textarea rows="3" placeholder="Escribe un mensaje..." class="form-control"
+                                                    id="message" [formControl]="message"
+                                                    [ngClass]="{ 'is-invalid': submitted && message.errors}"></textarea>
+    
+                                                <div *ngIf="submitted && message.errors" class="invalid-feedback">
+                                                    <div *ngIf="message.errors.required">
+                                                        El campo mensaje es obligatorio.
+                                                    </div>
+                                                </div>
+                                            </div>
+    
+                                            <div class="form-group">
+                                                <label for="files"><strong>Archivos</strong></label>
+                                                <input type="file" class="form-control" name="files" id="files"
+                                                    enctype="multipart/form-data" (change)="fileChangeEvent($event)"
+                                                    [formControl]="files"
+                                                    [ngClass]="{ 'is-invalid': submitted && files.errors || maxSizeError}">
+                                                <div *ngIf="submitted && files.errors || maxSizeError"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="files.errors && files.errors.required">
+                                                        Debes agregar al menos un archivo.
+                                                    </div>
+                                                    <div *ngIf="maxSizeError">
+                                                        El archivo es demasiado grande, el tamaño maximo permitido es de
+                                                        {{MAX_FILE_SIZE}}MB.
+                                                    </div>
+                                                </div>
+                                            </div>
+    
+                                            <button type="submit" class="btn btn-success mb-2 float-right"
+                                                (click)="onSubmit()">Guardar</button>
+    
+                                        </form>
+    
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+    
+    
+                </div>
+            </div>
+    
+        </div>
+    
+        <div *ngIf="lesson.expert_comments.length <= 0 && identity._id != lesson.expert._id" class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body text-left">
+                        <h4 class="text-muted">
+                            No se han agregado comentarios del facilitador en esta lección.
+                        </h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    </div>
+<!-- /review -->

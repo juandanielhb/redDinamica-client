@@ -7,8 +7,6 @@ import { GLOBAL } from 'src/app/services/global';
 import { CommentService } from 'src/app/services/comment.service';
 import { Comment } from 'src/app/models/comment.model'
 
-
-
 @Component({
     selector: 'rating-resource',
     templateUrl: './rating-resource.component.html',

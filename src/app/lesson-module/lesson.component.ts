@@ -79,11 +79,12 @@ export class LessonComponent implements OnInit {
     
     setSelectedOption(selectedOption){
         this.selectedOption = selectedOption;
+        
+        this.needReloadData = true;
     }
 
     public needReloadData;
-    setNeedReload() {
-        console.log('aca')
+    setNeedReload() {        
         this.needReloadData = true;
     }
 

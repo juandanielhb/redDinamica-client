@@ -2,10 +2,11 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { LESSON_STATES, ICON_STYLE, MAX_FILE_SIZE } from 'src/app/services/DATA';
 import { Validators, FormControl } from '@angular/forms';
 import { LessonService } from 'src/app/services/lesson.service';
-import { LessonFile } from 'src/app/models/lesson-file.model';
+
 import { UserService } from 'src/app/services/user.service';
 import { GLOBAL } from 'src/app/services/global';
 import { UploadService } from 'src/app/services/upload.service';
+import { LessonFile } from 'src/app/models/lesson-file.model';
 
 @Component({
     selector: 'resources',
@@ -217,7 +218,7 @@ export class ResourcesComponent implements OnInit {
             response => {
                 
                 if (response.lesson && response.lesson._id) {
-
+                    this.lesson = response.lesson;
                     this.status = 'success';
                     this.submitted = false;
 

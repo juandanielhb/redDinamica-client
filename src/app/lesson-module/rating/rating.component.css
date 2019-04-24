@@ -1,0 +1,22 @@
+label{
+    color:#95a5a6;    
+}
+
+input[type = "radio"]{ 
+    display:none;
+}
+
+.clasificacion{
+    direction: rtl;/* right to left */
+    unicode-bidi: bidi-override;/* bidi de bidireccional */
+}
+
+label:hover{
+    color:#F39C12;
+}
+
+label:hover ~ label{
+    color:#F39C12;
+}
+
+input[type = "radio"]:checked ~ label{color:orange;}

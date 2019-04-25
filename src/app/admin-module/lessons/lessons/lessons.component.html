@@ -346,16 +346,21 @@
                                     <button class="btn btn-info ml-2" [routerLink]="['/admin','leccion', lesson._id]">
                                         <i class="fas fa-eye"></i> Ver lección
                                     </button>
-                                    <button *ngIf="['proposed', 'completed'].includes(lesson.state) && !lesson.call"
+                                    <button *ngIf="['proposed'].includes(lesson.state) && !lesson.call"
                                         class="btn btn-warning ml-2" data-toggle="modal" data-target="#addCall"
                                         (click)="setAddCallLesson(lesson)">
                                         <i class="fas fa-bullhorn"></i> Abrir convocatoria
                                     </button>
-                                    <button *ngIf="['proposed', 'completed'].includes(lesson.state) && lesson.call"
+                                    <button *ngIf="['completed'].includes(lesson.state) && lesson.call && !lesson.son_lesson"
+                                        class="btn btn-warning ml-2" data-toggle="modal" data-target="#addCall"
+                                        (click)="setAddCallLesson(lesson, true)">
+                                        <i class="fas fa-bullhorn"></i> Abrir convocatoria V.{{(lesson.version+1).toFixed(1)}}
+                                    </button>
+                                    <button *ngIf="['proposed'].includes(lesson.state) && lesson.call"
                                         class="btn btn-success ml-2" data-toggle="modal" data-target="#call"
                                         (click)="setCallLesson(lesson)">
                                         <i class="fas fa-bullhorn"></i> Ver convocatoria 
-                                        <span *ngIf="lesson.call && lesson.call.interested.length > 0" class="badge badge-secondary ml-1">{{lesson.call.interested.length}}</span>
+                                        <span *ngIf="lesson.call && lesson.call.interested && lesson.call.interested.length > 0" class="badge badge-secondary ml-1">{{lesson.call.interested.length}}</span>
                                     </button>
                                     <button class="btn btn-danger ml-2" data-toggle="modal" data-target="#delete"
                                         (click)="setDeleteLesson(lesson._id)">
@@ -509,13 +514,7 @@
                                         <div class="col">
                                             <div class="row">
                                                 <div class="col">
-                                                    <ng-container *ngIf="lesson.state == 'completed'; else group">
-                                                        <strong>Desarrollada por:</strong>
-                                                    </ng-container>
-                                                    <ng-template #group>
-                                                        <strong>Grupo de desarrollo:</strong>
-                                                    </ng-template>
-
+                                                    <strong>Grupo de desarrollo:</strong>
                                                 </div>
                                             </div>
                                             <div class="card mt-1">
@@ -596,15 +595,21 @@
                                     <button class="btn btn-info ml-2" [routerLink]="['/admin','leccion', lesson._id]">
                                         <i class="fas fa-eye"></i> Ver lección
                                     </button>
-                                    <button *ngIf="['proposed', 'completed'].includes(lesson.state) && !lesson.call"
+                                    <button *ngIf="['proposed'].includes(lesson.state) && !lesson.call"
                                         class="btn btn-warning ml-2" data-toggle="modal" data-target="#addCall"
-                                        (click)="setCallLesson(lesson)">
+                                        (click)="setAddCallLesson(lesson)">
                                         <i class="fas fa-bullhorn"></i> Abrir convocatoria
                                     </button>
-                                    <button *ngIf="['proposed', 'completed'].includes(lesson.state) && lesson.call"
+                                    <button *ngIf="['completed'].includes(lesson.state) && lesson.call && !lesson.son_lesson"
+                                        class="btn btn-warning ml-2" data-toggle="modal" data-target="#addCall"
+                                        (click)="setAddCallLesson(lesson, true)">
+                                        <i class="fas fa-bullhorn"></i> Abrir convocatoria V.{{(lesson.version+1).toFixed(1)}}
+                                    </button>
+                                    <button *ngIf="['proposed'].includes(lesson.state) && lesson.call"
                                         class="btn btn-success ml-2" data-toggle="modal" data-target="#call"
                                         (click)="setCallLesson(lesson)">
-                                        <i class="fas fa-bullhorn"></i> Ver convocatoria
+                                        <i class="fas fa-bullhorn"></i> Ver convocatoria 
+                                        <span *ngIf="lesson.call && lesson.call.interested && lesson.call.interested.length > 0" class="badge badge-secondary ml-1">{{lesson.call.interested.length}}</span>
                                     </button>
                                     <button class="btn btn-danger ml-2" data-toggle="modal" data-target="#delete"
                                         (click)="setDeleteLesson(lesson._id)">
@@ -645,7 +650,7 @@
 <delete-lesson *ngIf="deleteLessonId" [parent]="'lesson'" [lessonId]="deleteLessonId" (deleted)="setNeedReload($event)">
 </delete-lesson>
 
-<add-call *ngIf="addCallLesson && areas.length>0" [areas]="areas" [lesson]="addCallLesson"
+<add-call *ngIf="addCallLesson && areas.length>0" [areas]="areas" [lesson]="addCallLesson" [nextVersion]="nextVersion"
     (added)="setNeedReload($event)">
 </add-call>
 

@@ -19,12 +19,16 @@ export let HOME_MENU = [
                 "routerLink": "/inicio/lecciones"
             },
             {
+                "text": "Convocatorias",
+                "routerLink": "/inicio/convocatorias"
+            },
+            {
                 "text": "Mis lecciones",
                 "routerLink": "/inicio/mis-lecciones"
             },
             {
-                "text": "Convocatorias",
-                "routerLink": "/inicio/convocatorias"
+                "text": "Asesorar lecciones",
+                "routerLink": "/inicio/asesorar-lecciones"
             },
         ]
     },

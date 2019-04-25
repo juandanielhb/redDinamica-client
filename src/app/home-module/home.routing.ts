@@ -9,6 +9,7 @@ import { ResourcesComponent } from './resources/resources.component';
 import { MyLessonsComponent } from './lessons/my-lessons/my-lessons.component';
 import { CallsComponent } from './lessons/calls/calls.component';
 import { LessonComponent } from '../lesson-module/lesson.component';
+import { AdviseLessonComponent } from './lessons/advise-lesson/advise-lesson.component';
 
 
 const homeRoutes: Routes = [
@@ -27,6 +28,8 @@ const homeRoutes: Routes = [
             { path: 'leccion/:id', component: LessonComponent },
             { path: 'mis-lecciones', component: MyLessonsComponent },
             { path: 'mis-lecciones/:page', component: MyLessonsComponent },
+            { path: 'asesorar-lecciones', component: AdviseLessonComponent },
+            { path: 'asesorar-lecciones/:page', component: AdviseLessonComponent },
             { path: 'convocatorias', component: CallsComponent },
             { path: 'convocatorias/:page', component: CallsComponent },
             { path: 'recursos', component: ResourcesComponent },

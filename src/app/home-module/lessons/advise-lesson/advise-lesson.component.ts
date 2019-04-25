@@ -8,11 +8,11 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { GLOBAL } from 'src/app/services/global';
 
 @Component({
-    selector: 'my-lessons',
-    templateUrl: './my-lessons.component.html'
+    selector: 'advise-lesson',
+    templateUrl: './advise-lesson.component.html'
 
 })
-export class MyLessonsComponent implements OnInit {
+export class AdviseLessonComponent implements OnInit {
     public title: string;
     public identity;
     public token;
@@ -93,7 +93,7 @@ export class MyLessonsComponent implements OnInit {
         private _router: Router,
         private _route: ActivatedRoute
     ) {
-        this.title = 'Mis lecciones';
+        this.title = 'Asesorar lecciones';
         this.url = GLOBAL.url;
         this.token = this._userService.getToken();
         this.identity = this._userService.getIdentity();
@@ -101,7 +101,7 @@ export class MyLessonsComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.getAllMyLessons();
+        this.getAllLessonsToAdvise();
         this.getAllAreas();
         this.actualPage();
     }
@@ -115,7 +115,7 @@ export class MyLessonsComponent implements OnInit {
 
         }
 
-        this.getAllMyLessons();
+        this.getAllLessonsToAdvise();
     }
     
     getAllAreas() {
@@ -137,10 +137,10 @@ export class MyLessonsComponent implements OnInit {
         }
     }
 
-    getAllMyLessons() {
+    getAllLessonsToAdvise() {
         let filteredLessons = [];
 
-        this._lessonService.getAllMyLessons(this.token).subscribe(
+        this._lessonService.getAllLessonsToAdvise(this.token).subscribe(
             response => {
                 if (response.lessons) {
                     this.allLessons = response.lessons;
@@ -163,9 +163,9 @@ export class MyLessonsComponent implements OnInit {
             });
     }
 
-    getMyLessons(page = 1) {
+    getLessonsToAdvise(page = 1) {
 
-        this._lessonService.getMyLessons(this.token, page).subscribe(
+        this._lessonService.getLessonsToAdvise(this.token, page).subscribe(
             response => {
                 if (response.lessons) {
                     this.lessons = response.lessons;
@@ -173,7 +173,7 @@ export class MyLessonsComponent implements OnInit {
                     this.pages = response.pages;
 
                     if (page > this.pages) {
-                        this._router.navigate(['/inicio/mis-lecciones']);
+                        this._router.navigate(['/inicio/asesorar-lecciones']);
                     }
                 }
             }, error => {
@@ -201,12 +201,12 @@ export class MyLessonsComponent implements OnInit {
                 }
             }
 
-            this.getMyLessons(this.page);
+            this.getLessonsToAdvise(this.page);
         });
     }
 
     reloadLessons() {
-        this.getAllMyLessons();
+        this.getAllLessonsToAdvise();
     }
 
 }

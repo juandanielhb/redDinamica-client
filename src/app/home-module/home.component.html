@@ -35,7 +35,7 @@
                         aria-labelledby="headingOne" data-parent="#menu">
                         <div class="card-body py-2 px-0">
                             <ul class="nav flex-column">
-                                <li *ngFor="let subOption of option.subOptions" subclass="nav-item">
+                                <li *ngFor="let subOption of getSubOptions(option)" subclass="nav-item">
                                     <a class="nav-link dropdown-item text-left" [routerLink]="[subOption.routerLink]"
                                         routerLinkActive="active">{{subOption.text}}</a>
                                 </li>

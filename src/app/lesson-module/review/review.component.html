@@ -102,14 +102,14 @@
                                             <div class="col px-0">
     
                                                 <div class="form-group mb-1">
-                                                    <textarea rows="2" placeholder="Escribe un mensaje..."
+                                                    <textarea rows="2" placeholder="Escribe un comentario..."
                                                         class="form-control" id="message" [formControl]="message"
                                                         [ngClass]="{ 'is-invalid': submitted && message.errors}"
                                                         autofocus></textarea>
                                                     <div *ngIf="submitted && message.errors || maxSizeError"
                                                         class="invalid-feedback">
                                                         <div *ngIf="message.errors.required">
-                                                            El campo mensaje es obligatorio.
+                                                            El campo comentario es obligatorio.
                                                         </div>
                                                         <div *ngIf="maxSizeError">
                                                             El archivo es demasiado grande, el tamaño maximo permitido es de
@@ -154,7 +154,7 @@
     
                     </div>
     
-                    <div *ngIf="identity._id == lesson.leader._id" class="tab-pane fade"
+                    <div *ngIf="identity._id == lesson.expert._id" class="tab-pane fade"
                         [ngClass]="{'show active': lesson.expert_comments.length == 0}" id="addGroup" role="tabpanel"
                         aria-labelledby="addGroup-tab">
     
@@ -189,14 +189,14 @@
                                             </div>
     
                                             <div class="form-group">
-                                                <label for="message"><strong>Mensaje*</strong></label>
-                                                <textarea rows="3" placeholder="Escribe un mensaje..." class="form-control"
+                                                <label for="message"><strong>Comentario*</strong></label>
+                                                <textarea rows="3" placeholder="Escribe un comentario..." class="form-control"
                                                     id="message" [formControl]="message"
                                                     [ngClass]="{ 'is-invalid': submitted && message.errors}"></textarea>
     
                                                 <div *ngIf="submitted && message.errors" class="invalid-feedback">
                                                     <div *ngIf="message.errors.required">
-                                                        El campo mensaje es obligatorio.
+                                                        El campo comentario es obligatorio.
                                                     </div>
                                                 </div>
                                             </div>
@@ -232,6 +232,7 @@
     
     
                 </div>
+
             </div>
     
         </div>

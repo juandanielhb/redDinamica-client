@@ -77,11 +77,9 @@ export class EditComponent implements OnInit {
         this.lesson.justification = this.lessonForm.value.justification;
         this.lesson.state = this.lessonForm.value.state;        
 
-
-        console.log(this.lessonForm.value.title)
         this._lessonService.editLesson(this.token, this.lesson).subscribe(
             response => {
-                console.log(response);
+
                 if (response.lesson && response.lesson._id) {
                     this.status = 'success';                    
                     this.submitted = false;       

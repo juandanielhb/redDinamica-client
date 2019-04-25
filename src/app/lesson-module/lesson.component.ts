@@ -22,6 +22,8 @@ export class LessonComponent implements OnInit {
     public selectedOption = 'details';
 
     public lesson = new Lesson();
+
+    public parentUrl;
     
     constructor(
         private _userService:UserService,
@@ -38,6 +40,10 @@ export class LessonComponent implements OnInit {
 
     ngOnInit(): void {
         this.loadLesson();
+        
+        this._route.parent.url.subscribe(value => {
+            this.parentUrl = value[0].path;
+        });
     }
 
     ngDoCheck(): void {
@@ -66,13 +72,13 @@ export class LessonComponent implements OnInit {
                 } else {
                     this.status = 'error';
                     
-                    this._router.navigate(['admin','lecciones']);
+                    this._router.navigate([this.parentUrl,'lecciones']);
                 }
 
             },
             error => {
                 console.log(<any>error);                
-                this._router.navigate(['admin','lecciones']);
+                this._router.navigate([this.parentUrl,'lecciones']);
             }
         );       
     }

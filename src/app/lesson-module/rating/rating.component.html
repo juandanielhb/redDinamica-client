@@ -79,7 +79,7 @@
         </div>
         <div class="col-7">
                 <div class="card" style="height: 60vh; overflow: auto">
-                    <div class="card-body p-1">
+                    <div class="card-body py-1">
                         <div *ngFor="let comment of lesson.comments" class="row mt-2">
 
                             <div *ngIf="comment.user != undefined" class="col-auto">
@@ -103,18 +103,15 @@
                                     <small class=" text-muted">
                                         {{ (comment.created_at | amFromUnix) | amLocale:'es' | amDateFormat:'LLL' }}
                                     </small>
+                                    <button class="btn btn-warning py-0 mr-1 float-right">
+                                        <i class="fas fa-star"></i> {{comment.score}}
+                                    </button>
                                 </h6>
                                 <p class="card-text">
                                     {{comment.text}}
                                 </p>
-                            </div>
-                            <div *ngIf="comment.user != undefined"
-                                class="col-auto bg-light rounded-right p-2 mr-3 align-items-center">
 
-                                <button class="btn btn-warning py-0 ml-1">
-                                    <i class="fas fa-star"></i> {{comment.score}}
-                                </button>
-
+                                
                             </div>
                         </div>
                     </div>

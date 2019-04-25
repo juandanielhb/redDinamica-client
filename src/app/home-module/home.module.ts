@@ -21,6 +21,7 @@ import { DetailsResourceComponent } from './resources/details/details-resource.c
 import { RatingResourceComponent } from './resources/rating/rating-resource.component';
 import { DetailsCallComponent } from './lessons/details/details-call.component';
 import { LessonModule } from '../lesson-module/lesson.module';
+import { AdviseLessonComponent } from './lessons/advise-lesson/advise-lesson.component';
 
 
 
@@ -35,6 +36,7 @@ import { LessonModule } from '../lesson-module/lesson.module';
         RatingResourceComponent,
         LessonsComponent,
         MyLessonsComponent,
+        AdviseLessonComponent,
         CallsComponent,
         DetailsCallComponent,
         SuggestLessonComponent,        

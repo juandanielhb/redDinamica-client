@@ -112,17 +112,6 @@
                                             <button class="btn btn-block btn-sm" disabled title="Versión">
                                                 <span>V. {{lesson.version.toFixed(1)}}</span>
                                             </button>
-                                            <button *ngIf="lesson.state == 'completed'" class="btn btn-block btn-sm"
-                                                disabled title="Calificación">
-                                                <i class="fas fa-star"></i> {{lesson.score.toFixed(2)}}
-                                            </button>
-                                            <button *ngIf="lesson.state == 'completed'" class="btn btn-block btn-sm"
-                                                disabled title="Visualizaciones">
-                                                <span>
-                                                    <i class="fas fa-eye"></i>
-                                                    <span> {{lesson.views}}</span>
-                                                </span>
-                                            </button>
                                         </div>
                                     </div>
 

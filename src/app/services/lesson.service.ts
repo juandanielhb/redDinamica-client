@@ -55,6 +55,44 @@ export class LessonService {
         return this._http.get(`${this.url}all-lessons/${visibleOnes}/${orderBy}`, { headers: headers });
     }
 
+    getMyLessons(token, page = 1): Observable<any> {
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Authorization': token
+        });
+
+        return this._http.get(`${this.url}my-lessons/${page}`, { headers: headers });
+
+    }
+
+    getAllMyLessons(token): Observable<any> {
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Authorization': token
+        });        
+        
+        return this._http.get(`${this.url}all-my-lessons`, { headers: headers });
+    }
+
+    getLessonsToAdvise(token, page = 1): Observable<any> {
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Authorization': token
+        });
+
+        return this._http.get(`${this.url}lessons-to-advise/${page}`, { headers: headers });
+
+    }
+
+    getAllLessonsToAdvise(token): Observable<any> {
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Authorization': token
+        });        
+        
+        return this._http.get(`${this.url}all-lessons-to-advise`, { headers: headers });
+    }    
+
     getCalls(token, page = 1): Observable<any> {
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',

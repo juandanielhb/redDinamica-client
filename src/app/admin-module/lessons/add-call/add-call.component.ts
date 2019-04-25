@@ -11,6 +11,7 @@ import { LessonService } from 'src/app/services/lesson.service';
 import { BasicDataService } from 'src/app/services/basicData.service';
 
 import { Call } from 'src/app/models/call.model';
+import { Lesson } from 'src/app/models/lesson.model';
 
 @Component({
     selector: 'add-call',
@@ -33,14 +34,17 @@ export class AddCallComponent implements OnInit {
     public errorMsg;
     public successMsg;
 
+    public newLesson = new Lesson();
+
     @Input() areas;
     @Input() lesson;
+    @Input() nextVersion;
     @Output() added = new EventEmitter();
 
     constructor(
         private _userService: UserService,
         private _lessonService: LessonService,
-        private _bDService: BasicDataService,        
+        private _bDService: BasicDataService,
         private _uploadService: UploadService,
     ) {
         this.title = 'Crear convocatoria';
@@ -111,10 +115,34 @@ export class AddCallComponent implements OnInit {
 
         this.call = new Call(this.callForm.value.text);
         this.call.visible = true;
-        this.call.author = this.identity.id;
-        
-        this.lesson.call = this.call;
-        this._lessonService.editLesson(this.token, this.lesson).subscribe(
+        this.call.author = this.identity.id;        
+
+        if (this.nextVersion) {
+            this.newLesson.state = 'proposed';
+
+            this.newLesson.title = this.lesson.title;
+            this.newLesson.resume = this.lesson.resume;
+            this.newLesson.references = this.lesson.references;
+            this.newLesson.accepted = true;
+            this.newLesson.author = this.lesson.author;
+            this.newLesson.version = this.lesson.version + 1;
+
+            this.newLesson.knowledge_area = tempArray;
+            this.newLesson.level = this.callForm.value.level;
+
+            this.saveLesson(this.newLesson, this.call);
+
+        } else {
+
+            this.lesson.call = this.call;
+            this.editLesson(this.lesson);
+        }
+
+
+    }
+
+    editLesson(lesson) {
+        this._lessonService.editLesson(this.token, lesson).subscribe(
             response => {
                 if (response.lesson._id) {
                     this.status = 'success';
@@ -134,5 +162,35 @@ export class AddCallComponent implements OnInit {
         this.submitted = false;
     }
 
+    saveLesson(lesson, call) {
+        this._lessonService.addLesson(this.token, lesson).subscribe(
+            response => {
+                if (response.lesson._id) {
+                    this.status = 'success';
 
+                    this.lesson.son_lesson = response.lesson._id;
+                    this.editLesson(this.lesson);
+                    
+                    this.newLesson = response.lesson;
+                    delete call._id;
+                    delete call.interested;
+                    this.newLesson.call = call;
+                    this.newLesson.father_lesson = this.lesson._id;
+                    this.editLesson(this.newLesson);
+
+                    this.added.emit();
+
+
+                } else {
+                    this.status = 'error';
+                }
+            },
+            error => {
+                this.status = 'error';
+                console.log(<any>error);
+            }
+        );
+
+        this.submitted = false;
+    }
 }

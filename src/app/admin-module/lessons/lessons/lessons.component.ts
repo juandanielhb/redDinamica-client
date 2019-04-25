@@ -334,8 +334,10 @@ export class LessonsComponent implements OnInit {
     }
 
     public addCallLesson;
-    setAddCallLesson(lesson){
+    public nextVersion;
+    setAddCallLesson(lesson, nextVersion = false){
         this.addCallLesson = lesson;
+        this.nextVersion = nextVersion;
     }
 
     public needReloadData;

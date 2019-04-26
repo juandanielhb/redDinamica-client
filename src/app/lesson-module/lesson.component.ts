@@ -90,7 +90,7 @@ export class LessonComponent implements OnInit {
     }
 
     public needReloadData;
-    setNeedReload() {        
+    setNeedReload(event){   
         this.needReloadData = true;
     }
 

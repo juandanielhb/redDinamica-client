@@ -64,8 +64,8 @@
                         <div class="col pt-5 text-white">
                             <h4 class="mb-0">
                                 <strong>{{ownProfile.name}} {{ownProfile.surname}}</strong>
-                                <span *ngIf="categories[ownProfile.role]"
-                                    class="badge {{categories[ownProfile.role].class}}"
+                                <span *ngIf="categories[ownProfile.role.toString()]"
+                                    class="badge {{categories[ownProfile.role.toString()].class}}"
                                     style="position:relative; top: -15px; left: 10px">
                                     {{categories[ownProfile.role].label}}
                                 </span>

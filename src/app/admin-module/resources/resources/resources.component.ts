@@ -218,7 +218,7 @@ export class ResourcesComponent implements OnInit {
     }
 
     public needReloadData;
-    setNeedReload(){
+    setNeedReload(event){
         this.needReloadData = true;
     }
 }

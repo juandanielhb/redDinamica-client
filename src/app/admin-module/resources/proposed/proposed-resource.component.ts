@@ -144,7 +144,7 @@ export class ProposedResourceComponent implements OnInit {
     }
 
     public needReloadData;
-    setNeedReload(){
+    setNeedReload(event){
         this.needReloadData = true;
     }
 

@@ -40,6 +40,8 @@ export class DetailsResourceComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
+
+        
         if (this.parent == 'proposed-resource') {
             this.fields.push(
                 {

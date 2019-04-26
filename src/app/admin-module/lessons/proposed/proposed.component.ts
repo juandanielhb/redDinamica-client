@@ -118,7 +118,7 @@ export class ProposedComponent implements OnInit {
     }
 
     public needReloadData;
-    setNeedReload(){
+    setNeedReload(event){
         this.needReloadData = true;
     }
 

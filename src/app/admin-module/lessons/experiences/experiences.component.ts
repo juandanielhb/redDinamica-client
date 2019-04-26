@@ -127,7 +127,7 @@ export class ExperiencesComponent implements OnInit {
     }
 
     public needReloadData;
-    setNeedReload(){
+    setNeedReload(event){
         this.needReloadData = true;
     }
 }

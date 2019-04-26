@@ -267,7 +267,7 @@ export class LessonsComponent implements OnInit {
     }    
 
     public needReloadData;
-    setNeedReload() {
+    setNeedReload(event){
         this.needReloadData = true;
     }
 

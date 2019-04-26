@@ -18,11 +18,9 @@ import { LandingComponent } from './components/landing/landing.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { ProfileComponent } from './components/profile/profile.component';
 import { RecoverPasswordComponent } from './components/recoverPassword/recoverPassword.component';
 import { SearchComponent } from './components/search/search.component';
 import { UserService } from './services/user.service';
-import { ResourcesComponent } from './components/resources/resources.component';
 import { UploadService } from './services/upload.service';
 
 // Guards
@@ -46,8 +44,6 @@ import { LandingGuard } from './guards/landing.guard';
     LoginComponent,
     RecoverPasswordComponent,
     FooterComponent,
-    ProfileComponent,
-    ResourcesComponent,
     SearchComponent,    
     SecurityOptionsComponent,
     FilterPipe

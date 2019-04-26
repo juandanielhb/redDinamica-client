@@ -31,6 +31,20 @@ export class HomeComponent implements OnInit {
         this.identity = this._userService.getIdentity();
     }
 
+    getMenuOptions() {
+        if(this.identity.actived){
+            return this.menuOptions;            
+        }else{
+            let menu = this.menuOptions.filter( option => {
+                return option.id == 'start' || option.id == 'user';
+            })
+            
+            return menu;
+        }
+       
+
+    }
+
     getSubOptions(option) {
         let subOptions = option.subOptions;
 

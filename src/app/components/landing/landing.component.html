@@ -1,24 +1,37 @@
 <!-- landing  -->
-<!-- main -->
-<section id="main">
-    <div class="jumbotron mb-0 bg-white text-right py-2">
-        <div class="container">
+<!-- Main -->
 
-            <h1 class="display-3 ">Comparte</h1>
-            <p class="lead">
-                Pon a disposición tus conocimientos para proponer, desarrollar y participar en proyectos colaborativos de carácter educativo.
-            </p>
-            <hr class="my-4">
-            <p>
-                It uses utility classes for typography and spacing to space content out within the larger container.
-            </p>
-            <p class="lead">
-                <a [routerLink]="['/registro']" class="btn btn-success btn-lg" href="#" role="button">Unete</a>
-            </p>
+<section id="main">
+    <div id="carousel" class="carousel slide" data-ride="carousel" data-pause="false">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="assets/images/hero2.jpg" class="d-block w-100" alt="Educación">
+            </div>
+            <div class="carousel-item">
+                <img src="assets/images/hero.jpg" class="d-block w-100" alt="Educación">
+            </div>
+            <div class="carousel-item">
+                <img src="assets/images/hero3.jpg" class="d-block w-100" alt="Educación">
+            </div>
+        </div>
+        <div class="overlay">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-5 offset-md-7 text-right">
+                        <h3>Pon a disposición tus conocimientos para proponer, desarrollar y participar en proyectos
+                            colaborativos de carácter educativo.</h3>
+                        <p>
+                            <a [routerLink]="['/registro']" class="btn btn-primary btn-lg" href="#"
+                                role="button">Comienza aquí!</a>
+                        </p>
+                    </div>
+
+                </div>
+            </div>
         </div>
     </div>
 </section>
-<!-- main -->
+<!-- /Main  -->
 
 <!-- section 1 -->
 <section id="section-1" class="bg-light">
@@ -26,20 +39,26 @@
 
         <div class="container">
             <div class="row">
+                <div class="col-6">
 
-                <h2 class="text-info ">
-                    RedDinámica.
-                </h2>
-                <p>A través de Internet abre una ventana al aprendizaje y la construcción de materiales de clase de
-                    manera colaborativa, compartiendo aciertos y desaciertos, aprendiendo no solo de la experiencia
-                    propia si no de la de los demás participantes. El sitio ofrece una serie de servicios diseñados y
-                    desarrollados pensando en el aprendizaje y la difusión de la Dinámica de Sistemas.
-                </p>
-                <p>
+                    <h2 class="text-primary">
+                        ¿Qué es <strong>RedDinámica</strong>?
+                    </h2>
+                    <p>Un espacio de aprendizaje y la construcción de materiales de clase de
+                        manera colaborativa, compartiendo aciertos y desaciertos, aprendiendo no solo de la experiencia
+                        propia si no de la de los demás participantes. El sitio ofrece una serie de servicios diseñados
+                        y
+                        desarrollados pensando en el aprendizaje y la difusión de la Dinámica de Sistemas.
+                    </p>
+                    <!-- <p>
                     Uno de los aspectos más importantes de Red Dinámica, es que se encuentra en un proceso permanente de
                     aprendizaje, realimentación y construcción, por este motivo, es de gran valor que participe, haga
                     sus comentarios, aportes y recomendaciones, contribuyendo así al enriquecimiento de los recursos
-                    disponibles.</p>
+                    disponibles.</p> -->
+                </div>
+                <div class="col-6">
+                    <img src="assets/images/libros.png" class="d-block w-100" alt="Libros">
+                </div>
             </div>
         </div>
     </div>
@@ -50,16 +69,21 @@
 <section id="section-2" class="bg-white">
     <div class="container">
         <div class="row">
-            <div class="text-dark">
-                <h2 class="text-primary ">Objetivos</h2>
+            
+            <div class="col-8">
+                <h2 class="text-primary "><strong>Objetivos</strong> </h2>
                 <p>
-                    Dinamizar el proceso de difusión y aplicación de la Dinámica de Sistemas en la educación colombiana preescolar, básica y media, a través de una construcción colectiva de conocimiento, donde trabajando colaborativamente.                    
+                    Dinamizar el proceso de difusión y aplicación de la Dinámica de Sistemas en la educación colombiana
+                    preescolar, básica y media, a través de una construcción colectiva de conocimiento, donde trabajando
+                    colaborativamente.
                 </p>
                 <p>
                     Cada miembro aporta su conocimiento y experiencia en beneficio de toda la comunidad.
                 </p>
             </div>
-
+            <div class="col-4">
+                    <img src="assets/images/areas.png" class="d-block w-100" alt="Libros">
+                </div>
         </div>
 
     </div>
@@ -67,15 +91,29 @@
 <!-- /section 2 -->
 
 <!-- section 3 -->
-<section id="section-3" class="bg-gray">
+<section id="section-3" class="bg-primary">
     <div class="container">
         <div class="row">
-            <div class="text-primary">
-                <h2 class="text-info ">Metodología</h2>
-                <p>
-                        Red Dinámica, al centrar sus actividades en el trabajo colaborativo, facilita que los participantes del sitio propongan, promuevan, desarrollen y participen en proyectos conjuntos de carácter educativo a niveles tradicionalmente difíciles de alcanzar. Por su parte, la universidad puede intervenir a través del grupo de investigación, procurándole a los participantes la asesoría necesaria y promoviendo la formación y participación en el sitio, convirtiéndose en entes facilitadores y dinamizadores de los procesos de los participantes y de la evolución del sitio en si mismo.                    
+
+            <div class="col-4">
+                <img src="assets/images/personas.png" class="d-block w-100" alt="Personas">
+            </div>
+            <div class="col-8">
+                <h2 class="text-white"> <strong>Metodología</strong> </h2>
+                <p class="text-muted">
+                    Red Dinámica, al centrar sus actividades en el trabajo colaborativo, facilita que los
+                    participantes
+                    del sitio propongan, promuevan, desarrollen y participen en proyectos conjuntos de carácter
+                    educativo a niveles tradicionalmente difíciles de alcanzar. Por su parte, la universidad puede
+                    intervenir a través del grupo de investigación, procurándole a los participantes la asesoría
+                    necesaria y promoviendo la formación y participación en el sitio, convirtiéndose en entes
+                    facilitadores y dinamizadores de los procesos de los participantes y de la evolución del sitio
+                    en si
+                    mismo.
                 </p>
             </div>
+
+
 
         </div>
 
@@ -85,22 +123,40 @@
 
 <!-- section 4 -->
 <section id="section-4" class="bg-white">
-        <div class="container">
-            <div class="row">
-                <div class="text-dark">
-                    <h2 class="text-primary ">Participantes</h2>
-                    <p>
-                            Red Dinámica, es una propuesta orientada inicialmente a satisfacer las necesidades de acompañamiento de docentes y estudiantes interesados en incluir la Dinámica de Sistemas en su proceso de formación, centrándose principalmente en los grados desde preescolar hasta undécimo grado.                  
-                    </p>
-                    <p>
-                            En este proceso, nos acompañan los expertos, que son líderes en la formalización de experiencias, con un nivel de madurez que les permite apoyar la formalización de las experiencias, apoyando cada momento de su construcción y desarrollo.
-                    </p>
-                </div>
-    
+    <div class="container">
+        <div class="row mb-3">
+            <div class="col">
+                <h2 class="text-primary text-center">
+                    <strong>Participantes</strong>
+                </h2>
             </div>
-    
         </div>
-    </section>
+        <div class="row">
+            <div class="col-4">
+
+                <p>
+                    Red Dinámica, es una propuesta orientada inicialmente a satisfacer las necesidades de acompañamiento
+                    de docentes y estudiantes interesados en incluir la Dinámica de Sistemas en su proceso de formación,
+                    centrándose principalmente en los grados desde preescolar hasta undécimo grado.
+                </p>
+
+            </div>
+            <div class="col-4">
+                <img src="assets/images/personas2.png" class="d-block w-100" alt="Personas">
+            </div>
+            <div class="col-4">
+                <p>
+                    En este proceso, nos acompañan los expertos, que son líderes en la formalización de experiencias,
+                    con un nivel de madurez que les permite apoyar la formalización de las experiencias, apoyando cada
+                    momento de su construcción y desarrollo.
+                </p>
+            </div>
+
+
+        </div>
+
+    </div>
+</section>
 <!-- /section 4 -->
 
 <!-- /landing  -->

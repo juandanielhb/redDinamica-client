@@ -18,7 +18,7 @@
                     </a>
                 </div>
                
-                <div *ngFor="let option of menuOptions, let ix = index" class="card mt-2 rounded">
+                <div *ngFor="let option of getMenuOptions(), let ix = index" class="card mt-2 rounded">
                     <button type="button"
                         class="btn btn-block text-left d-flex justify-content-between py-2 {{option.buttonClass}}"
                         data-toggle="collapse" attr.data-target="#{{option.id}}" aria-expanded="true"

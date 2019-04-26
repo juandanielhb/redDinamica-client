@@ -36,6 +36,7 @@ import { MessageService } from './services/message.service';
 import { CommentService } from './services/comment.service';
 import { ResourceService } from './services/resource.service';
 import { LessonService } from './services/lesson.service';
+import { LandingGuard } from './guards/landing.guard';
 
 @NgModule({
   declarations: [
@@ -76,7 +77,8 @@ import { LessonService } from './services/lesson.service';
     MessageService,
     CommentService,
     ResourceService,
-    LessonService
+    LessonService,
+    LandingGuard
   ],
   bootstrap: [AppComponent]
 })

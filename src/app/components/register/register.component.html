@@ -95,26 +95,31 @@
                                     <label for="profession">Profesión*</label>
                                     <ng-select [items]="items.profession" bindLabel="name" [addTag]="true"
                                         addTagText="Agregar profesión" formControlName="profession"
-                                        placeholder="Profesión" [ngClass]="{ 'is-invalid': submitted && f.profession.errors }">
+                                        placeholder="Profesión"
+                                        [ngClass]="{ 'is-invalid': submitted && f.profession.errors }">
                                     </ng-select>
                                     <div *ngIf="submitted && f.profession.errors">
                                         <div *ngIf="f.profession.errors.required" class="invalid-feedback-select">
                                             El campo profesión es obligatorio.
-                                        </div>                                    
-                                    </div>
+                                        </div>
+                                    </div>                                    
                                 </div>
 
                                 <div class="form-group col-12">
                                     <label for="institution">Institución*</label>
                                     <ng-select [items]="items.institution" bindLabel="name" [addTag]="true"
                                         addTagText="Agregar institución" formControlName="institution"
-                                        placeholder="Institución" [ngClass]="{ 'is-invalid': submitted && f.institution.errors }">
+                                        placeholder="Institución"
+                                        [ngClass]="{ 'is-invalid': submitted && f.institution.errors }">
                                     </ng-select>
                                     <div *ngIf="submitted && f.institution.errors">
                                         <div *ngIf="f.institution.errors.required" class="invalid-feedback-select">
                                             El campo institución es obligatorio.
-                                        </div>                                    
+                                        </div>
                                     </div>
+                                    <small *ngIf="!submitted" id="institutionHelp" class="form-text text-muted">
+                                        Institución en la que desarrolla sus labores profesionales.
+                                    </small>
                                 </div>
 
 
@@ -147,32 +152,33 @@
 
                             <div class="form-group">
                                 <label for="category">
-                                    Categoria* 
-                                    <a data-toggle="modal" data-target="#help" style="cursor: pointer">
+                                    Categoria*
+                                    <a data-toggle="modal" data-target="#help" style="cursor: pointer" title="Ayuda">
                                         <i class="fas fa-question-circle"></i>
                                     </a>
                                 </label>
 
-                                <select size=4 formControlName="category" class="form-control" id="category" [ngClass]="{ 'is-invalid': submitted && f.category.errors }">
+                                <select size=4 formControlName="category" class="form-control" id="category"
+                                    [ngClass]="{ 'is-invalid': submitted && f.category.errors }">
                                     <option value="expert">Facilitador</option>
                                     <option value="teacher">Docente</option>
                                     <option value="student">Estudiante</option>
                                     <option value="guest">Invitado</option>
                                 </select>
                                 <div *ngIf="submitted && f.category.errors" class="invalid-feedback">
-                                    <div *ngIf="f.category.errors.required" >
+                                    <div *ngIf="f.category.errors.required">
                                         Debes seleccionar una de las categorias.
-                                    </div>                                    
+                                    </div>
                                 </div>
                             </div>
 
                             <div *ngIf="f.category.value=='expert' || f.category.value==='teacher'" class="form-group">
-                                <label for="experience">Experiencia*</label>
+                                <label for="experience">Perfil profesional*</label>
                                 <textarea class="form-control" id="experience" rows="3"
-                                    placeholder="Describe tu experiencia" formControlName="experience">
+                                    placeholder="Describe tu perfil profesional" formControlName="experience">
                                     </textarea>
                                 <small id="experienceHelp" class="form-text text-muted">
-                                    Por favor describa brevemente su experiencia como
+                                    Por favor describa brevemente su perfil profesional y su experiencia como
                                     <span *ngIf="f.category.value=='expert'; else teacher">
                                         profesional en dinámica de sistemas.
                                     </span>

@@ -1,7 +1,7 @@
 
         <!-- login -->
 <section id="login" class="bg-white">
-    <div class="container px-0 py-3 py-sm-4 bg-light">
+    <div class="container px-0 py-5 py-sm-4 bg-light">
         <div class="row">
             <div class="col-12 col-lg-6 offset-lg-3">
                 <div class="card">
@@ -11,7 +11,10 @@
                         </h2>
                         <div *ngIf="invalid && emailFound; else noEmail" class="mx-4 alert alert-danger alert-dismissible fade show" role="alert">
                                 <i class="fas fa-times-circle icon-message mr-2"></i>
-                                No se ha podido iniciar sesión correctamente. Por favor intentelo de nuevo.
+                                No se ha podido iniciar sesión correctamente.
+                                <a [routerLink]="['/recuperar-pass']" class="alert-link">
+                                    Recuperar contraseña.
+                                </a>
                         </div>
                         
                         <ng-template #noEmail >
@@ -58,7 +61,7 @@
                                 </div>
                             </div> -->
                             <button type="submit" class="btn btn-success btn-block btn-lg mb-2">Entrar</button>
-                            <a class="card-link" [routerLink]="[ '/pass/reset']">¿Ha olvidado su contraseña?</a>
+                            <a class="card-link" [routerLink]="[ '/recuperar-pass']">¿Ha olvidado su contraseña?</a>
                         </form>
                     </div>
                     <div class="card-footer text-center">

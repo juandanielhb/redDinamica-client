@@ -9,13 +9,14 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { SearchComponent } from './components/search/search.component';
 import { ResourcesComponent } from './components/resources/resources.component';
 import { SecurityOptionsComponent } from './components/securityOptions/securityOptions.component';
+import { LandingGuard } from './guards/landing.guard';
 
 
 const routes: Routes = [
-    { path: '', component: LandingComponent },    
+    { path: '', component: LandingComponent, canActivate: [LandingGuard]},        
     { path: 'login', component: LoginComponent },
     { path: 'registro', component: RegisterComponent },    
-    { path: 'pass/reset', component: RecoverPasswordComponent },
+    { path: 'recuperar-pass', component: RecoverPasswordComponent },
     { path: 'perfil', component: ProfileComponent },
     { path: 'recursos', component: ResourcesComponent },
     { path: 'buscar', component: SearchComponent },

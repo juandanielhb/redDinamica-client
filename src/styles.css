@@ -18,8 +18,6 @@
      
 }
 
-
-
 .publication-text {
     font-size: 1em;
 }
@@ -71,7 +69,6 @@ section .container{
     object-fit: cover;
 }
 
-
 /* Invalid feedback for ng-select */
 .ng-select.is-invalid .ng-select-container{
     border: 1px solid #E74C3C;
@@ -91,7 +88,6 @@ section .container{
 textarea {
     word-break: break-all;
 }
-
 
 .resource-edit:hover {
     color: #F39C12 !important;

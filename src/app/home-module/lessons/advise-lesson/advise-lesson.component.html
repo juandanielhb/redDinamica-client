@@ -175,8 +175,12 @@
                                                                     class="btn flex-shrink-0 rounded-circle  overflow-hidden p-0"
                                                                     style="width: 40px; height:40px;"
                                                                     title="{{member.name}} {{member.surname}}">
-                                                                    <img class="img-fluid"
+
+                                                                    <img *ngIf="!member.picture" class="img-fluid"
+                                                                        src="assets/images/user-default.png">
+                                                                    <img *ngIf="member.picture" class="img-fluid"
                                                                         src="{{this.url+'get-image-user/'+ member.picture}}">
+
                                                                 </button>
                                                             </a>
                                                         </div>
@@ -347,7 +351,9 @@
                                                                     class="btn flex-shrink-0 rounded-circle  overflow-hidden p-0"
                                                                     style="width: 40px; height:40px;"
                                                                     title="{{member.name}} {{member.surname}}">
-                                                                    <img class="img-fluid"
+                                                                    <img *ngIf="!member.picture" class="img-fluid"
+                                                                        src="assets/images/user-default.png">
+                                                                    <img *ngIf="member.picture" class="img-fluid"
                                                                         src="{{this.url+'get-image-user/'+ member.picture}}">
                                                                 </button>
                                                             </a>
@@ -374,8 +380,7 @@
         <!-- /lesson items filtered -->
 
         <!-- Navigation -->
-        <nav *ngIf="selectedStates.length == 0"
-            class="mt-3" aria-label="Page navigation">
+        <nav *ngIf="selectedStates.length == 0" class="mt-3" aria-label="Page navigation">
             <ul class="pagination justify-content-end">
                 <li *ngIf="page > 1" class="page-item">
                     <a class="page-link bg-primary" [routerLink]="['/inicio/mis-lecciones', prevPage]">Anterior</a>

@@ -177,7 +177,7 @@
                                             <button class="btn btn-info ml-2"
                                                 [routerLink]="['/inicio','leccion', lesson._id]"
                                                 (click)="increaseViews(lesson)" title="Ver lección">
-                                                <i class="fas fa-eye"></i> 
+                                                <i class="fas fa-eye"></i>
                                             </button>
                                             <!-- /buttons -->
 
@@ -259,7 +259,9 @@
                                                                     class="btn flex-shrink-0 rounded-circle  overflow-hidden p-0"
                                                                     style="width: 40px; height:40px;"
                                                                     title="{{member.name}} {{member.surname}}">
-                                                                    <img class="img-fluid"
+                                                                    <img *ngIf="!member.picture" class="img-fluid"
+                                                                        src="assets/images/user-default.png">
+                                                                    <img *ngIf="member.picture" class="img-fluid"
                                                                         src="{{this.url+'get-image-user/'+ member.picture}}">
                                                                 </button>
                                                             </a>
@@ -287,9 +289,11 @@
                                                                 <button [routerLink]="['/perfil', lesson.author._id]"
                                                                     class="btn flex-shrink-0 rounded-circle  overflow-hidden p-0"
                                                                     style="width: 40px; height:40px;">
-                                                                    <img class="img-fluid"
-                                                                        src="{{this.url +'get-image-user/'+ lesson.author.picture}}">
-
+                                                                    <img *ngIf="!lesson.author.picture"
+                                                                        class="img-fluid"
+                                                                        src="assets/images/user-default.png">
+                                                                    <img *ngIf="lesson.author.picture" class="img-fluid"
+                                                                        src="{{this.url+'get-image-user/'+ lesson.author.picture}}">
                                                                 </button>
                                                             </a>
                                                         </div>
@@ -396,7 +400,7 @@
                                             <button class="btn btn-info ml-2"
                                                 [routerLink]="['/inicio','leccion', lesson._id]"
                                                 (click)="increaseViews(lesson)" title="Ver lección">
-                                                <i class="fas fa-eye"></i> 
+                                                <i class="fas fa-eye"></i>
                                             </button>
                                             <!-- /buttons -->
 
@@ -478,7 +482,9 @@
                                                                     class="btn flex-shrink-0 rounded-circle  overflow-hidden p-0"
                                                                     style="width: 40px; height:40px;"
                                                                     title="{{member.name}} {{member.surname}}">
-                                                                    <img class="img-fluid"
+                                                                    <img *ngIf="!member.picture" class="img-fluid"
+                                                                        src="assets/images/user-default.png">
+                                                                    <img *ngIf="member.picture" class="img-fluid"
                                                                         src="{{this.url+'get-image-user/'+ member.picture}}">
                                                                 </button>
                                                             </a>
@@ -506,9 +512,11 @@
                                                                 <button [routerLink]="['/perfil', lesson.author._id]"
                                                                     class="btn flex-shrink-0 rounded-circle  overflow-hidden p-0"
                                                                     style="width: 40px; height:40px;">
-                                                                    <img class="img-fluid"
-                                                                        src="{{this.url +'get-image-user/'+ lesson.author.picture}}">
-
+                                                                    <img *ngIf="!lesson.author.picture"
+                                                                        class="img-fluid"
+                                                                        src="assets/images/user-default.png">
+                                                                    <img *ngIf="lesson.author.picture" class="img-fluid"
+                                                                        src="{{this.url+'get-image-user/'+ lesson.author.picture}}">
                                                                 </button>
                                                             </a>
                                                         </div>

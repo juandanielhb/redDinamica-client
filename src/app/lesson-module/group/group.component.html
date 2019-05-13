@@ -34,9 +34,10 @@
                                                     <button [routerLink]="['/perfil', lesson.leader._id]"
                                                         class="btn flex-shrink-0 rounded-circle  overflow-hidden p-0"
                                                         style="width: 40px; height:40px;">
-                                                        <img class="img-fluid"
-                                                            src="{{this.url +'get-image-user/'+ lesson.leader.picture}}">
-
+                                                        <img *ngIf="!lesson.leader.picture" class="img-fluid"
+                                                            src="assets/images/user-default.png">
+                                                        <img *ngIf="lesson.leader.picture" class="img-fluid"
+                                                            src="{{this.url+'get-image-user/'+ lesson.leader.picture}}">
                                                     </button>
                                                 </a>
                                             </div>
@@ -70,9 +71,10 @@
                                                     <button [routerLink]="['/perfil', lesson.expert._id]"
                                                         class="btn flex-shrink-0 rounded-circle  overflow-hidden p-0"
                                                         style="width: 40px; height:40px;">
-                                                        <img class="img-fluid"
-                                                            src="{{this.url +'get-image-user/'+ lesson.expert.picture}}">
-
+                                                        <img *ngIf="!lesson.expert.picture" class="img-fluid"
+                                                            src="assets/images/user-default.png">
+                                                        <img *ngIf="lesson.expert.picture" class="img-fluid"
+                                                            src="{{this.url+'get-image-user/'+ lesson.expert.picture}}">
                                                     </button>
                                                 </a>
                                             </div>
@@ -113,8 +115,10 @@
                                                             <button [routerLink]="['/perfil', user._id]"
                                                                 class="btn flex-shrink-0 rounded-circle  overflow-hidden p-0"
                                                                 style="width: 40px; height:40px;">
-                                                                <img class="img-fluid"
-                                                                    src="{{this.url +'get-image-user/'+ user.picture}}">
+                                                                <img *ngIf="!user.picture" class="img-fluid"
+                                                                    src="assets/images/user-default.png">
+                                                                <img *ngIf="user.picture" class="img-fluid"
+                                                                    src="{{this.url+'get-image-user/'+ user.picture}}">
 
                                                             </button>
                                                         </a>

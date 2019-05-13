@@ -278,7 +278,9 @@
                                                                     class="btn flex-shrink-0 rounded-circle  overflow-hidden p-0"
                                                                     style="width: 40px; height:40px;"
                                                                     title="{{member.name}} {{member.surname}}">
-                                                                    <img class="img-fluid"
+                                                                    <img *ngIf="!member.picture" class="img-fluid"
+                                                                        src="assets/images/user-default.png">
+                                                                    <img *ngIf="member.picture" class="img-fluid"
                                                                         src="{{this.url+'get-image-user/'+ member.picture}}">
                                                                 </button>
                                                             </a>
@@ -306,9 +308,12 @@
                                                                 <button [routerLink]="['/perfil', lesson.author._id]"
                                                                     class="btn flex-shrink-0 rounded-circle  overflow-hidden p-0"
                                                                     style="width: 40px; height:40px;">
-                                                                    <img class="img-fluid"
-                                                                        src="{{this.url +'get-image-user/'+ lesson.author.picture}}">
 
+                                                                    <img *ngIf="!lesson.author.picture"
+                                                                        class="img-fluid"
+                                                                        src="assets/images/user-default.png">
+                                                                    <img *ngIf="lesson.author.picture" class="img-fluid"
+                                                                        src="{{this.url+'get-image-user/'+ lesson.author.picture}}">
                                                                 </button>
                                                             </a>
                                                         </div>
@@ -351,16 +356,20 @@
                                         (click)="setAddCallLesson(lesson)">
                                         <i class="fas fa-bullhorn"></i> Abrir convocatoria
                                     </button>
-                                    <button *ngIf="['completed'].includes(lesson.state) && lesson.call && !lesson.son_lesson"
+                                    <button
+                                        *ngIf="['completed'].includes(lesson.state) && lesson.call && !lesson.son_lesson"
                                         class="btn btn-warning ml-2" data-toggle="modal" data-target="#addCall"
                                         (click)="setAddCallLesson(lesson, true)">
-                                        <i class="fas fa-bullhorn"></i> Abrir convocatoria V.{{(lesson.version+1).toFixed(1)}}
+                                        <i class="fas fa-bullhorn"></i> Abrir convocatoria
+                                        V.{{(lesson.version+1).toFixed(1)}}
                                     </button>
                                     <button *ngIf="['proposed'].includes(lesson.state) && lesson.call"
                                         class="btn btn-success ml-2" data-toggle="modal" data-target="#call"
                                         (click)="setCallLesson(lesson)">
-                                        <i class="fas fa-bullhorn"></i> Ver convocatoria 
-                                        <span *ngIf="lesson.call && lesson.call.interested && lesson.call.interested.length > 0" class="badge badge-secondary ml-1">{{lesson.call.interested.length}}</span>
+                                        <i class="fas fa-bullhorn"></i> Ver convocatoria
+                                        <span
+                                            *ngIf="lesson.call && lesson.call.interested && lesson.call.interested.length > 0"
+                                            class="badge badge-secondary ml-1">{{lesson.call.interested.length}}</span>
                                     </button>
                                     <button class="btn btn-danger ml-2" data-toggle="modal" data-target="#delete"
                                         (click)="setDeleteLesson(lesson._id)">
@@ -528,8 +537,11 @@
                                                                     class="btn flex-shrink-0 rounded-circle  overflow-hidden p-0"
                                                                     style="width: 40px; height:40px;"
                                                                     title="{{member.name}} {{member.surname}}">
-                                                                    <img class="img-fluid"
+                                                                    <img *ngIf="!member.picture" class="img-fluid"
+                                                                        src="assets/images/user-default.png">
+                                                                    <img *ngIf="member.picture" class="img-fluid"
                                                                         src="{{this.url+'get-image-user/'+ member.picture}}">
+
                                                                 </button>
                                                             </a>
                                                         </div>
@@ -555,8 +567,11 @@
                                                                 <button [routerLink]="['/perfil', lesson.author._id]"
                                                                     class="btn flex-shrink-0 rounded-circle  overflow-hidden p-0"
                                                                     style="width: 40px; height:40px;">
-                                                                    <img class="img-fluid"
-                                                                        src="{{this.url +'get-image-user/'+ lesson.author.picture}}">
+                                                                    <img *ngIf="!lesson.author.picture"
+                                                                        class="img-fluid"
+                                                                        src="assets/images/user-default.png">
+                                                                    <img *ngIf="lesson.author.picture" class="img-fluid"
+                                                                        src="{{this.url+'get-image-user/'+ lesson.author.picture}}">
 
                                                                 </button>
                                                             </a>
@@ -600,16 +615,20 @@
                                         (click)="setAddCallLesson(lesson)">
                                         <i class="fas fa-bullhorn"></i> Abrir convocatoria
                                     </button>
-                                    <button *ngIf="['completed'].includes(lesson.state) && lesson.call && !lesson.son_lesson"
+                                    <button
+                                        *ngIf="['completed'].includes(lesson.state) && lesson.call && !lesson.son_lesson"
                                         class="btn btn-warning ml-2" data-toggle="modal" data-target="#addCall"
                                         (click)="setAddCallLesson(lesson, true)">
-                                        <i class="fas fa-bullhorn"></i> Abrir convocatoria V.{{(lesson.version+1).toFixed(1)}}
+                                        <i class="fas fa-bullhorn"></i> Abrir convocatoria
+                                        V.{{(lesson.version+1).toFixed(1)}}
                                     </button>
                                     <button *ngIf="['proposed'].includes(lesson.state) && lesson.call"
                                         class="btn btn-success ml-2" data-toggle="modal" data-target="#call"
                                         (click)="setCallLesson(lesson)">
-                                        <i class="fas fa-bullhorn"></i> Ver convocatoria 
-                                        <span *ngIf="lesson.call && lesson.call.interested && lesson.call.interested.length > 0" class="badge badge-secondary ml-1">{{lesson.call.interested.length}}</span>
+                                        <i class="fas fa-bullhorn"></i> Ver convocatoria
+                                        <span
+                                            *ngIf="lesson.call && lesson.call.interested && lesson.call.interested.length > 0"
+                                            class="badge badge-secondary ml-1">{{lesson.call.interested.length}}</span>
                                     </button>
                                     <button class="btn btn-danger ml-2" data-toggle="modal" data-target="#delete"
                                         (click)="setDeleteLesson(lesson._id)">

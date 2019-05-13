@@ -64,8 +64,10 @@
                                             <button [routerLink]="['/perfil', interested._id]"
                                                 class="btn flex-shrink-0 rounded-circle  overflow-hidden p-0"
                                                 style="width: 40px; height:40px;" data-dismiss="modal">
-                                                <img class="img-fluid"
-                                                    src="{{this.url +'get-image-user/'+ interested.picture}}">
+                                                <img *ngIf="!interested.picture" class="img-fluid"
+                                                    src="assets/images/user-default.png">
+                                                <img *ngIf="interested.picture" class="img-fluid"
+                                                    src="{{this.url+'get-image-user/'+ interested.picture}}">
 
                                             </button>
                                         </a>
@@ -111,9 +113,11 @@
                                             <button [routerLink]="['/perfil', interested._id]"
                                                 class="btn flex-shrink-0 rounded-circle  overflow-hidden p-0"
                                                 style="width: 40px; height:40px;" data-dismiss="modal">
-                                                <img class="img-fluid"
-                                                    src="{{this.url +'get-image-user/'+ interested.picture}}">
 
+                                                <img *ngIf="!interested.picture" class="img-fluid"
+                                                    src="assets/images/user-default.png">
+                                                <img *ngIf="interested.picture" class="img-fluid"
+                                                    src="{{this.url+'get-image-user/'+ interested.picture}}">
                                             </button>
                                         </a>
                                     </div>

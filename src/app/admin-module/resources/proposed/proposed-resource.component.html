@@ -44,8 +44,12 @@
                                             <div class="flex-shrink-0 rounded-circle border-1 overflow-hidden"
                                                 style="width: 40px; height:40px; background-color: aqua">
                                                 <a [routerLink]="['/perfil', resource.author._id]">
-                                                    <img class="img-fluid"
-                                                        src="{{this.url +'get-image-user/'+ resource.author.picture}}">
+
+                                                    <img *ngIf="!resource.author.picture" class="img-fluid"
+                                                        src="assets/images/user-default.png">
+                                                    <img *ngIf="resource.author.picture" class="img-fluid"
+                                                        src="{{this.url+'get-image-user/'+ resource.author.picture}}">
+
                                                 </a>
                                             </div>
 
@@ -77,7 +81,8 @@
                                             data-target="#details" (click)="setDetailResource(resource)">
                                             <i class="fas fa-eye"></i>
                                         </button>
-                                        <button class="btn btn-success mr-2" title="Avalar recurso" (click)="editResource(resource)">
+                                        <button class="btn btn-success mr-2" title="Avalar recurso"
+                                            (click)="editResource(resource)">
                                             <i class="fas fa-check-square"></i>
                                         </button>
                                         <button class="btn btn-danger mr-2" title="Eliminar recurso" data-toggle="modal"
@@ -126,7 +131,8 @@
 </div>
 <!-- /proposed-resource -->
 
-<details-resource *ngIf="detailsResourceItem" [parent]="'proposed-resource'" [resource]="detailsResourceItem"></details-resource>
+<details-resource *ngIf="detailsResourceItem" [parent]="'proposed-resource'" [resource]="detailsResourceItem">
+</details-resource>
 
 <delete-resource *ngIf="deleteResourceId" [resourceId]="deleteResourceId" (deleted)="setNeedReload($event)">
 </delete-resource>

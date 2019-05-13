@@ -168,7 +168,12 @@ export class MainComponent{
                             this.publication = response.publication;
                             this.getPublications(this.page);
 
+                        }).catch((error)=>{
+                            console.log(<any> error);
+                            this.status = 'error';
+                            return;
                         });
+
                     } else {
                         this.getPublications(this.page);
                     }

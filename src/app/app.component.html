@@ -85,7 +85,8 @@
                     <a class="nav-link d-flex align-items-center">
                         <div class="rounded-circle border-1 overflow-hidden mr-2"
                             style="width: 30px; height:30px;">
-                            <img class="img-fluid" src="{{this.url+'get-image-user/'+ identity.picture}}"> 
+                            <img *ngIf="!identity.picture" class="img-fluid" src="assets/images/user-default.png"> 
+                            <img *ngIf="identity.picture" class="img-fluid" src="{{this.url+'get-image-user/'+ identity.picture}}"> 
                         </div>
                         <span>
                             {{identity.name}}
@@ -113,30 +114,18 @@
                         <span *ngIf="unviewMessages > 0" class="badge badge-pill badge-info">{{unviewMessages}}</span>
                     </a>
                 </li>
-
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-lg-right" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" [routerLink]="['/seguridad']">Opciones de seguridad</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" [routerLink]="['/']" (click)="logout()">Cerrar sesión</a>
+                    </div>
+                  </li>
             </ul>
-            <div class="btn-group">
-                <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"
-                    data-display="static" aria-haspopup="true" aria-expanded="false">
-
-                </button>
-                <div class="dropdown-menu dropdown-menu-lg-right">
-
-                    <!-- <button *ngIf="['admin', 'delegated_admin'].includes(identity.role)"  class="dropdown-item" type="button" [routerLink]="['/admin']">
-                        Panel de administración
-                    </button> -->
-                    <button  class="dropdown-item" type="button" [routerLink]="['/seguridad']">
-                        Opciones de seguridad
-                    </button>
-                    <div class="dropdown-divider"></div>
-                    <button class="dropdown-item" type="button" (click)="logout()">
-                        Cerrar sesión
-                    </button>
-                </div>
-            </div>
         </div>
-
-
     </div>
 </nav>
 

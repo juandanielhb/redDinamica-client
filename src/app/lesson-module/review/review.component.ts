@@ -157,8 +157,6 @@ export class ReviewComponent implements OnInit {
 
         this.lesson.expert_comments = this.lesson.expert_comments.concat(tempMessage);
 
-        console.log(this.lesson.expert_comments)
-
         this.editLesson(this.lesson);
 
     }
@@ -167,7 +165,6 @@ export class ReviewComponent implements OnInit {
         this._lessonService.editLesson(this.token, lesson).subscribe(
             response => {
 
-                console.log(response)
                 if (response.lesson && response.lesson._id) {
                     this.lesson = response.lesson;
                     this.status = 'success';

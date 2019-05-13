@@ -12,7 +12,9 @@
                     <a class="nav-link d-flex">
                         <div class=" flex-shrink-0 rounded-circle border-1 overflow-hidden mr-2"
                             style="width: 55px; height:55px;">
-                            <img class="img-fluid" src="{{this.url+'get-image-user/'+ identity.picture}}">
+                            <img *ngIf="!identity.picture" class="img-fluid" src="assets/images/user-default.png">
+                            <img *ngIf="identity.picture" class="img-fluid"
+                                src="{{this.url+'get-image-user/'+ identity.picture}}">
                         </div>
                     </a>
                 </div>
@@ -134,14 +136,20 @@
                         <div class="col-1 align-items-center">
                             <div class=" flex-shrink-0 rounded-circle border-1 overflow-hidden mr-2"
                                 style="width: 40px; height:40px;">
-                                <img class="img-fluid" src="{{this.url+'get-image-user/'+ identity.picture}}">
+                                <img *ngIf="!identity.picture" class="img-fluid" src="assets/images/user-default.png">
+                                <img *ngIf="identity.picture" class="img-fluid"
+                                    src="{{this.url+'get-image-user/'+ identity.picture}}">
+
                             </div>
                         </div>
                         <div class="col pl-0 align-items-center">
-                            <textarea class="bg-light" formControlName="text" class="form-control" rows="2" placeholder="Escribe un comentario..." (focus)="setFocusPublication(publication._id)"></textarea>
+                            <textarea class="bg-light" formControlName="text" class="form-control" rows="2"
+                                placeholder="Escribe un comentario..."
+                                (focus)="setFocusPublication(publication._id)"></textarea>
                         </div>
                         <div class="col-2 pl-0 align-items-center">
-                            <button type="submit" class="btn btn-primary btn-block" [disabled]="!commentForm.valid || focusPublication != publication._id">
+                            <button type="submit" class="btn btn-primary btn-block"
+                                [disabled]="!commentForm.valid || focusPublication != publication._id">
                                 <i class="fas fa-comment-alt"></i><br>
                                 Comentar
                             </button>
@@ -165,7 +173,10 @@
                             <a class="text-primary" [routerLink]="[ '/perfil', comment.user._id]">
                                 <div class="flex-shrink-0 rounded-circle border-1 overflow-hidden"
                                     style="width: 40px; height:40px;">
-                                    <img class="img-fluid" src="{{this.url+'get-image-user/'+ comment.user.picture}}">
+                                    <img *ngIf="!comment.user.picture" class="img-fluid"
+                                        src="assets/images/user-default.png">
+                                    <img *ngIf="comment.user.picture" class="img-fluid"
+                                        src="{{this.url+'get-image-user/'+ comment.user.picture}}">
                                 </div>
                             </a>
                         </div>
@@ -239,28 +250,29 @@
 <!-- /Modal warning delete-->
 
 <!-- Modal warning  delet commente-->
-<div class="modal fade" id="deleteComment" tabindex="-1" role="dialog" aria-labelledby="deleteComment" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="deleteCommentTitle">Eliminar comentario</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-    
-                <div class="modal-body">
-                    <div class="alert alert-warning mb-0" role="alert">
-                        <i class="fas fa-exclamation-triangle icon-message mr-2"></i>
-                        ¿Esta seguro que desea eliminar el comentario?
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-danger" data-dismiss="modal" (click)="deleteComment()">Sí</button>
-                    <button class="btn btn-primary text-white" data-dismiss="modal">No</button>
-                </div>
-    
+<div class="modal fade" id="deleteComment" tabindex="-1" role="dialog" aria-labelledby="deleteComment"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteCommentTitle">Eliminar comentario</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
+
+            <div class="modal-body">
+                <div class="alert alert-warning mb-0" role="alert">
+                    <i class="fas fa-exclamation-triangle icon-message mr-2"></i>
+                    ¿Esta seguro que desea eliminar el comentario?
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" data-dismiss="modal" (click)="deleteComment()">Sí</button>
+                <button class="btn btn-primary text-white" data-dismiss="modal">No</button>
+            </div>
+
         </div>
     </div>
-    <!-- /Modal warning delete comment -->
+</div>
+<!-- /Modal warning delete comment -->

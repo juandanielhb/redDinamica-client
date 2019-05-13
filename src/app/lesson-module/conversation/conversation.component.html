@@ -27,7 +27,7 @@
 
 
                 <div *ngIf="identity._id == lesson.leader._id" class="nav-link"
-                [ngClass]="{'show active': lesson.conversations.length == 0}" id="addGroup-tab" data-toggle="pill"
+                    [ngClass]="{'show active': lesson.conversations.length == 0}" id="addGroup-tab" data-toggle="pill"
                     href="#addGroup" role="tab" aria-controls="addGroup" aria-selected="false"
                     (click)="restartValues()">
                     <i class="fas fa-plus"></i> Crear conversación
@@ -56,8 +56,11 @@
                                                 data-dismiss="modal">
                                                 <div class="flex-shrink-0 rounded-circle border-1 overflow-hidden"
                                                     style="width: 40px; height:40px;">
-                                                    <img class="img-fluid"
+                                                    <img *ngIf="!message.author.picture" class="img-fluid"
+                                                        src="assets/images/user-default.png">
+                                                    <img *ngIf="message.author.picture" class="img-fluid"
                                                         src="{{this.url+'get-image-user/'+ message.author.picture}}">
+
                                                 </div>
                                             </a>
                                         </div>
@@ -93,7 +96,9 @@
                                                 data-dismiss="modal">
                                                 <div class="flex-shrink-0 rounded-circle border-1 overflow-hidden"
                                                     style="width: 40px; height:40px;">
-                                                    <img class="img-fluid"
+                                                    <img *ngIf="!identity.picture" class="img-fluid"
+                                                        src="assets/images/user-default.png">
+                                                    <img *ngIf="identity.picture" class="img-fluid"
                                                         src="{{this.url+'get-image-user/'+ identity.picture}}">
                                                 </div>
                                             </a>

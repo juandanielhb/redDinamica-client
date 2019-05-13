@@ -160,8 +160,6 @@ export class ConversationComponent implements OnInit {
         
         this.lesson.conversations = this.lesson.conversations.concat(tempMessage);
 
-        console.log(this.lesson.conversations )
-
         this.editLesson(this.lesson);
 
     }
@@ -170,7 +168,6 @@ export class ConversationComponent implements OnInit {
         this._lessonService.editLesson(this.token, lesson).subscribe(
             response => {
 
-                console.log(response)
                 if (response.lesson && response.lesson._id) {
                     this.lesson = response.lesson;
                     this.status = 'success';

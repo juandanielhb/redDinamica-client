@@ -26,7 +26,7 @@ export class KnowledgeAreasComponent {
     public areaForm;
     public editAreaForm;
     public knowledgeArea = new KnowledgeArea('');
-    public areas;
+    public areas = [];
 
     // Pagination
     public page; // Actual page
@@ -37,7 +37,7 @@ export class KnowledgeAreasComponent {
 
     // Filter
     public filter;
-    public allAreas;    
+    public allAreas = [];
 
     constructor(
         private _bDService:BasicDataService,

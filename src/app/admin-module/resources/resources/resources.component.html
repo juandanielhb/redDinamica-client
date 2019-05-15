@@ -8,7 +8,13 @@
         </button>
     </div>
 
-    <div class="card-body">
+    <div *ngIf="resources.length == 0" class="card-body">
+        <h4 class="text-muted">
+            No se han creado recursos.
+        </h4>
+    </div>
+
+    <div *ngIf="resources.length != 0" class="card-body">
 
         <!-- Filters checkboxes -->
         <div class="form-group">
@@ -197,7 +203,7 @@
         <!-- /Resources items -->
 
         <!-- filtered Resources items -->
-        <div *ngIf="filter.value || selectedTypes.length > 0">
+        <div *ngIf="filter.value || selectedTypes.length > 0">            
             <div *ngFor="let resource of allResources | filter: filter.value; let i = index">
                 <div class="card">
                     <div class="card-body">

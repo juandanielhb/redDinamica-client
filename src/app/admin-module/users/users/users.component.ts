@@ -80,9 +80,9 @@ export class UsersComponent {
             name: new FormControl('', Validators.required),
             surname: new FormControl('', Validators.required),
             email: new FormControl('', [Validators.required, Validators.email]),
-            profession: new FormControl(''),
-            institution: new FormControl(''),
-            city: new FormControl(''),
+            profession: new FormControl('', Validators.required),
+            institution: new FormControl('', Validators.required),
+            city: new FormControl('', Validators.required),
             category: new FormControl('', Validators.required)
         });
 
@@ -221,47 +221,46 @@ export class UsersComponent {
                 this.user.city = responseAddCity.city._id;
                 this.state.reset();
                 this.country.reset();
+
+                localStorage.removeItem('cities');
+                this.getAllCities();
+
             } else {
                 console.log(<any>responseAddCity);
             }
-
-            localStorage.removeItem('cities');
-            this.getAllCities();
+            
         }
 
         if (!this.user.profession && this.addForm.value.profession) {
 
             this.profession.name = this.addForm.value.profession.name;
-            // this.profession.used = true;
-
-            
 
             let responseAddProfession = await this._bDService.addProfession(this.profession).toPromise();
 
             if (responseAddProfession.profession && responseAddProfession.profession._id) {
                 this.user.profession = responseAddProfession.profession._id;
+
+                localStorage.removeItem('professions');
+                this.getAllProfessions();
             } else {
                 console.log(<any>responseAddProfession);
             }
 
-            localStorage.removeItem('professions');
-            this.getAllProfessions();
         }
 
         if (!this.user.institution && this.addForm.value.institution) {
 
             this.institution.name = this.addForm.value.institution.name;
-            // this.institution.used = true;
-
 
             let responseAddinstitution = await this._bDService.addInstitution(this.institution).toPromise();
             if (responseAddinstitution.institution && responseAddinstitution.institution._id) {
                 this.user.institution = responseAddinstitution.institution._id;
+                
+                localStorage.removeItem('institutions');
+                this.getAllInstitutions();
             } else {
                 console.log(<any>responseAddinstitution);
             }
-            localStorage.removeItem('institutions');
-            this.getAllInstitutions();
         }
 
         let responseAddUser = await this._userService.registerByAdmin(this.user).toPromise().catch((error) => {
@@ -330,7 +329,9 @@ export class UsersComponent {
 
 
         this.user = this.tempUser;
-        this.user.city = this.tempUser.city._id;
+        if(this.tempUser.city){
+            this.user.city = this.tempUser.city._id;
+        }
         this.user.institution = this.tempUser.institution._id;
         this.user.profession = this.tempUser.profession._id;
         this.user.role = this.editForm.value.category;
@@ -468,5 +469,10 @@ export class UsersComponent {
         }
 
         this.getAllUsers();
+    }
+
+    restartValues() {
+        this.status = null;
+        this.submitted = false;
     }
 }

@@ -20,7 +20,7 @@ export class CitiesComponent {
     public cityForm;
     public editCityForm;
     public city = new City();
-    public cities;
+    public cities = [];
 
     // Pagination
     public page; // Actual page
@@ -31,7 +31,7 @@ export class CitiesComponent {
         
     // Filter
     public filter;
-    public allCities;    
+    public allCities = [];
 
     constructor(
         private _bDService: BasicDataService,

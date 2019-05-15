@@ -9,7 +9,15 @@
             <span class="ml-2">Agregar</span>
         </button>
     </div>
-    <div class="card-body">
+
+
+    <div *ngIf="cities.length == 0" class="card-body">
+        <h4 class="text-muted">
+            No se han registrado ciudades.
+        </h4>
+    </div>
+
+    <div *ngIf="cities.length != 0" class="card-body">
 
         <div class="form-group row">
             <div class="col">

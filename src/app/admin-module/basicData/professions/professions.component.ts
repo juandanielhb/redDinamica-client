@@ -24,7 +24,7 @@ export class ProfessionsComponent implements OnInit {
     public professionForm;
     public editProfessionForm;
     public profession = new Profession('');    
-    public professions;
+    public professions = [];
 
     // Pagination
     public page; // Actual page
@@ -35,7 +35,7 @@ export class ProfessionsComponent implements OnInit {
 
     // Filter
     public filter;
-    public allProfessions;
+    public allProfessions = [];
 
     constructor(
         private _bDService:BasicDataService,

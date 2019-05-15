@@ -280,6 +280,7 @@ export class CallsComponent implements OnInit {
 
                 if (response && response.lesson._id) {
                     this.getCalls(this.page);
+                    this.getAllCalls();
                 }
             },
             error => {

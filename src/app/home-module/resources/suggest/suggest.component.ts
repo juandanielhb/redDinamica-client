@@ -151,10 +151,8 @@ export class SuggestComponent implements OnInit {
                         this.status = 'error';
                     }
 
-
                     this.status = 'success';
-                    this.addForm.reset();
-                    
+                    this.addForm.reset();                    
 
                 } else {
                     this.status = 'error';

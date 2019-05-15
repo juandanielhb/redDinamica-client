@@ -75,6 +75,7 @@ export class AddResourceComponent implements OnInit {
     restartValues() {
         this.status = null;
         this.submitted = false;
+        this.maxSizeError = false;
     }
 
     setDisabled() {
@@ -163,20 +164,18 @@ export class AddResourceComponent implements OnInit {
 
                         );
 
-                        this.added.emit();
-                        this.addForm.reset();
+                        this.added.emit();                       
 
                     } else {
                         this.status = 'error';
                     }
 
-
-
+                    this.status = 'success';
+                    this.addForm.reset();   
+                    
                 } else {
                     this.status = 'error';
                 }
-
-
             },
             error => {
                 this.status = 'error';

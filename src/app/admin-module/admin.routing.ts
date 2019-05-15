@@ -25,7 +25,7 @@ const adminRoutes: Routes = [
         component: AdminComponent,
         canActivate: [AdminGuard],
         children: [
-            { path: '', component: UsersComponent},
+            { path: '', component: NewUsersComponent},
             { path: 'usuarios-nuevos', component: NewUsersComponent},
             { path: 'usuarios-nuevos/:page', component: NewUsersComponent},
             { path: 'usuarios', component: UsersComponent},
@@ -49,7 +49,7 @@ const adminRoutes: Routes = [
             { path: 'areas/:page', component: KnowledgeAreasComponent},            
             { path: 'profesiones/:page', component: ProfessionsComponent},
             { path: 'profesiones', component: ProfessionsComponent},
-            { path: '**', component: UsersComponent}
+            { path: '**', component: NewUsersComponent}
         ]
     }
 

@@ -11,7 +11,13 @@
         </button>
 
     </div>
-    <div class="card-body">
+    <div *ngIf="areas.length == 0" class="card-body">
+        <h4 class="text-muted">
+            No se han registrado areas de conocimiento.
+        </h4>
+    </div>
+
+    <div *ngIf="areas.length != 0" class="card-body">
 
         <div class="form-group row">
             <div class="col">

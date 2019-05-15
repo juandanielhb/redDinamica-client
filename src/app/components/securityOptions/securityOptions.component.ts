@@ -35,7 +35,7 @@ export class SecurityOptionsComponent {
         private _formBuilder: FormBuilder,
         private _route: ActivatedRoute,
         private _router: Router,
-        private _location:Location
+        private _location: Location
 
     ) {
         this.title = 'Opciones de seguridad';
@@ -80,7 +80,7 @@ export class SecurityOptionsComponent {
             newPassword: ['', [Validators.required, Validators.minLength(this.passwordMinLength)]],
             confirmPassword: ['', Validators.required]
         },
-            {                
+            {
                 validator: MustMatch('newPassword', 'confirmPassword')
             });
 
@@ -106,7 +106,7 @@ export class SecurityOptionsComponent {
                 if (response) {
                     this.status = 'success';
                     this.user.password = this.editPassword.value.newPassword;
-                    
+
                     this._userService.changePass(this.user).subscribe(
                         response => {
                             if (response.user && response.user._id) {
@@ -149,19 +149,18 @@ export class SecurityOptionsComponent {
         this._userService.validatePass(this.user).subscribe(
             response => {
                 if (response) {
-                    this.deleteStatus = 'success';                    
-                    
+                    this.deleteStatus = 'success';
+
                     this._userService.deleteUser().subscribe(
                         response => {
 
                             if (response.user && response.user._id) {
-                                this.deleteStatus = 'success';                              
-                                localStorage.clear();                                
-                                
+                                this.deleteStatus = 'success';
+                                localStorage.clear();
+
                                 this._router.navigate(['/'])
                                     .finally(() => location.reload());
-                                
-                                
+
                             } else {
                                 this.deleteStatus = 'error2';
                             }

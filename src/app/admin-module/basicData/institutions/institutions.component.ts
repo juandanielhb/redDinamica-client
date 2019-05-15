@@ -21,7 +21,7 @@ export class InstitutionsComponent {
     public institutionForm;
     public editInstitutionForm;
     public institution = new Institution();
-    public institutions;
+    public institutions = [];
 
     // Pagination
     public page; // Actual page
@@ -36,7 +36,7 @@ export class InstitutionsComponent {
 
     // Select data
     public items;
-    public allCities;
+    public allCities = [];
 
     constructor(
         private _bDService: BasicDataService,

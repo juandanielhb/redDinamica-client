@@ -4,7 +4,15 @@
         <h3 class="m-0 text-primary font-weight-bolder float-left">{{title}}</h3>
     </div>
 
-    <div class="card-body">
+    <div *ngIf="lessons.length == 0" class="card-body">
+        <h4 class="text-muted">
+            Aquí se muestran las lecciones en las que estas participando. Aún no hay lecciones que mostrar.
+        </h4>
+        <a class="card-link" [routerLink]="['/inicio/convocatorias']">Revisa las convocatorias abiertas y animate a
+            participar!</a>
+    </div>
+
+    <div *ngIf="lessons.length != 0" class="card-body">
 
         <!-- checkbox filter -->
         <div class="row">
@@ -82,13 +90,16 @@
                                                     {{lesson_states[lesson.state].label}}
                                                 </span>
                                             </h5>
-                                            <p *ngFor="let text of lesson.resume.split('\n')" class="text-break">
-                                                <small>{{text}}</small>
-                                            </p>
+                                            <small>
+                                                <p *ngFor="let text of lesson.resume.split('\n')"
+                                                    class="text-break mb-1">
+                                                    {{text}}
+                                                </p>
+                                            </small>
 
                                         </div>
 
-                                        <div class="text-right col-3">
+                                        <div class="text-right col-auto">
 
                                             <!-- buttons -->
                                             <button class="btn btn-info ml-2"
@@ -205,181 +216,194 @@
 
         <!-- lesson items filtered -->
         <div *ngIf="selectedStates.length > 0">
-            <div *ngFor="let lesson of allLessons, let i=index">
-                <div class="card mb-2">
-                    <div class="card-body">
-                        <div class="media-body">
-                            <div class="row">
-                                <div class="col-auto">
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="text-center p-2 py-3 rounded-lg border border-ligth text-center bg-{{lesson_states[lesson.state].class}}"
-                                                style="width: 80px; height: 80px; overflow: hidden;">
-                                                <i class="text-white fas fa-chalkboard-teacher"
-                                                    style="font-size:50px"></i>
+            <ng-container *ngIf="allLessons.length == 0; else elseTemplate">
+                <div class="card-body">
+                    <h4 class="text-muted">
+                        No se encontraron lecciones para los criterios de búsqueda seleccionados.
+                    </h4>
+                </div>
+            </ng-container>
+            <ng-template #elseTemplate>
+                <div *ngFor="let lesson of allLessons, let i=index">
+                    <div class="card mb-2">
+                        <div class="card-body">
+                            <div class="media-body">
+                                <div class="row">
+                                    <div class="col-auto">
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="text-center p-2 py-3 rounded-lg border border-ligth text-center bg-{{lesson_states[lesson.state].class}}"
+                                                    style="width: 80px; height: 80px; overflow: hidden;">
+                                                    <i class="text-white fas fa-chalkboard-teacher"
+                                                        style="font-size:50px"></i>
 
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                    <div class="row mt-1">
-
-                                        <div class="col-12">
-                                            <button class="btn btn-block btn-sm" disabled title="Versión">
-                                                <span>V. {{lesson.version.toFixed(1)}}</span>
-                                            </button>
-                                            <button *ngIf="lesson.state == 'completed'" class="btn btn-block btn-sm"
-                                                disabled title="Calificación">
-                                                <i class="fas fa-star"></i> {{lesson.score.toFixed(2)}}
-                                            </button>
-                                            <button *ngIf="lesson.state == 'completed'" class="btn btn-block btn-sm"
-                                                disabled title="Visualizaciones">
-                                                <span>
-                                                    <i class="fas fa-eye"></i>
-                                                    <span> {{lesson.views}}</span>
-                                                </span>
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div class="col">
-                                    <div class="row">
-                                        <div class="col">
-                                            <h5 class="mt-0">
-                                                <strong>{{lesson.title}}</strong>
-                                            </h5>
-
-                                            <h5>
-                                                <span class="badge badge-{{lesson_states[lesson.state].class}} mr-1">
-                                                    {{lesson_states[lesson.state].label}}
-                                                </span>
-                                            </h5>
-                                            <p *ngFor="let text of lesson.resume.split('\n')" class="text-break">
-                                                <small>{{text}}</small>
-                                            </p>
-
-                                        </div>
-
-                                        <div class="text-right col-3">
-
-                                            <!-- buttons -->
-                                            <button class="btn btn-info ml-2"
-                                                [routerLink]="['/inicio','leccion', lesson._id]" title="Ver lección">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                            <!-- /buttons -->
-
-                                        </div>
-
-                                    </div>
-
-
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <div class="row">
-                                                <div class="col">
-                                                    <strong>Nivel académico:</strong>
                                                 </div>
                                             </div>
-                                            <div class="row">
-                                                <div class="col">
-                                                    <p>
-                                                        <span
-                                                            *ngIf="academic_level.hasOwnProperty(lesson.level); else notAssigned">
-                                                            {{academic_level[lesson.level]}}
-                                                        </span>
+
+                                        </div>
+
+                                        <div class="row mt-1">
+
+                                            <div class="col-12">
+                                                <button class="btn btn-block btn-sm" disabled title="Versión">
+                                                    <span>V. {{lesson.version.toFixed(1)}}</span>
+                                                </button>
+                                                <button *ngIf="lesson.state == 'completed'" class="btn btn-block btn-sm"
+                                                    disabled title="Calificación">
+                                                    <i class="fas fa-star"></i> {{lesson.score.toFixed(2)}}
+                                                </button>
+                                                <button *ngIf="lesson.state == 'completed'" class="btn btn-block btn-sm"
+                                                    disabled title="Visualizaciones">
+                                                    <span>
+                                                        <i class="fas fa-eye"></i>
+                                                        <span> {{lesson.views}}</span>
+                                                    </span>
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col">
+                                        <div class="row">
+                                            <div class="col">
+                                                <h5 class="mt-0">
+                                                    <strong>{{lesson.title}}</strong>
+                                                </h5>
+
+                                                <h5>
+                                                    <span
+                                                        class="badge badge-{{lesson_states[lesson.state].class}} mr-1">
+                                                        {{lesson_states[lesson.state].label}}
+                                                    </span>
+                                                </h5>
+                                                <small>
+                                                    <p *ngFor="let text of lesson.resume.split('\n')"
+                                                        class="text-break mb-1">
+                                                        {{text}}
+                                                    </p>
+                                                </small>
+                                            </div>
+
+                                            <div class="text-right col-auto">
+
+                                                <!-- buttons -->
+                                                <button class="btn btn-info ml-2"
+                                                    [routerLink]="['/inicio','leccion', lesson._id]"
+                                                    title="Ver lección">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <!-- /buttons -->
+
+                                            </div>
+
+                                        </div>
+
+
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <strong>Nivel académico:</strong>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <p>
+                                                            <span
+                                                                *ngIf="academic_level.hasOwnProperty(lesson.level); else notAssigned">
+                                                                {{academic_level[lesson.level]}}
+                                                            </span>
+                                                            <ng-template #notAssigned>
+                                                                <small class="text-muted">No se ha asignado</small>
+                                                            </ng-template>
+                                                        </p>
+                                                    </div>
+
+                                                </div>
+
+
+                                            </div>
+
+
+                                            <div class="col-6">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <strong>Áreas de conocimiento:</strong>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col">
+
+                                                        <div *ngIf="lesson.knowledge_area.length > 0; else notAssigned">
+                                                            <small *ngFor="let area of lesson.knowledge_area"
+                                                                class="badge badge-info mr-1">{{area.name}}</small>
+                                                        </div>
                                                         <ng-template #notAssigned>
                                                             <small class="text-muted">No se ha asignado</small>
                                                         </ng-template>
-                                                    </p>
-                                                </div>
 
-                                            </div>
-
-
-                                        </div>
-
-
-                                        <div class="col-6">
-                                            <div class="row">
-                                                <div class="col">
-                                                    <strong>Áreas de conocimiento:</strong>
-                                                </div>
-                                            </div>
-
-                                            <div class="row">
-                                                <div class="col">
-
-                                                    <div *ngIf="lesson.knowledge_area.length > 0; else notAssigned">
-                                                        <small *ngFor="let area of lesson.knowledge_area"
-                                                            class="badge badge-info mr-1">{{area.name}}</small>
                                                     </div>
-                                                    <ng-template #notAssigned>
-                                                        <small class="text-muted">No se ha asignado</small>
-                                                    </ng-template>
 
                                                 </div>
+
 
                                             </div>
 
 
                                         </div>
 
-
-                                    </div>
-
-                                    <div *ngIf="lesson.development_group.length > 0 && lesson.state == 'completed'"
-                                        class="row">
-                                        <div class="col">
-                                            <div class="row">
-                                                <div class="col">
-                                                    <strong>Grupo de desarrollo:</strong>
+                                        <div *ngIf="lesson.development_group.length > 0 && lesson.state == 'completed'"
+                                            class="row">
+                                            <div class="col">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <strong>Grupo de desarrollo:</strong>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="card mt-1">
-                                                <div class="card-body p-1">
-                                                    <div class="row">
+                                                <div class="card mt-1">
+                                                    <div class="card-body p-1">
+                                                        <div class="row">
 
-                                                        <div *ngFor="let member of lesson.development_group"
-                                                            class="col-auto pr-0">
-                                                            <a class="text-primary">
-                                                                <button [routerLink]="['/perfil', member._id]"
-                                                                    class="btn flex-shrink-0 rounded-circle  overflow-hidden p-0"
-                                                                    style="width: 40px; height:40px;"
-                                                                    title="{{member.name}} {{member.surname}}">
-                                                                    <img *ngIf="!member.picture" class="img-fluid"
-                                                                        src="assets/images/user-default.png">
-                                                                    <img *ngIf="member.picture" class="img-fluid"
-                                                                        src="{{this.url+'get-image-user/'+ member.picture}}">
-                                                                </button>
-                                                            </a>
+                                                            <div *ngFor="let member of lesson.development_group"
+                                                                class="col-auto pr-0">
+                                                                <a class="text-primary">
+                                                                    <button [routerLink]="['/perfil', member._id]"
+                                                                        class="btn flex-shrink-0 rounded-circle  overflow-hidden p-0"
+                                                                        style="width: 40px; height:40px;"
+                                                                        title="{{member.name}} {{member.surname}}">
+                                                                        <img *ngIf="!member.picture" class="img-fluid"
+                                                                            src="assets/images/user-default.png">
+                                                                        <img *ngIf="member.picture" class="img-fluid"
+                                                                            src="{{this.url+'get-image-user/'+ member.picture}}">
+                                                                    </button>
+                                                                </a>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+
                                     </div>
+
 
                                 </div>
 
 
+
+
                             </div>
-
-
-
-
                         </div>
                     </div>
                 </div>
-            </div>
+            </ng-template>
+
         </div>
         <!-- /lesson items filtered -->
 
         <!-- Navigation -->
-        <nav *ngIf="selectedStates.length == 0"
-            class="mt-3" aria-label="Page navigation">
+        <nav *ngIf="selectedStates.length == 0" class="mt-3" aria-label="Page navigation">
             <ul class="pagination justify-content-end">
                 <li *ngIf="page > 1" class="page-item">
                     <a class="page-link bg-primary" [routerLink]="['/inicio/mis-lecciones', prevPage]">Anterior</a>

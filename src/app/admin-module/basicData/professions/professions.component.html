@@ -4,16 +4,22 @@
         <h3 class="m-0 text-primary font-weight-bolder float-left">{{title}}</h3>
 
         <div class="col">
-                <!-- Button trigger modal add -->
-                <button type="button" class="btn btn-primary float-right" data-toggle="modal"
-                    data-target="#addProfession" (click)="setAdd()"> 
-                    <i class="fas fa-plus"></i>
-                    <span class="ml-2">Agregar</span>
-                </button>
-            </div>        
+            <!-- Button trigger modal add -->
+            <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#addProfession"
+                (click)="setAdd()">
+                <i class="fas fa-plus"></i>
+                <span class="ml-2">Agregar</span>
+            </button>
+        </div>
     </div>
 
-    <div class="card-body">
+    <div *ngIf="professions.length == 0" class="card-body">
+        <h4 class="text-muted">
+            No se han registrado profesiones.
+        </h4>
+    </div>
+
+    <div *ngIf="professions.length != 0" class="card-body">
 
         <div class="form-group row">
             <div class="col">
@@ -28,7 +34,7 @@
                 </form>
             </div>
 
-            
+
 
         </div>
 
@@ -58,7 +64,6 @@
 
             </tbody>
             <tbody *ngIf="filter.value">
-
                 <tr *ngFor="let profession of allProfessions | filter: filter.value; let i=index">
                     <td>{{profession.name}}</td>
                     <td>
@@ -77,6 +82,8 @@
                 </tr>
             </tbody>
         </table>
+
+
 
 
         <nav *ngIf="!filter.value" aria-label="Page navigation">
@@ -108,18 +115,18 @@
                 </div>
 
                 <div class="modal-body">
-                    <div *ngIf="status === 'error'; successMessage"
-                        class="alert alert-danger fade show text-center" role="alert">
+                    <div *ngIf="status === 'error'; successMessage" class="alert alert-danger fade show text-center"
+                        role="alert">
                         <i class="fas fa-times-circle icon-message mr-2"></i>
                         La profesión no fue agregada correctamente. Intentalo de nuevo.
-                        
+
                     </div>
 
-                    <div *ngIf="status === 'success'; successMessage"
-                        class="alert alert-success fade show text-center" role="alert">
+                    <div *ngIf="status === 'success'; successMessage" class="alert alert-success fade show text-center"
+                        role="alert">
                         <i class="fas fa-check-circle icon-message mr-2"></i>
                         La profesión fue agregada correctamente.
-                        
+
                     </div>
 
                     <div *ngFor="let field of fieldsForm" class="form-group row">
@@ -169,18 +176,18 @@
                 </div>
 
                 <div class="modal-body">
-                    <div *ngIf="status === 'error'; successMessage"
-                        class="alert alert-danger fade show text-center" role="alert">
+                    <div *ngIf="status === 'error'; successMessage" class="alert alert-danger fade show text-center"
+                        role="alert">
                         <i class="fas fa-times-circle icon-message mr-2"></i>
                         La profesión no fue editada correctamente. Intentalo de nuevo.
-                        
+
                     </div>
 
-                    <div *ngIf="status === 'success'; successMessage"
-                        class="alert alert-success fade show text-center" role="alert">
+                    <div *ngIf="status === 'success'; successMessage" class="alert alert-success fade show text-center"
+                        role="alert">
                         <i class="fas fa-check-circle icon-message mr-2"></i>
                         Se ha editado correctamente la profesión.
-                        
+
                     </div>
 
                     <div *ngFor="let field of fieldsForm" class="form-group row">
@@ -229,10 +236,10 @@
             </div>
 
             <div class="modal-body">
-                    <div class="alert alert-warning mb-0" role="alert">
-                            <i class="fas fa-exclamation-triangle icon-message mr-2"></i>
-                            ¿Esta seguro que desea eliminar este registro?
-                        </div>
+                <div class="alert alert-warning mb-0" role="alert">
+                    <i class="fas fa-exclamation-triangle icon-message mr-2"></i>
+                    ¿Esta seguro que desea eliminar este registro?
+                </div>
             </div>
             <div class="modal-footer">
                 <button class=" btn btn-danger" data-dismiss="modal" (click)="delete()">Sí</button>

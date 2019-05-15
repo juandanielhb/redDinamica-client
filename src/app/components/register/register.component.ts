@@ -31,7 +31,7 @@ export class RegisterComponent implements OnInit {
     public institution = new Institution();
     public status;
     public token;
-    
+
 
     constructor(
         private _formBuilder: FormBuilder,
@@ -48,17 +48,17 @@ export class RegisterComponent implements OnInit {
             institution: [],
             profession: []
         };
-        
+
     }
 
     ngDoCheck(): void {
-        
+
     }
 
     ngOnInit() {
 
         this.getAllInstitutions();
-        this.getAllProfessions();    
+        this.getAllProfessions();
 
         this.registerForm = this._formBuilder.group({
             name: ['', Validators.required],
@@ -96,7 +96,7 @@ export class RegisterComponent implements OnInit {
         this.user.password = this.registerForm.value.password;
         this.user.role = this.registerForm.value.category;
         this.user.about = this.registerForm.value.experience;
- 
+
         if (this.registerForm.value.profession) {
             this.user.profession = this.registerForm.value.profession._id;
         }
@@ -111,32 +111,32 @@ export class RegisterComponent implements OnInit {
 
         if (!this.user.profession && this.registerForm.value.profession) {
 
-            if(this.registerForm.value.profession.name){
+            if (this.registerForm.value.profession.name) {
                 this.profession.name = this.registerForm.value.profession.name;
-            }else{
+            } else {
                 this.profession.name = this.registerForm.value.profession;
             }
 
             // this.profession.used = true;
 
             let responseAddProfession = await this._bDService.addProfession(this.profession).toPromise().catch(error => console.log(<any>error));
-            
+
             if (responseAddProfession.profession && responseAddProfession.profession._id) {
                 this.user.profession = responseAddProfession.profession._id;
+                localStorage.removeItem('professions');
+                this.getAllProfessions();
             } else {
                 console.log(<any>responseAddProfession);
             }
 
-            localStorage.removeItem('professions');            
-            this.getAllProfessions();
         }
-        
+
 
         if (!this.user.institution && this.registerForm.value.institution) {
 
-            if(this.registerForm.value.institution.name){
+            if (this.registerForm.value.institution.name) {
                 this.institution.name = this.registerForm.value.institution.name;
-            }else{
+            } else {
                 this.institution.name = this.registerForm.value.institution;
             }
 
@@ -145,47 +145,47 @@ export class RegisterComponent implements OnInit {
             let responseAddinstitution = await this._bDService.addInstitution(this.institution).toPromise();
             if (responseAddinstitution.institution && responseAddinstitution.institution._id) {
                 this.user.institution = responseAddinstitution.institution._id;
+                localStorage.removeItem('institutions');
+                this.getAllInstitutions();
             } else {
                 console.log(<any>responseAddinstitution);
             }
 
-            localStorage.removeItem('institutions');
-            this.getAllInstitutions();
-       }        
+        }
 
         let response = await this._userService.register(this.user).toPromise().catch((error) => {
-            this.status = "error";            
+            this.status = "error";
             console.log(<any>error);
         });
 
-        
+
         if (response.user && response.user._id) {
-            this._userService.signup(this.user).subscribe(                
+            this._userService.signup(this.user).subscribe(
                 response => {
 
-                    if(response.user && response.user._id){
-                        
-                        localStorage.setItem('identity', JSON.stringify(response.user)); 
+                    if (response.user && response.user._id) {
+
+                        localStorage.setItem('identity', JSON.stringify(response.user));
 
                         this._userService.signup(this.user, true).subscribe(
                             response => {
 
                                 this.token = response.token;
-                    
+
                                 if (this.token.length <= 0) {
                                     this.status = 'error';
                                 } else {
                                     this.status = 'success';
                                     localStorage.setItem('token', this.token);
-            
+
                                     this.getAllInstitutions();
                                     this.getAllProfessions();
                                     this.getAllAreas();
                                     this.getCounters();
-                                    this.getUnviewMessages();  
-            
+                                    this.getUnviewMessages();
+
                                     this._router.navigate(['/inicio']);
-            
+
                                 }
                             },
                             error => {
@@ -194,7 +194,7 @@ export class RegisterComponent implements OnInit {
                             }
                         )
 
-                    }else{
+                    } else {
                         this.status = 'error';
                     }
                 },
@@ -207,72 +207,58 @@ export class RegisterComponent implements OnInit {
         } else {
             this.status = "error";
             this.message = 'No ha sido posible realizar el registro, el correo electrónico ya se encuentra registrado.'
-        }       
+        }
 
     }
 
     getAllProfessions() {
-        this.allProfessions = JSON.parse(localStorage.getItem('professions'));
+        this._bDService.getAllProfessions().subscribe(
+            response => {
+                if (response.professions) {
+                    this.allProfessions = response.professions;
+                    this.items.profession = this.allProfessions;
+                    localStorage.setItem('professions', JSON.stringify(this.allProfessions));
+                }
+            }, error => {
+                console.log(<any>error);
+            });
 
-        if (!this.allProfessions) {
-
-            this._bDService.getAllProfessions().subscribe(
-                response => {
-                    if (response.professions) {
-                        this.allProfessions = response.professions;
-                        this.items.profession = this.allProfessions;
-                        localStorage.setItem('professions', JSON.stringify(this.allProfessions));
-                    }
-                }, error => {
-                    console.log(<any>error);
-                });
-        } else {
-            this.items.profession = this.allProfessions;
-        }
     }
 
     getAllAreas() {
-        this.allAreas = JSON.parse(localStorage.getItem('areas'));
 
-        if (!this.allAreas) {
+        this._bDService.getAllKnowledgeAreas().subscribe(
+            response => {
+                if (response.areas) {
+                    this.allAreas = response.areas;
+                    localStorage.setItem('areas', JSON.stringify(this.allAreas));
+                }
+            }, error => {
+                console.log(<any>error);
+            });
 
-            this._bDService.getAllKnowledgeAreas().subscribe(
-                response => {
-                    if (response.areas) {
-                        this.allAreas = response.areas;                        
-                        localStorage.setItem('areas', JSON.stringify(this.allAreas));
-                    }
-                }, error => {
-                    console.log(<any>error);
-                });
-                   
-        }
+
     }
 
     getAllInstitutions() {
-        this.allInstitutions = JSON.parse(localStorage.getItem('institutions'));
+        this._bDService.getAllInstitutions().subscribe(
+            response => {
+                if (response.institutions) {
 
-        if (!this.allInstitutions) {
-            this._bDService.getAllInstitutions().subscribe(
-                response => {
-                    if (response.institutions) {
+                    this.allInstitutions = response.institutions;
+                    this.items.institution = this.allInstitutions;
+                    localStorage.setItem('institutions', JSON.stringify(this.allInstitutions));
+                }
+            }, error => {
+                console.log(<any>error);
+            });
 
-                        this.allInstitutions = response.institutions;
-                        this.items.institution = this.allInstitutions;
-                        localStorage.setItem('institutions', JSON.stringify(this.allInstitutions));
-                    }
-                }, error => {
-                    console.log(<any>error);
-                });
-        } else {
-            this.items.institution = this.allInstitutions;
-        }
     }
 
     getCounters() {
         this._userService.getCounters().subscribe(
             response => {
-                if(response){
+                if (response) {
                     localStorage.setItem('stats', JSON.stringify(response));
                 }
             },
@@ -281,11 +267,10 @@ export class RegisterComponent implements OnInit {
             });
     }
 
-    getUnviewMessages(){
+    getUnviewMessages() {
         this._messageService.getUnviewMessages(this.token).subscribe(
             response => {
-                console.log(response.unviewed)
-                if(response.unviewed){                    
+                if (response.unviewed) {
                     localStorage.setItem('unviewedMessages', response.unviewed);
                 }
             },

@@ -12,7 +12,13 @@
         </button>
 
     </div>
-    <div class="card-body">
+    <div *ngIf="institutions.length == 0" class="card-body">
+        <h4 class="text-muted">
+            No se han registrado ciudades.
+        </h4>
+    </div>
+
+    <div *ngIf="institutions.length != 0" class="card-body">
 
 
 
@@ -41,7 +47,7 @@
             </thead>
             <tbody *ngIf="!filter.value">
                 <tr *ngFor="let institution of institutions">
-                    <td>{{institution.name}}</td>                    
+                    <td>{{institution.name}}</td>
                     <td>
                         <button type="button" class="btn btn-warning btn-sm mx-1" data-toggle="modal"
                             data-target="#editInstitution" (click)="setEditInstitution(institution)">
@@ -59,7 +65,7 @@
             <tbody *ngIf="filter.value && allInstitutions">
 
                 <tr *ngFor="let institution of allInstitutions | filter: filter.value">
-                    <td>{{institution.name}}</td>                    
+                    <td>{{institution.name}}</td>
                     <td>
                         <button type="button" class="btn btn-warning btn-sm mx-1" data-toggle="modal"
                             data-target="#editInstitution" (click)="setEditInstitution(institution)">

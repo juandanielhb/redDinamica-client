@@ -10,8 +10,13 @@
 
     </div>
 
+    <div *ngIf="resources.length == 0" class="card-body">
+        <h4 class="text-muted">
+            No se han publicado recursos.
+        </h4>
+    </div>
 
-    <div class="card-body">
+    <div *ngIf="resources.length != 0" class="card-body">
 
         <!-- Filters checkboxes -->
         <div class="form-group">

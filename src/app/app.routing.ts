@@ -16,7 +16,7 @@ const routes: Routes = [
     { path: 'registro', component: RegisterComponent,canActivate: [LandingGuard]},
     { path: 'recuperar-pass', component: RecoverPasswordComponent,canActivate: [LandingGuard]},
     { path: 'buscar', component: SearchComponent,canActivate: [LandingGuard]},
-    { path: 'seguridad', component: SecurityOptionsComponent,canActivate: [LandingGuard]},
+    { path: 'seguridad', component: SecurityOptionsComponent},
     { path: '**', component: LandingComponent, canActivate: [LandingGuard]}
 ];
 

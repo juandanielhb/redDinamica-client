@@ -4,7 +4,13 @@
         <h3 class="m-0 text-primary font-weight-bolder float-left">{{title}}</h3>
     </div>
 
-    <div class="card-body">
+    <div *ngIf="lessons.length == 0" class="card-body">
+        <h4 class="text-muted">
+            No tienes ninguna lección asignada para asesorar.
+        </h4>
+    </div>
+
+    <div *ngIf="lessons.length != 0" class="card-body">
 
         <!-- checkbox filter -->
         <div class="row">
@@ -82,13 +88,16 @@
                                                     {{lesson_states[lesson.state].label}}
                                                 </span>
                                             </h5>
-                                            <p *ngFor="let text of lesson.resume.split('\n')" class="text-break">
-                                                <small>{{text}}</small>
-                                            </p>
+                                            <small>
+                                                <p *ngFor="let text of lesson.resume.split('\n')"
+                                                    class="text-break mb-1">
+                                                    {{text}}
+                                                </p>
+                                            </small>
 
                                         </div>
 
-                                        <div class="text-right col-3">
+                                        <div class="text-right col-auto">
 
                                             <!-- buttons -->
                                             <button class="btn btn-info ml-2"
@@ -258,13 +267,16 @@
                                                     {{lesson_states[lesson.state].label}}
                                                 </span>
                                             </h5>
-                                            <p *ngFor="let text of lesson.resume.split('\n')" class="text-break">
-                                                <small>{{text}}</small>
-                                            </p>
+                                            <small>
+                                                <p *ngFor="let text of lesson.resume.split('\n')"
+                                                    class="text-break mb-1">
+                                                    {{text}}
+                                                </p>
+                                            </small>
 
                                         </div>
 
-                                        <div class="text-right col-3">
+                                        <div class="text-right col-auto">
 
                                             <!-- buttons -->
                                             <button class="btn btn-info ml-2"

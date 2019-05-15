@@ -13,7 +13,11 @@
 
             <!-- modal-body -->
             <div class="modal-body">
-                <p>{{lesson.call.text}}</p>
+                <p *ngFor="let text of lesson.call.text.split('\n')" class="text-break">
+                    {{text}}
+                </p>
+
+
 
                 <p><strong>Lección</strong></p>
                 <div class="row mb-2">
@@ -30,7 +34,9 @@
                         <strong>Resumen:</strong>
                     </div>
                     <div class="col-9">
-                        {{lesson.resume}}
+                        <p *ngFor="let text of lesson.resume.split('\n')" class="text-break">
+                            {{text}}
+                        </p>
                     </div>
                 </div>
 

@@ -40,11 +40,6 @@ export class AdviseLessonComponent implements OnInit {
 
     public states = [
         {
-            label: "Propuesta",
-            value: "proposed",
-            class: "secondary"
-        },
-        {
             label: "Asignada",
             value: "assigned",
             class: "warning"

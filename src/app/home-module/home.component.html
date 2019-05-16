@@ -28,10 +28,10 @@
                             <i class="text-ligth fas {{option.iconClass}}"></i>
                             <span class="ml-2"> {{option.spanContent}} </span>
                         </div>
-                        <span *ngIf="option.subOptions.length > 0"><i class="text-ligth fas fa-sort-down"></i></span>
+                        <span *ngIf="option.subOptions.length > 0 && identity.role != 'guest'"><i class="text-ligth fas fa-sort-down"></i></span>
                     </button>
 
-                    <div *ngIf="option.subOptions.length > 0" id="{{option.id}}" class="collapse"
+                    <div *ngIf="option.subOptions.length > 0 && identity.role != 'guest'" id="{{option.id}}" class="collapse"
                         aria-labelledby="headingOne" data-parent="#menu">
                         <div class="card-body py-2 px-0">
                             <ul class="nav flex-column">

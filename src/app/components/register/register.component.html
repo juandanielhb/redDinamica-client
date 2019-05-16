@@ -102,7 +102,7 @@
                                         <div *ngIf="f.profession.errors.required" class="invalid-feedback-select">
                                             El campo profesión es obligatorio.
                                         </div>
-                                    </div>                                    
+                                    </div>
                                 </div>
 
                                 <div class="form-group col-12">
@@ -139,7 +139,58 @@
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            Cuatro tipos de usuarios de la RedDinámica de aprendizaje colaborativo
+
+                                            <table class="table">
+                                                <tbody>
+                                                    <tr>
+                                                        <th scope="row">Facilitador</th>
+                                                        <td>
+                                                            Eres especialista en la dinámica de sistemas, te apasiona el
+                                                            tema y los aportes que puede ofrecer en el campo educativo,
+                                                            además,
+                                                            te gustaría trabajar en conjunto con docentes en la
+                                                            construcción y mejora de materiales académicos, aportando
+                                                            con la tu asesoría y guía en el proceso de desarrollo de los
+                                                            mismo, entonces registrate como facilitador.
+
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">Docente</th>
+                                                        <td>
+                                                            El perfil docente es para aquellos usuarios que se
+                                                            encuentran actualmente ejerciendo esta profesión en una
+                                                            institución educativa y están interesados en
+                                                            incluir la dinámica de sistemas en sus clases, como también,
+                                                            en participar
+                                                            en la construcción de lecciones y materiales para clases de
+                                                            las distintas
+                                                            áreas de conocimiento en las que se desempeñan.
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">Estudiante</th>
+                                                        <td>
+                                                            Si actualmente estas cursando estudios de pregrado y te
+                                                            encuentras en el proceso de aprendizaje de los conceptos de
+                                                            la dinámica de sistemas, puedes acceder al sitio,
+                                                            participar, ver las lecciones de clase creadas y descargar
+                                                            los recursos del sitio con el perfil de estudiante.
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">Invitado</th>
+                                                        <td>No encajas en ninguno de los perfiles anteriores, pero estas
+                                                            interesado en conocer y aprender sobre dinámica de sistemas,
+                                                            registrate como invitado. Con este perfil puedes
+                                                            acceder al sitio, ver las lecciones de clase creadas y
+                                                            descargar los recursos del sitio.
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">
@@ -152,7 +203,7 @@
 
                             <div class="form-group">
                                 <label for="category">
-                                    Categoria*
+                                    Perfil de usuario*
                                     <a data-toggle="modal" data-target="#help" style="cursor: pointer" title="Ayuda">
                                         <i class="fas fa-question-circle"></i>
                                     </a>

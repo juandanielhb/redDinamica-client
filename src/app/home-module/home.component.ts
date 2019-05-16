@@ -32,16 +32,16 @@ export class HomeComponent implements OnInit {
     }
 
     getMenuOptions() {
-        if(this.identity.actived){
-            return this.menuOptions;            
-        }else{
-            let menu = this.menuOptions.filter( option => {
+        if (this.identity.actived) {
+            return this.menuOptions;
+        } else {
+            let menu = this.menuOptions.filter(option => {
                 return option.id == 'start' || option.id == 'user';
             })
-            
+
             return menu;
         }
-       
+
 
     }
 
@@ -49,13 +49,22 @@ export class HomeComponent implements OnInit {
         let subOptions = option.subOptions;
 
         if (option.id == 'lesson') {
-            if (['expert','admin','delegated_admin'].includes(this.identity.role) || this.identity.canAdvise) {
+            if (['expert', 'admin', 'delegated_admin'].includes(this.identity.role) || this.identity.canAdvise) {
                 return subOptions;
             } else {
-                subOptions = option.subOptions.filter(option => {
-                    return option.text != 'Asesorar lecciones';
-                });
-                return subOptions;
+
+                if (this.identity.role == 'guest') {
+                    subOptions = option.subOptions.filter(option => {
+                        return option.text == 'Todas las lecciones';
+                    });
+                    return subOptions;
+                } else {
+                    subOptions = option.subOptions.filter(option => {
+                        return option.text != 'Asesorar lecciones';
+                    });
+                    return subOptions;
+                }
+
             }
         }
 

@@ -14,21 +14,10 @@
             <!-- modal-body -->
             <div class="modal-body">
                 <div class="mb-2">
-                    <p>Esta opción te permite compartir tu experiencia y el material que has desarrollado para aplicarlo
-                        en la escuela. Debes escoger el tipo de lección que deseas que se desarrolle.</p>
-
-                    <p>Lección tipo Consideración: En este tipo de lección el administrador decide si se publica o no.
-                        Cuando la lección es publicada, los usuarios podrán consultarla y dar opiniones sobre ella, pero
-                        sabrán que esta lección no ha seguido un desarrollo completo que certifique que la lección es
-                        confiable.</p>
-
-                    <p>Lección tipo Desarrollo: Las lecciones de este tipo pasan por un proceso de desarrollo en el cual
-                        se asigna un usuario experto que asesora la lección y decide en que momento la lección está
-                        lista para publicarse. Para estas lecciones, el administrador abre una convocatoria pública para
-                        los participantes de RedDínamica, con el fin de formar un grupo de desarrollo que se encargue de
-                        realizar el proceso de construcción y prueba de la lección; de este grupo se escoge un lider de
-                        desarrollo quien es el encargado de hacer modificaciones a la lección. Las lecciones que siguen
-                        este proceso se consideran lecciones confiables y con un buen nivel de calidad.</p>
+                    <p>
+                        En este espacio puedes compartir con la red los materiales de clase que hayas desarrollado. El administrador se encargará de enviar una convocatoria pública para formar el grupo de
+                        desarrollo de la lección de las experiencias de tipo <i>desarrollo</i> o creará un espacio en el que 
+                        puedes cargar los recursos y materiales de la lección para las tipo <i>consideración</i>.</p>
 
                 </div>
 
@@ -62,8 +51,17 @@
                             class="form-control" id="{{field.id}}"
                             [ngClass]="{'is-invalid': submitted && f[field.id].errors}">
                             <option *ngFor="let option of field.options" value="{{option.value}}">
-                                {{option.label}}</option>
+                                {{option.label}}
+                            </option>
                         </select>
+                        <small *ngIf="field.id == 'level'" id="{{field.id}}Help" class="form-text text-muted">
+                            Selecciona el nivel de madurez en el desarrollo del contenido de tu experiencia.
+                        </small>
+                        <small *ngIf="field.id == 'type'" id="{{field.id}}Help" class="form-text text-muted">
+                            <b>Desarrollo:</b> para las experiencias que desesas que pasen por el
+                            proceso de desarrollo de lecciones con la asesoría de un experto en dinámica de sistemas. <br>
+                            <b>Consideración:</b> si la lección se encuentra lo suficientemente madura para ser compartida con la red.
+                        </small>
 
                         <ng-select *ngIf="field.type == 'select' && field.autocomplete" [items]="items[field.id]"
                             bindLabel="name" formControlName="{{field.id}}" [multiple]="true" [hideSelected]="true"

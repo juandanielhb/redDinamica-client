@@ -88,7 +88,7 @@ export class CallComponent implements OnInit {
         this._userService.getAllUsers().subscribe(
             response => {             
                 this.expertUsers = response.users.filter(user => {
-                    return user.role == 'expert' || user.role == 'admin' || user.role == 'delegated_admin';
+                    return user.role == 'expert' || user.role == 'admin' || user.role == 'delegated_admin' || user.canAdvise;
                 });
             },
             error => {

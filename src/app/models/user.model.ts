@@ -15,6 +15,7 @@ export class User {
     public institution:String;
     public city:String;
     public getToken:Boolean;
+    public canAdvise;
 
     constructor(){}
 }

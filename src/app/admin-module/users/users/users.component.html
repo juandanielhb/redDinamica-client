@@ -42,7 +42,7 @@
         </div>
         <div *ngIf="!filter.value && selectedCategory.length == 0">
             <div *ngFor="let user of users">
-                <div *ngIf="identity._id != user._id" class="card">
+                <div class="card">
                     <div class="card-body">
                         <div class="row align-items-center">
                             <div class="col-1">
@@ -86,7 +86,7 @@
         </div>
         <div *ngIf="filter.value || selectedCategory.length > 0">
             <div *ngFor="let user of allUsers | filter: filter.value">
-                <div *ngIf="identity._id != user._id" class="card">
+                <div class="card">
                     <div class="card-body">
                         <div class="row align-items-center">
                             <div class="col-1">
@@ -223,7 +223,22 @@
                                 (keydown)="onKeydown($event)">
 
                         </div>
+
+                        
+
                     </div>
+                    <div *ngIf="f.category.value == 'teacher'" class="form-group row">
+                            <label for="canAdvise" class="col-4 col-form-label">
+                                <strong>Asesora lecciones</strong>
+                            </label>
+        
+                            <div class="col-8">    
+                                <select formControlName="canAdvise" class="form-control" id="canAdvise">
+                                    <option value="true">Sí</option>
+                                    <option value="false">No</option>
+                                </select>    
+                            </div>
+                        </div>
 
                 </div>
 
@@ -289,6 +304,19 @@
 
                     </div>
                 </div>
+
+                <div *ngIf="f2.category.value == 'teacher'" class="form-group row">
+                        <label for="canAdvise" class="col-4 col-form-label">
+                            <strong>Asesora lecciones</strong>
+                        </label>
+    
+                        <div class="col-8">    
+                            <select formControlName="canAdvise" class="form-control" id="canAdvise">
+                                <option value="true">Sí</option>
+                                <option value="false">No</option>
+                            </select>    
+                        </div>
+                    </div>
 
             </div>
 

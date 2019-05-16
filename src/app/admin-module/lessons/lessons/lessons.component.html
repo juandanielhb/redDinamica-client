@@ -2,7 +2,12 @@
 <div class="card">
     <div class="card-header">
         <h3 class="m-0 text-primary font-weight-bolder float-left">{{title}}</h3>
+        <button type="button" class="btn btn-primary float-right ml-3" data-toggle="modal" data-target="#add">
+            <i class="fas fa-plus"></i>
+            <span class="ml-2">Agregar</span>
+        </button>
     </div>
+
 
     <div *ngIf="lessons.length == 0" class="card-body">
         <h4 class="text-muted">
@@ -680,3 +685,5 @@
 </add-call>
 
 <call *ngIf="callLesson && areas.length>0" [lesson]="callLesson" (assigned)="setNeedReload($event)"></call>
+
+<suggest-lesson (added)="setNeedReload($event)"></suggest-lesson>

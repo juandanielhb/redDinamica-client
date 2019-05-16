@@ -99,6 +99,7 @@ export class ProposedComponent implements OnInit {
             response =>{                
                 if(response && response.lesson._id){        
                     this.getLessons(this.page);
+                    
                 }
              },
              error => {

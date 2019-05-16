@@ -32,12 +32,14 @@ import { DeleteLessonComponent } from './lessons/delete/delete-lesson.component'
 import { LessonModule } from '../lesson-module/lesson.module';
 import { AddCallComponent } from './lessons/add-call/add-call.component';
 import { CallComponent } from './lessons/call/call.component';
+import { SuggestLessonComponent } from './lessons/suggest/suggest-lesson.component';
 
 @NgModule({
     declarations: [
         AdminComponent,
         NewUsersComponent,
         LessonsComponent,
+        SuggestLessonComponent,
         DetailsLessonComponent,
         AddCallComponent,
         DeleteLessonComponent,

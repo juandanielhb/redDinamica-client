@@ -83,7 +83,8 @@ export class UsersComponent {
             profession: new FormControl('', Validators.required),
             institution: new FormControl('', Validators.required),
             city: new FormControl('', Validators.required),
-            category: new FormControl('', Validators.required)
+            category: new FormControl('', Validators.required),
+            canAdvise: new FormControl('false'),
         });
 
         this.editForm = new FormGroup({
@@ -95,6 +96,7 @@ export class UsersComponent {
             about: new FormControl(''),
             city: new FormControl(''),
             category: new FormControl(''),
+            canAdvise: new FormControl(),
             postgraduate: new FormControl('')
         });
 
@@ -205,8 +207,8 @@ export class UsersComponent {
             this.user.institution = this.addForm.value.institution._id;
         }
 
-        this.user.role = this.addForm.value.category;
-
+        this.user.role = this.addForm.value.category;        
+        this.user.canAdvise = this.addForm.value.canAdvise == 'true' ? true : false;
 
         if (!this.user.city && this.addForm.value.city) {
 
@@ -314,7 +316,8 @@ export class UsersComponent {
             city: city,
             profession: profession,
             institution: institution,
-            category: this.tempUser.role
+            category: this.tempUser.role,
+            canAdvise: this.tempUser.canAdvise.toString()
         });
 
 
@@ -335,6 +338,7 @@ export class UsersComponent {
         this.user.institution = this.tempUser.institution._id;
         this.user.profession = this.tempUser.profession._id;
         this.user.role = this.editForm.value.category;
+        this.user.canAdvise = this.editForm.value.canAdvise == 'true' ? true : false;
 
         this._userService.updateUser(this.user).subscribe(
             response => {

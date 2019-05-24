@@ -124,9 +124,8 @@
 
             <div class="row mt-2">
                 <div class="col">
-                    <p class="publication-text ">
-                        {{publication.text}}
-                    </p>
+                    <p class="publication-text" innerHTML="{{publication.text | linkify}}">                        
+                    </p> 
                 </div>
             </div>
 

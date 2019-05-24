@@ -10,6 +10,7 @@ import { ReceivedComponent } from './received/received.component';
 import { SendedComponent } from './sended/sended.component';
 import { InfoComponent } from './info/info.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { NgxLinkifyjsModule } from 'ngx-linkifyjs';
 
 
 
@@ -27,6 +28,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
         FormsModule,
         ReactiveFormsModule,
         HttpClientModule,
+        NgxLinkifyjsModule,
         MessageRoutingModule,
         MomentModule,
         NgSelectModule

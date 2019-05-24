@@ -5,6 +5,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { Routing, appRoutingProviders } from './app.routing';
 import { HttpClientModule } from '@angular/common/http';
 import { MomentModule } from 'ngx-moment';
+import { NgxLinkifyjsModule } from 'ngx-linkifyjs';
 
 // Modules
 import { HomeModule } from './home-module/home.module';
@@ -53,6 +54,7 @@ import { LandingGuard } from './guards/landing.guard';
     BrowserModule,
     FormsModule,
     NgSelectModule,
+    NgxLinkifyjsModule.forRoot(),
     HttpClientModule,
     Routing,
     ReactiveFormsModule,

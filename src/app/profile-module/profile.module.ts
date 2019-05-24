@@ -14,6 +14,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { ProfileGuard } from './guards/profile.guard';
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { PublicationsComponent } from './publications/publications.component';
+import { NgxLinkifyjsModule } from 'ngx-linkifyjs';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { PublicationsComponent } from './publications/publications.component';
         FormsModule,
         ReactiveFormsModule,
         HttpClientModule,
+        NgxLinkifyjsModule,
         ProfileRoutingModule,
         MomentModule,
         NgSelectModule,

@@ -14,6 +14,7 @@ import { RouterModule } from '@angular/router';
 import { ReviewComponent } from './review/review.component';
 import { ConversationComponent } from './conversation/conversation.component';
 import { ResourcesComponent } from './resources/resources.component';
+import { NgxLinkifyjsModule } from 'ngx-linkifyjs';
 
 
 
@@ -33,6 +34,7 @@ import { ResourcesComponent } from './resources/resources.component';
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
+        NgxLinkifyjsModule,
         HttpClientModule,
         MomentModule,
         RouterModule

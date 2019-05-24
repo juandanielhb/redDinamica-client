@@ -22,6 +22,7 @@ import { RatingResourceComponent } from './resources/rating/rating-resource.comp
 import { DetailsCallComponent } from './lessons/details/details-call.component';
 import { LessonModule } from '../lesson-module/lesson.module';
 import { AdviseLessonComponent } from './lessons/advise-lesson/advise-lesson.component';
+import { NgxLinkifyjsModule } from 'ngx-linkifyjs';
 
 
 
@@ -48,7 +49,8 @@ import { AdviseLessonComponent } from './lessons/advise-lesson/advise-lesson.com
         FormsModule,
         ReactiveFormsModule,
         MomentModule,  
-        NgSelectModule,  
+        NgSelectModule,
+        NgxLinkifyjsModule,
         LessonModule,    
         HomeRoutingModule
         

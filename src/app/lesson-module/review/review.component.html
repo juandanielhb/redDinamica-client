@@ -75,17 +75,13 @@
                                                     {{ (message.created_at | amFromUnix) | amLocale:'es' | amDateFormat:'LLL' }}
                                                 </small>
                                             </h6>
-                                            <p class="card-text">
-                                                {{message.text}}
-                                                <br>
-                                                <a *ngIf=" message.file" title="Descargar : {{message.file.fileName}}"
-                                                    href="{{this.url + 'get-lesson/' + message.file.fileName}}"
-                                                    target="_blank">
-                                                    <i class="fas fa-paperclip"></i>
-                                                    {{message.file.fileName}}
-                                                </a>
-
-                                            </p>
+                                            <p class="card-text"  innerHTML="{{message.text | linkify}}"></p>
+                                            <a *ngIf=" message.file" title="Descargar : {{message.file.fileName}}"
+                                                href="{{this.url + 'get-lesson/' + message.file.fileName}}"
+                                                target="_blank">
+                                                <i class="fas fa-paperclip"></i>
+                                                {{message.file.fileName}}
+                                            </a>
                                         </div>
                                     </div>
 
@@ -112,7 +108,7 @@
                                                     autofocus></textarea>
                                                 <div *ngIf="submitted && message.errors || maxSizeError"
                                                     class="invalid-feedback">
-                                                    <div *ngIf="message.errors.required">
+                                                    <div *ngIf="message.errors && message.errors.required">
                                                         El campo comentario es obligatorio.
                                                     </div>
                                                     <div *ngIf="maxSizeError">

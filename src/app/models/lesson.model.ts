@@ -30,6 +30,8 @@ export class Lesson{
     public version;
     public justification;
 
+    public class; // Specify the kind of lesson 
+
     constructor(){
 
     }

@@ -28,7 +28,7 @@ export class MainComponent{
 
     public postForm;
     public status;
-    public submitted;
+    public submitted = false;
 
     // Pagination
     public page; // Actual page
@@ -63,7 +63,6 @@ export class MainComponent{
             filePost: new FormControl('')
         });
 
-        this.submitted = false;
         this.page = 1;
 
         this.getPublications(this.page);
@@ -78,6 +77,7 @@ export class MainComponent{
     get f() { return this.postForm.controls; }
 
     onChanges(): void {
+
         this.postForm.get('textPost').valueChanges.subscribe(val => {
             if (val) {
                 this.status = null;
@@ -114,12 +114,9 @@ export class MainComponent{
                     if (page > this.pages && this.pages > 0) {
                         this._router.navigate(['/inicio/post', 1]);
                     }
-                } else {
-                    this.status = 'error';
                 }
             },
-            error => {
-                this.status = 'error';
+            error => {                
                 console.log(<any>error);
             }
         )
@@ -133,18 +130,32 @@ export class MainComponent{
     public filesToUpload: Array<File>;
     fileChangeEvent(fileInput: any) {
         this.filesToUpload = <Array<File>>fileInput.target.files;
+        console.log(this.filesToUpload)
     }
     
     
     public formError = false;
+    public typeError = false;
     onSubmit() {
         this.submitted = true;
 
+        // Validate not null text or file
         if (!this.postForm.value.textPost && this.filesToUpload.length <= 0) {
             this.formError = true;
             return;
+        }else{
+            this.formError = false;
         }
 
+        // Validate file type
+        if(this.filesToUpload[0]){
+            if(['image/jpeg','image/gif', 'image/png'].includes(this.filesToUpload[0].type)){
+                this.typeError = false;
+            }else{
+                this.typeError = true;
+            }
+        }       
+        
         this.publication = new Publication(
             this.postForm.value.textPost,
             this.identity._id
@@ -153,6 +164,7 @@ export class MainComponent{
         this._publicationService.addPost(this.token, this.publication).subscribe(
             response => {
                 if (response.publication) {
+
                     if (this.filesToUpload.length > 0) {
 
                         // Upload post image
@@ -162,36 +174,37 @@ export class MainComponent{
                             this.filesToUpload,
                             this.token,
                             'image'
-                        ).then((result: any) => {
-
-                            this.publication = result;
-                            this.publication = response.publication;
-                            this.getPublications(this.page);
+                        ).then((result: any) => {                            
+                            this.status = 'success';                            
 
                         }).catch((error)=>{
-                            console.log(<any> error);
+                            console.log(<any> error);                            
                             this.status = 'error';
                             return;
                         });
 
                     } else {
-                        this.getPublications(this.page);
-                    }
-
-                    this.status = 'success',
-                    this.formError = false;
-                    this.submitted = false;
-                    this.postForm.reset();
+                        this.status = 'success';
+                    } 
 
                 } else {
                     this.status = 'error';
                 }
+
+                this.submitted = false;
+                this.postForm.reset();
+                this.getPublications(this.page);
+
+                setInterval(()=>{this.status = null;}, 5000);
             },
             error => {
                 console.log(<any>error);
                 this.status = 'error';
             }
         )
+        let a:string;
+        
+        
     }
 
     public tempPublicationId;    
@@ -263,7 +276,8 @@ export class MainComponent{
                     this._publicationService.updatePublicationComments(this.token, publicationId, response.comment).subscribe(
                         response => {
                             if(response.publication && response.publication._id){
-                                this.getPublications(this.page);                                this.commentForm.reset();
+                                this.getPublications(this.page);
+                                this.commentForm.reset();
                             }
                         },
                         error => {console.log(<any>error)}
@@ -278,4 +292,14 @@ export class MainComponent{
 
 
     }    
+
+    newLines(text){
+        let innerHtml = '';
+        
+        text.split('\n').forEach(paragraph => {
+            innerHtml += `<p>${paragraph}</p>`
+        });
+
+        return innerHtml;
+    }
 }

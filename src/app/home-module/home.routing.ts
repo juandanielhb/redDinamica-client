@@ -10,12 +10,14 @@ import { MyLessonsComponent } from './lessons/my-lessons/my-lessons.component';
 import { CallsComponent } from './lessons/calls/calls.component';
 import { LessonComponent } from '../lesson-module/lesson.component';
 import { AdviseLessonComponent } from './lessons/advise-lesson/advise-lesson.component';
+import { HomeGuard } from './guards/home.guard';
 
 
 const homeRoutes: Routes = [
     {
         path: 'inicio',
         component: HomeComponent,
+        canActivate: [HomeGuard],
         children: [
             //{ path: '', redirectTo: 'add', pathMatch: 'full'},
             { path: '', component: MainComponent },

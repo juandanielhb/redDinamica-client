@@ -33,8 +33,6 @@ export class AppComponent {
         this.unviewMessages = localStorage.getItem('unviewedMessages');
     }
 
-
-
     logout(){
         localStorage.clear();
         this._router.navigate(['']);

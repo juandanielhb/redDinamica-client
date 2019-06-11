@@ -11,6 +11,7 @@ import { SendedComponent } from './sended/sended.component';
 import { InfoComponent } from './info/info.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxLinkifyjsModule } from 'ngx-linkifyjs';
+import { MessageGuard } from './guards/message.guard';
 
 
 
@@ -32,13 +33,13 @@ import { NgxLinkifyjsModule } from 'ngx-linkifyjs';
         MessageRoutingModule,
         MomentModule,
         NgSelectModule
-
+        
     ],
     exports: [
         MessageComponent
     ],
     providers: [
-            
+        MessageGuard
     ],
 })
 export class MessageModule { }

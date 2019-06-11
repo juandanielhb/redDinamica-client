@@ -5,11 +5,13 @@ import { NewMessageComponent } from './new-message/new-message.component';
 import { ReceivedComponent } from './received/received.component';
 import { SendedComponent } from './sended/sended.component';
 import { InfoComponent } from './info/info.component';
+import { MessageGuard } from './guards/message.guard';
 
 const messageRoutes: Routes = [
     {
         path: 'mensajes',
         component: MessageComponent,
+        canActivate: [MessageGuard],
         children: [
             { path: '', redirectTo: 'recibidos', pathMatch: 'full'},            
             { path: 'nuevo', component: NewMessageComponent},            

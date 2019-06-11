@@ -23,6 +23,7 @@ import { DetailsCallComponent } from './lessons/details/details-call.component';
 import { LessonModule } from '../lesson-module/lesson.module';
 import { AdviseLessonComponent } from './lessons/advise-lesson/advise-lesson.component';
 import { NgxLinkifyjsModule } from 'ngx-linkifyjs';
+import { HomeGuard } from './guards/home.guard';
 
 
 
@@ -53,12 +54,10 @@ import { NgxLinkifyjsModule } from 'ngx-linkifyjs';
         NgxLinkifyjsModule,
         LessonModule,    
         HomeRoutingModule
-        
-               
     ],
     exports: [
         HomeComponent
     ],
-    providers: [],
+    providers: [HomeGuard],
 })
 export class HomeModule { }

@@ -12,7 +12,6 @@ import { LessonsComponent } from './lessons/lessons.component';
 import { FollowsComponent } from './follows/follows.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ProfileGuard } from './guards/profile.guard';
-import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { PublicationsComponent } from './publications/publications.component';
 import { NgxLinkifyjsModule } from 'ngx-linkifyjs';
 

@@ -10,6 +10,7 @@ import { CommentService } from 'src/app/services/comment.service';
 import { GLOBAL } from 'src/app/services/global';
 import { Publication } from 'src/app/models/publication.model';
 import { Comment } from 'src/app/models/comment.model';
+import { MAX_FILE_SIZE } from 'src/app/services/DATA';
 
 @Component({
     selector: 'main',
@@ -17,7 +18,7 @@ import { Comment } from 'src/app/models/comment.model';
     styleUrls: ['./main.component.css']
 
 })
-export class MainComponent{
+export class MainComponent {
     public title: string;
     public identity;
     public token;
@@ -38,6 +39,10 @@ export class MainComponent{
     public nextPage;
     public itemsPerPage;
     public noMore = false;
+
+    public MAX_FILE_SIZE = MAX_FILE_SIZE;
+    public maxSize = MAX_FILE_SIZE * 1024 * 1024;
+    public maxSizeError = false;
 
     // Comments
     public commentForm;
@@ -116,7 +121,7 @@ export class MainComponent{
                     }
                 }
             },
-            error => {                
+            error => {
                 console.log(<any>error);
             }
         )
@@ -130,32 +135,44 @@ export class MainComponent{
     public filesToUpload: Array<File>;
     fileChangeEvent(fileInput: any) {
         this.filesToUpload = <Array<File>>fileInput.target.files;
-        console.log(this.filesToUpload)
+     
     }
-    
-    
+
+
     public formError = false;
     public typeError = false;
     onSubmit() {
         this.submitted = true;
+        this.status = null;
 
         // Validate not null text or file
         if (!this.postForm.value.textPost && this.filesToUpload.length <= 0) {
             this.formError = true;
             return;
-        }else{
+        } else {
             this.formError = false;
         }
 
-        // Validate file type
-        if(this.filesToUpload[0]){
-            if(['image/jpeg','image/gif', 'image/png'].includes(this.filesToUpload[0].type)){
+        if (this.filesToUpload[0]) {
+            // Validate file type
+            if (['image/jpeg', 'image/gif', 'image/png'].includes(this.filesToUpload[0].type)) {
                 this.typeError = false;
-            }else{
+            } else {
                 this.typeError = true;
+                return;
             }
-        }       
-        
+
+            // Validate file size
+            if (this.maxSize < this.filesToUpload[0].size) {
+                this.maxSizeError = true;
+                return;
+            } else {
+                this.maxSizeError = false;
+            }
+        }
+
+
+
         this.publication = new Publication(
             this.postForm.value.textPost,
             this.identity._id
@@ -174,18 +191,19 @@ export class MainComponent{
                             this.filesToUpload,
                             this.token,
                             'image'
-                        ).then((result: any) => {                            
-                            this.status = 'success';                            
+                        ).then((result: any) => {
+                            this.status = 'success';
+                            this.getPublications(this.page);
 
-                        }).catch((error)=>{
-                            console.log(<any> error);                            
+                        }).catch((error) => {
+                            console.log(<any>error);
                             this.status = 'error';
                             return;
                         });
 
                     } else {
                         this.status = 'success';
-                    } 
+                    }
 
                 } else {
                     this.status = 'error';
@@ -195,22 +213,19 @@ export class MainComponent{
                 this.postForm.reset();
                 this.getPublications(this.page);
 
-                setInterval(()=>{this.status = null;}, 5000);
+                setInterval(() => { this.status = null; }, 5000);
             },
             error => {
                 console.log(<any>error);
                 this.status = 'error';
             }
         )
-        let a:string;
-        
-        
     }
 
-    public tempPublicationId;    
+    public tempPublicationId;
     setDelete(publicationId) {
         this.tempPublicationId = publicationId;
-        
+
     }
 
     deletePost() {
@@ -227,9 +242,9 @@ export class MainComponent{
         );
     }
 
-    public tempCommentId;    
+    public tempCommentId;
     setDeleteComment(commentId) {
-        this.tempCommentId = commentId;        
+        this.tempCommentId = commentId;
     }
 
     deleteComment() {
@@ -244,27 +259,27 @@ export class MainComponent{
                 console.log(<any>error);
             }
         );
-    }    
+    }
 
     viewMore() {
         this.page += 1;
 
         if (this.page >= this.pages) {
             this.noMore = true;
-        }       
+        }
 
         this.getPublications(this.page, true);
     }
 
 
     public focusPublication
-    setFocusPublication(publicationId){
+    setFocusPublication(publicationId) {
         this.focusPublication = publicationId;
     }
 
 
     onCommentSubmit(publicationId) {
-        
+
         this.comment = new Comment(
             this.commentForm.value.text,
             this.identity._id
@@ -272,15 +287,15 @@ export class MainComponent{
 
         this._commentService.addComment(this.token, this.comment).subscribe(
             response => {
-                if(response.comment && response.comment._id){
+                if (response.comment && response.comment._id) {
                     this._publicationService.updatePublicationComments(this.token, publicationId, response.comment).subscribe(
                         response => {
-                            if(response.publication && response.publication._id){
+                            if (response.publication && response.publication._id) {
                                 this.getPublications(this.page);
                                 this.commentForm.reset();
                             }
                         },
-                        error => {console.log(<any>error)}
+                        error => { console.log(<any>error) }
                     );
                 }
             },
@@ -291,14 +306,16 @@ export class MainComponent{
         )
 
 
-    }    
+    }
 
-    newLines(text){
+    newLines(text) {
         let innerHtml = '';
-        
-        text.split('\n').forEach(paragraph => {
-            innerHtml += `<p>${paragraph}</p>`
-        });
+
+        if (text) {
+            text.split('\n').forEach(paragraph => {
+                innerHtml += `<p>${paragraph}</p>`
+            });
+        }
 
         return innerHtml;
     }

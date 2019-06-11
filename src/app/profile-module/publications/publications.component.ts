@@ -11,6 +11,7 @@ import { GLOBAL } from 'src/app/services/global';
 import { User } from 'src/app/models/user.model';
 import { Publication } from 'src/app/models/publication.model';
 import { Comment } from 'src/app/models/comment.model';
+import { MAX_FILE_SIZE } from 'src/app/services/DATA';
 
 @Component({
     selector: 'publications',
@@ -39,6 +40,10 @@ export class PublicationsComponent {
     public itemsPerPage;
     public noMore = false;
 
+    public MAX_FILE_SIZE = MAX_FILE_SIZE;
+    public maxSize = MAX_FILE_SIZE * 1024 * 1024;
+    public maxSizeError = false;
+    
     // Comments
     public commentForm;
     public comment;
@@ -143,9 +148,6 @@ export class PublicationsComponent {
                         this.publications = arrayA.concat(arrayB);
                     }
 
-                    // $('html, body').animate({scrollTop: $('body').prop("scrollHeight")}, 500);
-
-
                     if (page > this.pages && this.pages > 0) {
                         this._router.navigate(['/perfil', this.ownProfile._id, 1]);
                     }
@@ -168,19 +170,39 @@ export class PublicationsComponent {
     public filesToUpload: Array<File>;
     fileChangeEvent(fileInput: any) {
         this.filesToUpload = <Array<File>>fileInput.target.files;
-    }
-
+    } 
 
     public formError = false;
+    public typeError = false;
     onSubmit() {
         this.submitted = true;
 
+        // Validate not null text or file
         if (!this.postForm.value.textPost && this.filesToUpload.length <= 0) {
             this.formError = true;
             return;
+        }else{
+            this.formError = false;
         }
 
+        if (this.filesToUpload[0]) {
+            // Validate file type
+            if (['image/jpeg', 'image/gif', 'image/png'].includes(this.filesToUpload[0].type)) {
+                this.typeError = false;
+            } else {
+                this.typeError = true;
+                return;
+            }
 
+            // Validate file size
+            if (this.maxSize < this.filesToUpload[0].size) {
+                this.maxSizeError = true;
+                return;
+            } else {
+                this.maxSizeError = false;
+            }
+        }   
+        
         this.publication = new Publication(
             this.postForm.value.textPost,
             this.identity._id
@@ -188,7 +210,6 @@ export class PublicationsComponent {
 
         this._publicationService.addPost(this.token, this.publication).subscribe(
             response => {
-
                 if (response.publication) {
 
                     if (this.filesToUpload.length > 0) {
@@ -200,25 +221,29 @@ export class PublicationsComponent {
                             this.filesToUpload,
                             this.token,
                             'image'
-                        ).then((result: any) => {
-
-                            this.publication = result;
-                            this.publication = response.publication;
+                        ).then((result: any) => {                            
+                            this.status = 'success';
                             this.getUserPublications(this.page);
 
+                        }).catch((error)=>{
+                            console.log(<any> error);                            
+                            this.status = 'error';
+                            return;
                         });
-                    } else {
-                        this.getUserPublications(this.page);
-                    }
 
-                    this.status = 'success',
-                    this.formError = false;
-                    this.submitted = false;
-                    this.postForm.reset();
+                    } else {
+                        this.status = 'success';
+                    } 
 
                 } else {
                     this.status = 'error';
                 }
+
+                this.submitted = false;
+                this.postForm.reset();
+                this.getUserPublications(this.page);
+
+                setInterval(()=>{this.status = null;}, 5000);
             },
             error => {
                 console.log(<any>error);
@@ -310,5 +335,17 @@ export class PublicationsComponent {
         )
 
 
+    }
+
+    newLines(text){
+        let innerHtml = '';
+        
+        if(text){
+            text.split('\n').forEach(paragraph => {
+                innerHtml += `<p>${paragraph}</p>`
+            });
+        }
+
+        return innerHtml;
     }
 }

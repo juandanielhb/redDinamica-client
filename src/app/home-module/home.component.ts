@@ -38,37 +38,12 @@ export class HomeComponent implements OnInit {
             let menu = this.menuOptions.filter(option => {
                 return option.id == 'start' || option.id == 'user';
             })
-
             return menu;
         }
 
 
     }
 
-    getSubOptions(option) {
-        let subOptions = option.subOptions;
-
-        if (option.id == 'lesson') {
-            if (['expert', 'admin', 'delegated_admin'].includes(this.identity.role) || this.identity.canAdvise) {
-                return subOptions;
-            } else {
-
-                if (this.identity.role == 'guest') {
-                    subOptions = option.subOptions.filter(option => {
-                        return option.text == 'Todas las lecciones';
-                    });
-                    return subOptions;
-                } else {
-                    subOptions = option.subOptions.filter(option => {
-                        return option.text != 'Asesorar lecciones';
-                    });
-                    return subOptions;
-                }
-
-            }
-        }
-
-    }
 }
 
 

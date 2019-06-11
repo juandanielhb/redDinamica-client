@@ -9,40 +9,110 @@
                     <a class="card-header bg-primary text-white d-flex align-items-center px-2" style="cursor: pointer">
                         <div class="rounded-circle border-1 flex-shrink-0 overflow-hidden"
                             style="width: 40px; height:40px">
-                            <img *ngIf="!identity.picture"  class="img-fluid" src="assets/images/user-default.png"> 
-                            <img *ngIf="identity.picture" class="img-fluid" src="{{this.url+'get-image-user/'+ identity.picture}}">                             
+                            <img *ngIf="!identity.picture" class="img-fluid" src="assets/images/user-default.png">
+                            <img *ngIf="identity.picture" class="img-fluid"
+                                src="{{this.url+'get-image-user/'+ identity.picture}}">
                         </div>
                         <h4 class="card-link text-center mb-0 ml-1 text-truncate">
                             <strong>{{identity.name}} {{identity.surname}}</strong>
                         </h4>
                     </a>
                 </div>
-               
-                <div *ngFor="let option of getMenuOptions(), let ix = index" class="card mt-2 rounded">
-                    <button type="button"
-                        class="btn btn-block text-left d-flex justify-content-between py-2 {{option.buttonClass}}"
-                        data-toggle="collapse" attr.data-target="#{{option.id}}" aria-expanded="true"
-                        attr.aria-controls="{{option.id}}" [routerLink]="[option.routerLink]"
-                        >
-                        <div>
-                            <i class="text-ligth fas {{option.iconClass}}"></i>
-                            <span class="ml-2"> {{option.spanContent}} </span>
-                        </div>
-                        <span *ngIf="option.subOptions.length > 0 && identity.role != 'guest'"><i class="text-ligth fas fa-sort-down"></i></span>
-                    </button>
 
-                    <div *ngIf="option.subOptions.length > 0 && identity.role != 'guest'" id="{{option.id}}" class="collapse"
-                        aria-labelledby="headingOne" data-parent="#menu">
-                        <div class="card-body py-2 px-0">
-                            <ul class="nav flex-column">
-                                <li *ngFor="let subOption of getSubOptions(option)" subclass="nav-item">
-                                    <a class="nav-link dropdown-item text-left" [routerLink]="[subOption.routerLink]"
-                                        routerLinkActive="active">{{subOption.text}}</a>
-                                </li>
-                            </ul>
+                <div class="card mt-2 rounded">
+                    <button type="button" class="btn btn-block text-left d-flex justify-content-between py-2 btn-info"
+                        data-toggle="collapse" attr.data-target="#start" aria-expanded="true" attr.aria-controls="start"
+                        [routerLink]="['/inicio']">
+                        <div>
+                            <i class="text-ligth fas fa-home"></i>
+                            <span class="ml-2">Inicio</span>
                         </div>
-                    </div>
+                    </button>
                 </div>
+
+                <!-- lesson-button -->
+                <div *ngIf="identity.actived" class="card mt-2 rounded">
+                    <ng-container *ngIf="identity.role != 'guest'; else guestUser">
+                        <button type="button"
+                            class="btn btn-block text-left d-flex justify-content-between py-2 btn-warning pl-3"
+                            data-toggle="collapse" data-target="#lesson" aria-expanded="false" aria-controls="lesson">
+                            <div>
+                                <i class="text-ligth fas fa-file-alt"></i>
+                                <span class="ml-2">Lecciones</span>
+                            </div>
+                            <i class="text-ligth fas fa-sort-down"></i>
+                        </button>
+
+                        <div id="lesson" class="collapse">
+                            <div class="card-body py-2 px-0">
+                                <ul class="nav flex-column">
+                                    <li subclass="nav-item">
+                                        <a class="nav-link dropdown-item text-left" [routerLink]="['/inicio/lecciones']"
+                                            routerLinkActive="active">Todas las lecciones</a>
+                                    </li>
+                                    <li subclass="nav-item">
+                                        <a class="nav-link dropdown-item text-left"
+                                            [routerLink]="['/inicio/convocatorias']"
+                                            routerLinkActive="active">Convocatorias</a>
+                                    </li>
+                                    <li subclass="nav-item">
+                                        <a class="nav-link dropdown-item text-left"
+                                            [routerLink]="['/inicio/mis-lecciones']" routerLinkActive="active">Mis
+                                            lecciones</a>
+                                    </li>
+                                    <li *ngIf="identity.role == 'expert' || identity.canAdvise || identity.role == 'admin' || identity.role == 'delegated_admin'"
+                                        subclass="nav-item">
+                                        <a class="nav-link dropdown-item text-left"
+                                            [routerLink]="['/inicio/asesorar-lecciones']"
+                                            routerLinkActive="active">Asesorar
+                                            lecciones</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-template #guestUser>
+                        <button type="button"
+                            class="btn btn-block text-left d-flex justify-content-between py-2 btn-warning pl-3"
+                            data-toggle="collapse" data-target="#lesson" aria-expanded="false" aria-controls="lesson"
+                            [routerLink]="[ '/inicio/lecciones']">
+                            <div>
+                                <i class="text-ligth fas fa-file-alt"></i>
+                                <span class="ml-2">Lecciones</span>
+                            </div>
+                        </button>
+                    </ng-template>
+
+
+
+
+                </div>
+                <!-- /lesson-button -->
+
+                <div *ngIf="identity.actived" class="card mt-2 rounded">
+                    <button type="button" class="btn btn-block text-left d-flex justify-content-between btn-danger pl-3"
+                        data-toggle="collapse" attr.data-target="#resources" aria-expanded="true"
+                        attr.aria-controls="resources" [routerLink]="['/inicio/recursos']">
+                        <div>
+                            <i class="text-ligth fas fa-paperclip"></i>
+                            <span class="ml-2">Recursos</span>
+                        </div>
+                    </button>
+                </div>
+
+                <div class="card mt-2 rounded">
+                    <button type="button"
+                        class="btn btn-block text-left d-flex justify-content-between py-2 btn-success"
+                        data-toggle="collapse" attr.data-target="#user" aria-expanded="true" attr.aria-controls="user"
+                        [routerLink]="['/inicio/usuarios']">
+                        <div>
+                            <i class="text-ligth fas fa-user-friends"></i>
+                            <span class="ml-2">Usuarios</span>
+                        </div>
+                    </button>
+                </div>
+
+
             </div>
         </div>
 

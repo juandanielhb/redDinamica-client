@@ -49,9 +49,9 @@
                 <i class="fas fa-angle-left icon-message"></i>
             </button>
             
-            <button *ngIf="lesson.version" class="btn btn-primary">
+            <span *ngIf="lesson.version" class="btn btn-primary">
                 <span>V. {{lesson.version.toFixed(1)}}</span>
-            </button>
+            </span>
             
             <button *ngIf="parentUrl == 'admin' && lesson.son_lesson" class="btn btn-primary" title="Versión siguiente"
             [routerLink]="['/', parentUrl ,'leccion', lesson.son_lesson]">

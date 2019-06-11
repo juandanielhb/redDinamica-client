@@ -47,6 +47,7 @@ export class MainComponent {
     // Comments
     public commentForm;
     public comment;
+    public loading = true;
 
     constructor(
         private _userService: UserService,
@@ -119,9 +120,12 @@ export class MainComponent {
                     if (page > this.pages && this.pages > 0) {
                         this._router.navigate(['/inicio/post', 1]);
                     }
+                    
+                    this.loading = false;
                 }
             },
             error => {
+                this.loading = false;
                 console.log(<any>error);
             }
         )

@@ -61,7 +61,7 @@ export class SuggestLessonComponent implements OnInit {
                 label: "Referencias",
                 type: "textarea",
                 attr: "references",
-                required: true
+                required: false
             }
      
         ];
@@ -72,7 +72,7 @@ export class SuggestLessonComponent implements OnInit {
         this.addForm = new FormGroup({
             title: new FormControl('', Validators.required),
             resume: new FormControl('', Validators.required),
-            references: new FormControl('', Validators.required)            
+            references: new FormControl('')            
         });
     }
 

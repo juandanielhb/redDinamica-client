@@ -14,17 +14,6 @@
             <!-- modal-body -->
             <div class="modal-body">
 
-                <div *ngIf="status === 'error'; successMessage" class="alert alert-danger fade show text-center"
-                    role="alert">
-                    <i class="fas fa-times-circle icon-message mr-2"></i>
-                    {{errorMsg}}
-                </div>
-
-                <div *ngIf="status === 'success'; successMessage" class="alert alert-success fade show text-center"
-                    role="alert">
-                    <i class="fas fa-check-circle icon-message mr-2"></i>
-                    {{successMsg}}
-                </div>
 
                 <div *ngFor="let field of fields" class="form-group row">
                     <label for="{{field.id}}" class="col-3 col-form-label">
@@ -66,13 +55,30 @@
 
                     </div>
                 </div>
+
+                <div *ngIf="status === 'error'; successMessage" class="alert alert-danger fade show text-center"
+                    role="alert">
+                    <i class="fas fa-times-circle icon-message mr-2"></i>
+                    {{errorMsg}}
+                </div>
+
+                <div *ngIf="status === 'success'; successMessage" class="alert alert-success fade show text-center"
+                    role="alert">
+                    <i class="fas fa-check-circle icon-message mr-2"></i>
+                    {{successMsg}}
+                </div>
             </div>
             <!-- /modal-body -->
 
             <!-- modal-footer -->
             <div class="modal-footer">
                 <button class="btn btn-danger" data-dismiss="modal" (click)="restartValues()">Cancelar</button>
-                <button type="submit" class="btn btn-success">Guardar</button>
+                <button type="submit" class="btn btn-success">
+                    <span *ngIf="loading && !addForm.invalid" class="spinner-border spinner-border-sm" role="status"
+                        aria-hidden="true"></span>
+                    <span class="sr-only">Enviar</span>
+                    Enviar
+                </button>
             </div>
             <!-- /modal-footer -->
 

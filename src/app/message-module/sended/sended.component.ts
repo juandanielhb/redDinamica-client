@@ -27,6 +27,8 @@ export class SendedComponent implements OnInit{
     public nextPage;
 
     public messages = [];
+    
+    public loading = true;
 
     constructor(
         private _userService: UserService,
@@ -67,8 +69,12 @@ export class SendedComponent implements OnInit{
                 if (page > this.pages) {
                     this._router.navigate(['/mensajes/enviados']);
                 }
+
+                this.loading = false;
+
             },
             error => {
+                this.loading = false;
                 console.log(<any>error);
             }
         )
@@ -115,5 +121,17 @@ export class SendedComponent implements OnInit{
                 console.log(<any>error);
             }
         );
+    }
+
+    newLines(text) {
+        let innerHtml = '';
+
+        if (text) {
+            text.split('\n').forEach(paragraph => {
+                innerHtml += `<p>${paragraph}</p>`
+            });
+        }
+
+        return innerHtml;
     }
 }

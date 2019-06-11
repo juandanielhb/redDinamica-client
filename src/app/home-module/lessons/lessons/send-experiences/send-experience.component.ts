@@ -28,6 +28,7 @@ export class SendExperienceComponent implements OnInit {
 
     public status;
     public submitted;
+    public loading= false;
 
     public errorMsg;
     public successMsg;
@@ -80,10 +81,12 @@ export class SendExperienceComponent implements OnInit {
     async onSubmit() {
         let tempArray = [];
         let areasToAdd = [];
+        this.loading = true;
 
         this.submitted = true;
         
         if (this.sendForm.invalid) {
+            this.loading = false;
             return;
         }
         
@@ -109,15 +112,18 @@ export class SendExperienceComponent implements OnInit {
             .toPromise()
             .catch((error) => {
                 this.status = 'error';
+                this.loading = false;
                 console.log(<any>error);
             });
 
         if (responseAddLesson.lesson && responseAddLesson.lesson._id) {
             this.status = 'success';
             this.sendForm.reset();
+            this.loading = false;
             
         } else {
             this.status = 'error';
+            this.loading = false;
             console.log(<any>responseAddLesson);
         }
 

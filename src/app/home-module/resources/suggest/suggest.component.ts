@@ -24,6 +24,7 @@ export class SuggestComponent implements OnInit {
 
     public status;
     public submitted;
+    public loading;
 
     public errorMsg;
     public successMsg;
@@ -109,8 +110,10 @@ export class SuggestComponent implements OnInit {
 
     onSubmit() {
         this.submitted = true;
+        this.loading = true;
 
         if (this.addForm.invalid || this.maxSizeError) {
+            this.loading = false;
             return;
         }
 
@@ -143,12 +146,14 @@ export class SuggestComponent implements OnInit {
 
                             if (result.resource._id) {
                                 this.status = 'success';
+                                this.loading = false;
                             }
 
                         });
 
                     } else {
                         this.status = 'error';
+                        this.loading = false;
                     }
 
                     this.status = 'success';
@@ -156,10 +161,12 @@ export class SuggestComponent implements OnInit {
 
                 } else {
                     this.status = 'error';
+                    this.loading = false;
                 }
             },
             error => {
                 this.status = 'error';
+                this.loading = false;
                 console.log(<any>error);
             }
         );

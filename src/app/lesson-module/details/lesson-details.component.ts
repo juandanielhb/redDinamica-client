@@ -15,13 +15,16 @@ export class LessonDetailsComponent {
     public academic_level = ACADEMIC_LEVEL;    
     public lesson_states = LESSON_STATES;
     
+    public loading = true;
+
     constructor() {        
         this.url = GLOBAL.url;
     }
 
     ngOnInit(): void {
-
+        this.loading = false;
     }
 
+    
 
 }

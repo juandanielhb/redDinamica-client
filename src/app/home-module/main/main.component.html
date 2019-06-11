@@ -7,7 +7,7 @@
         </strong>
     </h2>
     <hr class="my-2 text-primary" style="border: 3px solid">
-    <p class="text-muted">Recuerda que para poder ver la sección de recursos y lecciones del sitio debes esperar a que 
+    <p class="text-muted">Recuerda que para poder ver la sección de recursos y lecciones del sitio debes esperar a que
         el administrador revise tu registro. Gracias por participar. </p>
 </div>
 
@@ -32,7 +32,8 @@
                 </div>
                 <div class="col-10 pl-0">
                     <textarea class="bg-light" formControlName="textPost" class="form-control" rows="3"
-                        (input)="onChanges()" [ngClass]="{ 'is-invalid': submitted && (formError || typeError || maxSizeError)}"></textarea>
+                        (input)="onChanges()"
+                        [ngClass]="{ 'is-invalid': submitted && (formError || typeError || maxSizeError)}"></textarea>
                     <div *ngIf="submitted && (formError || typeError || maxSizeError)" class="invalid-feedback">
                         <div *ngIf="formError">
                             Es necesario escribir algo o cargar una imagen para poder crear la publicación.
@@ -45,7 +46,7 @@
                             {{MAX_FILE_SIZE}}MB.
                         </div>
                     </div>
-                    
+
                     <small *ngIf="filesToUpload.length > 0" class="text-muted">
                         <i class="fas fa-paperclip"></i>
                         {{filesToUpload[0].name}}
@@ -87,12 +88,21 @@
     </form>
 </div>
 
-<div *ngIf="publications.length == 0" class="card-body">
+<div *ngIf="publications.length == 0 && !loading" class="card-body">
     <h4 class="text-muted">
         No hay publicaciones que mostrar. Comparte lo que quieras con los miembros de RedDinámica.
         <i class="fas fa-laugh icon-message"></i>
     </h4>
 </div>
+
+<div *ngIf="loading" class="card-body">
+    <div class="text-muted text-center">
+        <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+</div>
+
 <section *ngFor="let publication of publications">
     <div id="{{publication._id}}" class="card my-3">
         <div class="card-body">
@@ -137,7 +147,7 @@
             <div class="row mt-2">
                 <div class="col">
                     <p class="publication-text" innerHTML="{{newLines(publication.text | linkify)}}">
-                    </p>                    
+                    </p>
                 </div>
             </div>
 

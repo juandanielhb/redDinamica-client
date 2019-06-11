@@ -4,12 +4,25 @@
         <h3 class="m-0 text-primary font-weight-bolder float-left">{{title}}</h3>
     </div>
 
-    <div *ngIf="lessons.length == 0" class="card-body">
+    <div *ngIf="loading" class="card-body">
+        <div class="text-muted text-center">
+            <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="lessons.length == 0 && !loading" class="card-body">
         <h4 class="text-muted">
             Aquí se muestran las lecciones en las que estas participando. Aún no hay lecciones que mostrar.
         </h4>
-        <a class="card-link" [routerLink]="['/inicio/convocatorias']">Revisa las convocatorias abiertas y animate a
+        <p>
+        <a class="card-link" [routerLink]="['/inicio/convocatorias']">Revisa las convocatorias abiertas dando clic acá y animate a
             participar!</a>
+        </p>
+        <p>
+        <a class="card-link" [routerLink]="['/inicio/lecciones']">Si tienes algun tema para lección para proponer o quieres compartir tus experiencias. Da clic aquí.</a>
+        </p>
     </div>
 
     <div *ngIf="lessons.length != 0" class="card-body">

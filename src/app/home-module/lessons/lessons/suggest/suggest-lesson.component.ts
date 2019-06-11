@@ -24,6 +24,7 @@ export class SuggestLessonComponent implements OnInit {
 
     public status;
     public submitted;
+    public loading = false;
 
     public errorMsg;
     public successMsg;
@@ -65,8 +66,10 @@ export class SuggestLessonComponent implements OnInit {
 
     onSubmit() {
         this.submitted = true;
-
-        if (this.addForm.invalid) {
+        this.loading = true;
+        
+        if (this.addForm.invalid) {  
+            this.loading = false;          
             return;
         }
 
@@ -84,16 +87,19 @@ export class SuggestLessonComponent implements OnInit {
             response => {
                 if (response.lesson && response.lesson._id) {
                     this.status = 'success';
+                    this.loading = false;
                     this.addForm.reset();
                     
                 } else {
                     this.status = 'error';
+                    this.loading = false;          
                     console.log(<any>response);
                 }
         
             },
             error => {
                 this.status = 'error';
+                this.loading = false;          
                 console.log(<any>error);
             }
         );

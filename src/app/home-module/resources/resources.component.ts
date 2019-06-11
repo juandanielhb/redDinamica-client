@@ -43,6 +43,8 @@ export class ResourcesComponent implements OnInit {
 
     public areas;    
 
+    public loading = true;
+
     constructor(
         private _userService: UserService,
         private _resourceService: ResourceService,
@@ -125,6 +127,8 @@ export class ResourcesComponent implements OnInit {
                     if (page > this.pages) {
                         this._router.navigate(['/inicio/recursos']);
                     }
+
+                    this.loading = false;
                 }
             }, error => {
                 console.log(<any>error);

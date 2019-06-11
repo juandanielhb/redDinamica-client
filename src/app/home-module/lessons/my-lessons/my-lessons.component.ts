@@ -85,6 +85,8 @@ export class MyLessonsComponent implements OnInit {
             value: "university"
         }
     ];
+    
+    public loading = true;
 
     constructor(
         private _userService: UserService,
@@ -143,7 +145,7 @@ export class MyLessonsComponent implements OnInit {
         this._lessonService.getAllMyLessons(this.token).subscribe(
             response => {
                 if (response.lessons) {
-                    this.allLessons = response.lessons;
+                    this.allLessons = response.lessons;                    
 
                     // Filter by state
                     if (this.selectedStates.length > 0) {
@@ -175,8 +177,11 @@ export class MyLessonsComponent implements OnInit {
                     if (page > this.pages) {
                         this._router.navigate(['/inicio/mis-lecciones']);
                     }
+
+                    this.loading = false;
                 }
             }, error => {
+                this.loading = false;
                 console.log(<any>error);
             }
         );

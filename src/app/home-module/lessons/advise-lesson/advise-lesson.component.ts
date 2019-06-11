@@ -81,6 +81,8 @@ export class AdviseLessonComponent implements OnInit {
         }
     ];
 
+    public loading = true;
+
     constructor(
         private _userService: UserService,
         private _lessonService: LessonService,
@@ -170,8 +172,11 @@ export class AdviseLessonComponent implements OnInit {
                     if (page > this.pages) {
                         this._router.navigate(['/inicio/asesorar-lecciones']);
                     }
+
+                    this.loading = false;
                 }
             }, error => {
+                this.loading = false;
                 console.log(<any>error);
             }
         );

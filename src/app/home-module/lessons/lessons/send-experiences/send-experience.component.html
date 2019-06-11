@@ -15,23 +15,15 @@
             <div class="modal-body">
                 <div class="mb-2">
                     <p>
-                        En este espacio puedes compartir con la red los materiales de clase que hayas desarrollado. El administrador se encargará de enviar una convocatoria pública para formar el grupo de
-                        desarrollo de la lección de las experiencias de tipo <i>desarrollo</i> o creará un espacio en el que 
+                        En este espacio puedes compartir con la red los materiales de clase que hayas desarrollado. El
+                        administrador se encargará de enviar una convocatoria pública para formar el grupo de
+                        desarrollo de la lección de las experiencias de tipo <i>desarrollo</i> o creará un espacio en el
+                        que
                         puedes cargar los recursos y materiales de la lección para las tipo <i>consideración</i>.</p>
 
                 </div>
 
-                <div *ngIf="status === 'error'; successMessage" class="alert alert-danger fade show text-center"
-                    role="alert">
-                    <i class="fas fa-times-circle icon-message mr-2"></i>
-                    {{errorMsg}}
-                </div>
 
-                <div *ngIf="status === 'success'; successMessage" class="alert alert-success fade show text-center"
-                    role="alert">
-                    <i class="fas fa-check-circle icon-message mr-2"></i>
-                    {{successMsg}}
-                </div>
 
                 <div *ngFor="let field of fields" class="form-group row">
                     <label for="{{field.id}}" class="col-3 col-form-label">
@@ -59,8 +51,10 @@
                         </small>
                         <small *ngIf="field.id == 'type'" id="{{field.id}}Help" class="form-text text-muted">
                             <b>Desarrollo:</b> para las experiencias que deseas que pasen por el
-                            proceso de desarrollo de lecciones con la asesoría de un experto en dinámica de sistemas. <br>
-                            <b>Consideración:</b> si la lección se encuentra lo suficientemente madura para ser compartida con la red.
+                            proceso de desarrollo de lecciones con la asesoría de un experto en dinámica de sistemas.
+                            <br>
+                            <b>Consideración:</b> si la lección se encuentra lo suficientemente madura para ser
+                            compartida con la red.
                         </small>
 
                         <ng-select *ngIf="field.type == 'select' && field.autocomplete" [items]="items[field.id]"
@@ -90,13 +84,30 @@
 
                     </div>
                 </div>
+
+                <div *ngIf="status === 'error'; successMessage" class="alert alert-danger fade show text-center"
+                    role="alert">
+                    <i class="fas fa-times-circle icon-message mr-2"></i>
+                    {{errorMsg}}
+                </div>
+
+                <div *ngIf="status === 'success'; successMessage" class="alert alert-success fade show text-center"
+                    role="alert">
+                    <i class="fas fa-check-circle icon-message mr-2"></i>
+                    {{successMsg}}
+                </div>
             </div>
             <!-- /modal-body -->
 
             <!-- modal-footer -->
             <div class="modal-footer">
                 <button class="btn btn-danger" data-dismiss="modal" (click)="restartValues()">Cancelar</button>
-                <button type="submit" class="btn btn-success">Guardar</button>
+                <button type="submit" class="btn btn-success">
+                    <span *ngIf="loading && !sendForm.invalid" class="spinner-border spinner-border-sm" role="status"
+                        aria-hidden="true"></span>
+                    <span class="sr-only">Enviar</span>
+                    Enviar
+                </button>
             </div>
             <!-- /modal-footer -->
 

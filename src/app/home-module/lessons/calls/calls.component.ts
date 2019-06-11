@@ -60,6 +60,8 @@ export class CallsComponent implements OnInit {
 
     public areas;
 
+    public loading = true;
+
     constructor(
         private _userService: UserService,
         private _lessonService: LessonService,
@@ -115,9 +117,12 @@ export class CallsComponent implements OnInit {
                     if (page > this.pages) {
                         this._router.navigate(['/inicio/convocatorias']);
                     }
+
+                    this.loading = false;
                 }
 
             }, error => {
+                this.loading = false;
                 console.log(<any>error);
             }
         );

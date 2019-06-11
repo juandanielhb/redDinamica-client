@@ -84,7 +84,7 @@ export class NewMessageComponent {
 
         this._messageService.addMessage(this.token, this.message).subscribe(
             response => {
-                console.log(response)
+                
                 if(response && response.message._id){
                     this.status = 'success';
                 }else{

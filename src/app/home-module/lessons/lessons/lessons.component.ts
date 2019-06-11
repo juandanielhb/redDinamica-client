@@ -45,6 +45,8 @@ export class LessonsComponent implements OnInit {
     public selectedLevels = [];
     public orderControl;
 
+    public loading = true;
+
     public states = [
         {
             label: "Propuesta",
@@ -232,8 +234,11 @@ export class LessonsComponent implements OnInit {
                     if (page > this.pages) {
                         this._router.navigate(['/inicio/lecciones']);
                     }
+
+                    this.loading = false;
                 }
             }, error => {
+                this.loading = false;
                 console.log(<any>error);
             }
         );

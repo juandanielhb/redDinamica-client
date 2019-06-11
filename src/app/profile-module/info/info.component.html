@@ -21,9 +21,11 @@
                         <p *ngIf="identity[field.attr] && field.type == 'select' && field.autocomplete && field.id == 'city'" id="{{field.id}}">
                             {{identity[field.attr].name}}, {{identity[field.attr].state}}, {{identity[field.attr].country}}
                         </p>
-                        <p *ngIf="identity[field.attr] && field.type == 'textarea'" id="{{field.id}}">
-                            {{identity[field.attr]}}
-                        </p>
+                        <div *ngIf="identity[field.attr] && field.type == 'textarea'" id="{{field.id}}">
+                            <p *ngFor="let text of identity[field.attr].split('\n')">
+                                {{text}}
+                            </p>
+                        </div>
 
                     </div>
                 </div>               

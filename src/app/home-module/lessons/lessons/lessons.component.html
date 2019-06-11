@@ -3,17 +3,28 @@
     <div class="card-header">
         <h3 class="m-0 text-primary font-weight-bolder float-left">{{title}}</h3>
 
-        <button *ngIf="identity.role != 'guest'" type="button" class="btn btn-primary float-right ml-3" data-toggle="modal" data-target="#add">
+        <button *ngIf="identity.role != 'guest'" type="button" class="btn btn-primary float-right ml-3"
+            data-toggle="modal" data-target="#add">
             <i class="fas fa-plus"></i>
             <span class="ml-2">Sugerir leccion</span>
         </button>
-        <button *ngIf="identity.role != 'guest'" type="button" class="btn btn-secondary float-right" data-toggle="modal" data-target="#send">
+        <button *ngIf="identity.role != 'guest'" type="button" class="btn btn-secondary float-right" data-toggle="modal"
+            data-target="#send">
             <i class="fas fa-plus"></i>
             <span class="ml-2">Enviar experiencias</span>
         </button>
     </div>
 
-    <div *ngIf="lessons.length == 0" class="card-body">
+
+    <div *ngIf="loading" class="card-body">
+        <div class="text-muted text-center">
+            <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="lessons.length == 0 && !loading" class="card-body">
         <h4 class="text-muted">
             No han sido publicadas lecciones.
         </h4>

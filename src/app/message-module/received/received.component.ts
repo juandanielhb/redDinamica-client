@@ -30,6 +30,8 @@ export class ReceivedComponent {
 
     public messages = [];
 
+    public loading = true;
+    
     constructor(
         private _userService: UserService,
         private _messageService: MessageService,
@@ -71,8 +73,11 @@ export class ReceivedComponent {
                 if (page > this.pages) {
                     this._router.navigate(['/mensajes/recibidos']);
                 }
+
+                this.loading = false;
             },
             error => {
+                this.loading = false;
                 console.log(<any>error);
             }
         )
@@ -113,6 +118,8 @@ export class ReceivedComponent {
                     this.tempMessageId = null;
                     this.getReceivedMessages(this.page);
                 }
+
+
             },
             error => {
                 console.log(<any>error);
@@ -131,5 +138,16 @@ export class ReceivedComponent {
         );
     }
 
+    newLines(text) {
+        let innerHtml = '';
 
+        if (text) {
+            text.split('\n').forEach(paragraph => {
+                innerHtml += `<p>${paragraph}</p>`
+            });
+        }
+
+        return innerHtml;
+    }
+    
 }

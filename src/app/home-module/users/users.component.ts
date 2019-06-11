@@ -67,6 +67,8 @@ export class UsersComponent {
     public allProfessions: any;
     public allInstitutions;
 
+    public loading = true;
+
     constructor(
         private _bDService: BasicDataService,
         private _userService: UserService,   
@@ -212,9 +214,12 @@ export class UsersComponent {
                     if (page > this.pages) {
                         this._router.navigate(['/inicio/usuarios']);
                     }
+
+                    this.loading = false;
                     
                 }
             }, error => {
+                this.loading = false;
                 console.log(<any>error);
             }
         );

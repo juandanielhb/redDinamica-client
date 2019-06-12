@@ -39,6 +39,8 @@ export class KnowledgeAreasComponent {
     public filter;
     public allAreas = [];
 
+    public loading = true;
+
     constructor(
         private _bDService:BasicDataService,
         private _route: ActivatedRoute,
@@ -125,6 +127,8 @@ export class KnowledgeAreasComponent {
                     if(page > this.pages){
                         this._router.navigate(['/admin/areas']);
                     }
+
+                    this.loading = false;
                 }
             },error=>{
                 console.log(<any>error);

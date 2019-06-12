@@ -13,17 +13,7 @@
 
             <!-- modal-body -->
             <div class="modal-body">
-                <div *ngIf="status === 'error'; successMessage" class="alert alert-danger fade show text-center"
-                    role="alert">
-                    <i class="fas fa-times-circle icon-message mr-2"></i>
-                    {{errorMsg}}
-                </div>
 
-                <div *ngIf="status === 'success'; successMessage" class="alert alert-success fade show text-center"
-                    role="alert">
-                    <i class="fas fa-check-circle icon-message mr-2"></i>
-                    {{successMsg}}
-                </div>
 
                 <div *ngFor="let field of fields" class="form-group row">
                     <label for="{{field.id}}" class="col-3 col-form-label">
@@ -64,6 +54,18 @@
 
 
                     </div>
+                </div>
+
+                <div *ngIf="status === 'error'; successMessage" class="alert alert-danger fade show text-center"
+                    role="alert">
+                    <i class="fas fa-times-circle icon-message mr-2"></i>
+                    {{errorMsg}}
+                </div>
+
+                <div *ngIf="status === 'success'; successMessage" class="alert alert-success fade show text-center"
+                    role="alert">
+                    <i class="fas fa-check-circle icon-message mr-2"></i>
+                    {{successMsg}}
                 </div>
             </div>
             <!-- /modal-body -->

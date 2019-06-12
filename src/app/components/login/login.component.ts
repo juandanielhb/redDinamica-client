@@ -22,10 +22,11 @@ export class LoginComponent implements OnInit {
     public identity;
     public token;
 
-
     public allProfessions = [];
     public allInstitutions = [];
     public allAreas = [];
+
+    public loading;
 
     constructor(
         private _formBuilder: FormBuilder,

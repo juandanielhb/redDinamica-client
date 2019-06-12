@@ -37,6 +37,8 @@ export class ProfessionsComponent implements OnInit {
     public filter;
     public allProfessions = [];
 
+    public loading = true;
+
     constructor(
         private _bDService:BasicDataService,
         private _route: ActivatedRoute,
@@ -121,6 +123,8 @@ export class ProfessionsComponent implements OnInit {
                     if(page > this.pages){
                         this._router.navigate(['/admin/profesiones']);
                     }
+
+                    this.loading = false;
                 }
             },error=>{
                 console.log(<any>error);

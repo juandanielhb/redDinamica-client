@@ -38,6 +38,8 @@ export class InstitutionsComponent {
     public items;
     public allCities = [];
 
+    public loading = true;
+
     constructor(
         private _bDService: BasicDataService,
         private config: NgSelectConfig,
@@ -159,6 +161,8 @@ export class InstitutionsComponent {
                     if(page > this.pages){
                         this._router.navigate(['/admin/instituciones']);
                     }
+
+                    this.loading = false;
                 }
             },error=>{
                 console.log(<any>error);

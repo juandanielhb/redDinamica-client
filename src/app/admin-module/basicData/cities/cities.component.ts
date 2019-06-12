@@ -33,6 +33,8 @@ export class CitiesComponent {
     public filter;
     public allCities = [];
 
+    public loading = true;
+
     constructor(
         private _bDService: BasicDataService,
         private _route: ActivatedRoute,
@@ -128,6 +130,7 @@ export class CitiesComponent {
                         this._router.navigate(['/admin/ciudades']);
                     }
                     
+                    this.loading = false;
                 }
             },error=>{
                 console.log(<any>error);

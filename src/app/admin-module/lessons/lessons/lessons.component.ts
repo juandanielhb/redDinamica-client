@@ -94,6 +94,8 @@ export class LessonsComponent implements OnInit {
         }
     ];
 
+    public loading = true;
+
     constructor(
         private _userService: UserService,
         private _lessonService: LessonService,
@@ -266,6 +268,8 @@ export class LessonsComponent implements OnInit {
                     if (page > this.pages) {
                         this._router.navigate(['/admin/lecciones']);
                     }
+
+                    this.loading = false;
                 }
             }, error => {
                 console.log(<any>error);

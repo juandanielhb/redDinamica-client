@@ -60,6 +60,8 @@ export class UsersComponent {
     public allProfessions: any;
     public allInstitutions;
 
+    public loading = true;
+
     constructor(
         private _bDService: BasicDataService,
         private _userService: UserService,        
@@ -392,6 +394,8 @@ export class UsersComponent {
                     if (page > this.pages) {
                         this._router.navigate(['/admin/usuarios']);
                     }
+
+                    this.loading = false;
                 }
             }, error => {
                 console.log(<any>error);

@@ -32,6 +32,7 @@ export class RegisterComponent implements OnInit {
     public status;
     public token;
 
+    public loading;
 
     constructor(
         private _formBuilder: FormBuilder,

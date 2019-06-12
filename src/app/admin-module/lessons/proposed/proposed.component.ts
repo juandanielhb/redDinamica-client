@@ -24,6 +24,8 @@ export class ProposedComponent implements OnInit {
     public prevPage;
     public nextPage;
 
+    public loading = true;
+
     constructor(
         private _userService: UserService,
         private _lessonService: LessonService,
@@ -61,6 +63,8 @@ export class ProposedComponent implements OnInit {
                     if (page > this.pages) {
                         this._router.navigate(['/admin/lecciones-propuestas']);
                     }
+
+                    this.loading = false;
                 }
             }, error => {
                 console.log(<any>error);

@@ -39,7 +39,9 @@ export class ResourcesComponent implements OnInit {
     public selectedOrder = [];
     public orderControl;
 
-    public areas;    
+    public areas;  
+    
+    public loading = true;
 
     constructor(
         private _userService: UserService,
@@ -123,6 +125,8 @@ export class ResourcesComponent implements OnInit {
                     if (page > this.pages) {
                         this._router.navigate(['/admin/recursos']);
                     }
+
+                    this.loading = false;
                 }
             }, error => {
                 console.log(<any>error);

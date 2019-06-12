@@ -1,7 +1,7 @@
 <!-- Resources suggest modal-->
 <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="add" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
-        <form [formGroup]="addForm" (ngSubmit)="onSubmit()" class="modal-content" enctype="multipart/form-data"> 
+        <form [formGroup]="addForm" (ngSubmit)="onSubmit()" class="modal-content" enctype="multipart/form-data">
             <!-- modal-header -->
             <div class="modal-header">
                 <h5 class="modal-title" id="addTitle">Agregar un recurso</h5>
@@ -14,6 +14,51 @@
             <!-- modal-body -->
             <div class="modal-body">
 
+
+
+                <div *ngFor="let field of fields" class="form-group row">
+
+                    <label for="{{field.id}}" class="col-3 col-form-label">
+                        <strong>{{field.label}}<span *ngIf="field.required">*</span></strong>
+                    </label>
+
+                    <div class="col-9">
+                        <input *ngIf="field.type == 'text'" type="text" class="form-control" id="{{field.id}}"
+                            autocomplete="off" formControlName="{{field.id}}"
+                            [ngClass]="{ 'is-invalid': submitted && f[field.id].errors}">
+
+                        <textarea *ngIf="field.type === 'textarea'" class="form-control" id="experience" rows="3"
+                            formControlName="{{field.id}}" [ngClass]="{ 'is-invalid': submitted && f[field.id].errors}">
+                            </textarea>
+
+                        <select *ngIf="field.type == 'select'" formControlName="{{field.id}}" class="form-control"
+                            id="{{field.id}}" [ngClass]="{'is-invalid': submitted && f[field.id].errors}"
+                            (input)="setDisabled()">
+                            <option *ngFor="let option of field.options" value="{{option.value}}">
+                                {{option.label}}</option>
+                        </select>
+
+                        <input *ngIf="field.type == 'file'" formControlName="{{field.id}}" type="file"
+                            class="form-control" name="file" id="{{field.id}}" (change)="fileChangeEvent($event)"
+                            [ngClass]="{'is-invalid': submitted && f[field.id].errors|| maxSizeError}">
+
+                        <div *ngIf="submitted && f[field.id].errors" class="invalid-feedback">
+                            <div *ngIf="f[field.id].errors.required">
+                                El campo {{field.label}} es obligatorio.
+                            </div>
+                        </div>
+                        <div *ngIf="maxSizeError && field.id == 'file'" class="invalid-feedback">
+                            <div *ngIf="maxSizeError">
+                                El archivo es demasiado grande, el tamaño maximo permitido es de 20MB.
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
                 <div *ngIf="status === 'error'; successMessage" class="alert alert-danger fade show text-center"
                     role="alert">
                     <i class="fas fa-times-circle icon-message mr-2"></i>
@@ -25,50 +70,7 @@
                     <i class="fas fa-check-circle icon-message mr-2"></i>
                     {{successMsg}}
                 </div>
-
-                <div *ngFor="let field of fields" class="form-group row">
-
-                    <label for="{{field.id}}" class="col-3 col-form-label">
-                        <strong>{{field.label}}<span *ngIf="field.required">*</span></strong>
-                    </label>
-
-                    <div class="col-9">
-                            <input *ngIf="field.type == 'text'" type="text" class="form-control" id="{{field.id}}"
-                                autocomplete="off" formControlName="{{field.id}}"
-                                [ngClass]="{ 'is-invalid': submitted && f[field.id].errors}">
-
-                                <textarea *ngIf="field.type === 'textarea'" class="form-control" id="experience" rows="3"
-                                formControlName="{{field.id}}" [ngClass]="{ 'is-invalid': submitted && f[field.id].errors}">
-                            </textarea>
-    
-                            <select *ngIf="field.type == 'select'" formControlName="{{field.id}}" class="form-control"
-                                id="{{field.id}}" [ngClass]="{'is-invalid': submitted && f[field.id].errors}"
-                                (input)="setDisabled()">
-                                <option *ngFor="let option of field.options" value="{{option.value}}">
-                                    {{option.label}}</option>
-                            </select>
-    
-                            <input *ngIf="field.type == 'file'" formControlName="{{field.id}}" type="file"
-                                class="form-control" name="file" id="{{field.id}}" (change)="fileChangeEvent($event)"
-                                [ngClass]="{'is-invalid': submitted && f[field.id].errors|| maxSizeError}">
-    
-                            <div *ngIf="submitted && f[field.id].errors" class="invalid-feedback">
-                                <div *ngIf="f[field.id].errors.required">
-                                    El campo {{field.label}} es obligatorio.
-                                </div>                                
-                            </div>
-                            <div *ngIf="maxSizeError && field.id == 'file'" class="invalid-feedback">
-                                <div *ngIf="maxSizeError">
-                                    El archivo es demasiado grande, el tamaño maximo permitido es de 20MB.
-                                </div>
-                            </div>
-    
-    
-                        </div>
-
-                        
-                    </div>
-                </div>
+            </div>
             <!-- /modal-body -->
 
             <!-- modal-footer -->
@@ -80,7 +82,7 @@
 
         </form>
 
-        
+
     </div>
 </div>
 <!-- /Resources suggest modal-->

@@ -28,6 +28,7 @@ export class NewUsersComponent {
     public prevPage;
     public nextPage;
 
+    public loading = true;
 
     constructor(
         private _UserService: UserService,
@@ -53,6 +54,8 @@ export class NewUsersComponent {
                     if(page > this.pages){
                         this._router.navigate(['/admin/usuarios-nuevos']);
                     }
+
+                    this.loading = false;
                 }
             },error=>{
                 console.log(<any>error);

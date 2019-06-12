@@ -32,6 +32,8 @@ export class ProposedResourceComponent implements OnInit {
 
     public areas;  
 
+    public loading = true;
+
     constructor(
         private _userService: UserService,
         private _resourceService: ResourceService,
@@ -70,6 +72,8 @@ export class ProposedResourceComponent implements OnInit {
                     if (page > this.pages) {
                         this._router.navigate(['/admin/recursos-propuestos']);
                     }
+
+                    this.loading = false;
                 }
             }, error => {
                 console.log(<any>error);

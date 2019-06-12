@@ -40,7 +40,17 @@
 
 
         </div>
-        <div *ngIf="!filter.value && selectedCategory.length == 0">
+
+
+        <div *ngIf="loading" class="card-body">
+            <div class="text-muted text-center">
+                <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="!filter.value && selectedCategory.length == 0 && !loading">
             <div *ngFor="let user of users">
                 <div class="card">
                     <div class="card-body">
@@ -155,19 +165,7 @@
 
 
                 <div class="modal-body">
-                    <div *ngIf="status === 'error'; successMessage" class="alert alert-danger fade show text-center"
-                        role="alert">
-                        <i class="fas fa-times-circle icon-message mr-2"></i>
-                        El usuario no fue agregado correctamente. Es posible que el correo electrónico suministrado ya
-                        se encuentra registrado.
-                    </div>
 
-                    <div *ngIf="status === 'success'; successMessage" class="alert alert-success fade show text-center"
-                        role="alert">
-                        <i class="fas fa-check-circle icon-message mr-2"></i>
-                        El usuario fue agregado correctamente.
-
-                    </div>
 
                     <div *ngFor="let field of addFieldsForm" class="form-group row">
                         <label for="{{field.id}}" class="col-4 col-form-label">
@@ -224,22 +222,35 @@
 
                         </div>
 
-                        
+
 
                     </div>
                     <div *ngIf="f.category.value == 'teacher'" class="form-group row">
-                            <label for="canAdvise" class="col-4 col-form-label">
-                                <strong>Asesora lecciones</strong>
-                            </label>
-        
-                            <div class="col-8">    
-                                <select formControlName="canAdvise" class="form-control" id="canAdvise">
-                                    <option value="true">Sí</option>
-                                    <option value="false">No</option>
-                                </select>    
-                            </div>
-                        </div>
+                        <label for="canAdvise" class="col-4 col-form-label">
+                            <strong>Asesora lecciones</strong>
+                        </label>
 
+                        <div class="col-8">
+                            <select formControlName="canAdvise" class="form-control" id="canAdvise">
+                                <option value="true">Sí</option>
+                                <option value="false">No</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div *ngIf="status === 'error'; successMessage" class="alert alert-danger fade show text-center"
+                        role="alert">
+                        <i class="fas fa-times-circle icon-message mr-2"></i>
+                        El usuario no fue agregado correctamente. Es posible que el correo electrónico suministrado ya
+                        se encuentra registrado.
+                    </div>
+
+                    <div *ngIf="status === 'success'; successMessage" class="alert alert-success fade show text-center"
+                        role="alert">
+                        <i class="fas fa-check-circle icon-message mr-2"></i>
+                        El usuario fue agregado correctamente.
+
+                    </div>
                 </div>
 
                 <div class="modal-footer">
@@ -266,18 +277,7 @@
 
 
             <div class="modal-body">
-                <div *ngIf="editStatus === 'error'; successMessage" class="alert alert-danger fade show text-center"
-                    role="alert">
-                    <i class="fas fa-times-circle icon-message mr-2"></i>
-                    El usuario fue editado correctamente.
-                </div>
 
-                <div *ngIf="editStatus === 'success'; successMessage" class="alert alert-success fade show text-center"
-                    role="alert">
-                    <i class="fas fa-check-circle icon-message mr-2"></i>
-                    El usuario no ha podido ser editado correctamente.
-
-                </div>
 
                 <div *ngFor="let field of editFieldsForm" class="form-group row">
                     <label for="{{field.id}}" class="col-4 col-form-label">
@@ -306,17 +306,30 @@
                 </div>
 
                 <div *ngIf="f2.category.value == 'teacher'" class="form-group row">
-                        <label for="canAdvise" class="col-4 col-form-label">
-                            <strong>Asesora lecciones</strong>
-                        </label>
-    
-                        <div class="col-8">    
-                            <select formControlName="canAdvise" class="form-control" id="canAdvise">
-                                <option value="true">Sí</option>
-                                <option value="false">No</option>
-                            </select>    
-                        </div>
+                    <label for="canAdvise" class="col-4 col-form-label">
+                        <strong>Asesora lecciones</strong>
+                    </label>
+
+                    <div class="col-8">
+                        <select formControlName="canAdvise" class="form-control" id="canAdvise">
+                            <option value="true">Sí</option>
+                            <option value="false">No</option>
+                        </select>
                     </div>
+                </div>
+
+                <div *ngIf="editStatus === 'error'; successMessage" class="alert alert-danger fade show text-center"
+                    role="alert">
+                    <i class="fas fa-times-circle icon-message mr-2"></i>
+                    El usuario fue editado correctamente.
+                </div>
+
+                <div *ngIf="editStatus === 'success'; successMessage" class="alert alert-success fade show text-center"
+                    role="alert">
+                    <i class="fas fa-check-circle icon-message mr-2"></i>
+                    El usuario no ha podido ser editado correctamente.
+
+                </div>
 
             </div>
 

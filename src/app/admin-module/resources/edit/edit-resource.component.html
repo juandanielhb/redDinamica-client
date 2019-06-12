@@ -14,17 +14,7 @@
             <!-- modal-body -->
 
             <div class="modal-body">
-                <div *ngIf="status === 'error'; successMessage" class="alert alert-danger fade show text-center"
-                    role="alert">
-                    <i class="fas fa-times-circle icon-message mr-2"></i>
-                    {{errorMsg}}
-                </div>
 
-                <div *ngIf="status === 'success'; successMessage" class="alert alert-success fade show text-center"
-                    role="alert">
-                    <i class="fas fa-check-circle icon-message mr-2"></i>
-                    {{successMsg}}
-                </div>
 
                 <div class="form-group row">
                     <label for="name" class="col-3 col-form-label">
@@ -111,9 +101,6 @@
                     </div>
                 </div>
 
-
-
-
                 <div *ngIf="resource.type != 'link'" class="form-group row">
                     <label for="type" class="col-3 col-form-label">
                         <strong>Nuevo archivo</strong>
@@ -131,7 +118,6 @@
                         </div>
                     </div>
                 </div>
-
 
                 <div class="form-group row">
                     <label for="source" class="col-3 col-form-label">
@@ -152,6 +138,18 @@
                         </div>
                     </div>
                 </div>
+
+                <div *ngIf="status === 'error'; successMessage" class="alert alert-danger fade show text-center"
+                role="alert">
+                <i class="fas fa-times-circle icon-message mr-2"></i>
+                {{errorMsg}}
+            </div>
+
+            <div *ngIf="status === 'success'; successMessage" class="alert alert-success fade show text-center"
+                role="alert">
+                <i class="fas fa-check-circle icon-message mr-2"></i>
+                {{successMsg}}
+            </div>
 
             </div>
             <!-- /modal-body -->

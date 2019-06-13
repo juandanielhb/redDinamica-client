@@ -76,6 +76,7 @@ export class LoginComponent implements OnInit {
 
                 if (!this.identity || !this.identity._id) {
                     this.invalid = true;
+                    this.loading = false;
                     this.emailFound = response.email;
 
                 } else {
@@ -87,6 +88,8 @@ export class LoginComponent implements OnInit {
 
                             if (this.token.length <= 0) {
                                 this.invalid = true;
+                                this.loading = false;
+
                             } else {
                                 localStorage.setItem('token', this.token);
 
@@ -102,6 +105,7 @@ export class LoginComponent implements OnInit {
                         },
                         error => {
                             console.log(<any>error);
+                            this.loading = false;
                             this.invalid = true;
                         }
                     );
@@ -110,6 +114,7 @@ export class LoginComponent implements OnInit {
             },
             error => {
                 console.log(<any>error);
+                this.loading = false;
                 this.invalid = true;
             }
         );

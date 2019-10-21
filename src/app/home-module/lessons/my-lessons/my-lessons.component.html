@@ -17,11 +17,13 @@
             Aquí se muestran las lecciones en las que estas participando. Aún no hay lecciones que mostrar.
         </h4>
         <p>
-        <a class="card-link" [routerLink]="['/inicio/convocatorias']">Revisa las convocatorias abiertas dando clic acá y animate a
-            participar!</a>
+            <a class="card-link" [routerLink]="['/inicio/convocatorias']">Revisa las convocatorias abiertas dando clic
+                acá y animate a
+                participar!</a>
         </p>
         <p>
-        <a class="card-link" [routerLink]="['/inicio/lecciones']">Si tienes algun tema para lección para proponer o quieres compartir tus experiencias. Da clic aquí.</a>
+            <a class="card-link" [routerLink]="['/inicio/lecciones']">Si tienes algun tema para lección para proponer o
+                quieres compartir tus experiencias. Da clic aquí.</a>
         </p>
     </div>
 
@@ -162,9 +164,11 @@
                                             <div class="row">
                                                 <div class="col">
 
-                                                    <div *ngIf="lesson.knowledge_area.length > 0; else notAssigned">
+                                                    <div *ngIf="lesson.knowledge_area.length > 0; else notAssigned"
+                                                        style="display: flex; flex-wrap: wrap;">
                                                         <small *ngFor="let area of lesson.knowledge_area"
-                                                            class="badge badge-info mr-1">{{area.name}}</small>
+                                                            class="badge badge-info mr-1 mb-1 text-truncate"
+                                                            title="{{area.name}}">{{area.name}}</small>
                                                     </div>
                                                     <ng-template #notAssigned>
                                                         <small class="text-muted">No se ha asignado</small>
@@ -347,10 +351,11 @@
 
                                                 <div class="row">
                                                     <div class="col">
-
-                                                        <div *ngIf="lesson.knowledge_area.length > 0; else notAssigned">
-                                                            <small *ngFor="let area of lesson.knowledge_area"
-                                                                class="badge badge-info mr-1">{{area.name}}</small>
+                                                        <div *ngIf="lesson.knowledge_area.length > 0; else notAssigned"
+                                                            style="display: flex; flex-wrap: wrap;"> <small
+                                                                *ngFor="let area of lesson.knowledge_area"
+                                                                class="badge badge-info mr-1 mb-1 text-truncate"
+                                                                title="{{area.name}}">{{area.name}}</small>
                                                         </div>
                                                         <ng-template #notAssigned>
                                                             <small class="text-muted">No se ha asignado</small>

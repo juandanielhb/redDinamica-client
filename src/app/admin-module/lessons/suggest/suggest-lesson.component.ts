@@ -88,6 +88,7 @@ export class SuggestLessonComponent implements OnInit {
     }
 
     onSubmit() {
+
         this.submitted = true;
 
         if (this.addForm.invalid) {
@@ -114,6 +115,8 @@ export class SuggestLessonComponent implements OnInit {
                     this.status = 'error';
                     console.log(<any>response);
                 }
+
+                
         
             },
             error => {
@@ -121,8 +124,9 @@ export class SuggestLessonComponent implements OnInit {
                 console.log(<any>error);
             }
         );
-  
-        this.submitted = false;        
+        this.submitted = false;
+        document.querySelector('.modal-body').scrollTop = 0;
+
     }
 
 

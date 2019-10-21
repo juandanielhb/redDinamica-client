@@ -238,11 +238,13 @@
 
                                             <div class="row">
                                                 <div class="col">
-
-                                                    <div *ngIf="lesson.knowledge_area.length > 0; else notAssigned">
+                                                    <div *ngIf="lesson.knowledge_area.length > 0; else notAssigned"
+                                                        style="display: flex; flex-wrap: wrap;">
                                                         <small *ngFor="let area of lesson.knowledge_area"
-                                                            class="badge badge-info mr-1">{{area.name}}</small>
+                                                            class="badge badge-info mr-1 mb-1 text-truncate"
+                                                            title="{{area.name}}">{{area.name}}</small>
                                                     </div>
+
                                                     <ng-template #notAssigned>
                                                         <small class="text-muted">No se ha asignado</small>
                                                     </ng-template>
@@ -462,9 +464,11 @@
                                             <div class="row">
                                                 <div class="col">
 
-                                                    <div *ngIf="lesson.knowledge_area.length > 0; else notAssigned">
+                                                    <div *ngIf="lesson.knowledge_area.length > 0; else notAssigned"
+                                                        style="display: flex; flex-wrap: wrap;">
                                                         <small *ngFor="let area of lesson.knowledge_area"
-                                                            class="badge badge-info mr-1">{{area.name}}</small>
+                                                            class="badge badge-info mr-1 mb-1 text-truncate"
+                                                            title="{{area.name}}">{{area.name}}</small>
                                                     </div>
                                                     <ng-template #notAssigned>
                                                         <small class="text-muted">No se ha asignado</small>

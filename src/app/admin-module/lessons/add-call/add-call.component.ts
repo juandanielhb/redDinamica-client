@@ -177,7 +177,6 @@ export class AddCallComponent implements OnInit {
                     this.newLesson.call = call;
                     this.newLesson.father_lesson = this.lesson._id;
                     this.editLesson(this.newLesson);
-
                     this.added.emit();
 
 

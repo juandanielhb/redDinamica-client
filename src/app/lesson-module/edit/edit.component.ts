@@ -39,8 +39,8 @@ export class EditComponent implements OnInit {
         this.url = GLOBAL.url;
         this.token = this._userService.getToken();
 
-        this.errorMsg = 'Hubo un error creando la convocatoria. Intentalo de nuevo más tarde.';
-        this.successMsg = 'Se ha creado la convocatoria correctamente.';
+        this.errorMsg = 'Hubo un error editando la lección. Intentalo de nuevo más tarde.';
+        this.successMsg = 'Se editado la lección correctamente.';
 
         this.lessonForm = new FormGroup({
             title: new FormControl('', Validators.required),

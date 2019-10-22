@@ -112,7 +112,7 @@
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-            <form [formGroup]="institutionForm" (ngSubmit)="onSubmit()">
+            <form [formGroup]="institutionForm" (ngSubmit)="onSubmit()" (input)="onChanges()">
                 <div class="modal-header">
                     <h5 class="modal-title" id="addInstitutionTitle">Agregar una institución</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -183,7 +183,7 @@
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-            <form [formGroup]="editInstitutionForm" (ngSubmit)="onEditSubmit()">
+            <form [formGroup]="editInstitutionForm" (ngSubmit)="onEditSubmit()" (input)="onChanges()">
                 <div class="modal-header">
                     <h5 class="modal-title" id="editInstitutionTitle">Editar institución</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -202,7 +202,7 @@
 
                     <div *ngIf="status === 'success'; successMessage" class="alert alert-success fade show text-center"
                         role="alert">
-                        <i class="fas fa-times-circle icon-message mr-2"></i>
+                        <i class="fas fa-check-circle icon-message mr-2"></i>
                         La institución fue agregada correctamente.
 
                     </div>

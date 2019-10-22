@@ -119,8 +119,8 @@ export class InstitutionsComponent {
             response => {
 
                 if (response.institution && response.institution._id) {
-                    this.status = 'success';
                     this.institutionForm.reset();
+                    this.status = 'success';
                     this.submitted = false;
                     this.getInstitutions(this.page);
                     this.getAllInstitutions();
@@ -281,5 +281,22 @@ export class InstitutionsComponent {
             // Trigger the button element with a click
             document.getElementById("save").click();
         }
+    }
+
+    onChanges(): void {
+
+        this.institutionForm.valueChanges.subscribe(val => {
+            if (val) {
+                this.status = null;
+                this.submitted = false;
+            }
+        });
+
+        this.editInstitutionForm.valueChanges.subscribe(val => {
+            if (val) {
+                this.status = null;
+                this.submitted = false;
+            }
+        });
     }
 }

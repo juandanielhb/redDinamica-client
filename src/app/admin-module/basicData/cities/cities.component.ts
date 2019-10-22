@@ -73,6 +73,7 @@ export class CitiesComponent {
     }
     
     onSubmit() {
+        this.status = null;
         this.submitted = true;
 
         if (this.cityForm.invalid) {
@@ -85,13 +86,12 @@ export class CitiesComponent {
 
         this._bDService.addCity(this.city).subscribe(
             response => {
-
                 if (response.city && response.city._id) {
-                    this.status = 'success';
                     this.cityForm.reset();                    
+                    this.status = 'success';
                     this.submitted = false;                    
                     this.getCities(this.page);
-                    this.getAllCities();     
+                    this.getAllCities();                
 
                 } else {
                     this.status = 'error';
@@ -164,8 +164,6 @@ export class CitiesComponent {
 
         this._bDService.editCity(this.tempCity._id, this.city).subscribe(
             response => {
-                console.log(response.city);
-
                 if (response.city && response.city._id) {
                     this.status = 'success';
                     this.submitted = false;
@@ -233,5 +231,22 @@ export class CitiesComponent {
             // Trigger the button element with a click
             document.getElementById("save").click();
         }
+    }
+
+    onChanges(): void {
+
+        this.cityForm.valueChanges.subscribe(val => {
+            if (val) {
+                this.status = null;
+                this.submitted = false;
+            }
+        });
+
+        this.editCityForm.valueChanges.subscribe(val => {
+            if (val) {
+                this.status = null;
+                this.submitted = false;
+            }
+        });
     }
 }

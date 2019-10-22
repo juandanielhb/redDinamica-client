@@ -1,6 +1,6 @@
 <!-- lessons suggest modal-->
 <div class="modal fade" id="details" tabindex="-1" role="dialog" aria-labelledby="details" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <!-- modal-header -->
             <div class="modal-header">
@@ -19,7 +19,7 @@
                         <strong>Título:</strong>
                     </label>
 
-                    <div class="col">
+                    <div class="col-9">
                         <p>{{lesson.title}}</p>
                     </div>
                 </div>
@@ -28,11 +28,11 @@
                     <label class="col-3">
                         <strong>Áreas de conocimiento:</strong>
                     </label>
-                    
-                    <div class="col">
-                        <div *ngIf="lesson.knowledge_area.length > 0">
+                    <div class="col-9">
+                        <div *ngIf="lesson.knowledge_area.length > 0" style="display: flex; flex-wrap: wrap;">
                             <small *ngFor="let area of lesson.knowledge_area"
-                                class="badge badge-info mr-1">{{area.name}}</small>
+                                class="badge badge-info mr-1 mb-1 text-truncate"
+                                title="{{area.name}}">{{area.name}}</small>
                         </div>
                     </div>
                 </div>
@@ -44,7 +44,7 @@
                         <strong>Resumen:</strong>
                     </label>
 
-                    <div class="col">
+                    <div class="col-9">
                         <p *ngFor="let text of lesson.resume.split('\n')" class="text-break">
                             {{text}}
                         </p>
@@ -56,7 +56,7 @@
                         <strong>Justificación:</strong>
                     </label>
 
-                    <div class="col">
+                    <div class="col-9">
                         <p *ngFor="let text of lesson.justification.split('\n')" class="text-break">
                             {{text}}
                         </p>
@@ -68,7 +68,7 @@
                         <strong>Referencias:</strong>
                     </label>
 
-                    <div class="col">
+                    <div class="col-9">
                         <p *ngFor="let text of lesson.references.split('\n')" class="text-break">
                             {{text}}
                         </p>
@@ -80,7 +80,7 @@
                         <strong>Nivel de desarrollo:</strong>
                     </label>
 
-                    <div class="col">
+                    <div class="col-9">
                         <p>{{level[lesson.development_level]}}</p>
                     </div>
                 </div>
@@ -90,7 +90,7 @@
                         <strong>Tipo:</strong>
                     </label>
 
-                    <div class="col">
+                    <div class="col-9">
                         <p>{{type[lesson.type]}}</p>
                     </div>
                 </div>

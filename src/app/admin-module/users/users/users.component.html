@@ -154,7 +154,7 @@
 <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="add" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-            <form [formGroup]="addForm" (ngSubmit)="onSubmit()">
+            <form [formGroup]="addForm" (ngSubmit)="onSubmit()" (input)="onChanges()">
                 <div class="modal-header">
                     <h5 class="modal-title" id="addTitle">Agregar un usuario</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"
@@ -166,6 +166,19 @@
 
                 <div class="modal-body">
 
+                    <div *ngIf="status === 'error'; successMessage" class="alert alert-danger fade show text-center"
+                        role="alert">
+                        <i class="fas fa-times-circle icon-message mr-2"></i>
+                        El usuario no fue agregado correctamente. Es posible que el correo electrónico suministrado ya
+                        se encuentra registrado.
+                    </div>
+
+                    <div *ngIf="status === 'success'; successMessage" class="alert alert-success fade show text-center"
+                        role="alert">
+                        <i class="fas fa-check-circle icon-message mr-2"></i>
+                        El usuario fue agregado correctamente.
+
+                    </div>
 
                     <div *ngFor="let field of addFieldsForm" class="form-group row">
                         <label for="{{field.id}}" class="col-4 col-form-label">
@@ -238,19 +251,7 @@
                         </div>
                     </div>
 
-                    <div *ngIf="status === 'error'; successMessage" class="alert alert-danger fade show text-center"
-                        role="alert">
-                        <i class="fas fa-times-circle icon-message mr-2"></i>
-                        El usuario no fue agregado correctamente. Es posible que el correo electrónico suministrado ya
-                        se encuentra registrado.
-                    </div>
 
-                    <div *ngIf="status === 'success'; successMessage" class="alert alert-success fade show text-center"
-                        role="alert">
-                        <i class="fas fa-check-circle icon-message mr-2"></i>
-                        El usuario fue agregado correctamente.
-
-                    </div>
                 </div>
 
                 <div class="modal-footer">
@@ -317,20 +318,17 @@
                         </select>
                     </div>
                 </div>
-
                 <div *ngIf="editStatus === 'error'; successMessage" class="alert alert-danger fade show text-center"
                     role="alert">
                     <i class="fas fa-times-circle icon-message mr-2"></i>
-                    El usuario fue editado correctamente.
+                    El usuario no ha podido ser editado correctamente.
                 </div>
 
                 <div *ngIf="editStatus === 'success'; successMessage" class="alert alert-success fade show text-center"
                     role="alert">
                     <i class="fas fa-check-circle icon-message mr-2"></i>
-                    El usuario no ha podido ser editado correctamente.
-
+                    El usuario fue editado correctamente.
                 </div>
-
             </div>
 
             <div class="modal-footer">

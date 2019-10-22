@@ -284,6 +284,8 @@ export class UsersComponent {
         this.getAllUsers();
         this.setAdd();
 
+        document.querySelector('.modal-body').scrollTop = 0;
+
     }
 
     public tempUser;
@@ -357,7 +359,8 @@ export class UsersComponent {
                 this.editStatus = 'error';
                 console.log(<any>error);
             }
-        )
+        );
+
     }
 
     actualPage() {
@@ -482,5 +485,15 @@ export class UsersComponent {
     restartValues() {
         this.status = null;
         this.submitted = false;
+    }
+
+    onChanges(): void {
+
+        this.addForm.valueChanges.subscribe(val => {
+            if (val) {
+                this.status = null;
+                this.submitted = false;
+            }
+        });
     }
 }

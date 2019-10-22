@@ -156,8 +156,8 @@ export class SuggestComponent implements OnInit {
                         this.loading = false;
                     }
 
-                    this.status = 'success';
                     this.addForm.reset();                    
+                    this.status = 'success';
 
                 } else {
                     this.status = 'error';
@@ -170,8 +170,17 @@ export class SuggestComponent implements OnInit {
                 console.log(<any>error);
             }
         );
+        document.querySelector('.modal-body').scrollTop = 0;
 
         this.submitted = false;
     }
 
+    onChanges(){
+        this.addForm.valueChanges.subscribe(val =>{
+            if(val){
+                this.status = null;
+                this.submitted = false;
+            }
+        });
+    }
 }

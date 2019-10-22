@@ -35,7 +35,6 @@ export class SendExperienceComponent implements OnInit {
 
     public lesson;
 
-
     public items = {
         areas: []
     };
@@ -80,7 +79,6 @@ export class SendExperienceComponent implements OnInit {
 
     async onSubmit() {
         let tempArray = [];
-        let areasToAdd = [];
         this.loading = true;
 
         this.submitted = true;
@@ -116,11 +114,12 @@ export class SendExperienceComponent implements OnInit {
                 console.log(<any>error);
             });
 
+
         if (responseAddLesson.lesson && responseAddLesson.lesson._id) {
-            this.status = 'success';
             this.sendForm.reset();
+            this.status = 'success';
             this.loading = false;
-            
+           
         } else {
             this.status = 'error';
             this.loading = false;
@@ -128,7 +127,10 @@ export class SendExperienceComponent implements OnInit {
         }
 
         this.submitted = false;
+        document.querySelector('div#modal-body').scrollTop = 0;
     }
+
+
 
     getAllAreas() {
         this.allAreas = JSON.parse(localStorage.getItem('areas'));
@@ -148,5 +150,18 @@ export class SendExperienceComponent implements OnInit {
         } else {
             this.items.areas = this.allAreas;
         }
+    }
+
+    onChanges(): void {
+
+        this.sendForm.valueChanges.subscribe(val => {
+            if (val) {
+                this.status = null;
+                this.submitted = false;
+
+            }
+        });
+
+
     }
 }

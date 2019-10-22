@@ -361,6 +361,8 @@ export class UsersComponent {
             }
         );
 
+        document.querySelector('div#modal-body').scrollTop = 0;
+
     }
 
     actualPage() {
@@ -493,6 +495,13 @@ export class UsersComponent {
             if (val) {
                 this.status = null;
                 this.submitted = false;
+            }
+        });
+
+        this.editForm.valueChanges.subscribe(val => {
+            if (val) {
+                this.editStatus = null;
+                this.editSubmitted = false;
             }
         });
     }

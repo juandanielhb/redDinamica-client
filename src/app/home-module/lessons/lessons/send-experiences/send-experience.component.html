@@ -1,7 +1,8 @@
 <!-- send experiences -->
 <div class="modal fade" id="send" tabindex="-1" role="dialog" aria-labelledby="send" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
-        <form [formGroup]="sendForm" (ngSubmit)="onSubmit()" class="modal-content" enctype="multipart/form-data">
+        <form [formGroup]="sendForm" (ngSubmit)="onSubmit()" class="modal-content" enctype="multipart/form-data"
+            (input)="onChanges()">
             <!-- modal-header -->
             <div class="modal-header">
                 <h5 class="modal-title" id="sendTitle">Enviar experiencia</h5>
@@ -12,7 +13,19 @@
             <!-- /modal-header -->
 
             <!-- modal-body -->
-            <div class="modal-body">
+            <div class="modal-body" id="modal-body">
+
+                <div *ngIf="status === 'error'; successMessage" class="alert alert-danger fade show text-center"
+                    role="alert">
+                    <i class="fas fa-times-circle icon-message mr-2"></i>
+                    {{errorMsg}}
+                </div>
+
+                <div *ngIf="status === 'success'; successMessage" class="alert alert-success fade show text-center"
+                    role="alert">
+                    <i class="fas fa-check-circle icon-message mr-2"></i>
+                    {{successMsg}}
+                </div>
                 <div class="mb-2">
                     <p>
                         En este espacio puedes compartir con la red los materiales de clase que hayas desarrollado. El
@@ -85,17 +98,7 @@
                     </div>
                 </div>
 
-                <div *ngIf="status === 'error'; successMessage" class="alert alert-danger fade show text-center"
-                    role="alert">
-                    <i class="fas fa-times-circle icon-message mr-2"></i>
-                    {{errorMsg}}
-                </div>
 
-                <div *ngIf="status === 'success'; successMessage" class="alert alert-success fade show text-center"
-                    role="alert">
-                    <i class="fas fa-check-circle icon-message mr-2"></i>
-                    {{successMsg}}
-                </div>
             </div>
             <!-- /modal-body -->
 

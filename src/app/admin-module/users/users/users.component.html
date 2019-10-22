@@ -268,7 +268,7 @@
 <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
 
-        <form class="modal-content" [formGroup]="editForm" (ngSubmit)="onEditSubmit()">
+        <form class="modal-content" [formGroup]="editForm" (ngSubmit)="onEditSubmit()" (input)="onChanges()">
             <div class="modal-header">
                 <h5 class="modal-title" id="editTitle">Editar usuario</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -277,8 +277,19 @@
             </div>
 
 
-            <div class="modal-body">
+            <div class="modal-body" id="modal-body">
 
+                <div *ngIf="editStatus === 'error'; successMessage" class="alert alert-danger fade show text-center"
+                    role="alert">
+                    <i class="fas fa-times-circle icon-message mr-2"></i>
+                    El usuario no ha podido ser editado correctamente.
+                </div>
+
+                <div *ngIf="editStatus === 'success'; successMessage" class="alert alert-success fade show text-center"
+                    role="alert">
+                    <i class="fas fa-check-circle icon-message mr-2"></i>
+                    El usuario fue editado correctamente.
+                </div>
 
                 <div *ngFor="let field of editFieldsForm" class="form-group row">
                     <label for="{{field.id}}" class="col-4 col-form-label">
@@ -317,17 +328,6 @@
                             <option value="false">No</option>
                         </select>
                     </div>
-                </div>
-                <div *ngIf="editStatus === 'error'; successMessage" class="alert alert-danger fade show text-center"
-                    role="alert">
-                    <i class="fas fa-times-circle icon-message mr-2"></i>
-                    El usuario no ha podido ser editado correctamente.
-                </div>
-
-                <div *ngIf="editStatus === 'success'; successMessage" class="alert alert-success fade show text-center"
-                    role="alert">
-                    <i class="fas fa-check-circle icon-message mr-2"></i>
-                    El usuario fue editado correctamente.
                 </div>
             </div>
 

@@ -109,7 +109,7 @@
 <div class="modal fade" id="addArea" tabindex="-1" role="dialog" aria-labelledby="addArea" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-            <form [formGroup]="areaForm" (ngSubmit)="onSubmit()">
+            <form [formGroup]="areaForm" (ngSubmit)="onSubmit()" (input)="onChanges()">
                 <div class="modal-header">
                     <h5 class="modal-title" id="addAreaTitle">Agregar una área de conocimiento</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -167,7 +167,7 @@
 <div class="modal fade" id="editArea" tabindex="-1" role="dialog" aria-labelledby="editArea" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-            <form [formGroup]="editAreaForm" (ngSubmit)="onEditSubmit()">
+            <form [formGroup]="editAreaForm" (ngSubmit)="onEditSubmit()" (input)="onChanges()">
                 <div class="modal-header">
                     <h5 class="modal-title" id="editAreaTitle">Editar área de conocimiento</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">

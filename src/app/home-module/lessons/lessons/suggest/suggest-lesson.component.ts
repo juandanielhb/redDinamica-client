@@ -86,9 +86,9 @@ export class SuggestLessonComponent implements OnInit {
         this._lessonService.addLesson(this.token, this.lesson).subscribe(
             response => {
                 if (response.lesson && response.lesson._id) {
-                    this.status = 'success';
                     this.loading = false;
                     this.addForm.reset();
+                    this.status = 'success';
                     
                 } else {
                     this.status = 'error';
@@ -104,8 +104,17 @@ export class SuggestLessonComponent implements OnInit {
             }
         );
   
+        document.querySelector('.modal-body').scrollTop = 0;
         this.submitted = false;        
     }
 
+    onChanges(): void {
 
+        this.addForm.valueChanges.subscribe(val => {
+            if (val) {
+                this.status = null;
+                this.submitted = false;
+            }
+        });
+    }
 }

@@ -4,9 +4,9 @@
         <div class="col">
             <div class="card mb-3 text-center">
                 <div *ngIf="lesson.state" class="card-header bg-{{lesson_states[lesson.state].class}}">
-                    <h4 class="mb-0 text-white">
-                        {{title}}
-                    </h4>
+                    <h5 class="mb-0 text-white">
+                        {{title}} - {{lesson.title}}
+                    </h5>
                 </div>
             </div>
         </div>

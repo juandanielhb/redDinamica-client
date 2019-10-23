@@ -15,9 +15,9 @@
             <div class="col">
                 <div class="card mb-3 text-center">
                     <div *ngIf="lesson.state" class="card-header bg-{{lesson_states[lesson.state].class}}">
-                        <h4 class="mb-0 text-white">
+                        <h5 class="mb-0 text-white">
                             {{lesson.title}}
-                        </h4>
+                        </h5>
                     </div>
                 </div>
             </div>
@@ -30,7 +30,7 @@
                         <h5 class="card-title">
                             Resumen
                         </h5>
-                        <p *ngFor="let text of lesson.resume.split('\n')" class="card-text">
+                        <p *ngFor="let text of lesson.resume.split('\n')" class="card-text text-justify">
                             {{text}}
                         </p>
 
@@ -38,7 +38,7 @@
                             <h5 class="card-title">
                                 Justificación
                             </h5>
-                            <p *ngFor="let text of lesson.justification.split('\n')" class="card-text">
+                            <p *ngFor="let text of lesson.justification.split('\n')" class="card-text text-justify">
                                 {{text}}
                             </p>
                         </section>
@@ -46,7 +46,7 @@
                         <h5 class="card-title">
                             Referencias
                         </h5>
-                        <p *ngFor="let text of lesson.references.split('\n')" class="card-text">
+                        <p *ngFor="let text of lesson.references.split('\n')" class="card-text text-justify">
                             <span innerHTML="{{text | linkify}}"></span>
                         </p>
 

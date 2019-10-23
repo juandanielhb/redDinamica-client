@@ -33,18 +33,18 @@
                 <i class="fas fa-comment-dots icon-message text-primary"></i>
             </button>
 
-            <button *ngIf="lesson.state == 'test' && isInTheDevelopmentGroup()" class="btn border-left" title="Resultados de pruebas"
+            <!-- <button *ngIf="lesson.state == 'test' && isInTheDevelopmentGroup()" class="btn border-left" title="Resultados de pruebas"
                 (click)="setSelectedOption('tests')">
                 <i class="fas fa-clipboard-check icon-message text-primary"></i>
-            </button>
+            </button> -->
 
-            <button *ngIf="isInTheDevelopmentGroup() || lesson.expert" class="btn border-left" title="Comentarios del facilitador"
+            <button *ngIf="isInTheDevelopmentGroup()" class="btn border-left" title="Comentarios del facilitador"
                 (click)="setSelectedOption('review')">
                 <i class="fas fa-clipboard-list icon-message text-primary"></i>
             </button>
             
             
-            <button *ngIf="parentUrl == 'admin' && lesson.father_lesson" class="btn btn-primary" title="Versión anterior"
+            <button *ngIf="lesson.father_lesson" class="btn btn-primary" title="Versión anterior"
             [routerLink]="['/', parentUrl ,'leccion', lesson.father_lesson]">
                 <i class="fas fa-angle-left icon-message"></i>
             </button>
@@ -53,13 +53,12 @@
                 <span>V. {{lesson.version.toFixed(1)}}</span>
             </span>
             
-            <button *ngIf="parentUrl == 'admin' && lesson.son_lesson" class="btn btn-primary" title="Versión siguiente"
+            <button *ngIf="lesson.son_lesson" class="btn btn-primary" title="Versión siguiente"
             [routerLink]="['/', parentUrl ,'leccion', lesson.son_lesson]">
                 <i class="fas fa-angle-right icon-message"></i>
             </button>
 
-            <button *ngIf="!isInTheDevelopmentGroup() && lesson.state == 'completed' && parentUrl 
-            != 'admin'"                           
+            <button *ngIf="!isInTheDevelopmentGroup() && lesson.state == 'completed'"                           
              class="btn border-left ml-2" title="Calificar"
                 (click)="setSelectedOption('rating')">
                 <div class="vl">

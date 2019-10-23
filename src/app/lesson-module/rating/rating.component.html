@@ -4,9 +4,9 @@
         <div class="col">
             <div class="card mb-3 text-center">
                 <div *ngIf="lesson.state" class="card-header bg-{{lesson_states[lesson.state].class}}">
-                    <h4 class="mb-0 text-white">
-                        {{title}}
-                    </h4>
+                    <h5 class="mb-0 text-white">
+                        {{title}} - {{lesson.title}}
+                    </h5>
                 </div>
             </div>
         </div>
@@ -17,11 +17,17 @@
         <div class="col-5">
             <div class="card">
                 <div class="card-body text-center">
-                    <form [formGroup]="ratingForm" (ngSubmit)="onSubmit()">
-                        <div *ngIf="status === 'error'" class="alert alert-danger fade show text-center" role="alert">
-                            <small>
+                    <form [formGroup]="ratingForm" (ngSubmit)="onSubmit()" (input)="onChanges()">
+                        <div *ngIf="status === 'error' || userAlreadyCommented"
+                            class="alert alert-danger fade show text-center" role="alert">
+                            <small *ngIf="status === 'error'">
                                 <i class="fas fa-times-circle icon-message mr-2"></i>
-                                {{errorMsg}}</small>
+                                {{errorMsg}}
+                            </small>
+                            <small *ngIf="userAlreadyCommented">
+                                <i class="fas fa-times-circle icon-message mr-2"></i>
+                                {{userAlreadyCommentedMsg}}
+                            </small>
                         </div>
 
                         <div *ngIf="status === 'success'" class="alert alert-success fade show text-center"
@@ -48,15 +54,17 @@
                             <div class="col-auto align-items-center">
                                 <div class=" flex-shrink-0 rounded-circle border-1 overflow-hidden mr-2"
                                     style="width: 40px; height:40px;">
-                                    <img *ngIf="!identity.picture" class="img-fluid" src="assets/images/user-default.png">
-                                    <img *ngIf="identity.picture" class="img-fluid" src="{{this.url+'get-image-user/'+ identity.picture}}">
+                                    <img *ngIf="!identity.picture" class="img-fluid"
+                                        src="assets/images/user-default.png">
+                                    <img *ngIf="identity.picture" class="img-fluid"
+                                        src="{{this.url+'get-image-user/'+ identity.picture}}">
                                 </div>
                             </div>
                             <div class="col pl-0 align-items-center">
                                 <textarea class="bg-light" formControlName="text" class="form-control" rows="2"
                                     placeholder="Escribe un comentario..."
-                                    [ngClass]="{ 'is-invalid': submitted && ratingForm.controls.rating.errors}"></textarea>
-                                <div *ngIf="submitted && ratingForm.controls.rating.errors" class="invalid-feedback">
+                                    [ngClass]="{ 'is-invalid': submitted && ratingForm.controls.rating.errors && !userAlreadyCommented}"></textarea>
+                                <div *ngIf="submitted && ratingForm.controls.rating.errors && !userAlreadyCommented" class="invalid-feedback">
                                     <div class="text-left" *ngIf="ratingForm.controls.rating.errors.required">
                                         Debes elegir el número de estrellas para calificar el recurso.
                                     </div>
@@ -87,8 +95,10 @@
                             <a class="text-primary" [routerLink]="[ '/perfil', comment.user._id]" data-dismiss="modal">
                                 <div class="flex-shrink-0 rounded-circle border-1 overflow-hidden"
                                     style="width: 40px; height:40px;">
-                                    <img *ngIf="!comment.user.picture" class="img-fluid" src="assets/images/user-default.png">
-                                    <img *ngIf="comment.user.picture" class="img-fluid" src="{{this.url+'get-image-user/'+ comment.user.picture}}">
+                                    <img *ngIf="!comment.user.picture" class="img-fluid"
+                                        src="assets/images/user-default.png">
+                                    <img *ngIf="comment.user.picture" class="img-fluid"
+                                        src="{{this.url+'get-image-user/'+ comment.user.picture}}">
 
                                 </div>
                             </a>

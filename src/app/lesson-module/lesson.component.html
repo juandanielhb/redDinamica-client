@@ -53,13 +53,13 @@
                 <span>V. {{lesson.version.toFixed(1)}}</span>
             </span>
             
-            <button *ngIf="lesson.son_lesson" class="btn btn-primary" title="Versión siguiente"
-            [routerLink]="['/', parentUrl ,'leccion', lesson.son_lesson]">
+            <button *ngIf="lesson.son_lesson && lesson.son_lesson.visible" class="btn btn-primary" title="Versión siguiente"
+            [routerLink]="['/', parentUrl ,'leccion', lesson.son_lesson._id]">
                 <i class="fas fa-angle-right icon-message"></i>
             </button>
 
             <button *ngIf="!isInTheDevelopmentGroup() && lesson.state == 'completed'"                           
-             class="btn border-left ml-2" title="Calificar"
+             class="btn border-left ml-2" title="Calificar lección"
                 (click)="setSelectedOption('rating')">
                 <div class="vl">
                     <i class="fas fa-star icon-message text-warning"></i>                    

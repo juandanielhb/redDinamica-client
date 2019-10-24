@@ -85,10 +85,6 @@ section .container{
 }
 /* /Invalid feedback for ng-select */
 
-textarea {
-    word-break: break-all;
-}
-
 .resource-edit:hover {
     color: #F39C12 !important;
 }

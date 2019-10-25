@@ -119,7 +119,11 @@
                                     <div class="row">
                                         <div class="col-11">
                                             <strong>{{lesson.title}}</strong>
-
+                                            <p>
+                                                <small class=" text-muted">
+                                                    {{ (lesson.created_at | amFromUnix) | amLocale:'es' | amDateFormat:'LL' }}
+                                                </small>
+                                            </p>
                                             <p *ngFor="let text of lesson.call.text.split('\n')" class="text-break">
                                                 {{text}}
                                             </p>
@@ -262,6 +266,10 @@
                                     <div class="col">
                                         <div class="row">
                                             <div class="col-11">
+                                                <strong>{{lesson.title}}</strong>
+                                                <p><small class=" text-muted">
+                                                        {{ (lesson.created_at | amFromUnix) | amLocale:'es' | amDateFormat:'LL' }}
+                                                    </small></p>
                                                 <p *ngFor="let text of lesson.call.text.split('\n')" class="text-break">
                                                     {{text}}
                                                 </p>

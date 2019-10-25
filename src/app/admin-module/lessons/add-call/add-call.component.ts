@@ -127,6 +127,8 @@ export class AddCallComponent implements OnInit {
             this.newLesson.author = this.lesson.author;
             this.newLesson.version = this.lesson.version + 1;
 
+            this.newLesson.justification = this.lesson.justification;
+
             this.newLesson.knowledge_area = tempArray;
             this.newLesson.level = this.callForm.value.level;
 

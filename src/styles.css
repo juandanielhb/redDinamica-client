@@ -49,6 +49,10 @@ section .container{
     font-family: 'Comfortaa', cursive;
 }
 
+small.badge{
+    max-width: 250px;
+}
+
 .badge-purple{
     background-color: #6610f2; 
     color: white;

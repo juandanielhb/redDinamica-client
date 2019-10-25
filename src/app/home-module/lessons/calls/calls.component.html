@@ -166,7 +166,7 @@
 
                                                     <div *ngIf="lesson.knowledge_area.length > 0; else notAssigned">
                                                         <small *ngFor="let area of lesson.knowledge_area"
-                                                            class="badge badge-info mr-1">{{area.name}}</small>
+                                                            class="badge badge-info mr-1 text-truncate">{{area.name}}</small>
                                                     </div>
                                                     <ng-template #notAssigned>
                                                         <small class="text-muted">No se ha asignado</small>
@@ -308,7 +308,7 @@
 
                                                         <div *ngIf="lesson.knowledge_area.length > 0; else notAssigned">
                                                             <small *ngFor="let area of lesson.knowledge_area"
-                                                                class="badge badge-info mr-1">{{area.name}}</small>
+                                                                class="badge badge-info mr-1 text-truncate">{{area.name}}</small>
                                                         </div>
                                                         <ng-template #notAssigned>
                                                             <small class="text-muted">No se ha asignado</small>

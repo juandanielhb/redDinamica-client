@@ -96,22 +96,22 @@
                                 <div class="col">
                                     <div class="row">
                                         <div class="col">
-                                            <h5 class="mt-0">
+                                            <h5 class="my-0">
                                                 <strong>{{lesson.title}}</strong>
                                             </h5>
-
+                                            <small class=" text-muted">
+                                                {{ (lesson.created_at | amFromUnix) | amLocale:'es' | amDateFormat:'LL' }}
+                                            </small>
                                             <h5>
                                                 <span class="badge badge-{{lesson_states[lesson.state].class}} mr-1">
                                                     {{lesson_states[lesson.state].label}}
                                                 </span>
                                             </h5>
-                                            <small>
-                                                <p *ngFor="let text of lesson.resume.split('\n')"
-                                                    class="text-break mb-1">
-                                                    {{text}}
-                                                </p>
-                                            </small>
 
+                                            <p *ngFor="let text of lesson.resume.split('\n'); let i = index"
+                                                class="text-justify">
+                                                <small *ngIf="i==0">{{text}}...</small>
+                                            </p>
                                         </div>
 
                                         <div class="text-right col-auto">
@@ -184,46 +184,11 @@
 
                                     </div>
 
-                                    <div *ngIf="lesson.development_group.length > 0 && lesson.state == 'completed'"
-                                        class="row">
-                                        <div class="col">
-                                            <div class="row">
-                                                <div class="col">
-                                                    <strong>Grupo de desarrollo:</strong>
-                                                </div>
-                                            </div>
-                                            <div class="card mt-1">
-                                                <div class="card-body p-1">
-                                                    <div class="row">
-
-                                                        <div *ngFor="let member of lesson.development_group"
-                                                            class="col-auto pr-0">
-                                                            <a class="text-primary">
-                                                                <button [routerLink]="['/perfil', member._id]"
-                                                                    class="btn flex-shrink-0 rounded-circle  overflow-hidden p-0"
-                                                                    style="width: 40px; height:40px;"
-                                                                    title="{{member.name}} {{member.surname}}">
-                                                                    <img *ngIf="!member.picture" class="img-fluid"
-                                                                        src="assets/images/user-default.png">
-                                                                    <img *ngIf="member.picture" class="img-fluid"
-                                                                        src="{{this.url+'get-image-user/'+ member.picture}}">
-                                                                </button>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
                                 </div>
 
 
                             </div>
-
-
-
-
+                            
                         </div>
                     </div>
                 </div>
@@ -233,7 +198,7 @@
 
         <!-- lesson items filtered -->
         <div *ngIf="selectedStates.length > 0">
-            <ng-container *ngIf="allLessons.length == 0; else elseTemplate">
+            <ng-container *ngIf="allLessons.length == 0 && !loading; else elseTemplate">
                 <div class="card-body">
                     <h4 class="text-muted">
                         No se encontraron lecciones para los criterios de búsqueda seleccionados.
@@ -283,9 +248,14 @@
                                     <div class="col">
                                         <div class="row">
                                             <div class="col">
-                                                <h5 class="mt-0">
+                                                <h5 class="my-0">
                                                     <strong>{{lesson.title}}</strong>
                                                 </h5>
+                                                <small class=" text-muted">
+                                                    {{ (lesson.created_at | amFromUnix) | amLocale:'es' | amDateFormat:'LL' }}
+                                                </small>
+
+
 
                                                 <h5>
                                                     <span
@@ -293,12 +263,10 @@
                                                         {{lesson_states[lesson.state].label}}
                                                     </span>
                                                 </h5>
-                                                <small>
-                                                    <p *ngFor="let text of lesson.resume.split('\n')"
-                                                        class="text-break mb-1">
-                                                        {{text}}
-                                                    </p>
-                                                </small>
+                                                <p *ngFor="let text of lesson.resume.split('\n'); let i = index"
+                                                    class="text-justify">
+                                                    <small *ngIf="i==0">{{text}}...</small>
+                                                </p>
                                             </div>
 
                                             <div class="text-right col-auto">
@@ -371,45 +339,9 @@
 
                                         </div>
 
-                                        <div *ngIf="lesson.development_group.length > 0 && lesson.state == 'completed'"
-                                            class="row">
-                                            <div class="col">
-                                                <div class="row">
-                                                    <div class="col">
-                                                        <strong>Grupo de desarrollo:</strong>
-                                                    </div>
-                                                </div>
-                                                <div class="card mt-1">
-                                                    <div class="card-body p-1">
-                                                        <div class="row">
-
-                                                            <div *ngFor="let member of lesson.development_group"
-                                                                class="col-auto pr-0">
-                                                                <a class="text-primary">
-                                                                    <button [routerLink]="['/perfil', member._id]"
-                                                                        class="btn flex-shrink-0 rounded-circle  overflow-hidden p-0"
-                                                                        style="width: 40px; height:40px;"
-                                                                        title="{{member.name}} {{member.surname}}">
-                                                                        <img *ngIf="!member.picture" class="img-fluid"
-                                                                            src="assets/images/user-default.png">
-                                                                        <img *ngIf="member.picture" class="img-fluid"
-                                                                            src="{{this.url+'get-image-user/'+ member.picture}}">
-                                                                    </button>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
                                     </div>
 
-
                                 </div>
-
-
-
 
                             </div>
                         </div>

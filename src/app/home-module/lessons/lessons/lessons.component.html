@@ -601,7 +601,7 @@
         </nav>
         <!-- /Navigation -->
     </div>
-    <div *ngIf="(allLessons | filter: filter.value).length == 0" class="card-body">
+    <div *ngIf="(allLessons | filter: filter.value).length == 0 && !loading" class="card-body">
         <div class="card-body">
             <h4 class="text-muted">
                 No se encontraron lecciones para los criterios de búsqueda seleccionados.

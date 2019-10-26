@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, CheckboxRequiredValidator } from '@angular/forms';
 
 import { MustMatch } from '../../helpers/must-match.validator';
 import { User } from 'src/app/models/user.model';
@@ -9,6 +9,9 @@ import { BasicDataService } from 'src/app/services/basicData.service';
 import { Profession } from 'src/app/models/profession.model';
 import { Institution } from 'src/app/models/institution.model';
 import { MessageService } from 'src/app/services/message.service';
+import { TYC_FILE } from 'src/app/services/DATA';
+import { GLOBAL } from 'src/app/services/global';
+
 
 @Component({
     selector: 'register',
@@ -18,6 +21,8 @@ export class RegisterComponent implements OnInit {
     public title: string;
     public registerForm: FormGroup;
     public submitted = false;
+    public url;
+    public tyc_file;
 
     public user: User;
     public message: String;
@@ -44,6 +49,9 @@ export class RegisterComponent implements OnInit {
     ) {
         this.title = 'Registro';
         this.user = new User();
+        this.tyc_file = TYC_FILE;
+        this.url = GLOBAL.url;
+
 
         this.items = {
             institution: [],
@@ -53,7 +61,6 @@ export class RegisterComponent implements OnInit {
     }
 
     ngDoCheck(): void {
-
     }
 
     ngOnInit() {
@@ -70,14 +77,12 @@ export class RegisterComponent implements OnInit {
             profession: ['', Validators.required],
             institution: ['', Validators.required],
             category: ['', Validators.required],
-            experience: ''
+            experience: '',
+            tyc: [false, CheckboxRequiredValidator ]
         },
             {
                 validator: MustMatch('password', 'confirmPassword')
             });
-
-
-
     }
 
 

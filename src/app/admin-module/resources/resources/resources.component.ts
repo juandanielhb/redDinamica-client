@@ -69,6 +69,7 @@ export class ResourcesComponent implements OnInit {
     ngDoCheck(): void {
         if(this.needReloadData){
             this.actualPage();
+            this.getAllResources();
             this.needReloadData = false;
         }
     }

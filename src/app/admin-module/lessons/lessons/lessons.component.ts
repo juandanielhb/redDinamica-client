@@ -123,6 +123,7 @@ export class LessonsComponent implements OnInit {
     ngDoCheck(): void {
         if (this.needReloadData) {
             this.actualPage();
+            this.getAllLessons();
             this.needReloadData = false;
         }
     }

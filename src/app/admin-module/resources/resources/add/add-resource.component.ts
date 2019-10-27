@@ -185,7 +185,7 @@ export class AddResourceComponent implements OnInit {
         
         document.querySelector('.modal-body').scrollTop = 0;
         this.submitted = false;
-
+        this.added.emit();
     }
 
     onChanges(): void {

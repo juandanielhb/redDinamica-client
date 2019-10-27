@@ -190,17 +190,21 @@
                                 <div class="col">
                                     <div class="row">
                                         <div class="col">
-                                            <h5 class="mt-0">
+                                            <h5 class="my-0">
                                                 <strong>{{lesson.title}}</strong>
                                             </h5>
+                                            <small class=" text-muted">
+                                                {{ (lesson.created_at | amFromUnix) | amLocale:'es' | amDateFormat:'LL' }}
+                                            </small>
 
                                             <h5>
                                                 <span class="badge badge-{{lesson_states[lesson.state].class}} mr-1">
                                                     {{lesson_states[lesson.state].label}}
                                                 </span>
                                             </h5>
-                                            <p *ngFor="let text of lesson.resume.split('\n')" class="text-break">
-                                                <small>{{text}}</small>
+                                            <p *ngFor="let text of lesson.resume.split('\n'); let i = index"
+                                                class="text-justify">
+                                                <small *ngIf="i==0">{{text}}...</small>
                                             </p>
 
                                         </div>
@@ -452,17 +456,21 @@
                                 <div class="col">
                                     <div class="row">
                                         <div class="col">
-                                            <h5 class="mt-0">
+                                            <h5 class="my-0">
                                                 <strong>{{lesson.title}}</strong>
                                             </h5>
+                                            <small class=" text-muted">
+                                                {{ (lesson.created_at | amFromUnix) | amLocale:'es' | amDateFormat:'LL' }}
+                                            </small>
 
                                             <h5>
                                                 <span class="badge badge-{{lesson_states[lesson.state].class}} mr-1">
                                                     {{lesson_states[lesson.state].label}}
                                                 </span>
                                             </h5>
-                                            <p *ngFor="let text of lesson.resume.split('\n')" class="text-break">
-                                                <small>{{text}}</small>
+                                            <p *ngFor="let text of lesson.resume.split('\n'); let i = index"
+                                                class="text-justify">
+                                                <small *ngIf="i==0">{{text}}...</small>
                                             </p>
 
                                         </div>
@@ -685,7 +693,13 @@
         <!-- /Navigation -->
 
     </div>
-
+    <div *ngIf="lessons.length > 0 && (allLessons | filter: filter.value).length == 0 && !loading" class="card-body">
+        <div class="card-body">
+            <h4 class="text-muted">
+                No se encontraron lecciones para los criterios de búsqueda seleccionados.
+            </h4>
+        </div>
+    </div>
 </div>
 <!-- /Lessons -->
 

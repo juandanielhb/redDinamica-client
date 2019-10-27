@@ -71,6 +71,10 @@ export class EditComponent implements OnInit {
             return;
         }
 
+        if(this.lesson.status != 'completed'){
+            this.lesson.visible = false;
+        }
+
         this.lesson.title = this.lessonForm.value.title;
         this.lesson.resume = this.lessonForm.value.resume;
         this.lesson.references = this.lessonForm.value.references;

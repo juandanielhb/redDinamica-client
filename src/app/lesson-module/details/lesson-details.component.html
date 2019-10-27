@@ -24,7 +24,7 @@
         </div>
 
         <div *ngIf="lesson.resume != undefined" class="row">
-            <div class="col-7">
+            <div class="col-8">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">
@@ -55,12 +55,15 @@
                 </div>
             </div>
 
-            <div class="col-5">
-                <div class="card mb-3">
+            <div class="col-4">
+                <div *ngIf="identity.role == 'admin'" class="card mb-3">
                     <div class="card-body text-center">
-                        <div class="card-text text-{{lesson_states[lesson.state].class}}">
-                            <h5 class="btn btn-outline-{{lesson_states[lesson.state].class}} btn-block m-0">
-                                {{lesson_states[lesson.state].label}}</h5>
+                        <h6 class="card-title mb-1">
+                            <strong>Estado</strong>
+                        </h6>
+                        <div class="card-text">
+                            <h1 class="badge badge-{{lesson_states[lesson.state].class}}">
+                                {{lesson_states[lesson.state].label}}</h1>
                         </div>
                     </div>
                 </div>
@@ -72,8 +75,9 @@
                         </h6>
                         <div class="card-text" style="display: flex; flex-wrap: wrap;">
                             <label *ngFor="let area of lesson.knowledge_area"
-                                    class="badge badge-{{lesson_states[lesson.state].class}} mr-1 text-truncate" title="{{area.name}}">{{area.name}}</label>
-                            
+                                class="badge badge-{{lesson_states[lesson.state].class}} mr-1 text-truncate"
+                                title="{{area.name}}">{{area.name}}</label>
+
                         </div>
 
                         <h6 class="card-title">

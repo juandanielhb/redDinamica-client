@@ -43,7 +43,8 @@ export const FIELDS_FORM = [
         id: "about",
         label: "Descripción",
         type: "textarea",
-        attr: "about"        
+        attr: "about",
+        placeholder: "Descripción"
     },
     {
         id: "city",
@@ -73,8 +74,22 @@ export const FIELDS_FORM = [
         id: "postgraduate",
         label: "Postgrados",
         type: "textarea",
-        attr: "postgraduate"        
-    }                    
+        attr: "postgraduate",
+        placeholder: "Postgrados"   
+    },
+    {
+        id: "contactNumber",
+        label: "Número de contacto",
+        type: "text",
+        attr: "contactNumber",
+    },
+    {
+        id: "socialNetworks",
+        label: "Redes sociales",
+        type: "textarea",
+        attr: "socialNetworks",
+        placeholder: "Escribe las direcciones web de tus redes sociales separadas por una coma."      
+    },    
 ];
 
 export const INFO_FIELDS = [
@@ -125,7 +140,19 @@ export const INFO_FIELDS = [
         label: "Postgrados",
         type: "textarea",
         attr: "postgraduate"        
-    }                    
+    },    
+    {
+        id: "contactNumber",
+        label: "Número de contacto",
+        type: "text",
+        attr: "contactNumber",
+    },
+    {
+        id: "socialNetworks",
+        label: "Redes sociales",
+        type: "list",
+        attr: "socialNetworks"        
+    },                  
 ];
 
 

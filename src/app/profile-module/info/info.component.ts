@@ -29,7 +29,7 @@ export class InfoComponent {
     }
 
     loadPage(){
-        this.identity = this._userService.getIdentity();                
+        this.identity = this._userService.getIdentity();     
 
         this._route.parent.params.subscribe(params => {
             let id = params['id'];

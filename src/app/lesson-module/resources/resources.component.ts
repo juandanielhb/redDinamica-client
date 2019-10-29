@@ -76,7 +76,6 @@ export class ResourcesComponent implements OnInit {
 
         this._route.parent.url.subscribe(value => {
             this.parentUrl = value[0].path;
-            console.log(this.parentUrl)
         });
     }
 

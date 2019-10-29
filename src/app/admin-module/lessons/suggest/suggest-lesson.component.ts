@@ -11,7 +11,7 @@ import { EventEmitter } from '@angular/core';
 @Component({
     selector: 'suggest-lesson',
     templateUrl: './suggest-lesson.component.html'
-  
+
 })
 export class SuggestLessonComponent implements OnInit {
     public title;
@@ -27,15 +27,15 @@ export class SuggestLessonComponent implements OnInit {
 
     public errorMsg;
     public successMsg;
-    
+
     public lesson;
 
     @Output() added = new EventEmitter();
 
     constructor(
         private _userService: UserService,
-        private _lessonService:LessonService
-    ) { 
+        private _lessonService: LessonService
+    ) {
         this.title = 'Agregar';
         this.identity = this._userService.getIdentity();
         this.token = this._userService.getToken();
@@ -63,7 +63,7 @@ export class SuggestLessonComponent implements OnInit {
                 attr: "references",
                 required: false
             }
-     
+
         ];
 
         this.errorMsg = 'Hubo un error al agregar el tema para una lección. Intentalo de nuevo más tarde.';
@@ -72,12 +72,12 @@ export class SuggestLessonComponent implements OnInit {
         this.addForm = new FormGroup({
             title: new FormControl('', Validators.required),
             resume: new FormControl('', Validators.required),
-            references: new FormControl('')            
+            references: new FormControl('')
         });
     }
 
-    ngOnInit(): void { 
-        
+    ngOnInit(): void {
+
     }
 
     get f() { return this.addForm.controls; }
@@ -88,6 +88,7 @@ export class SuggestLessonComponent implements OnInit {
     }
 
     onSubmit() {
+
         this.submitted = true;
 
         if (this.addForm.invalid) {
@@ -98,32 +99,44 @@ export class SuggestLessonComponent implements OnInit {
 
         this.lesson.title = this.addForm.value.title;
         this.lesson.resume = this.addForm.value.resume;
-        this.lesson.references = this.addForm.value.references;          
+        this.lesson.references = this.addForm.value.references;
         this.lesson.accepted = true;
         this.lesson.author = this.identity._id;
         this.lesson.state = 'proposed';
-        
+
         this._lessonService.addLesson(this.token, this.lesson).subscribe(
             response => {
                 if (response.lesson && response.lesson._id) {
-                    this.status = 'success';
                     this.addForm.reset();
+                    this.status = 'success';
                     this.added.emit();
-                    
+
                 } else {
                     this.status = 'error';
                     console.log(<any>response);
                 }
-        
+
+
+
             },
             error => {
                 this.status = 'error';
                 console.log(<any>error);
             }
         );
-  
-        this.submitted = false;        
+        this.submitted = false;
+
+        document.querySelector('.modal-body').scrollTop = 0;
+
     }
 
+    onChanges(): void {
 
+        this.addForm.valueChanges.subscribe(val => {
+            if (val) {
+                this.status = null;
+                this.submitted = false;
+            }
+        });
+    }
 }

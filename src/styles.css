@@ -49,6 +49,10 @@ section .container{
     font-family: 'Comfortaa', cursive;
 }
 
+small.badge{
+    max-width: 250px;
+}
+
 .badge-purple{
     background-color: #6610f2; 
     color: white;
@@ -84,10 +88,6 @@ section .container{
     color: #E74C3C;    
 }
 /* /Invalid feedback for ng-select */
-
-textarea {
-    word-break: break-all;
-}
 
 .resource-edit:hover {
     color: #F39C12 !important;

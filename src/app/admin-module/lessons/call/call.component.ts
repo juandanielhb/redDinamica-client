@@ -82,6 +82,8 @@ export class CallComponent implements OnInit {
         this.status = null;
         this.submitted = false;
         this.assigned.emit();
+        this.leader = new FormControl('', Validators.required);
+        this.expert = new FormControl('', Validators.required);
     }
 
     getExpertUsers(){
@@ -139,7 +141,12 @@ export class CallComponent implements OnInit {
         }
 
         this.lesson.leader = this.leader.value;
-        this.lesson.expert = this.expert.value;    
+        this.lesson.expert = this.expert.value;
+
+        if(this.lesson.leader == this.lesson.expert){
+            console.log("son iguales");
+        }
+
         this.lesson.state = 'assigned';
         this.lesson.call.visible = false;
 
@@ -155,6 +162,8 @@ export class CallComponent implements OnInit {
                 console.log(<any>error);
             }
         )
+
+        document.querySelector('.modal-body').scrollTop = 0;
     }
-   
+
 }

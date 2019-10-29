@@ -27,7 +27,7 @@
                 <div class="card-body">
                     <div class="media-body">
                         <div class="row">
-                            <div class="col-auto">
+                            <div class="col-2">
                                 <div class="row">
                                     <div class="col">
 
@@ -39,13 +39,15 @@
                                 </div>
 
                             </div>
-                            <div class="col">
+                            <div class="col-7">
                                 <h5 class="my-0 text-truncate">
                                     <strong>{{lesson.title}}</strong> <br>
                                 </h5>
-                                <div *ngIf="lesson.knowledge_area.length > 0">
+                                <div *ngIf="lesson.knowledge_area.length > 0" style="display: flex; flex-wrap: wrap;">
                                     <small *ngFor="let area of lesson.knowledge_area"
-                                        class="badge badge-info mr-1">{{area.name}}</small>
+                                        class="badge badge-info mr-1 mb-1 text-truncate"
+                                        title="{{area.name}}">{{area.name}}</small>
+                                       
                                 </div>
 
                                 <p *ngFor="let text of lesson.resume.split('\n')" class="text-break">

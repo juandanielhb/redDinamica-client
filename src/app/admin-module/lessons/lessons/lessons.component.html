@@ -4,7 +4,7 @@
         <h3 class="m-0 text-primary font-weight-bolder float-left">{{title}}</h3>
         <button type="button" class="btn btn-primary float-right ml-3" data-toggle="modal" data-target="#add">
             <i class="fas fa-plus"></i>
-            <span class="ml-2">Agregar</span>
+            <span class="ml-2">Agregar tema</span>
         </button>
     </div>
 
@@ -190,17 +190,21 @@
                                 <div class="col">
                                     <div class="row">
                                         <div class="col">
-                                            <h5 class="mt-0">
+                                            <h5 class="my-0">
                                                 <strong>{{lesson.title}}</strong>
                                             </h5>
+                                            <small class=" text-muted">
+                                                {{ (lesson.created_at | amFromUnix) | amLocale:'es' | amDateFormat:'LL' }}
+                                            </small>
 
                                             <h5>
                                                 <span class="badge badge-{{lesson_states[lesson.state].class}} mr-1">
                                                     {{lesson_states[lesson.state].label}}
                                                 </span>
                                             </h5>
-                                            <p *ngFor="let text of lesson.resume.split('\n')" class="text-break">
-                                                <small>{{text}}</small>
+                                            <p *ngFor="let text of lesson.resume.split('\n'); let i = index"
+                                                class="text-justify">
+                                                <small *ngIf="i==0">{{text}}...</small>
                                             </p>
 
                                         </div>
@@ -259,9 +263,11 @@
                                             <div class="row">
                                                 <div class="col">
 
-                                                    <div *ngIf="lesson.knowledge_area.length > 0; else notAssigned">
+                                                    <div *ngIf="lesson.knowledge_area.length > 0; else notAssigned"
+                                                        style="display: flex; flex-wrap: wrap;">
                                                         <small *ngFor="let area of lesson.knowledge_area"
-                                                            class="badge badge-info mr-1">{{area.name}}</small>
+                                                            class="badge badge-info mr-1 mb-1 text-truncate"
+                                                            title="{{area.name}}">{{area.name}}</small>
                                                     </div>
                                                     <ng-template #notAssigned>
                                                         <small class="text-muted">No se ha asignado</small>
@@ -450,17 +456,21 @@
                                 <div class="col">
                                     <div class="row">
                                         <div class="col">
-                                            <h5 class="mt-0">
+                                            <h5 class="my-0">
                                                 <strong>{{lesson.title}}</strong>
                                             </h5>
+                                            <small class=" text-muted">
+                                                {{ (lesson.created_at | amFromUnix) | amLocale:'es' | amDateFormat:'LL' }}
+                                            </small>
 
                                             <h5>
                                                 <span class="badge badge-{{lesson_states[lesson.state].class}} mr-1">
                                                     {{lesson_states[lesson.state].label}}
                                                 </span>
                                             </h5>
-                                            <p *ngFor="let text of lesson.resume.split('\n')" class="text-break">
-                                                <small>{{text}}</small>
+                                            <p *ngFor="let text of lesson.resume.split('\n'); let i = index"
+                                                class="text-justify">
+                                                <small *ngIf="i==0">{{text}}...</small>
                                             </p>
 
                                         </div>
@@ -519,10 +529,13 @@
                                             <div class="row">
                                                 <div class="col">
 
-                                                    <div *ngIf="lesson.knowledge_area.length > 0; else notAssigned">
+                                                    <div *ngIf="lesson.knowledge_area.length > 0; else notAssigned"
+                                                        style="display: flex; flex-wrap: wrap;">
                                                         <small *ngFor="let area of lesson.knowledge_area"
-                                                            class="badge badge-info mr-1">{{area.name}}</small>
+                                                            class="badge badge-info mr-1 mb-1 text-truncate"
+                                                            title="{{area.name}}">{{area.name}}</small>
                                                     </div>
+
                                                     <ng-template #notAssigned>
                                                         <small class="text-muted">No se ha asignado</small>
                                                     </ng-template>
@@ -680,7 +693,13 @@
         <!-- /Navigation -->
 
     </div>
-
+    <div *ngIf="lessons.length > 0 && (allLessons | filter: filter.value).length == 0 && !loading" class="card-body">
+        <div class="card-body">
+            <h4 class="text-muted">
+                No se encontraron lecciones para los criterios de búsqueda seleccionados.
+            </h4>
+        </div>
+    </div>
 </div>
 <!-- /Lessons -->
 

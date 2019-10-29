@@ -83,8 +83,8 @@ export class ProfessionsComponent implements OnInit {
             response => {
 
                 if (response.profession && response.profession._id) {
-                    this.status = 'success';
                     this.professionForm.reset();
+                    this.status = 'success';
                     this.submitted = false;
                     this.getProfessions(this.page);
                     this.getAllProfessions();
@@ -217,5 +217,22 @@ export class ProfessionsComponent implements OnInit {
             // Trigger the button element with a click
             document.getElementById("save").click();
           }
+    }
+
+    onChanges(): void {
+
+        this.professionForm.valueChanges.subscribe(val => {
+            if (val) {
+                this.status = null;
+                this.submitted = false;
+            }
+        });
+
+        this.editProfessionForm.valueChanges.subscribe(val => {
+            if (val) {
+                this.status = null;
+                this.submitted = false;
+            }
+        });
     }
 }

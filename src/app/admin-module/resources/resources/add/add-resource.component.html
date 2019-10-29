@@ -1,7 +1,8 @@
 <!-- Resources suggest modal-->
 <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="add" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
-        <form [formGroup]="addForm" (ngSubmit)="onSubmit()" class="modal-content" enctype="multipart/form-data">
+        <form [formGroup]="addForm" (ngSubmit)="onSubmit()" class="modal-content" enctype="multipart/form-data"
+            (input)="onChanges()">
             <!-- modal-header -->
             <div class="modal-header">
                 <h5 class="modal-title" id="addTitle">Agregar un recurso</h5>
@@ -14,6 +15,17 @@
             <!-- modal-body -->
             <div class="modal-body">
 
+                <div *ngIf="status === 'error'; successMessage" class="alert alert-danger fade show text-center"
+                    role="alert">
+                    <i class="fas fa-times-circle icon-message mr-2"></i>
+                    {{errorMsg}}
+                </div>
+
+                <div *ngIf="status === 'success'; successMessage" class="alert alert-success fade show text-center"
+                    role="alert">
+                    <i class="fas fa-check-circle icon-message mr-2"></i>
+                    {{successMsg}}
+                </div>
 
 
                 <div *ngFor="let field of fields" class="form-group row">
@@ -59,17 +71,7 @@
 
                 </div>
 
-                <div *ngIf="status === 'error'; successMessage" class="alert alert-danger fade show text-center"
-                    role="alert">
-                    <i class="fas fa-times-circle icon-message mr-2"></i>
-                    {{errorMsg}}
-                </div>
 
-                <div *ngIf="status === 'success'; successMessage" class="alert alert-success fade show text-center"
-                    role="alert">
-                    <i class="fas fa-check-circle icon-message mr-2"></i>
-                    {{successMsg}}
-                </div>
             </div>
             <!-- /modal-body -->
 

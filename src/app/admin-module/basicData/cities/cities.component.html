@@ -113,7 +113,7 @@
 <div class="modal fade" id="addCity" tabindex="-1" role="dialog" aria-labelledby="addCity" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-            <form [formGroup]="cityForm" (ngSubmit)="onSubmit()">
+            <form [formGroup]="cityForm" (ngSubmit)="onSubmit()" (input)="onChanges()">
                 <div class="modal-header">
                     <h5 class="modal-title" id="addCityTitle">Agregar una ciudad</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -123,6 +123,7 @@
 
 
                 <div class="modal-body">
+                    
                     <div *ngIf="status === 'error'; successMessage" class="alert alert-danger fade show text-center"
                         role="alert">
                         <i class="fas fa-times-circle icon-message mr-2"></i>
@@ -171,7 +172,7 @@
 <div class="modal fade" id="editCity" tabindex="-1" role="dialog" aria-labelledby="editCity" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-            <form [formGroup]="editCityForm" (ngSubmit)="onEditSubmit()">
+            <form [formGroup]="editCityForm" (ngSubmit)="onEditSubmit()" (input)="onChanges()">
                 <div class="modal-header">
                     <h5 class="modal-title" id="editCityTitle">Editar ciudad</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">

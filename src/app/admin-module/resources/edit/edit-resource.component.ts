@@ -37,7 +37,7 @@ export class EditResourceComponent implements OnInit {
 
     public MAX_FILE_SIZE = MAX_FILE_SIZE;
     public maxSize = MAX_FILE_SIZE * 1024 * 1024;
-    public maxSizeError = false;    
+    public maxSizeError = false;
 
     constructor(
         private _userService: UserService,
@@ -154,16 +154,16 @@ export class EditResourceComponent implements OnInit {
             this.resource.url = this.editForm.value.url;
         }
 
-        this.resource.name = this.editForm.value.name;        
+        this.resource.name = this.editForm.value.name;
         this.resource.description = this.editForm.value.description;
         this.resource.source = this.editForm.value.source;
 
         this._resourceService.editResource(this.token, this.resource).subscribe(
             response => {
                 if (response.resource && response.resource._id) {
-                    
-                    this.resource = response.resource;                    
-                    
+
+                    this.resource = response.resource;
+
                     if (this.filesToUpload && this.filesToUpload.length > 0) {
 
                         // Upload post image
@@ -197,8 +197,19 @@ export class EditResourceComponent implements OnInit {
                 console.log(<any>error);
             }
         );
+        document.querySelector('.modal-body').scrollTop = 0;
 
         this.submitted = false;
+
     }
 
+    onChanges(): void {
+
+        this.editForm.valueChanges.subscribe(val => {
+            if (val) {
+                this.status = null;
+                this.submitted = false;
+            }
+        });
+    }
 }

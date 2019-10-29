@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MomentModule } from 'ngx-moment';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 import { LessonComponent } from './lesson.component';
 import { ActivityComponent } from './activity/activity.component';
@@ -37,7 +38,8 @@ import { NgxLinkifyjsModule } from 'ngx-linkifyjs';
         NgxLinkifyjsModule,
         HttpClientModule,
         MomentModule,
-        RouterModule
+        RouterModule,
+        NgSelectModule
     ],
     exports: [
         LessonComponent

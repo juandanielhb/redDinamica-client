@@ -14,6 +14,8 @@ export class User {
     public profession:String;
     public institution:String;
     public city:String;
+    public contactNumber:String;
+    public socialNetworks:[String];
     public getToken:Boolean;
     public canAdvise;
 

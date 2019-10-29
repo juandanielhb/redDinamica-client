@@ -5,7 +5,7 @@
             <i class="fas fa-home text-primary icon-message"></i>
         </button>
 
-        <button *ngIf="lesson.leader" class="btn border-left" title="Recursos" (click)="setSelectedOption('resources')">
+        <button class="btn border-left" title="Recursos" (click)="setSelectedOption('resources')">
             <i class="fas fa-boxes icon-message text-primary"></i>
         </button>
 
@@ -19,7 +19,7 @@
         <!-- Example split danger button -->
         <div class="btn-group text-primary float-right">
 
-            <button *ngIf="lesson.leader && identity._id == lesson.leader._id" class="btn" title="Editar" (click)="setSelectedOption('edit')">
+            <button *ngIf="showEdit()" class="btn" title="Editar" (click)="setSelectedOption('edit')">
                 <i class="fas fa-edit icon-message text-primary"></i>
             </button>            
 
@@ -28,23 +28,23 @@
                 <i class="fas fa-clock icon-message text-primary"></i>
             </button> -->
 
-            <button *ngIf="isInTheDevelopmentGroup() && lesson.leader" class="btn border-left" title="Conversación"
+            <button *ngIf="showCommentsOrConversations()    " class="btn border-left" title="Conversación"
                 (click)="setSelectedOption('conversation')">
                 <i class="fas fa-comment-dots icon-message text-primary"></i>
             </button>
 
-            <button *ngIf="lesson.state == 'test' && isInTheDevelopmentGroup()" class="btn border-left" title="Resultados de pruebas"
+            <!-- <button *ngIf="lesson.state == 'test' && isInTheDevelopmentGroup()" class="btn border-left" title="Resultados de pruebas"
                 (click)="setSelectedOption('tests')">
                 <i class="fas fa-clipboard-check icon-message text-primary"></i>
-            </button>
+            </button> -->
 
-            <button *ngIf="isInTheDevelopmentGroup() || lesson.expert" class="btn border-left" title="Comentarios del facilitador"
+            <button *ngIf="showCommentsOrConversations()" class="btn border-left" title="Comentarios del facilitador"
                 (click)="setSelectedOption('review')">
                 <i class="fas fa-clipboard-list icon-message text-primary"></i>
             </button>
             
             
-            <button *ngIf="parentUrl == 'admin' && lesson.father_lesson" class="btn btn-primary" title="Versión anterior"
+            <button *ngIf="lesson.father_lesson" class="btn btn-primary" title="Versión anterior"
             [routerLink]="['/', parentUrl ,'leccion', lesson.father_lesson]">
                 <i class="fas fa-angle-left icon-message"></i>
             </button>
@@ -53,14 +53,13 @@
                 <span>V. {{lesson.version.toFixed(1)}}</span>
             </span>
             
-            <button *ngIf="parentUrl == 'admin' && lesson.son_lesson" class="btn btn-primary" title="Versión siguiente"
-            [routerLink]="['/', parentUrl ,'leccion', lesson.son_lesson]">
+            <button *ngIf="lesson.son_lesson && (lesson.son_lesson.visible || parentUrl == 'admin')" class="btn btn-primary" title="Versión siguiente"
+            [routerLink]="['/', parentUrl ,'leccion', lesson.son_lesson._id]">
                 <i class="fas fa-angle-right icon-message"></i>
             </button>
 
-            <button *ngIf="!isInTheDevelopmentGroup() && lesson.state == 'completed' && parentUrl 
-            != 'admin'"                           
-             class="btn border-left ml-2" title="Calificar"
+            <button *ngIf="(!isInTheDevelopmentGroup() || parentUrl == 'admin') && lesson.state == 'completed'"                           
+             class="btn border-left ml-2" title="Calificar lección"
                 (click)="setSelectedOption('rating')">
                 <div class="vl">
                     <i class="fas fa-star icon-message text-warning"></i>                    
@@ -77,10 +76,10 @@
     <!-- <activity *ngIf="selectedOption == 'activity'" [lesson]="lesson">
     </activity> -->
 
-    <edit *ngIf="lesson && selectedOption == 'edit'" [lesson]="lesson" (edited)="setNeedReload($event)">
+    <edit *ngIf="lesson && selectedOption == 'edit'" [areas]="areas" [lesson]="lesson" (edited)="setNeedReload($event)">
     </edit>
 
-    <group *ngIf="lesson && selectedOption == 'group'" [lesson]="lesson">
+    <group *ngIf="lesson && selectedOption == 'group'" [users]='users' [lesson]="lesson">
     </group>
 
     <rating *ngIf="lesson &&  selectedOption == 'rating'" [lesson]="lesson">

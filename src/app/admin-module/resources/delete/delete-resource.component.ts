@@ -45,13 +45,9 @@ export class DeleteResourceComponent implements OnInit {
     delete(){
         this._resourceService.deleteResource(this.token, this.resourceId).subscribe(
             response => {
-                console.log(response)
                 if(response && response.resource){
-
-                    this.deleted.emit();
-                    
+                    this.deleted.emit();                    
                 }
-
             },
             error =>{
                 console.log(<any>error);

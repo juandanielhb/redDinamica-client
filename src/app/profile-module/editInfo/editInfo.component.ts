@@ -82,7 +82,9 @@ export class EditInfoComponent {
             profession: this.identity.profession,
             institution: this.identity.institution,
             postgraduate: this.identity.postgraduate,
-            profileImage: ''
+            profileImage: '',
+            contactNumber: this.identity.contactNumber,
+            socialNetworks: this.identity.socialNetworks
         });
 
 
@@ -134,6 +136,8 @@ export class EditInfoComponent {
         this.user.surname = this.editForm.value.surname;
         this.user.about = this.editForm.value.about;
         this.user.postgraduate = this.editForm.value.postgraduate;
+        this.user.socialNetworks = this.editForm.value.socialNetworks;
+        this.user.contactNumber = this.editForm.value.contactNumber;
 
         if (this.editForm.value.city) {
             this.user.city = this.editForm.value.city._id;
@@ -250,6 +254,8 @@ export class EditInfoComponent {
         } else {
             this.status = "error";
         }
+
+        document.scrollingElement.scrollTop = 0;
     }
 
     public filesToUpload = [];

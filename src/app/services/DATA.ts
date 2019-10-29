@@ -1,5 +1,5 @@
 export const MAX_FILE_SIZE = 20; // eN MEGABYTES
-
+export const TYC_FILE = 'TyC_RedDinamica.pdf'
 
 // LESSON_DATA
 export const LESSON_STATES = {

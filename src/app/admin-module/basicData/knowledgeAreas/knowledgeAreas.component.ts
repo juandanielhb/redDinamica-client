@@ -223,4 +223,21 @@ export class KnowledgeAreasComponent {
             document.getElementById("save").click();
         }
     }
+
+    onChanges(): void {
+
+        this.areaForm.get('areaName').valueChanges.subscribe(val => {
+            if (val) {
+                this.status = null;
+                this.submitted = false;
+            }
+        });
+
+        this.editAreaForm.get('areaName').valueChanges.subscribe(val => {
+            if (val) {
+                this.status = null;
+                this.submitted = false;
+            }
+        });
+    }
 }

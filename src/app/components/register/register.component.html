@@ -241,6 +241,27 @@
 
                             </div>
 
+                            <div class="form-group form-check">
+                                <input type="checkbox" class="form-check-input" id="tyc"
+                                    [ngClass]="{ 'is-invalid': submitted && f.tyc.errors }" formControlName="tyc" required>
+                                <label class="form-check-label  text-justify" for="tyc">
+                                    <small class="text-muted">Aceptar términos y condiciones de
+                                        RedDinámica.
+                                        Para conocer los términos y condiciones haz click.
+                                        <a href="{{this.url + 'get-resource/' + tyc_file}}" target="_blank">AQUÍ</a>
+                                    </small>
+                                </label>
+                                <div *ngIf="submitted && f.tyc.errors" class="invalid-feedback">
+                                    <div *ngIf="f.tyc.errors.required">
+                                        Debes aceptar los términos y condiciones para registrarte en RedDinámica.
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+
+
                             <div *ngIf="loading" class="card-body">
                                 <div class="text-muted text-center">
                                     <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">

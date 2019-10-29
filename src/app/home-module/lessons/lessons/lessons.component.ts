@@ -111,24 +111,15 @@ export class LessonsComponent implements OnInit {
         this.orderControl = new FormControl('');
         this.filter = new FormControl('');
 
+        this.orderBy = '';
+
+
     }
 
     ngOnInit(): void {
         this.getAllLessons();        
         this.getAllAreas();
         this.actualPage();
-    }
-
-    setOrder() {
-
-        if (this.orderControl) {
-            if (this.orderControl.value == 'views') {
-                return 'views';
-            } else if (this.orderControl.value == 'score') {
-                return 'score';
-            }
-        }
-        return '';
     }
 
     setArea(selectedArea) {
@@ -173,12 +164,12 @@ export class LessonsComponent implements OnInit {
         }
     }
 
+    public orderBy;
     getAllLessons() {
         let filteredLessons = [];
         let res;
-        let orderBy = this.setOrder();
 
-        this._lessonService.getAllLessons(this.token, orderBy, true).subscribe(
+        this._lessonService.getAllLessons(this.token, this.orderBy, true).subscribe(
             response => {
                 if (response.lessons) {
                     this.allLessons = response.lessons;
@@ -200,7 +191,7 @@ export class LessonsComponent implements OnInit {
                             }));
                         });
 
-                        this.allLessons = filteredLessons;
+                        this.allLessons = Array.from(new Set(filteredLessons));                        
                         filteredLessons = [];
                     }
 
@@ -268,6 +259,12 @@ export class LessonsComponent implements OnInit {
     }
 
     reloadLessons() {
+        if (this.orderControl.value == 'views') {
+            this.orderBy = 'views';
+        } else if (this.orderControl.value == 'score') {
+            this.orderBy = 'score';
+        }
+
         this.getAllLessons();
     }    
 

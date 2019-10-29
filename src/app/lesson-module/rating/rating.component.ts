@@ -7,6 +7,7 @@ import { GLOBAL } from 'src/app/services/global';
 import { CommentService } from 'src/app/services/comment.service';
 import { Comment } from 'src/app/models/comment.model'
 import { LESSON_STATES } from 'src/app/services/DATA';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
     selector: 'rating',
@@ -23,6 +24,7 @@ export class RatingComponent implements OnInit {
     public lesson_states = LESSON_STATES;
     
     @Input() lesson;
+    public lessonOld;
     
     public comment;
 
@@ -30,6 +32,7 @@ export class RatingComponent implements OnInit {
 
     public errorMsg;
     public successMsg;
+    public userAlreadyCommentedMsg;
 
     public status; 
     public submitted = false;
@@ -45,6 +48,7 @@ export class RatingComponent implements OnInit {
         this.identity = this._userService.getIdentity();
         this.token = this._userService.getToken();
 
+        this.userAlreadyCommentedMsg = 'No es posible calificar la misma lección más de una vez.';
         this.errorMsg = 'Hubo un error al guardar la calificación de la lección. Intentalo de nuevo más tarde.';
         this.successMsg = 'Se ha enviado la calificación correctamente. Muchas gracias por participar.';
 
@@ -52,22 +56,36 @@ export class RatingComponent implements OnInit {
             rating: new FormControl('', Validators.required),
             text: new FormControl('')
         });
+
     }
 
-    ngOnInit(): void {
-        console.log(this.lesson.comments)
+    ngOnChanges(){
+        this.restartValues();
     }
+
+
+    ngOnInit(): void {
+
+    }
+
 
     restartValues() {
         this.status = null;
         this.submitted = false;
-        this.ratingForm.reset();
+        this.userAlreadyCommented = null;
     }
 
-    async onSubmit() {
+    public userAlreadyCommented = null;
+    async onSubmit() {   
+        this.restartValues();    
+
+        this.userAlreadyCommented = this.lesson.comments.find(
+            comment => this.identity._id == comment.user._id
+            );
+
         this.submitted = true;
 
-        if (this.ratingForm.invalid) {
+        if (this.userAlreadyCommented || this.ratingForm.invalid) {
             return;
         }
 
@@ -119,4 +137,15 @@ export class RatingComponent implements OnInit {
 
     }
 
+    onChanges(): void {
+
+        this.ratingForm.valueChanges.subscribe(val => {
+            if (val) {
+                this.status = null;
+                this.submitted = false;
+                this.userAlreadyCommented = null;
+            }
+        });
+
+    }
 }

@@ -5,9 +5,9 @@
         <div class="col">
             <div class="card mb-3 text-center">
                 <div *ngIf="lesson.state" class="card-header bg-{{lesson_states[lesson.state].class}}">
-                    <h4 class="mb-0 text-white">
-                        {{title}}
-                    </h4>
+                    <h5 class="mb-0 text-white">
+                        {{title}} - {{lesson.title}}
+                    </h5>
                 </div>
             </div>
         </div>
@@ -23,7 +23,7 @@
         {{successMsg}}
     </div>
 
-    <form [formGroup]="lessonForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="lessonForm" (ngSubmit)="onSubmit()" (input)="onChanges()">
         <div *ngIf="lesson.resume != undefined" class="row">
             <div class="col-7">
                 <div class="card">
@@ -115,6 +115,12 @@
                                         El campo estado es obligatorio.
                                     </div>
                                 </div>
+                                <div *ngIf="f.state.value =='completed'">
+                                    <small class="text-warning">
+                                        Recuerda que al menos debe haber un recurso de tipo texto y un modelo para dar
+                                        por terminada la lección.
+                                    </small>
+                                </div>
                             </div>
                         </div>
 
@@ -128,18 +134,23 @@
                         <h6 class="card-title">
                             <strong>Áreas de conocimiento</strong>
                         </h6>
+                        
                         <div class="card-text">
-                            <p><label *ngFor="let area of lesson.knowledge_area"
-                                    class="badge badge-{{lesson_states[lesson.state].class}} mr-1">{{area.name}}</label>
-                            </p>
+                            <ng-select [items]="areas" bindLabel="name" formControlName="areas" [multiple]="true"
+                                [hideSelected]="true" notFoundText="No se encontro">
+                            </ng-select>                            
                         </div>
 
-                        <h6 class="card-title">
+                        <h6 class="card-title mt-2">
                             <strong>Nivel académico</strong>
                         </h6>
-                        <div class="card-text">
-                            {{academic_level[lesson.level]}}
-                        </div>
+                        
+                        <select formControlName="level" class="form-control" id="level">
+                            <option value="garden">Preescolar</option>
+                            <option value="school">Primaria</option>
+                            <option value="highschool">Secundaria</option>
+                            <option value="university">Universitario</option>
+                        </select>
                     </div>
                 </div>
 

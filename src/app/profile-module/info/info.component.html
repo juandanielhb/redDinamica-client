@@ -1,36 +1,43 @@
 <div class="card">
-        <div class="card-header">
-            <h3 class="m-0 text-primary font-weight-bolder">{{title}}</h3>
-        </div>
-        <div class="card-body">
-    
-    
-                <div *ngFor="let field of fieldsForm" class="row">
-                    
-                    <label *ngIf="identity[field.attr]" for="{{field.id}}" class="col-2">
-                        <strong> {{field.label}}:</strong>
-                        
-                    </label>
-                    <div class="col-10">
-                        <p *ngIf="identity[field.attr] && field.type == 'text'" id="{{field.id}}">
-                            {{identity[field.attr]}}
-                        </p>   
-                        <p *ngIf="identity[field.attr] && field.type == 'select' && field.autocomplete && field.id != 'city'" id="{{field.id}}">
-                            {{identity[field.attr].name}}
-                        </p>
-                        <p *ngIf="identity[field.attr] && field.type == 'select' && field.autocomplete && field.id == 'city'" id="{{field.id}}">
-                            {{identity[field.attr].name}}, {{identity[field.attr].state}}, {{identity[field.attr].country}}
-                        </p>
-                        <div *ngIf="identity[field.attr] && field.type == 'textarea'" id="{{field.id}}">
-                            <p *ngFor="let text of identity[field.attr].split('\n')">
-                                {{text}}
-                            </p>
-                        </div>
-
-                    </div>
-                </div>               
-    
-
-    
-        </div>
+    <div class="card-header">
+        <h3 class="m-0 text-primary font-weight-bolder">{{title}}</h3>
     </div>
+    <div class="card-body">
+
+
+        <div *ngFor="let field of fieldsForm" class="row">
+
+            <label *ngIf="identity[field.attr]" for="{{field.id}}" class="col-2">
+                <strong> {{field.label}}:</strong>
+
+            </label>
+            <div class="col-10">
+                <p *ngIf="identity[field.attr] && field.type == 'text'" id="{{field.id}}">
+                    {{identity[field.attr]}}
+                </p>
+                <p *ngIf="identity[field.attr] && field.type == 'select' && field.autocomplete && field.id != 'city'"
+                    id="{{field.id}}">
+                    {{identity[field.attr].name}}
+                </p>
+                <p *ngIf="identity[field.attr] && field.type == 'select' && field.autocomplete && field.id == 'city'"
+                    id="{{field.id}}">
+                    {{identity[field.attr].name}}, {{identity[field.attr].state}}, {{identity[field.attr].country}}
+                </p>
+                <div *ngIf="identity[field.attr] && field.type == 'textarea'" id="{{field.id}}">
+                    <p *ngFor="let text of identity[field.attr].split('\n')">
+                        {{text}}
+                    </p>
+                </div>
+                <div *ngIf="identity[field.attr] && field.type == 'list'" id="{{field.id}}">
+                <p *ngFor="let text of identity[field.attr].split(',')">
+                        <span innerHTML="{{text | linkify}}"></span>
+                    </p>
+                </div>
+
+            </div>
+        </div>
+
+
+
+    </div>
+</div>

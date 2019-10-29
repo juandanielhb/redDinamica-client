@@ -79,7 +79,7 @@
     <edit *ngIf="lesson && selectedOption == 'edit'" [areas]="areas" [lesson]="lesson" (edited)="setNeedReload($event)">
     </edit>
 
-    <group *ngIf="lesson && selectedOption == 'group'" [lesson]="lesson">
+    <group *ngIf="lesson && selectedOption == 'group'" [users]='users' [lesson]="lesson">
     </group>
 
     <rating *ngIf="lesson &&  selectedOption == 'rating'" [lesson]="lesson">

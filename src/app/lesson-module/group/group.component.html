@@ -13,147 +13,258 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="col">
-            <div class="card">
-                <div *ngIf="lesson.development_group.length > 0" class="card-body text-left">
+    <div *ngIf="status === 'error'" class="alert alert-danger fade show text-center" role="alert">
+            <i class="fas fa-times-circle icon-message mr-2"></i>
+            {{errorMsg}}
+        </div>
+    
+        <div *ngIf="status === 'success'" class="alert alert-success fade show text-center" role="alert">
+            <i class="fas fa-check-circle icon-message mr-2"></i>
+            {{successMsg}}
+        </div>
 
-                    <div *ngIf="lesson.leader" class="row">
-                        <div class="col-6">
-                            <div class="row">
-                                <div class="col">
-                                    <strong>Líder</strong>
-                                </div>
-                            </div>
-                            <div *ngIf="lesson.leader" class="row mt-2">
-                                <div class="col">
-                                    <div class="card">
-                                        <div class="row p-1">
-                                            <div class="col-auto pr-0">
-                                                <a class="text-primary">
-                                                    <button [routerLink]="['/perfil', lesson.leader._id]"
-                                                        class="btn flex-shrink-0 rounded-circle  overflow-hidden p-0"
-                                                        style="width: 40px; height:40px;">
-                                                        <img *ngIf="!lesson.leader.picture" class="img-fluid"
-                                                            src="assets/images/user-default.png">
-                                                        <img *ngIf="lesson.leader.picture" class="img-fluid"
-                                                            src="{{this.url+'get-image-user/'+ lesson.leader.picture}}">
-                                                    </button>
-                                                </a>
-                                            </div>
+    <form [formGroup]="groupForm" (ngSubmit)="onSubmit()" >
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div *ngIf="lesson.development_group.length > 0 && parentUrl != 'admin'" class="card-body text-left">
 
-                                            <div class="col rounded px-2">
-                                                <h6 class="mb-1">
-                                                    <a [routerLink]="['/perfil', lesson.leader._id]"
-                                                        class="text-primary">
-                                                        <strong>
-                                                            {{lesson.leader.name}} {{lesson.leader.surname}}
-                                                        </strong>
-                                                    </a>
-                                                </h6>
-                                            </div>
-                                        </div>
+                        <div *ngIf="lesson.leader" class="row">
+                            <div class="col-6">
+                                <div class="row">
+                                    <div class="col">
+                                        <strong>Líder</strong>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div *ngIf="lesson.expert" class="row mt-2">
-                                <div class="col">
-                                    <strong>Facilitador</strong>
-                                </div>
-                            </div>
-                            <div *ngIf="lesson.expert" class="row mt-2">
-                                <div class="col">
-                                    <div class="card">
-                                        <div class="row p-1">
-                                            <div class="col-auto pr-0">
-                                                <a class="text-primary">
-                                                    <button [routerLink]="['/perfil', lesson.expert._id]"
-                                                        class="btn flex-shrink-0 rounded-circle  overflow-hidden p-0"
-                                                        style="width: 40px; height:40px;">
-                                                        <img *ngIf="!lesson.expert.picture" class="img-fluid"
-                                                            src="assets/images/user-default.png">
-                                                        <img *ngIf="lesson.expert.picture" class="img-fluid"
-                                                            src="{{this.url+'get-image-user/'+ lesson.expert.picture}}">
-                                                    </button>
-                                                </a>
-                                            </div>
-
-                                            <div class="col rounded px-2">
-                                                <h6 class="mb-1">
-                                                    <a [routerLink]="['/perfil', lesson.expert._id]"
-                                                        class="text-primary">
-                                                        <strong>
-                                                            {{lesson.expert.name}} {{lesson.expert.surname}}
-                                                        </strong>
+                                <div *ngIf="lesson.leader" class="row mt-2">
+                                    <div class="col">
+                                        <div class="card">
+                                            <div class="row p-1">
+                                                <div class="col-auto pr-0">
+                                                    <a class="text-primary">
+                                                        <button [routerLink]="['/perfil', lesson.leader._id]"
+                                                            class="btn flex-shrink-0 rounded-circle  overflow-hidden p-0"
+                                                            style="width: 40px; height:40px;">
+                                                            <img *ngIf="!lesson.leader.picture" class="img-fluid"
+                                                                src="assets/images/user-default.png">
+                                                            <img *ngIf="lesson.leader.picture" class="img-fluid"
+                                                                src="{{this.url+'get-image-user/'+ lesson.leader.picture}}">
+                                                        </button>
                                                     </a>
-                                                </h6>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                                                </div>
 
-                        </div>
-
-                        <div class="col-6">
-                            <div class="row">
-                                <div class="col">
-                                    <strong>Integrantes</strong>
-                                </div>
-                            </div>
-                            <div class="row mt-2">
-                                <div class="col">
-                                    <div class="card">
-
-                                        <div *ngIf="lesson.development_group.length > 0" class="row p-1">
-                                            <div *ngFor="let user of lesson.development_group" class="col-12">
-                                                <div *ngIf="lesson.leader && user._id != lesson.leader._id"
-                                                    class="row mt-1">
-                                                    <div class="col-auto pr-0">
-                                                        <a class="text-primary ml-1">
-                                                            <button [routerLink]="['/perfil', user._id]"
-                                                                class="btn flex-shrink-0 rounded-circle  overflow-hidden p-0"
-                                                                style="width: 40px; height:40px;">
-                                                                <img *ngIf="!user.picture" class="img-fluid"
-                                                                    src="assets/images/user-default.png">
-                                                                <img *ngIf="user.picture" class="img-fluid"
-                                                                    src="{{this.url+'get-image-user/'+ user.picture}}">
-
-                                                            </button>
+                                                <div class="col rounded px-2">
+                                                    <h6 class="mb-1">
+                                                        <a [routerLink]="['/perfil', lesson.leader._id]"
+                                                            class="text-primary">
+                                                            <strong>
+                                                                {{lesson.leader.name}} {{lesson.leader.surname}}
+                                                            </strong>
                                                         </a>
-                                                    </div>
-
-                                                    <div class="col rounded px-2">
-                                                        <h6 class="mb-1">
-                                                            <a [routerLink]="['/perfil', user._id]"
-                                                                class="text-primary">
-                                                                <strong>
-                                                                    {{user.name}} {{user.surname}}
-                                                                </strong>
-                                                            </a>
-                                                        </h6>
-                                                    </div>
+                                                    </h6>
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+
+                                <div *ngIf="lesson.expert" class="row mt-2">
+                                    <div class="col">
+                                        <strong>Facilitador</strong>
+                                    </div>
+                                </div>
+                                <div *ngIf="lesson.expert" class="row mt-2">
+                                    <div class="col">
+                                        <div class="card">
+                                            <div class="row p-1">
+                                                <div class="col-auto pr-0">
+                                                    <a class="text-primary">
+                                                        <button [routerLink]="['/perfil', lesson.expert._id]"
+                                                            class="btn flex-shrink-0 rounded-circle  overflow-hidden p-0"
+                                                            style="width: 40px; height:40px;">
+                                                            <img *ngIf="!lesson.expert.picture" class="img-fluid"
+                                                                src="assets/images/user-default.png">
+                                                            <img *ngIf="lesson.expert.picture" class="img-fluid"
+                                                                src="{{this.url+'get-image-user/'+ lesson.expert.picture}}">
+                                                        </button>
+                                                    </a>
+                                                </div>
+
+                                                <div class="col rounded px-2">
+                                                    <h6 class="mb-1">
+                                                        <a [routerLink]="['/perfil', lesson.expert._id]"
+                                                            class="text-primary">
+                                                            <strong>
+                                                                {{lesson.expert.name}} {{lesson.expert.surname}}
+                                                            </strong>
+                                                        </a>
+                                                    </h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-6">
+                                <div class="row">
+                                    <div class="col">
+                                        <strong>Integrantes</strong>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col">
+                                        <div class="card">
+
+                                            <div *ngIf="lesson.development_group.length > 0" class="row p-1">
+                                                <div *ngFor="let user of lesson.development_group" class="col-12">
+                                                    <div *ngIf="lesson.leader && user._id != lesson.leader._id"
+                                                        class="row mt-1">
+                                                        <div class="col-auto pr-0">
+                                                            <a class="text-primary ml-1">
+                                                                <button [routerLink]="['/perfil', user._id]"
+                                                                    class="btn flex-shrink-0 rounded-circle  overflow-hidden p-0"
+                                                                    style="width: 40px; height:40px;">
+                                                                    <img *ngIf="!user.picture" class="img-fluid"
+                                                                        src="assets/images/user-default.png">
+                                                                    <img *ngIf="user.picture" class="img-fluid"
+                                                                        src="{{this.url+'get-image-user/'+ user.picture}}">
+
+                                                                </button>
+                                                            </a>
+                                                        </div>
+
+                                                        <div class="col rounded px-2">
+                                                            <h6 class="mb-1">
+                                                                <a [routerLink]="['/perfil', user._id]"
+                                                                    class="text-primary">
+                                                                    <strong>
+                                                                        {{user.name}} {{user.surname}}
+                                                                    </strong>
+                                                                </a>
+                                                            </h6>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="lesson.development_group.length <= 0 && parentUrl != 'admin'"
+                        class="card-body text-left">
+                        <h4 class="text-muted">
+                            No se ha asignado el grupo de desarrollo.
+
+                        </h4>
+                    </div>
+                    <div *ngIf="parentUrl == 'admin'" class="card-body text-left">
+
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="row">
+                                    <div class="col">
+                                        <strong>Líder</strong>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col">
+                                        <ng-select [items]="users" bindLabel="name" formControlName="leader"
+                                            [multiple]="false" [hideSelected]="true" notFoundText="No se encontro" (change)="onChanges()">
+                                            <ng-template ng-option-tmp let-item="item">
+                                                <div class=" flex-shrink-0 rounded-circle border-1 overflow-hidden mr-2 float-left"
+                                                    style="width: 30px; height:30px;">
+                                                    <img *ngIf="!item.picture" class="img-fluid"
+                                                        src="assets/images/user-default.png">
+                                                    <img *ngIf="item.picture" class="img-fluid"
+                                                        src="{{this.url+'get-image-user/'+ item.picture}}">
+                                                </div>
+                                                {{item.name}} {{item.surname}} <br>
+                                            </ng-template>
+                                        </ng-select>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-2">
+                                    <div class="col">
+                                        <strong>Facilitador</strong>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col">
+                                        <ng-select [items]="expertUsers" bindLabel="name" formControlName="expert"
+                                            [multiple]="false" [hideSelected]="true" notFoundText="No se encontro" (change)="onChanges()">
+                                            <ng-template ng-option-tmp let-item="item">
+                                                <div class=" flex-shrink-0 rounded-circle border-1 overflow-hidden mr-2 float-left"
+                                                    style="width: 30px; height:30px;">
+                                                    <img *ngIf="!item.picture" class="img-fluid"
+                                                        src="assets/images/user-default.png">
+                                                    <img *ngIf="item.picture" class="img-fluid"
+                                                        src="{{this.url+'get-image-user/'+ item.picture}}">
+                                                </div>
+                                                {{item.name}} {{item.surname}} <br>
+                                            </ng-template>
+                                        </ng-select>
+
+                                        <!-- <select class="form-control" [formControl]="expert">
+                                            <option *ngFor="let user of expertUsers" value="{{user._id}}">{{user.name}}
+                                                {{user.surname}}</option>
+                                        </select> -->
 
                                     </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-6">
+                                <div class="row">
+                                    <div class="col">
+                                        <strong>Integrantes</strong>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col">
+                                        <ng-select [items]="teacherUsers" bindLabel="name" formControlName="members"
+                                            [multiple]="true" [hideSelected]="true" notFoundText="No se encontro" (change)="onChanges()">
+                                            <ng-template ng-option-tmp let-item="item">
+                                                <div class=" flex-shrink-0 rounded-circle border-1 overflow-hidden mr-2 float-left"
+                                                    style="width: 30px; height:30px;">
+                                                    <img *ngIf="!item.picture" class="img-fluid"
+                                                        src="assets/images/user-default.png">
+                                                    <img *ngIf="item.picture" class="img-fluid"
+                                                        src="{{this.url+'get-image-user/'+ item.picture}}">
+                                                </div>
+                                                {{item.name}} {{item.surname}} <br>
+                                            </ng-template>
+                                        </ng-select>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12 mt-4">
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-success float-right">Guardar
+                                        cambios</button>
                                 </div>
                             </div>
 
                         </div>
-                    </div>
-                </div>
-                <div *ngIf="lesson.development_group.length <= 0" class="card-body text-left">
-                    <h4 class="text-muted">
-                        No se ha asignado el grupo de desarrollo.
 
-                    </h4>
+                    </div>
+
+
                 </div>
             </div>
         </div>
-    </div>
-
+    </form>
 </div>
 <!-- /group -->

@@ -42,6 +42,7 @@ export class LessonComponent implements OnInit {
 
     ngOnInit(): void {
         this.loadLesson();
+        this.getUsers();
         this.getAllAreas();
         
         this._route.parent.url.subscribe(value => {
@@ -59,7 +60,6 @@ export class LessonComponent implements OnInit {
     public areas;
     getAllAreas() {
         this.areas = JSON.parse(localStorage.getItem('areas'));
-
 
         if (!this.areas) {
 
@@ -172,5 +172,20 @@ export class LessonComponent implements OnInit {
 
         return response;
 
+    }
+
+    public users =[];
+    getUsers() {
+        this._userService.getAllUsers().subscribe(
+            response => {
+                // this.users = response.users.filter(user => {
+                //     return user.role == 'expert' || user.role == 'admin' || user.role == 'delegated_admin' || user.canAdvise;
+                // });
+                this.users = response.users;
+            },
+            error => {
+                console.log(<any>error);
+            }
+        )
     }
 }

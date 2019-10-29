@@ -82,16 +82,6 @@
 
                                         </div>
                                     </section>
-                                    <p *ngFor="let file of getfiles(group)">
-                                        <a title="Descargar : {{file.fileName}}"
-                                            href="{{this.url + 'get-lesson/' + file.fileName}}" target="_blank">
-                                            <i class="fas fa-paperclip"></i>
-                                            {{file.fileName}}
-                                        </a>
-                                        <a *ngIf="editMode && showResources()"
-                                            class="resource-delete mx-1 float-right text-muted" title="Eliminar archivo"
-                                            (click)="deleteFile(file._id)"><i class="fas fa-trash"></i></a>
-                                    </p>
 
                                     <section *ngIf="editMode && showResources()">
                                         <div class="form-group">
@@ -116,6 +106,17 @@
                                         <button type="submit" class="btn btn-success mb-2 float-right"
                                             (click)="onSubmit(group)">Guardar</button>
                                     </section>
+
+                                    <p *ngFor="let file of getfiles(group)">
+                                        <a title="Descargar : {{file.fileName}}"
+                                            href="{{this.url + 'get-lesson/' + file.fileName}}" target="_blank">
+                                            <i class="fas fa-paperclip"></i>
+                                            {{file.fileName}}
+                                        </a>
+                                        <a *ngIf="editMode && showResources()"
+                                            class="resource-delete mx-1 float-right text-muted" title="Eliminar archivo"
+                                            (click)="deleteFile(file._id)"><i class="fas fa-trash"></i></a>
+                                    </p>
                                 </div>
                             </div>
                         </div>

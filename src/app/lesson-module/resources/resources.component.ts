@@ -117,7 +117,6 @@ export class ResourcesComponent implements OnInit {
 
     getfiles(group) {
         let files = [];
-
         if (this.lesson.files.length > 0) {
             files = this.lesson.files.filter(file => {
                 return file.groupTitle == group;
@@ -128,7 +127,7 @@ export class ResourcesComponent implements OnInit {
     }
 
     removeSpaces(text) {
-        return text.trim().replace(' ', '');
+        return text.replace(/[ \(\).,!"#$%&/='¡¿áéíóú]/g, ''); ;
     }
 
     public filesToUpload = [];
@@ -203,6 +202,7 @@ export class ResourcesComponent implements OnInit {
             
             if (group != this.name.value) {
                 
+
                 this.filesUploaded = this.lesson.files.map(file => {
                     if(file.groupTitle == group){
                         file.groupTitle = this.name.value;
@@ -290,4 +290,5 @@ export class ResourcesComponent implements OnInit {
             }
         });
     }
+
 }

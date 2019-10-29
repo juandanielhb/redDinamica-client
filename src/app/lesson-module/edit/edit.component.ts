@@ -99,5 +99,16 @@ export class EditComponent implements OnInit {
                 }
             }
         );
+
+        document.scrollingElement.scrollTop = 0;
+    }
+
+    onChanges(){
+        this.lessonForm.valueChanges.subscribe(val => {
+            if (val) {
+                this.status = null;
+                this.submitted = false;
+            }
+        });
     }
 }

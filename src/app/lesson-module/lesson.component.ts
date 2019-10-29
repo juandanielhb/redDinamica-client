@@ -109,4 +109,45 @@ export class LessonComponent implements OnInit {
             return false;
         }
     }
+
+    showCommentsOrConversations(){
+        let response = this.isInTheDevelopmentGroup();
+        
+        if(response || this.parentUrl == 'admin'){
+            response = true;
+        }else{
+            response = false;
+        }
+
+        if(response && this.lesson.state != 'proposed'){
+            response = true;
+        }else{
+            response = false;
+        }
+
+        if(response && this.lesson.expert && this.lesson.leader){
+            response = true;
+        }else{
+            response = false;
+        }
+
+        return response;        
+    }
+
+    showEdit(){
+        let response;
+
+        if(this.lesson.leader && this.identity._id == this.lesson.leader._id 
+            && ['proposed', 'assigned', 'development', 'test'].includes(this.lesson.state)){
+            response = true;
+        }else{
+            response = false;
+            if(this.parentUrl == 'admin'){
+                response = true;
+            }
+        }
+
+        return response;
+
+    }
 }

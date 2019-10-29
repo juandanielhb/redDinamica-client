@@ -23,7 +23,7 @@
         {{successMsg}}
     </div>
 
-    <form [formGroup]="lessonForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="lessonForm" (ngSubmit)="onSubmit()" (input)="onChanges()">
         <div *ngIf="lesson.resume != undefined" class="row">
             <div class="col-8">
                 <div class="card">
@@ -114,6 +114,11 @@
                                     <div *ngIf="f.state.errors.required" class="invalid-feedback">
                                         El campo estado es obligatorio.
                                     </div>
+                                </div>
+                                <div *ngIf="f.state.value =='completed'">
+                                    <small class="text-warning">
+                                        Recuerda que al menos debe haber un recurso de tipo texto y un modelo para dar por terminada la lección.
+                                    </small>
                                 </div>
                             </div>
                         </div>

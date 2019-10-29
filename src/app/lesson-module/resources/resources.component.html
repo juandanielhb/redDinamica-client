@@ -12,7 +12,7 @@
         </div>
     </div>
 
-    <div *ngIf="lesson.files.length > 0 || identity._id == lesson.leader._id" class="row">
+    <div *ngIf="lesson.files.length > 0 || showResources()" class="row">
 
         <div class="col-5">
             <div class="border rounded nav flex-column nav-pills" id="v-pills-tab" role="tablist"
@@ -23,7 +23,7 @@
                     attr.aria-controls="{{removeSpaces(group)}}" attr.aria-selected="true"
                     (click)="restartValues(group)">
                     {{group}}
-                    <section *ngIf="selectedGroup == group && identity._id == lesson.leader._id" class="float-right">
+                    <section *ngIf="selectedGroup == group && showResources()" class="float-right">
                         <a class="resource-edit mr-1" title="Editar grupo"><i class="fas fa-edit"
                                 (click)="initEditGroup($event, group)"></i></a>
                         <a class="resource-delete ml-1" title="Eliminar grupo"><i class="fas fa-trash"
@@ -32,7 +32,7 @@
                 </div>
 
 
-                <div *ngIf="identity._id == lesson.leader._id" class="nav-link"
+                <div *ngIf="showResources()" class="nav-link"
                     [ngClass]="{'active': lesson.files.length == 0}" id="addGroup-tab" data-toggle="pill"
                     href="#addGroup" role="tab" aria-controls="addGroup" aria-selected="false"
                     (click)="restartValues()">
@@ -56,7 +56,7 @@
                             <div class="card">
                                 <div class="card-body">
 
-                                    <section *ngIf="editMode && identity._id == lesson.leader._id">
+                                    <section *ngIf="editMode && showResources()">
                                         <div *ngIf="status === 'error'; successMessage"
                                             class="alert alert-danger fade show text-center" role="alert">
                                             <i class="fas fa-times-circle icon-message mr-2"></i>
@@ -73,7 +73,7 @@
                                             <label for="name"><strong>Nombre*</strong></label>
                                             <input type="text" class="form-control" id="name" [formControl]="name"
                                                 [ngClass]="{ 'is-invalid': submitted && name.errors}"
-                                                autocomplete="off">
+                                                autocomplete="off" (change)="onChanges()">
                                             <div *ngIf="submitted && name.errors" class="invalid-feedback">
                                                 <div *ngIf="name.errors.required">
                                                     El campo nombre es obligatorio.
@@ -88,12 +88,12 @@
                                             <i class="fas fa-paperclip"></i>
                                             {{file.fileName}}
                                         </a>
-                                        <a *ngIf="editMode && identity._id == lesson.leader._id"
+                                        <a *ngIf="editMode && showResources()"
                                             class="resource-delete mx-1 float-right text-muted" title="Eliminar archivo"
                                             (click)="deleteFile(file._id)"><i class="fas fa-trash"></i></a>
                                     </p>
 
-                                    <section *ngIf="editMode && identity._id == lesson.leader._id">
+                                    <section *ngIf="editMode && showResources()">
                                         <div class="form-group">
                                             <label for="resourcesFiles"><strong>Archivos</strong></label>
                                             <input multiple type="file" class="form-control" name="files"
@@ -123,7 +123,7 @@
 
                 </div>
 
-                <div *ngIf="identity._id == lesson.leader._id" class="tab-pane fade"
+                <div *ngIf="showResources()" class="tab-pane fade"
                     [ngClass]="{'show active': lesson.files.length == 0}" id="addGroup" role="tabpanel"
                     aria-labelledby="addGroup-tab">
 
@@ -151,7 +151,7 @@
                                             <label for="name"><strong>Nombre*</strong></label>
                                             <input type="text" class="form-control" id="name" [formControl]="name"
                                                 [ngClass]="{ 'is-invalid': submitted && name.errors}"
-                                                autocomplete="off">
+                                                autocomplete="off" (change)="onChanges()" (input)="onChanges()">
                                             <div *ngIf="submitted && name.errors" class="invalid-feedback">
                                                 <div *ngIf="name.errors.required">
                                                     El campo nombre es obligatorio.
@@ -196,7 +196,7 @@
 
     </div>
 
-    <div *ngIf="lesson.files.length <= 0 && identity._id != lesson.leader._id" class="row">
+    <div *ngIf="lesson.files.length <= 0 && !showResources()" class="row">
         <div class="col">
             <div class="card">
                 <div class="card-body text-left">
@@ -207,6 +207,5 @@
             </div>
         </div>
     </div>
-
 </div>
 <!-- /resources -->

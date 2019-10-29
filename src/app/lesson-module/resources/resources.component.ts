@@ -7,6 +7,8 @@ import { UserService } from 'src/app/services/user.service';
 import { GLOBAL } from 'src/app/services/global';
 import { UploadService } from 'src/app/services/upload.service';
 import { LessonFile } from 'src/app/models/lesson-file.model';
+import { Router, ActivatedRoute } from '@angular/router';
+import { resolveNaptr } from 'dns';
 
 @Component({
     selector: 'resources',
@@ -37,6 +39,8 @@ export class ResourcesComponent implements OnInit {
     public editMode = false;
     public selectedGroup;
 
+    public parentUrl;
+
     @Input() lesson;
     @Output() added = new EventEmitter();
 
@@ -47,8 +51,9 @@ export class ResourcesComponent implements OnInit {
     constructor(
         private _userService: UserService,
         private _lessonService: LessonService,
-        private _uploadService: UploadService
-
+        private _uploadService: UploadService,
+        private _router: Router,
+        private _route: ActivatedRoute
     ) {
         this.title = 'Recursos';
         this.identity = this._userService.getIdentity();
@@ -68,6 +73,11 @@ export class ResourcesComponent implements OnInit {
     ngOnInit(): void {
         this.getGroups();
         this.selectedGroup = this.groups[0];
+
+        this._route.parent.url.subscribe(value => {
+            this.parentUrl = value[0].path;
+            console.log(this.parentUrl)
+        });
     }
 
     getGroups() {
@@ -80,9 +90,6 @@ export class ResourcesComponent implements OnInit {
                 }
             });
         }
-
-
-
     }
 
     restartValues(group) {
@@ -219,8 +226,6 @@ export class ResourcesComponent implements OnInit {
                 
                 if (response.lesson && response.lesson._id) {
                     this.lesson = response.lesson;
-                    this.status = 'success';
-                    this.submitted = false;
 
                     if (!this.editMode) {
                         this.name.reset();                        
@@ -244,6 +249,8 @@ export class ResourcesComponent implements OnInit {
                     }
 
                     this.files.reset();
+                    this.status = 'success';
+                    this.submitted = false;
                     this.getGroups();
 
                 } else {
@@ -261,4 +268,27 @@ export class ResourcesComponent implements OnInit {
 
     }
 
+    showResources(){
+        let response;
+        if(this.lesson.leader && this.lesson.leader._id == this.identity._id
+            && ['proposed', 'assigned', 'development', 'test'].includes(this.lesson.state)){
+            response = true;
+        }else{
+            response = false;
+            if(this.parentUrl == 'admin'){
+                response = true;
+            }
+        }
+
+        return response;
+    }
+
+    onChanges(){
+        this.name.valueChanges.subscribe(val => {
+            if (val) {
+                this.status = null;
+                this.submitted = false;
+            }
+        });
+    }
 }

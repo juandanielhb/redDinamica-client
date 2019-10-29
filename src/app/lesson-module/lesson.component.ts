@@ -5,6 +5,7 @@ import { UserService } from '../services/user.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { LessonService } from '../services/lesson.service';
 import { GLOBAL } from '../services/global';
+import { BasicDataService } from '../services/basicData.service';
 
 @Component({
     selector: 'lesson',
@@ -29,7 +30,8 @@ export class LessonComponent implements OnInit {
         private _userService:UserService,
         private _lessonService: LessonService,
         private _router: Router,
-        private _route: ActivatedRoute
+        private _route: ActivatedRoute,
+        private _bDService: BasicDataService,
     ) {
         this.title = 'Leccion en';
         this.url = GLOBAL.url;
@@ -40,6 +42,7 @@ export class LessonComponent implements OnInit {
 
     ngOnInit(): void {
         this.loadLesson();
+        this.getAllAreas();
         
         this._route.parent.url.subscribe(value => {
             this.parentUrl = value[0].path;
@@ -50,6 +53,26 @@ export class LessonComponent implements OnInit {
         if (this.needReloadData) {
             this.loadLesson();
             this.needReloadData = false;
+        }
+    }
+
+    public areas;
+    getAllAreas() {
+        this.areas = JSON.parse(localStorage.getItem('areas'));
+
+
+        if (!this.areas) {
+
+            this._bDService.getAllKnowledgeAreas().subscribe(
+                response => {
+                    if (response.areas) {
+                        this.areas = response.areas;
+
+                        localStorage.setItem('areas', JSON.stringify(this.areas));
+                    }
+                }, error => {
+                    console.log(<any>error);
+                });
         }
     }
 

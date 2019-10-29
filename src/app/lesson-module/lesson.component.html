@@ -76,7 +76,7 @@
     <!-- <activity *ngIf="selectedOption == 'activity'" [lesson]="lesson">
     </activity> -->
 
-    <edit *ngIf="lesson && selectedOption == 'edit'" [lesson]="lesson" (edited)="setNeedReload($event)">
+    <edit *ngIf="lesson && selectedOption == 'edit'" [areas]="areas" [lesson]="lesson" (edited)="setNeedReload($event)">
     </edit>
 
     <group *ngIf="lesson && selectedOption == 'group'" [lesson]="lesson">

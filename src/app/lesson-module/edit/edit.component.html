@@ -25,7 +25,7 @@
 
     <form [formGroup]="lessonForm" (ngSubmit)="onSubmit()" (input)="onChanges()">
         <div *ngIf="lesson.resume != undefined" class="row">
-            <div class="col-8">
+            <div class="col-7">
                 <div class="card">
                     <div class="card-body">
                         <div class="form-group">
@@ -92,7 +92,7 @@
                 </div>
             </div>
 
-            <div class="col-4">
+            <div class="col-5">
                 <div class="card mb-3">
                     <div class="card-body">
 
@@ -117,7 +117,8 @@
                                 </div>
                                 <div *ngIf="f.state.value =='completed'">
                                     <small class="text-warning">
-                                        Recuerda que al menos debe haber un recurso de tipo texto y un modelo para dar por terminada la lección.
+                                        Recuerda que al menos debe haber un recurso de tipo texto y un modelo para dar
+                                        por terminada la lección.
                                     </small>
                                 </div>
                             </div>
@@ -133,19 +134,23 @@
                         <h6 class="card-title">
                             <strong>Áreas de conocimiento</strong>
                         </h6>
-                        <div class="card-text" style="display: flex; flex-wrap: wrap;">
-                            <label *ngFor="let area of lesson.knowledge_area"
-                                class="badge badge-{{lesson_states[lesson.state].class}} mr-1 text-truncate"
-                                title="{{area.name}}">{{area.name}}</label>
-
+                        
+                        <div class="card-text">
+                            <ng-select [items]="areas" bindLabel="name" formControlName="areas" [multiple]="true"
+                                [hideSelected]="true" notFoundText="No se encontro">
+                            </ng-select>                            
                         </div>
 
-                        <h6 class="card-title">
+                        <h6 class="card-title mt-2">
                             <strong>Nivel académico</strong>
                         </h6>
-                        <div class="card-text">
-                            {{academic_level[lesson.level]}}
-                        </div>
+                        
+                        <select formControlName="level" class="form-control" id="level">
+                            <option value="garden">Preescolar</option>
+                            <option value="school">Primaria</option>
+                            <option value="highschool">Secundaria</option>
+                            <option value="university">Universitario</option>
+                        </select>
                     </div>
                 </div>
 

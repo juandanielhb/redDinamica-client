@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { LessonService } from 'src/app/services/lesson.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { isRegExp } from 'util';
 
 @Component({
     selector: 'group',
@@ -48,35 +49,83 @@ export class GroupComponent implements OnInit {
 
     public parentUrl;
     public expertUsers;
-    public teacherUsers;
-    ngOnInit(): void {
+    initExpertSelect() {
         this.expertUsers = this.users.filter(user => {
             return user.role == 'expert' || user.role == 'admin' || user.role == 'delegated_admin' || user.canAdvise;
         });
+    }
 
-        if (this.lesson.leader) {
-            this.teacherUsers = this.users.filter(user => {
-                return this.lesson.leader._id != user._id;
-            });
+    initLeaderSelect() {
+        if (this.lesson.development_group.length == 0) {
+            this.leaderUsers = [];
         } else {
-            this.teacherUsers = this.users;
+            this.leaderUsers = this.groupForm.value.members;
+        }
+    }
+
+    public leaderUsers;
+    public readonly = false;
+    setSelectedLeader() {
+
+        if (this.lesson.development_group.length > 0) {
+            if (this.lesson.leader) {
+                let leader = this.lesson.development_group.filter(member => {
+                    return member._id == this.lesson.leader._id;
+                });
+
+                if (leader.length > 0) {
+                    this.groupForm.patchValue({
+                        leader: this.lesson.leader
+                    });
+                } else {
+                    this.groupForm.patchValue({
+                        leader: null
+                    });
+                }
+            }
+
+        } else {
+            this.groupForm.patchValue({
+                leader: null
+            });
         }
 
+        if (this.groupForm.value.members.length > 0) {
+            this.groupForm.controls.leader.enable(); 
+
+            if (this.groupForm.value.leader) {
+                let leader = this.groupForm.value.members.filter(member => {
+                    return member._id == this.groupForm.value.leader._id;
+                });
+
+                if (leader.length > 0) {
+                      
+                    this.groupForm.patchValue({
+                        leader: this.groupForm.value.leader
+                    });
+                } else {
+                    this.groupForm.patchValue({
+                        leader: null
+                    });
+                }
+            }
+
+        } else {
+            this.groupForm.controls.leader.disable();
+            this.groupForm.patchValue({
+                leader: null
+            });
+        }
+    }
+
+    ngOnInit(): void {
+        this.initExpertSelect();
 
         this._route.parent.url.subscribe(value => {
             this.parentUrl = value[0].path;
         });
 
-        let tempArray;
-        if (this.lesson.development_group && this.lesson.leader) {
-            tempArray = this.lesson.development_group.filter(user => {
-                return this.lesson.leader._id != user._id;
-            });
-
-            this.groupForm.patchValue({
-                members: tempArray
-            });
-        } else if (this.lesson.development_group) {
+        if (this.lesson.development_group) {
             this.groupForm.patchValue({
                 members: this.lesson.development_group
             });
@@ -88,11 +137,9 @@ export class GroupComponent implements OnInit {
             });
         }
 
-        if (this.lesson.leader) {
-            this.groupForm.patchValue({
-                leader: this.lesson.leader
-            });
-        }
+        this.setSelectedLeader();
+
+        this.initLeaderSelect();
 
     }
 
@@ -119,7 +166,7 @@ export class GroupComponent implements OnInit {
             error => {
                 if (error != null) {
                     this.status = 'error';
-                    console.log(<any>error);
+                    console.error(<any>error);
                 }
             }
         );
@@ -130,5 +177,13 @@ export class GroupComponent implements OnInit {
     onChanges() {
         this.status = null;
         this.submitted = false;
+
+
     }
+
+    membersChanges() {
+        this.leaderUsers = this.groupForm.value.members;
+        this.setSelectedLeader();
+    }
+
 }

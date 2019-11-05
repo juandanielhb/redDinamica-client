@@ -127,7 +127,7 @@ export class ResourcesComponent implements OnInit {
     }
 
     removeSpaces(text) {
-        return text.replace(/[ \(\).,!"#$%&/='¡¿áéíóú]/g, ''); ;
+        return text.replace(/[\s\(\).,!"#$%&\/='¡¿áéíóú:0123456789a]/g, '');
     }
 
     public filesToUpload = [];

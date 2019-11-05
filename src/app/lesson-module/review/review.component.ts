@@ -104,7 +104,7 @@ export class ReviewComponent implements OnInit {
     }
 
     removeSpaces(text) {
-        return text.trim().replace(' ', '');
+        return text.replace(/[\s\(\).,!"#$%&\/='¡¿áéíóú:0123456789a]/g, '');
     }
 
     public filesToUpload = [];
